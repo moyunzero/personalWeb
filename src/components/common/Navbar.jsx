@@ -25,10 +25,6 @@ const Navbar = ({navOpen, setNavOpen}) => {
             href: 'work'
         },
         {
-            label: '评价',
-            href: 'review'
-        },
-        {
             label: '联系',
             href: 'contact'
         },

@@ -6,7 +6,6 @@ import Main from '../components/home/Main';
 import About from '../components/home/About';
 import Skill from '../components/home/Skill';
 import Work from '../components/home/Work';
-import Review from '../components/home/Review';
 import Contact from '../components/home/Contact';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -36,10 +35,9 @@ const Home = () => {
             <About />
             <Skill />
             <Work />
-            <Review />
             <Contact />
         </main>
     );
 };
 
-export default Home; 
+export default Home;
