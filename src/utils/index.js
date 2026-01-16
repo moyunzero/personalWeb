@@ -7,9 +7,10 @@
 export const debounce = (fn, delay) => {
     let timer = null;
     return (...args) => {
-        const context = this;
         if (timer) clearTimeout(timer);
-        timer = setTimeout(() => fn.apply(context, args), delay);
+        timer = setTimeout(() => {
+            fn(...args);
+        }, delay);
     };
 };
 
@@ -22,11 +23,12 @@ export const debounce = (fn, delay) => {
 export const throttle = (fn, limit) => {
     let inThrottle;
     return (...args) => {
-        const context = this;
         if (!inThrottle) {
-            fn.apply(context, args);
+            fn(...args);
             inThrottle = true;
-            setTimeout(() => (inThrottle = false), limit);
+            setTimeout(() => {
+                inThrottle = false;
+            }, limit);
         }
     };
 }; 

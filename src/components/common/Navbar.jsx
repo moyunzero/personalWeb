@@ -4,9 +4,12 @@
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useSmoothScroll, SCROLL_OFFSET } from '../../hooks/useSmoothScroll';
 
 const Navbar = ({navOpen, setNavOpen}) => {
     const location = useLocation();
+    const scrollToElement = useSmoothScroll();
+    
     const navItems = [
         {
             label: '首页',
@@ -28,53 +31,60 @@ const Navbar = ({navOpen, setNavOpen}) => {
             label: '联系',
             href: 'contact'
         },
-        {
-            label: '博客',
-            href: '/blog',
-            isRoute: true
-        }
+        // 暂时隐藏博客导航按钮
+        // {
+        //     label: '博客',
+        //     href: '/blog',
+        //     isRoute: true
+        // }
     ];
 
     // 处理路由中的hash
     useEffect(() => {
         if (location.hash) {
             const id = location.hash.replace('#', '');
-            const element = document.getElementById(id);
-            if (element) {
-                setTimeout(() => {
-                    const offset = element.offsetTop - 80;
-                    window.scrollTo({
-                        top: offset,
-                        behavior: 'smooth'
-                    });
-                }, 0);
-            }
+            // 使用 requestAnimationFrame 替代 setTimeout，更优雅
+            requestAnimationFrame(() => {
+                scrollToElement(id, SCROLL_OFFSET);
+            });
         }
-    }, [location]);
+    }, [location, scrollToElement]);
+
+    // 路由变化时自动关闭移动端菜单
+    useEffect(() => {
+        setNavOpen(false);
+    }, [location.pathname, setNavOpen]);
 
     const handleScroll = (e, href) => {
         e.preventDefault();
         setNavOpen(false);
-        
-        const element = document.getElementById(href);
-        if (element) {
-            const offset = element.offsetTop - 80;
-            window.scrollTo({
-                top: offset,
-                behavior: 'smooth'
-            });
+        scrollToElement(href, SCROLL_OFFSET);
+    };
+    
+    // 获取当前激活的路由/锚点
+    const getActiveClass = (href, isRoute) => {
+        if (isRoute) {
+            return location.pathname === href ? 'active' : '';
         }
+        // 对于锚点链接，检查当前 URL hash
+        return location.hash === `#${href}` ? 'active' : '';
     };
 
     return (
-        <nav className={'navbar' + (navOpen ? ' active' : '')}>
+        <nav 
+            id="main-navigation"
+            className={'navbar' + (navOpen ? ' active' : '')} 
+            role="navigation" 
+            aria-label="主导航"
+        >
             {navItems.map(({label, href, isRoute}, key) => (
                 isRoute ? (
                     <Link
                         key={key}
                         to={href}
-                        className="nav-link"
+                        className={`nav-link ${getActiveClass(href, true)}`}
                         onClick={() => setNavOpen(false)}
+                        aria-current={location.pathname === href ? 'page' : undefined}
                     >
                         {label}
                     </Link>
@@ -82,8 +92,9 @@ const Navbar = ({navOpen, setNavOpen}) => {
                     <a
                         key={key}
                         href={`#${href}`}
-                        className="nav-link"
+                        className={`nav-link ${getActiveClass(href, false)}`}
                         onClick={(e) => handleScroll(e, href)}
+                        aria-current={location.hash === `#${href}` ? 'page' : undefined}
                     >
                         {label}
                     </a>

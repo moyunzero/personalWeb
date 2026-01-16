@@ -12,6 +12,8 @@
 - **滚动优化**: Lenis
 - **代码规范**: ESLint
 - **类型检查**: PropTypes
+- **Markdown 解析**: react-markdown
+- **代码高亮**: highlight.js
 
 ## 📁 项目结构
 
@@ -30,7 +32,14 @@ zero-web/
 │   ├── layouts/          # 布局组件
 │   ├── pages/            # 页面组件
 │   │   ├── Home.jsx     # 首页
-│   │   └── Blog.jsx     # 博客页
+│   │   ├── Blog.jsx     # 博客列表页
+│   │   └── BlogDetail.jsx # 博客详情页
+│   ├── components/       # 组件目录
+│   │   ├── blog/        # 博客相关组件
+│   │   │   ├── BlogNavbar.jsx # 博客导航栏
+│   │   │   └── BlogEditor.jsx # 博客编辑器
+│   ├── data/            # 数据文件
+│   │   └── blogs.js     # 博客文章数据
 │   ├── routes/          # 路由配置
 │   ├── utils/           # 工具函数（防抖、节流等）
 │   ├── App.jsx          # 应用入口
@@ -62,12 +71,18 @@ zero-web/
   - 统一的错误处理
   - 加载状态反馈
 
+- ✍️ **博客系统**
+  - Markdown 编辑器
+  - 实时预览
+  - 一键发布
+  - 代码高亮
+  - 标签管理
+
 ## 🚀 快速开始
 
 1. **克隆项目**
 ```bash
 git clone [repository-url]
-cd zero-web
 ```
 
 2. **安装依赖**
@@ -99,6 +114,63 @@ VITE_ENV=development
 # 应用配置
 VITE_APP_TITLE=墨韵
 VITE_APP_DESCRIPTION=展示作品、博客和技能的个人网站
+```
+
+## 📝 博客功能使用指南
+
+### 如何写博客文章
+
+1. **访问编辑器**
+   - 在博客列表页面点击"写文章"按钮
+   - 或直接访问 `/blog/editor` 路由
+
+2. **编辑文章**
+   - 填写文章基本信息（标题、简介、作者、日期等）
+   - 使用 Markdown 格式编写文章内容
+   - 右侧实时预览效果
+
+3. **保存和发布**
+   - **保存草稿**：文章会保存到浏览器本地存储
+   - **导出 JSON**：导出文章数据，可手动添加到 `src/data/blogs.js`
+   - **一键发布**：文章会保存到 localStorage，立即在博客列表显示
+
+### Markdown 语法支持
+
+编辑器支持完整的 Markdown 语法：
+- 标题（# ## ###）
+- 列表（有序、无序）
+- 代码块（支持语法高亮）
+- 链接和图片
+- 粗体、斜体
+- 表格
+- 引用块
+
+### 永久保存文章
+
+由于这是纯前端项目，文章默认保存在浏览器 localStorage 中。要永久保存：
+
+1. **方法一：手动添加到代码**
+   - 点击"导出 JSON"按钮
+   - 将导出的 JSON 内容添加到 `src/data/blogs.js` 文件的 `blogs` 数组中
+
+2. **方法二：集成后端 API**
+   - 修改 `src/services/api.js` 中的 `blogApi`
+   - 实现后端接口来持久化存储文章
+
+### 博客数据结构
+
+每篇博客文章包含以下字段：
+```javascript
+{
+  id: '文章ID（用于URL）',
+  title: '文章标题',
+  description: '文章简介',
+  author: '作者名称',
+  publishDate: '发布日期（YYYY-MM-DD）',
+  tags: ['标签1', '标签2'],
+  readTime: 5, // 预计阅读时间（分钟，可选）
+  content: 'Markdown 格式的文章内容'
+}
 ```
 
 ## 📖 开发指南

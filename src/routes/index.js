@@ -4,6 +4,8 @@ import MainLayout from '../layouts/MainLayout';
 // 懒加载页面组件
 const Home = lazy(() => import('../pages/Home'));
 const Blog = lazy(() => import('../pages/Blog'));
+const BlogDetail = lazy(() => import('../pages/BlogDetail'));
+const BlogEditor = lazy(() => import('../components/blog/BlogEditor'));
 
 // 路由配置
 export const routes = {
@@ -20,6 +22,16 @@ export const routes = {
             element: Blog,
             title: '博客',
         },
+        {
+            path: '/blog/:id',
+            element: BlogDetail,
+            title: '博客详情',
+        },
+        {
+            path: '/blog/editor',
+            element: BlogEditor,
+            title: '博客编辑器',
+        },
     ],
 };
 
@@ -31,7 +43,7 @@ export const navigation = routes.children.map(({ path, title }) => ({
 
 // 获取当前路由的标题
 export const getRouteTitle = (pathname) => {
-    const route = routes[0].children.find(
+    const route = routes.children.find(
         route => route.path === pathname || (route.index && pathname === '/')
     );
     return route?.title || '个人网站';

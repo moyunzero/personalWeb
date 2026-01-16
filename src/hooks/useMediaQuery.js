@@ -7,19 +7,35 @@ import { LAYOUT } from '../constants/styles';
  * @returns {boolean} 是否匹配
  */
 export const useMediaQuery = (query) => {
-    const [matches, setMatches] = useState(false);
+    // 使用懒初始化，避免 SSR 问题
+    const [matches, setMatches] = useState(() => {
+        if (typeof window === 'undefined') return false;
+        return window.matchMedia(query).matches;
+    });
 
     useEffect(() => {
+        // SSR 检查
+        if (typeof window === 'undefined') return;
+
         const media = window.matchMedia(query);
-        if (media.matches !== matches) {
-            setMatches(media.matches);
+        
+        // 设置初始值
+        setMatches(media.matches);
+
+        const listener = (event) => {
+            setMatches(event.matches);
+        };
+
+        // 使用现代 API（如果支持）
+        if (media.addEventListener) {
+            media.addEventListener('change', listener);
+            return () => media.removeEventListener('change', listener);
+        } else {
+            // 兼容旧浏览器
+            media.addListener(listener);
+            return () => media.removeListener(listener);
         }
-
-        const listener = () => setMatches(media.matches);
-        media.addEventListener('change', listener);
-
-        return () => media.removeEventListener('change', listener);
-    }, [matches, query]);
+    }, [query]); // 只依赖 query，不依赖 matches
 
     return matches;
 };

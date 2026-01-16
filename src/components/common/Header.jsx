@@ -2,7 +2,7 @@
  * 
  * Node Modules
  */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 /**
@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
  * Components
  */
 import Navbar from './Navbar';
+import { useSmoothScroll, SCROLL_OFFSET } from '../../hooks/useSmoothScroll';
 
 /**
  * Header Component
@@ -19,17 +20,41 @@ import Navbar from './Navbar';
  */
 const Header = () => {
     const [navOpen, setNavOpen] = useState(false);
+    const scrollToElement = useSmoothScroll();
+
+    // 处理菜单打开时锁定 body 滚动
+    useEffect(() => {
+        if (navOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [navOpen]);
+
+    // 键盘导航支持
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            // ESC 键关闭菜单
+            if (e.key === 'Escape' && navOpen) {
+                setNavOpen(false);
+            }
+        };
+
+        if (navOpen) {
+            document.addEventListener('keydown', handleKeyDown);
+            return () => {
+                document.removeEventListener('keydown', handleKeyDown);
+            };
+        }
+    }, [navOpen]);
 
     const handleContactClick = (e) => {
         e.preventDefault();
-        const element = document.getElementById('contact');
-        if (element) {
-            const offset = element.offsetTop - 80;
-            window.scrollTo({
-                top: offset,
-                behavior: 'smooth'
-            });
-        }
+        scrollToElement('contact', SCROLL_OFFSET);
     };
 
     return(
@@ -67,8 +92,11 @@ const Header = () => {
                     <button
                         className="menu-btn md:hidden" 
                         onClick={() => setNavOpen((prev) => !prev)}
+                        aria-label={navOpen ? '关闭菜单' : '打开菜单'}
+                        aria-expanded={navOpen}
+                        aria-controls="main-navigation"
                     >
-                        <span className="material-symbols-rounded">
+                        <span className="material-symbols-rounded" aria-hidden="true">
                             {navOpen ? 'close' : 'menu'}
                         </span>
                     </button>

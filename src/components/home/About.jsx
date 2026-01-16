@@ -1,13 +1,4 @@
-const aboutItems = [
-    {
-      label: 'Project done',
-      number: 45
-    },
-    {
-      label: 'Years of experience',
-      number: 10
-    }
-];
+import { aboutItems } from '../../data/about';
 
 const About = () => {
     return(
@@ -18,7 +9,7 @@ const About = () => {
             <div className="container">
                 <div className="bg-zinc-800/50 p-7 rounded-2xl md:p-12 reveal-up">
                     <p className="text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch]">
-                        简单的介绍一下自己吧
+                        嗨！我是95后前端开发，喜欢把想法变成代码，把代码变成好用的产品。虽然经验不算特别丰富，但对前端的热爱和好奇心一直在驱动我不断学习 🚀
                     </p>
                     <div className="flex flex-wrap items-center gap-4 md:gap-7">
                         {

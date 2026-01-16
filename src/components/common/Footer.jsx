@@ -5,19 +5,19 @@ import { ButtonPrimary } from "./Button";
 
 const sitemap = [
     {
-      label: 'Home',
+      label: '首页',
       href: '#home'
     },
     {
-      label: 'About',
+      label: '关于',
       href: '#about'
     },
     {
-      label: 'Work',
+      label: '作品',
       href: '#work'
     },
     {
-      label: 'Contact me',
+      label: '联系',
       href: '#contact'
     }
   ];
@@ -25,23 +25,7 @@ const sitemap = [
 const socials = [
     {
       label: 'GitHub',
-      href: 'https://www.github.com/codewithsadee-org'
-    },
-    {
-      label: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/codewithsadee'
-    },
-    {
-      label: 'Twitter X',
-      href: 'https://x.com/codewithsadee_'
-    },
-    {
-      label: 'Instagram',
-      href: 'https://www.instagram.com/codewithsadee'
-    },
-    {
-      label: 'CodePen',
-      href: 'https://codepen.io/codewithsadee'
+      href: 'https://github.com/moyunzero'
     }
   ];
 
@@ -52,11 +36,11 @@ const Footer = () => {
                 <div className="lg:grid lg:grid-cols-2">
                     <div className="mb-10">
                         <h2 className="headline-1 mb-8 lg:max-w-[12ch] reveal-up">
-                            一起创造更好的未来
+                            一起搞点有意思的？
                         </h2>
                         <ButtonPrimary 
                             href="mailto:zero305747648@gmail.com"
-                            label="Start a project"
+                            label="聊聊项目"
                             icon="chevron_right"
                             classes="reveal-up"
                         />
@@ -64,7 +48,7 @@ const Footer = () => {
                     <div className="grid grid-cols-2 gap-4 lg:pl-20">
                         <div>
                             <p className="mb-2 reveal-up">
-                                Sitemap
+                                导航
                             </p>
                             <ul>
                                 {
@@ -83,7 +67,7 @@ const Footer = () => {
                         </div>
                         <div>
                             <p className="mb-2 reveal-up">
-                                Socials
+                                社交
                             </p>
                             <ul>
                                 {
