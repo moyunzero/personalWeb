@@ -21,7 +21,7 @@ const ProjectCard = memo(({ imgSrc, title, tags, projectLink, classes }) => {
     };
     
     return (
-        <div className={`${STYLES.container} ${classes || ''} ${!hasLink ? 'cursor-default' : ''}`}>
+        <div className={`${STYLES.container} ${classes || ''} cursor-pointer`}>
             <figure className={STYLES.imageBox}>
                 <img
                     src={imgSrc}

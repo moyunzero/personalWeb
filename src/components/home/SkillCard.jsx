@@ -4,7 +4,7 @@ const SkillCard = ({ imgSrc, label, desc, classes }) => {
     return (
         <div className={"p-4 rounded-2xl bg-zinc-800 hover:bg-zinc-700/50 active:bg-zinc-700/60 ring-1 ring-inset ring-zinc-50/5 transition-colors " + classes}>
             <div className="flex items-center gap-4">
-                <figure className="img-box w-11 h-11 rounded-lg grid place-items-center">
+                <figure className="img-box w-11 h-11 rounded-lg grid place-items-center bg-zinc-900/60">
                     <img
                         src={imgSrc}
                         alt={label}

@@ -43,7 +43,8 @@ const Main = () => {
                     {/* 按钮组 - 居中显示，移动端堆叠 */}
                     <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                         <ButtonPrimary 
-                            label ="看看我的简历"
+                            href="/resume.pdf"
+                            label="看看我的简历"
                             icon="download"
                         />
  
