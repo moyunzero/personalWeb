@@ -47,7 +47,7 @@ const renderRoutes = (routeConfig) => {
 const App = () => {
     return (
         <ErrorBoundary>
-            <Router>
+            <Router basename={import.meta.env.BASE_URL}>
                 <ScrollToTop />
                 <Suspense fallback={<LoadingSpinner />}>
                     <Routes>

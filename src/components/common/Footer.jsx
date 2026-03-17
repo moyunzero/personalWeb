@@ -3,6 +3,8 @@
  */
 import { ButtonPrimary } from "./Button";
 
+const logoSrc = `${import.meta.env.BASE_URL}images/logo.svg`;
+
 const sitemap = [
     {
       label: '首页',
@@ -93,7 +95,7 @@ const Footer = () => {
                         className="logo reveal-up"
                     >
                         <img
-                            src="/images/logo.svg"
+                            src={logoSrc}
                             alt="Logo"
                             width={40}
                             height={40}

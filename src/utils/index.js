@@ -32,3 +32,10 @@ export const throttle = (fn, limit) => {
         }
     };
 }; 
+
+/**
+ * 获取 public 目录下资源的正确路径（兼容 GitHub Pages 子路径部署）
+ * @param {string} path - 以 / 开头的路径，如 /images/logo.svg
+ * @returns {string} 带 base 前缀的完整路径
+ */
+export const getAssetUrl = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;

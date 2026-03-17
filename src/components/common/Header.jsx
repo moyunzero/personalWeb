@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import Navbar from './Navbar';
 import { useSmoothScroll, SCROLL_OFFSET } from '../../hooks/useSmoothScroll';
 
+const logoSrc = `${import.meta.env.BASE_URL}images/logo.svg`;
+
 /**
  * Header Component
  * 响应式设计的页面头部组件
@@ -76,7 +78,7 @@ const Header = () => {
                         className="logo"
                     >
                         <img 
-                            src="/images/logo.svg"
+                            src={logoSrc}
                             width={40} 
                             height={40} 
                             alt="墨韵-作品集"

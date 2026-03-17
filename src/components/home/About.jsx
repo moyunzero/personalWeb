@@ -1,5 +1,7 @@
 import { aboutItems } from '../../data/about';
 
+const logoSrc = `${import.meta.env.BASE_URL}images/logo.svg`;
+
 const About = () => {
     return(
         <section
@@ -24,7 +26,7 @@ const About = () => {
                             ))
                         }
                         <img
-                            src="/images/logo.svg"
+                            src={logoSrc}
                             alt="Logo"
                             width={30}
                             height={30}

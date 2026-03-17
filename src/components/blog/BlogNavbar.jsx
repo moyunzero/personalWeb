@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+const logoSrc = `${import.meta.env.BASE_URL}images/logo.svg`;
+
 const BlogNavbar = () => {
     return (
         <header className="fixed top-0 left-0 w-full h-20 flex items-center z-40 bg-zinc-900">
@@ -10,7 +12,7 @@ const BlogNavbar = () => {
                         className="logo flex items-center gap-2 text-xl font-bold text-white"
                     >
                         <img 
-                            src="/images/logo.svg" 
+                            src={logoSrc} 
                             alt="Logo" 
                             className="w-10 h-10"
                         />
