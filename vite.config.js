@@ -34,4 +34,4 @@ export default defineConfig(({ command }) => ({
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom', 'gsap', '@gsap/react']
   }
-})
+}))
