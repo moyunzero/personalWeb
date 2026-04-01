@@ -27,11 +27,11 @@ export const skills = [
     {
         imgSrc: `${base}images/tailwindcss.svg`,
         label: 'Tailwind CSS',
-        desc: '样式工具'
+        desc: '样式开发'
     },
     {
         imgSrc: `${base}images/nodejs.svg`,
         label: 'Node.js',
-        desc: '后端运行时'
+        desc: '后端开发'
     },
 ];
