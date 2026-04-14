@@ -6,32 +6,37 @@ const base = import.meta.env.BASE_URL;
 export const skills = [
     {
         imgSrc: `${base}images/css3.svg`,
-        label: 'CSS',
-        desc: '样式设计'
+        label: 'CSS3',
+        desc: '样式与布局'
     },
     {
         imgSrc: `${base}images/javascript.svg`,
         label: 'JavaScript',
-        desc: '交互逻辑'
-    },
-    {
-        imgSrc: `${base}images/react.svg`,
-        label: 'React',
-        desc: '前端框架'
+        desc: '交互与逻辑'
     },
     {
         imgSrc: `${base}images/vue.svg`,
         label: 'Vue',
-        desc: '前端框架'
+        desc: '渐进式框架'
+    },
+    {
+        imgSrc: `${base}images/react.svg`,
+        label: 'React',
+        desc: '声明式UI'
+    },
+    {
+        imgSrc: `${base}images/nuxt.svg`,
+        label: 'Nuxt',
+        desc: '全栈框架'
     },
     {
         imgSrc: `${base}images/tailwindcss.svg`,
         label: 'Tailwind CSS',
-        desc: '样式开发'
+        desc: '原子化样式'
     },
     {
         imgSrc: `${base}images/nodejs.svg`,
         label: 'Node.js',
-        desc: '后端开发'
-    },
+        desc: '服务端开发'
+    }
 ];
