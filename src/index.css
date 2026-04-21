@@ -70,27 +70,55 @@ body{
   @apply opacity-0 translate-y-20
 }
 
-/* 光效扫过动画 */
-@keyframes shine {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
+/* 脉冲呼吸动画 */
+@keyframes pulse-breathe {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(120, 120, 130, 0);
+  }
+  50% { 
+    box-shadow: 0 0 20px 2px rgba(120, 120, 130, 0.4);
+  }
 }
 
-.animate-shine {
-  animation: shine 0.8s ease-out forwards;
+/* 脉冲呼吸动画 - 入门 */
+@keyframes pulse-breathe-1 {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(120, 120, 130, 0);
+  }
+  50% { 
+    box-shadow: 0 0 15px 1px rgba(120, 120, 130, 0.3);
+  }
 }
 
-/* 技能卡片光效 - 入门 */
-.shine-level-1 {
-  background: linear-gradient(to right, transparent, rgba(120,120,130,0.3), transparent);
+/* 脉冲呼吸动画 - 熟悉 */
+@keyframes pulse-breathe-2 {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+  }
+  50% { 
+    box-shadow: 0 0 20px 2px rgba(56, 189, 248, 0.4);
+  }
 }
-/* 技能卡片光效 - 熟悉 */
-.shine-level-2 {
-  background: linear-gradient(to right, transparent, rgba(56,189,248,0.4), transparent);
+
+/* 脉冲呼吸动画 - 精通 */
+@keyframes pulse-breathe-3 {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+  50% { 
+    box-shadow: 0 0 25px 3px rgba(255, 255, 255, 0.5);
+  }
 }
-/* 技能卡片光效 - 精通 */
-.shine-level-3 {
-  background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent);
+
+/* 技能卡片脉冲效果 */
+.pulse-level-1:hover {
+  animation: pulse-breathe-1 2s ease-in-out infinite;
+}
+.pulse-level-2:hover {
+  animation: pulse-breathe-2 2s ease-in-out infinite;
+}
+.pulse-level-3:hover {
+  animation: pulse-breathe-3 2s ease-in-out infinite;
 }
 
 /**
