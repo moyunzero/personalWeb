@@ -10,8 +10,12 @@ const About = () => {
         >
             <div className="container">
                 <div className="bg-zinc-800/50 p-7 rounded-2xl md:p-12 reveal-up">
-                    <p className="text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch]">
-                        嗨！我是一个普通的前端开发，喜欢把想法变成代码，把代码变成好用的产品。虽然经验不算特别丰富，但对前端的热爱和好奇心一直在驱动我不断学习
+                    <p className="text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch] leading-relaxed">
+                        没有废话，只有折腾过的一些东西。
+                        <br />
+                        每个项目都是一次“我试试看”。
+                        <br />
+                        <span className="text-zinc-500">——什么都会一点，正在把“一点”变成“很多”</span>
                     </p>
                     <div className="flex flex-wrap items-center gap-4 md:gap-7">
                         {
