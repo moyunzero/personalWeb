@@ -27,25 +27,25 @@ export const skills = [
         imgSrc: `${base}images/react.svg`,
         label: 'React',
         desc: '声明式UI',
-        level: 2
+        level: 1
     },
     {
         imgSrc: `${base}images/nuxt.svg`,
         label: 'Nuxt',
         desc: '全栈框架',
-        level: 2
+        level: 1
     },
     {
         imgSrc: `${base}images/tailwindcss.svg`,
         label: 'Tailwind CSS',
         desc: '原子化样式',
-        level: 2
+        level: 1
     },
     {
         imgSrc: `${base}images/nodejs.svg`,
         label: 'Node.js',
         desc: '服务端开发',
-        level: 2
+        level: 1
     },
     {
         imgSrc: `${base}images/langchain.svg`,
