@@ -80,6 +80,19 @@ body{
   animation: shine 0.8s ease-out forwards;
 }
 
+/* 技能卡片光效 - 入门 */
+.shine-level-1 {
+  background: linear-gradient(to right, transparent, rgba(120,120,130,0.3), transparent);
+}
+/* 技能卡片光效 - 熟悉 */
+.shine-level-2 {
+  background: linear-gradient(to right, transparent, rgba(56,189,248,0.4), transparent);
+}
+/* 技能卡片光效 - 精通 */
+.shine-level-3 {
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent);
+}
+
 /**
  * COMPONENTS
  */
