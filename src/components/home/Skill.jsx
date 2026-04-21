@@ -15,7 +15,7 @@ const Skill = () => {
                     技能树
                 </h2>
                 <p className="text-zinc-400 mt-3 mb-8 max-w-[50ch] reveal-up">
-                    这些是我在使用的技能，还在不断学习中 📚
+                    从 CRUD 到 AI，持续探索中 🚀
                 </p>
                 <div className="grid gap-3 grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))]">
                     {
