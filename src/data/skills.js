@@ -9,19 +9,19 @@ export const skills = [
         imgSrc: `${base}images/css3.svg`,
         label: 'CSS3',
         desc: '样式与布局',
-        level: 3
+        level: 2
     },
     {
         imgSrc: `${base}images/javascript.svg`,
         label: 'JavaScript',
         desc: '交互与逻辑',
-        level: 3
+        level: 2
     },
     {
         imgSrc: `${base}images/vue.svg`,
         label: 'Vue',
         desc: '渐进式框架',
-        level: 3
+        level: 2
     },
     {
         imgSrc: `${base}images/react.svg`,
