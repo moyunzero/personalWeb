@@ -38,5 +38,10 @@ export const skills = [
         imgSrc: `${base}images/nodejs.svg`,
         label: 'Node.js',
         desc: '服务端开发'
+    },
+    {
+        imgSrc: `${base}images/langchain.png`,
+        label: 'LangChain',
+        desc: 'AI 应用开发'
     }
 ];
