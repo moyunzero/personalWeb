@@ -70,6 +70,16 @@ body{
   @apply opacity-0 translate-y-20
 }
 
+/* 光效扫过动画 */
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.animate-shine {
+  animation: shine 0.8s ease-out forwards;
+}
+
 /**
  * COMPONENTS
  */
