@@ -1,88 +1,83 @@
-import { useCallback } from 'react';
-import Particles from 'react-tsparticles';
-import { loadFull } from 'tsparticles';
+import { useEffect, useRef } from 'react';
 
 const MouseTrail = () => {
-    const particlesInit = useCallback(async (engine) => {
-        await loadFull(engine);
+    const canvasRef = useRef(null);
+    const pointsRef = useRef([]);
+    const mouseRef = useRef({ x: 0, y: 0 });
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        let animationId;
+
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+
+        const handleMouseMove = (e) => {
+            mouseRef.current = { x: e.clientX, y: e.clientY };
+            pointsRef.current.push({
+                x: e.clientX,
+                y: e.clientY,
+                size: Math.random() * 3 + 2,
+                opacity: 1,
+                speedX: (Math.random() - 0.5) * 0.5,
+                speedY: (Math.random() - 0.5) * 0.5
+            });
+            if (pointsRef.current.length > 50) {
+                pointsRef.current.shift();
+            }
+        };
+
+        const draw = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            pointsRef.current.forEach((point, index) => {
+                point.opacity -= 0.02;
+                point.x += point.speedX;
+                point.y += point.speedY;
+
+                if (point.opacity <= 0) {
+                    pointsRef.current.splice(index, 1);
+                    return;
+                }
+
+                const gradient = ctx.createRadialGradient(
+                    point.x, point.y, 0,
+                    point.x, point.y, point.size * 2
+                );
+                gradient.addColorStop(0, `rgba(200, 220, 255, ${point.opacity})`);
+                gradient.addColorStop(0.5, `rgba(200, 220, 255, ${point.opacity * 0.5})`);
+                gradient.addColorStop(1, 'rgba(200, 220, 255, 0)');
+
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, point.size * 2, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+            });
+
+            animationId = requestAnimationFrame(draw);
+        };
+
+        resize();
+        window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', handleMouseMove);
+        draw();
+
+        return () => {
+            cancelAnimationFrame(animationId);
+            window.removeEventListener('resize', resize);
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
     }, []);
 
     return (
-        <Particles
-            id="tsparticles"
-            init={particlesInit}
+        <canvas
+            ref={canvasRef}
             className="fixed inset-0 pointer-events-none z-[9999]"
-            options={{
-                fullScreen: false,
-                style: {
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%'
-                },
-                particles: {
-                    number: {
-                        value: 0
-                    },
-                    color: {
-                        value: '#ffffff'
-                    },
-                    shape: {
-                        type: 'circle'
-                    },
-                    opacity: {
-                        value: 1,
-                        animation: {
-                            enable: true,
-                            speed: 1,
-                            startValue: 'max',
-                            destroy: 'min'
-                        }
-                    },
-                    size: {
-                        value: { min: 2, max: 5 }
-                    },
-                    life: {
-                        duration: {
-                            sync: true,
-                            value: 1
-                        },
-                        count: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 3,
-                        direction: 'none',
-                        outModes: 'destroy'
-                    }
-                },
-                emitters: {
-                    onClick: {
-                        enable: true,
-                        mode: 'trail'
-                    },
-                    onHover: {
-                        enable: true,
-                        mode: 'trail'
-                    },
-                    life: {
-                        count: 0,
-                        duration: 0.1
-                    },
-                    rate: {
-                        delay: 0.01,
-                        quantity: 2
-                    },
-                    size: {
-                        width: 50,
-                        height: 50
-                    },
-                    position: {
-                        select: 'mouse'
-                    }
-                }
-            }}
         />
     );
 };
