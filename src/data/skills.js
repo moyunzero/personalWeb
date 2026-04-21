@@ -40,7 +40,7 @@ export const skills = [
         desc: '服务端开发'
     },
     {
-        imgSrc: `${base}images/langchain.png`,
+        imgSrc: `${base}images/langchain.svg`,
         label: 'LangChain',
         desc: 'AI 应用开发'
     }
