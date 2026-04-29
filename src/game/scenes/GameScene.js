@@ -27,7 +27,7 @@ export default class GameScene extends Phaser.Scene {
 
   // ── Preload ──────────────────────────────────────────────────────────────
   preload() {
-    const base = '/assets/sprites/Shinobi';
+    const base = `${import.meta.env.BASE_URL}assets/sprites/Shinobi`;
     const cfg  = { frameWidth: FRAME_SIZE, frameHeight: FRAME_SIZE };
 
     this.load.spritesheet('idle',   `${base}/Idle.png`,     cfg);
