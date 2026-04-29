@@ -18,7 +18,9 @@ export default defineConfig(({ command }) => ({
           // 将动画库单独打包
           'animation-vendor': ['gsap', '@gsap/react'],
           // 将其他第三方库打包
-          'utils-vendor': ['@studio-freight/lenis']
+          'utils-vendor': ['@studio-freight/lenis'],
+          // Phaser (~1 MB) loads lazily — keep it in its own chunk
+          'game-vendor': ['phaser'],
         }
       }
     },
@@ -35,6 +37,6 @@ export default defineConfig(({ command }) => ({
   },
   // 优化依赖预构建
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', 'gsap', '@gsap/react']
+    include: ['react', 'react-dom', 'react-router-dom', 'gsap', '@gsap/react', 'phaser']
   }
 }))
