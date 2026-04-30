@@ -25,3 +25,18 @@ dist-ssr
 
 # Cursor specific
 .cursorrules
+
+# Kiro directories and files
+.kiro/
+
+# Test files
+*.test.js
+*.test.jsx
+*.test.ts
+*.test.tsx
+*.spec.js
+*.spec.jsx
+*.spec.ts
+*.spec.tsx
+src/test/
+vitest.config.js

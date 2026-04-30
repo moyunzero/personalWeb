@@ -4,6 +4,7 @@ import Footer from '../components/common/Footer';
 import ParticleCanvas from '../components/common/ParticleCanvas';
 import MouseTrail from '../components/common/MouseTrail';
 import PhaserGame from '../game/PhaserGame';
+import GameTooltip from '../game/GameTooltip';
 
 const MainLayout = () => {
     return (
@@ -11,6 +12,7 @@ const MainLayout = () => {
             <ParticleCanvas />
             <MouseTrail />
             <PhaserGame />
+            <GameTooltip />
             <Header />
             <Outlet />
             <Footer />

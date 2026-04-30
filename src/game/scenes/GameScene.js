@@ -202,5 +202,17 @@ export default class GameScene extends Phaser.Scene {
         this.player.play('anim-jump', true);
       }
     }
+
+    // ── Publish player screen rect for React tooltip layer ──────────────
+    // Canvas is pointer-events:none, so Phaser's pointer is always (0,0).
+    // Instead we publish the player's current screen bounds each frame;
+    // the React layer listens to window mousemove and does the hit-test.
+    const b = this.player.getBounds();
+    window.__shinobiRect = {
+      left:   b.left,
+      right:  b.right,
+      top:    b.top,
+      bottom: b.bottom,
+    };
   }
 }
