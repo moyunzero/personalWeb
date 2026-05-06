@@ -12,6 +12,6 @@ export const aboutItems = [
     },
     {
         label: '技术栈',
-        number: 6
+        number: 15
     }
 ];
