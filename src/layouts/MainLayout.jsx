@@ -5,6 +5,7 @@ import ParticleCanvas from '../components/common/ParticleCanvas';
 import MouseTrail from '../components/common/MouseTrail';
 import PhaserGame from '../game/PhaserGame';
 import GameTooltip from '../game/GameTooltip';
+import PetCompanion from '../game/PetCompanion';
 
 const MainLayout = () => {
     return (
@@ -13,6 +14,7 @@ const MainLayout = () => {
             <MouseTrail />
             <PhaserGame />
             <GameTooltip />
+            <PetCompanion />
             <Header />
             <Outlet />
             <Footer />

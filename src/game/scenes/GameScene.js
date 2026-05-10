@@ -120,8 +120,52 @@ export default class GameScene extends Phaser.Scene {
     // Make canvas non-interactive (keyboard still fires via window events)
     this.game.canvas.style.pointerEvents = 'none';
 
+    // ── OpenPet bridge ───────────────────────────────────────────────────
+    this.openPetAnimationHandler = (event) => {
+      this.playOpenPetAnimation(event.detail?.animation);
+    };
+    window.addEventListener('codex-openpet:animate', this.openPetAnimationHandler);
+
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      window.removeEventListener('codex-openpet:animate', this.openPetAnimationHandler);
+    });
+
     // ── Resize handler ───────────────────────────────────────────────────
     this.scale.on('resize', this.onResize, this);
+  }
+
+
+  // ── OpenPet actions ───────────────────────────────────────────────────────
+  playOpenPetAnimation(animation = 'idle') {
+    if (!this.player?.body) return;
+
+    const body = this.player.body;
+    const onGround = body.blocked.down;
+
+    if (animation === 'hurt' && this.anims.exists('anim-hurt')) {
+      this.player.setVelocityX(0);
+      this.player.play('anim-hurt', true);
+      this.player.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+        this.player.play('anim-idle', true);
+      });
+      return;
+    }
+
+    if (animation === 'attack' && this.anims.exists('anim-attack')) {
+      this.isAttacking = true;
+      this.player.setVelocityX(0);
+      this.player.play('anim-attack', true);
+      this.player.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+        this.isAttacking = false;
+        this.player.play('anim-idle', true);
+      });
+      return;
+    }
+
+    if ((animation === 'jump' || animation === 'celebrate') && onGround) {
+      this.player.setVelocityY(JUMP_VEL);
+      this.player.play('anim-jump', true);
+    }
   }
 
   // ── Resize ───────────────────────────────────────────────────────────────
