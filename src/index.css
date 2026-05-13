@@ -111,6 +111,30 @@ body{
   animation: pulse-breathe-3 2s ease-in-out infinite;
 }
 
+/* 聊天面板入场动画：从右下角滑入并淡入 */
+@keyframes chatPanelIn {
+  0% {
+    opacity: 0;
+    transform: translate(20px, 20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* 聊天入口提示气泡：忍者头顶飘出 */
+@keyframes chatHintIn {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 /**
  * COMPONENTS
  */

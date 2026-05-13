@@ -5,7 +5,8 @@ import ParticleCanvas from '../components/common/ParticleCanvas';
 import MouseTrail from '../components/common/MouseTrail';
 import PhaserGame from '../game/PhaserGame';
 import GameTooltip from '../game/GameTooltip';
-import PetCompanion from '../game/PetCompanion';
+import ChatTrigger from '../components/chat/ChatTrigger';
+import ChatPanel from '../components/chat/ChatPanel';
 
 const MainLayout = () => {
     return (
@@ -14,7 +15,8 @@ const MainLayout = () => {
             <MouseTrail />
             <PhaserGame />
             <GameTooltip />
-            <PetCompanion />
+            <ChatTrigger />
+            <ChatPanel />
             <Header />
             <Outlet />
             <Footer />

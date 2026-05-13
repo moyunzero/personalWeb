@@ -20,7 +20,7 @@ export const projects = [
         imgSrc: `${base}images/xiuxian.png`,
         title: '修仙欠费中',
         tags: ['Nuxt', 'Vue3', 'TypeScript'],
-        projectLink: 'https://no-money-xiuxian.vercel.app/'
+        projectLink: 'https://www.debt-xiuxian.online/'
     },
     {
         imgSrc: `${base}images/travel.png`,

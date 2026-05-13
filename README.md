@@ -79,49 +79,6 @@ zero-web/
   - 标签管理
 
 
-## 🐾 Codex OpenPet 桌宠能力
-
-页面内置了一个类似 OpenPets / codex-openpet 的状态桌宠层：底部 Shinobi 桌宠可以接收任务状态、播放轻量动画，并用气泡提示当前进度、待确认事项、完成或异常状态。
-
-### 页面内演示
-
-点击左下角 **OpenPet** 浮动入口，可以快速切换：
-
-- **执行**：展示任务执行中状态，并触发跳跃动作
-- **待审**：展示需要确认状态，并触发攻击/提醒动作
-- **完成**：展示完成状态，并触发庆祝动作
-- **异常**：展示异常状态，并触发受击动作
-- **清空消息**：隐藏当前气泡并恢复待命
-
-### 浏览器 API
-
-也可以在浏览器控制台或其他前端脚本中通过全局 API 控制桌宠：
-
-```javascript
-window.codexOpenPet.notify({
-  title: 'Build passed',
-  text: 'All checks completed successfully.',
-  status: 'done', // idle | working | review | done | error
-  actionUrl: 'https://example.com/report',
-});
-
-window.codexOpenPet.animate('jump'); // idle | jump | celebrate | attack | hurt
-window.codexOpenPet.clear();
-window.codexOpenPet.status();
-```
-
-同时兼容 `window.openPet` 别名，并支持自定义事件：
-
-```javascript
-window.dispatchEvent(new CustomEvent('codex-openpet:notify', {
-  detail: {
-    title: 'Review required',
-    text: 'Please confirm the next step.',
-    status: 'review',
-  },
-}));
-```
-
 ## 🚀 快速开始
 
 1. **克隆项目**
