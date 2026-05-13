@@ -39,6 +39,12 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Build
+        # 聊天后端 URL 通过 CI 注入：
+        # - 优先读取仓库变量 vars.VITE_CHAT_API_URL（在 Settings → Secrets and variables → Actions → Variables 配置）
+        # - 兜底用 personal-gpt 默认部署地址
+        # 注意：bundle 公开可见，不要在这里放真正的密钥，只放公开 endpoint
+        env:
+          VITE_CHAT_API_URL: ${{ vars.VITE_CHAT_API_URL || 'https://personal-emotion-gpt.vercel.app/api/chat' }}
         run: yarn build
       - name: Setup Pages
         uses: actions/configure-pages@v5

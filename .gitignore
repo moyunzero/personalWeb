@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# 环境变量：全部忽略，仅保留 .env.example 作为模板
+# 生产环境通过 GitHub Actions / Vercel 等 CI 注入
+.env
+.env.*
+!.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -40,3 +46,5 @@ dist-ssr
 *.spec.tsx
 src/test/
 vitest.config.js
+
+.cursor/
