@@ -27,11 +27,15 @@ export const routes = {
             element: BlogDetail,
             title: '博客详情',
         },
-        {
-            path: '/blog/editor',
-            element: BlogEditor,
-            title: '博客编辑器',
-        },
+        ...(import.meta.env.DEV
+            ? [
+                  {
+                      path: '/blog/editor',
+                      element: BlogEditor,
+                      title: '博客编辑器',
+                  },
+              ]
+            : []),
     ],
 };
 

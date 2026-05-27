@@ -1,6 +1,7 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
+import BlogFooter from '../components/blog/BlogFooter';
 import ParticleCanvas from '../components/common/ParticleCanvas';
 import MouseTrail from '../components/common/MouseTrail';
 import PhaserGame from '../game/PhaserGame';
@@ -9,17 +10,24 @@ import ChatTrigger from '../components/chat/ChatTrigger';
 import ChatPanel from '../components/chat/ChatPanel';
 
 const MainLayout = () => {
+    const { pathname } = useLocation();
+    const isBlogRoute = pathname === '/blog' || pathname.startsWith('/blog/');
+
     return (
         <>
             <ParticleCanvas />
             <MouseTrail />
-            <PhaserGame />
-            <GameTooltip />
-            <ChatTrigger />
+            {!isBlogRoute && (
+                <>
+                    <PhaserGame />
+                    <GameTooltip />
+                    <ChatTrigger />
+                </>
+            )}
             <ChatPanel />
-            <Header />
+            {!isBlogRoute && <Header />}
             <Outlet />
-            <Footer />
+            {isBlogRoute ? <BlogFooter /> : <Footer />}
         </>
     );
 };

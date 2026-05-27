@@ -10,7 +10,13 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+public/sitemap.xml
+public/robots.txt
+public/rss.xml
 *.local
+
+# Playwright / MCP 调试快照（本地测试产物）
+.playwright-mcp/
 
 # 环境变量：全部忽略，仅保留 .env.example 作为模板
 # 生产环境通过 GitHub Actions / Vercel 等 CI 注入
