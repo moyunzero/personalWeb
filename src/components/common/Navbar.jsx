@@ -31,12 +31,11 @@ const Navbar = ({navOpen, setNavOpen}) => {
             label: '联系',
             href: 'contact'
         },
-        // 暂时隐藏博客导航按钮
-        // {
-        //     label: '博客',
-        //     href: '/blog',
-        //     isRoute: true
-        // }
+        {
+            label: '博客',
+            href: '/blog',
+            isRoute: true
+        }
     ];
 
     // 处理路由中的hash

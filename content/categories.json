@@ -1,0 +1,4 @@
+[
+  { "id": "note", "label": "阅读/笔记", "order": 1 },
+  { "id": "daily", "label": "日常", "order": 2 }
+]

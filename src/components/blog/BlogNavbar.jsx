@@ -20,15 +20,15 @@ const BlogNavbar = () => {
                     </Link>
                 </h1>
                 <nav className="flex items-center gap-6">
-                    <Link 
-                        to="/" 
+                    <Link
+                        to="/"
                         className="text-zinc-300 hover:text-white transition-colors"
                     >
                         首页
                     </Link>
-                    <a 
-                        href="https://github.com" 
-                        target="_blank" 
+                    <a
+                        href="https://github.com/moyunzero/personalWeb"
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="text-zinc-300 hover:text-white transition-colors"
                     >

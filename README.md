@@ -38,8 +38,8 @@ zero-web/
 │   │   ├── blog/        # 博客相关组件
 │   │   │   ├── BlogNavbar.jsx # 博客导航栏
 │   │   │   └── BlogEditor.jsx # 博客编辑器
-│   ├── data/            # 数据文件
-│   │   └── blogs.js     # 博客文章数据
+│   ├── blog/            # 博客加载逻辑（content/posts）
+│   ├── data/            # 静态数据（如 projects.js）
 │   ├── routes/          # 路由配置
 │   ├── utils/           # 工具函数（防抖、节流等）
 │   ├── App.jsx          # 应用入口
@@ -119,60 +119,108 @@ VITE_APP_DESCRIPTION=展示作品、博客和技能的个人网站
 
 ## 📝 博客功能使用指南
 
-### 如何写博客文章
+文章以 **Markdown 文件** 存放在仓库中，构建时自动加载，推送到 GitHub 后由 Actions 部署到 GitHub Pages。
 
-1. **访问编辑器**
-   - 在博客列表页面点击"写文章"按钮
-   - 或直接访问 `/blog/editor` 路由
+### 目录结构
 
-2. **编辑文章**
-   - 填写文章基本信息（标题、简介、作者、日期等）
-   - 使用 Markdown 格式编写文章内容
-   - 右侧实时预览效果
-
-3. **保存和发布**
-   - **保存草稿**：文章会保存到浏览器本地存储
-   - **导出 JSON**：导出文章数据，可手动添加到 `src/data/blogs.js`
-   - **一键发布**：文章会保存到 localStorage，立即在博客列表显示
-
-### Markdown 语法支持
-
-编辑器支持完整的 Markdown 语法：
-- 标题（# ## ###）
-- 列表（有序、无序）
-- 代码块（支持语法高亮）
-- 链接和图片
-- 粗体、斜体
-- 表格
-- 引用块
-
-### 永久保存文章
-
-由于这是纯前端项目，文章默认保存在浏览器 localStorage 中。要永久保存：
-
-1. **方法一：手动添加到代码**
-   - 点击"导出 JSON"按钮
-   - 将导出的 JSON 内容添加到 `src/data/blogs.js` 文件的 `blogs` 数组中
-
-2. **方法二：集成后端 API**
-   - 修改 `src/services/api.js` 中的 `blogApi`
-   - 实现后端接口来持久化存储文章
-
-### 博客数据结构
-
-每篇博客文章包含以下字段：
-```javascript
-{
-  id: '文章ID（用于URL）',
-  title: '文章标题',
-  description: '文章简介',
-  author: '作者名称',
-  publishDate: '发布日期（YYYY-MM-DD）',
-  tags: ['标签1', '标签2'],
-  readTime: 5, // 预计阅读时间（分钟，可选）
-  content: 'Markdown 格式的文章内容'
-}
+```text
+content/
+  categories.json       # 自定义分类（可随意增删）
+  posts/*.md            # 文章
+public/images/blog/     # 图片，按 slug 分子目录
 ```
+
+### 发布一篇文章
+
+**方式一：命令行脚手架（推荐）**
+
+```bash
+yarn blog:new "周末咖啡" --categories daily,photo
+# 编辑 content/posts/xxx.md，将 draft 改为 false
+# 图片放入 public/images/blog/xxx/
+git add content public/images/blog && git commit -m "post: 周末咖啡" && git push
+```
+
+**方式二：开发环境编辑器**
+
+```bash
+yarn dev
+# 打开 /blog/editor（仅开发环境可用）
+# 填写后点击「下载 .md」，保存到 content/posts/
+```
+
+**方式三：从 Notion 同步（推荐写长文）**
+
+在 Notion 里维护一篇「博客数据库」，本地或 GitHub Actions 一键拉取为 Markdown + 图片。
+
+1. 打开 [Notion Integrations](https://www.notion.so/my-integrations) → 新建 Integration → 复制 **Internal Integration Token**
+2. 在 Notion 新建数据库，建议列名：
+
+| 列名 | 类型 | 说明 |
+|------|------|------|
+| Title | 标题 | 文章标题 |
+| Status | 选择 | `Published` 或 `已发布` 才会同步 |
+| Date | 日期 | 发布日期 |
+| Categories | 多选 | 填 `daily` / `note` / `tech`（与 categories.json 一致） |
+| Tags | 多选 | 标签 |
+| Description | 文本 | 摘要 |
+| Slug | 文本 | 可选，URL 路径；留空则自动生成 |
+| Cover | 文件 | 可选封面图 |
+
+3. 数据库页面 **··· → 连接** → 选择你的 Integration
+4. 复制数据库 ID（URL 中 `notion.so/xxx?v=` 前面那段 32 位 ID）
+5. 配置环境变量（复制 `.env.example` → `.env.local`）：
+
+```bash
+NOTION_TOKEN=secret_xxx
+NOTION_DATABASE_ID=你的数据库ID
+```
+
+6. 同步：
+
+```bash
+yarn notion:sync              # 增量同步（仅新增或 Notion 有改动的文章）
+yarn notion:sync --all        # 全量同步全部已发布文章
+yarn notion:sync --page <id>  # 只同步一篇（Notion 页面 URL 中的 id）
+yarn notion:sync --dry-run    # 仅预览，不写文件
+git add content/posts public/images/blog && git commit -m "post: sync from Notion" && git push
+```
+
+**GitHub Actions 自动同步**：在仓库 Settings → Secrets 添加 `NOTION_TOKEN`、`NOTION_DATABASE_ID`，在 Actions 页运行 **Sync blog from Notion** 工作流即可自动提交。
+
+> Token 仅用于本地脚本或 CI，不会打进前端 bundle。
+
+### Frontmatter 示例
+
+```yaml
+---
+title: 周末咖啡
+slug: 2025-05-27-weekend
+description: 列表页摘要
+author: 墨韵
+date: 2025-05-27
+categories:
+  - daily
+tags:
+  - 生活
+cover: images/blog/2025-05-27-weekend/cover.jpg
+draft: false
+---
+正文 Markdown…
+```
+
+### 自定义分类
+
+编辑 `content/categories.json`，例如：
+
+```json
+[
+  { "id": "daily", "label": "日常", "order": 1 },
+  { "id": "note", "label": "笔记", "order": 2 }
+]
+```
+
+文章的 `categories` 字段填写对应的 `id` 即可。
 
 ## 📖 开发指南
 

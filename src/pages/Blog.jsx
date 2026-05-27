@@ -1,67 +1,86 @@
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { useMemo, useState } from 'react';
 import BlogNavbar from '../components/blog/BlogNavbar';
-import { getAllBlogs } from '../data/blogs';
+import BlogPostCard from '../components/blog/BlogPostCard';
+import BlogFeaturedCard from '../components/blog/BlogFeaturedCard';
+import {
+    getAllPosts,
+    filterPosts,
+    collectTags,
+    groupPostsByYear,
+    getFeaturedPosts,
+} from '../blog';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { getCategories } from '../blog/getCategories';
 
-/**
- * 博客列表页面组件
- * 
- * 功能：
- * 1. 显示所有博客文章列表
- * 2. 支持从 localStorage 加载已发布的文章
- * 3. 显示文章卡片（标题、简介、日期、标签等）
- * 4. 提供跳转到编辑器的链接
- */
 const Blog = () => {
-    const [blogs, setBlogs] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [activeCategory, setActiveCategory] = useState('all');
+    const [query, setQuery] = useState('');
 
-    useEffect(() => {
-        // 获取所有博客文章
-        const loadBlogs = () => {
-            try {
-                // 从数据文件获取
-                const fileBlogs = getAllBlogs();
-                
-                // 从 localStorage 获取已发布的文章
-                const publishedStr = localStorage.getItem('publishedBlogs');
-                const publishedBlogs = publishedStr ? JSON.parse(publishedStr) : [];
-                
-                // 合并并去重（localStorage 中的文章优先级更高）
-                const allBlogs = [...publishedBlogs];
-                fileBlogs.forEach(blog => {
-                    if (!allBlogs.find(b => b.id === blog.id)) {
-                        allBlogs.push(blog);
-                    }
-                });
-                
-                // 按发布日期排序
-                allBlogs.sort((a, b) => {
-                    return new Date(b.publishDate) - new Date(a.publishDate);
-                });
-                
-                setBlogs(allBlogs);
-            } catch (error) {
-                console.error('加载博客列表失败:', error);
-                // 如果出错，至少显示文件中的博客
-                setBlogs(getAllBlogs());
-            } finally {
-                setLoading(false);
-            }
-        };
+    const activeTag = searchParams.get('tag') || '';
+    const categories = getCategories();
+    const allPosts = useMemo(() => getAllPosts(), []);
+    const popularTags = useMemo(() => collectTags(allPosts), [allPosts]);
 
-        loadBlogs();
-    }, []);
+    const filteredPosts = useMemo(
+        () =>
+            filterPosts(allPosts, {
+                category: activeCategory,
+                tag: activeTag,
+                query,
+            }),
+        [allPosts, activeCategory, activeTag, query]
+    );
+
+    const hasActiveFilters =
+        activeCategory !== 'all' || Boolean(activeTag) || Boolean(query.trim());
+
+    const featuredPosts = useMemo(() => {
+        if (hasActiveFilters) return [];
+        return getFeaturedPosts(filteredPosts);
+    }, [filteredPosts, hasActiveFilters]);
+
+    const featuredIds = useMemo(
+        () => new Set(featuredPosts.map((post) => post.id)),
+        [featuredPosts]
+    );
+
+    const listPosts = useMemo(
+        () => filteredPosts.filter((post) => !featuredIds.has(post.id)),
+        [filteredPosts, featuredIds]
+    );
+
+    const yearSections = useMemo(() => {
+        if (hasActiveFilters) return null;
+        return groupPostsByYear(listPosts);
+    }, [listPosts, hasActiveFilters]);
+
+    useDocumentMeta({
+        title: '博客',
+        description: '日常、笔记与思考 — 技术文章、阅读笔记与开发实践。',
+    });
+
+    const setActiveTag = (tag) => {
+        const next = new URLSearchParams(searchParams);
+        if (tag && tag === activeTag) {
+            next.delete('tag');
+        } else if (tag) {
+            next.set('tag', tag);
+        } else {
+            next.delete('tag');
+        }
+        setSearchParams(next, { replace: true });
+    };
 
     return (
-        <div className="min-h-screen bg-zinc-900 text-white">
+        <div className="relative z-10 bg-zinc-900 text-white">
             <BlogNavbar />
-            <div className="container mx-auto px-4 py-20">
-                {/* 头部操作栏 */}
-                <div className="flex justify-between items-center mb-8">
+            <div className="container mx-auto px-4 pb-12 pt-28">
+                <div className="flex flex-col gap-6 mb-8 md:flex-row md:items-end md:justify-between">
                     <div>
-                        <Link 
-                            to="/" 
+                        <Link
+                            to="/"
                             className="text-sky-400 hover:text-sky-300 transition-colors flex items-center gap-2 mb-4"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -69,88 +88,149 @@ const Blog = () => {
                             </svg>
                             返回首页
                         </Link>
-                        <h1 className="text-4xl font-bold">博客文章</h1>
+                        <h1 className="text-4xl font-bold">博客</h1>
+                        <p className="text-zinc-400 mt-2">日常、笔记与思考</p>
                     </div>
-                    <Link
-                        to="/blog/editor"
-                        className="px-6 py-3 bg-sky-600 hover:bg-sky-700 rounded-lg transition-colors font-semibold flex items-center gap-2"
-                    >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                        </svg>
-                        写文章
-                    </Link>
+                    <div className="flex flex-wrap items-center gap-3">
+                        {import.meta.env.DEV && (
+                            <Link
+                                to="/blog/editor"
+                                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-600 hover:bg-sky-700 rounded-lg transition-colors font-semibold w-fit"
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                </svg>
+                                写文章
+                            </Link>
+                        )}
+                    </div>
                 </div>
 
-                {/* 加载状态 */}
-                {loading ? (
-                    <div className="text-center py-20">
-                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-sky-400"></div>
-                        <p className="mt-4 text-zinc-400">加载中...</p>
-                    </div>
-                ) : blogs.length === 0 ? (
-                    // 空状态
-                    <div className="text-center py-20">
-                        <svg className="mx-auto h-24 w-24 text-zinc-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        <h2 className="text-2xl font-semibold mb-2">还没有文章</h2>
-                        <p className="text-zinc-400 mb-6">开始写你的第一篇文章吧！</p>
-                        <Link
-                            to="/blog/editor"
-                            className="inline-block px-6 py-3 bg-sky-600 hover:bg-sky-700 rounded-lg transition-colors font-semibold"
+                <div className="mb-6">
+                    <label htmlFor="blog-search" className="sr-only">
+                        搜索文章
+                    </label>
+                    <input
+                        id="blog-search"
+                        type="search"
+                        value={query}
+                        onChange={(event) => setQuery(event.target.value)}
+                        placeholder="搜索标题、摘要或标签…"
+                        className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    />
+                </div>
+
+                <div className="flex flex-wrap gap-2 mb-4">
+                    <button
+                        type="button"
+                        onClick={() => setActiveCategory('all')}
+                        className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                            activeCategory === 'all'
+                                ? 'bg-sky-600 text-white'
+                                : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
+                        }`}
+                    >
+                        全部
+                    </button>
+                    {categories.map((category) => (
+                        <button
+                            key={category.id}
+                            type="button"
+                            onClick={() => setActiveCategory(category.id)}
+                            className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                                activeCategory === category.id
+                                    ? 'bg-sky-600 text-white'
+                                    : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
+                            }`}
                         >
-                            创建文章
-                        </Link>
+                            {category.label}
+                        </button>
+                    ))}
+                </div>
+
+                {popularTags.length > 0 && (
+                    <div className="mb-6">
+                        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                            标签
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            {popularTags.map((tag) => (
+                                <button
+                                    key={tag}
+                                    type="button"
+                                    onClick={() => setActiveTag(tag)}
+                                    className={`px-3 py-1.5 rounded-full text-xs transition-colors ${
+                                        activeTag.toLowerCase() === tag.toLowerCase()
+                                            ? 'bg-sky-500/30 text-sky-200 ring-1 ring-sky-500/50'
+                                            : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
+                                    }`}
+                                >
+                                    {tag}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                <div className="mb-6 flex flex-wrap items-center justify-between gap-3 text-sm text-zinc-500">
+                    <span>
+                        共 {filteredPosts.length} 篇
+                        {hasActiveFilters ? ` / ${allPosts.length} 篇` : ''}
+                    </span>
+                    {hasActiveFilters && (
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setActiveCategory('all');
+                                setQuery('');
+                                setActiveTag('');
+                            }}
+                            className="text-sky-400 hover:text-sky-300"
+                        >
+                            清除筛选
+                        </button>
+                    )}
+                </div>
+
+                {filteredPosts.length === 0 ? (
+                    <div className="text-center py-20">
+                        <h2 className="text-2xl font-semibold mb-2">暂无文章</h2>
+                        <p className="text-zinc-400">
+                            {hasActiveFilters
+                                ? '没有符合当前筛选条件的文章，试试调整搜索或标签。'
+                                : '在 content/posts/ 添加 Markdown 文件后重新构建即可。'}
+                        </p>
                     </div>
                 ) : (
-                    // 博客列表
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        {blogs.map((blog) => (
-                            <Link
-                                key={blog.id}
-                                to={`/blog/${blog.id}`}
-                                className="bg-zinc-800 rounded-lg p-6 hover:bg-zinc-700 transition-colors block"
-                            >
-                                {/* 文章标题 */}
-                                <h2 className="text-xl font-semibold mb-3 line-clamp-2">{blog.title}</h2>
-                                
-                                {/* 文章简介 */}
-                                <p className="text-zinc-400 mb-4 line-clamp-3">{blog.description || '暂无简介'}</p>
-                                
-                                {/* 标签 */}
-                                {blog.tags && blog.tags.length > 0 && (
-                                    <div className="flex flex-wrap gap-2 mb-4">
-                                        {blog.tags.slice(0, 3).map((tag, index) => (
-                                            <span
-                                                key={index}
-                                                className="px-2 py-1 bg-sky-500/20 text-sky-300 rounded text-xs"
-                                            >
-                                                {tag}
-                                            </span>
+                    <div className="space-y-10">
+                        {featuredPosts.length > 0 && (
+                            <section className="space-y-4">
+                                {featuredPosts.map((blog) => (
+                                    <BlogFeaturedCard key={blog.id} blog={blog} />
+                                ))}
+                            </section>
+                        )}
+
+                        {yearSections ? (
+                            yearSections.map(({ year, posts }) => (
+                                <section key={year}>
+                                    <h2 className="mb-6 text-2xl font-bold text-zinc-300">
+                                        {year > 0 ? year : '未标注日期'}
+                                    </h2>
+                                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                                        {posts.map((blog) => (
+                                            <BlogPostCard key={blog.id} blog={blog} />
                                         ))}
-                                        {blog.tags.length > 3 && (
-                                            <span className="px-2 py-1 text-zinc-500 text-xs">
-                                                +{blog.tags.length - 3}
-                                            </span>
-                                        )}
                                     </div>
-                                )}
-                                
-                                {/* 文章元信息 */}
-                                <div className="flex justify-between items-center text-sm text-zinc-500">
-                                    <div className="flex items-center gap-2">
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                        <span>{blog.publishDate}</span>
-                                    </div>
-                                    {blog.readTime && (
-                                        <span>{blog.readTime} 分钟</span>
-                                    )}
-                                </div>
-                            </Link>
-                        ))}
+                                </section>
+                            ))
+                        ) : (
+                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                                {listPosts.map((blog) => (
+                                    <BlogPostCard key={blog.id} blog={blog} />
+                                ))}
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
@@ -158,4 +238,4 @@ const Blog = () => {
     );
 };
 
-export default Blog; 
+export default Blog;

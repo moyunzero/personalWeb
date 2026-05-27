@@ -23,6 +23,12 @@ export const projects = [
         projectLink: 'https://www.debt-xiuxian.online/'
     },
     {
+        imgSrc: `${base}images/saleme.png`,
+        title: '傻了么',
+        tags: ['ReactNative', 'Expo', 'TypeScript'],
+        projectLink: 'https://apps.apple.com/us/app/%E5%82%BB%E4%BA%86%E4%B9%88/id6770218110'
+    },
+    {
         imgSrc: `${base}images/travel.png`,
         title: '旅行记录地图',
         tags: ['Nuxt', 'Vue3', 'Pinia'],
