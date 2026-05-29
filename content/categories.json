@@ -1,4 +1,6 @@
 [
-  { "id": "note", "label": "阅读/笔记", "order": 1 },
-  { "id": "daily", "label": "日常", "order": 2 }
+  { "id": "note", "label": "技术记录", "order": 1 },
+  { "id": "daily", "label": "日常", "order": 2 },
+  { "id": "psychology", "label": "心理学", "order": 3 },
+  { "id": "reading", "label": "随笔记", "order": 4 }
 ]

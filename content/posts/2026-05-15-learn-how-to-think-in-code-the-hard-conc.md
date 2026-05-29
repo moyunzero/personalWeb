@@ -1,7 +1,7 @@
 ---
 title: "Learn how to THINK in code – The Hard & Conceptual Parts of JavaScrip "
 slug: 2026-05-15-learn-how-to-think-in-code-the-hard-conc
-description: 代码被划分为一个个独立的"世界"，称为 作用域（Scope）。
+description: ""
 author: 墨韵
 date: 2026-05-15
 categories:
@@ -11,7 +11,7 @@ tags:
   - frontend
 draft: false
 notionId: 36ddf5c0-26f4-807f-8a26-d15e7072c088
-notionSyncedAt: 2026-05-27T04:39:54.893Z
+notionSyncedAt: 2026-05-29T06:18:45.397Z
 ---
 
 ## Think in JavaScript: The Hard & Conceptual Parts
