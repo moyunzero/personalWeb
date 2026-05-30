@@ -14,9 +14,7 @@ export function getAllPosts() {
     return loadPosts();
 }
 
-export function getPostBySlug(slug) {
-    return loadPostBySlug(slug);
-}
+export { loadPostBySlug as getPostBySlug }; // 兼容旧名
 
 export function getPostsByCategory(categoryId) {
     return loadPosts().filter((post) => post.categories.includes(categoryId));

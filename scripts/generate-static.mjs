@@ -7,6 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SITE } from './lib/site-config.mjs';
 import { loadPostsForBuild } from './lib/load-posts.mjs';
+import { buildPostsIndex } from './lib/build-posts-index.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC_DIR = path.join(root, 'public');
@@ -75,12 +76,20 @@ Sitemap: ${siteUrl('/sitemap.xml')}
 
 async function main() {
     const posts = await loadPostsForBuild();
+    const index = await buildPostsIndex();
     await mkdir(PUBLIC_DIR, { recursive: true });
 
     await writeFile(path.join(PUBLIC_DIR, 'sitemap.xml'), buildSitemap(posts), 'utf8');
     await writeFile(path.join(PUBLIC_DIR, 'robots.txt'), buildRobots(), 'utf8');
+    await writeFile(
+        path.join(PUBLIC_DIR, 'posts-index.json'),
+        `${JSON.stringify(index, null, 0)}\n`,
+        'utf8'
+    );
 
-    console.log(`[static] Wrote sitemap (${posts.length + 2} URLs) and robots.txt`);
+    console.log(
+        `[static] Wrote sitemap (${posts.length + 2} URLs), posts-index (${index.length} posts), robots.txt`
+    );
 }
 
 main().catch((error) => {
