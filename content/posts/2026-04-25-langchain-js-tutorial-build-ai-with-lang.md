@@ -4,7 +4,7 @@ title: "LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full
 slug: 2026-04-25-langchain-js-tutorial-build-ai-with-lang
 description: ""
 author: 墨韵
-date: 2026-04-25
+date: 2026-04-26
 categories:
   - note
 tags:
@@ -13,7 +13,7 @@ tags:
   - Langchain.js
 draft: false
 notionId: 36ddf5c0-26f4-80c7-9238-d51833acee27
-notionSyncedAt: 2026-05-27T05:52:44.599Z
+notionSyncedAt: 2026-06-01T06:41:06.200Z
 ---
 
 ### Introduction（引言）
