@@ -17,6 +17,7 @@
     "@gsap/react": "^2.1.1",
     "@studio-freight/lenis": "^1.0.42",
     "gsap": "^3.12.5",
+    "mermaid": "^11.15.0",
     "phaser": "3",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",

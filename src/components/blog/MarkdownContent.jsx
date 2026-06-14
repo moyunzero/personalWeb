@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { Children, useMemo, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
@@ -7,6 +7,7 @@ import rehypeRaw from 'rehype-raw';
 import PropTypes from 'prop-types';
 import { normalizeMarkdown } from '../../blog/normalizeMarkdown';
 import { resolveBlogAsset } from '../../blog/utils';
+import MermaidDiagram from './MermaidDiagram';
 
 import 'highlight.js/styles/github-dark.css';
 
@@ -106,6 +107,38 @@ CodeBlock.propTypes = {
 };
 
 /**
+ * 从 react-markdown 的 <pre><code> 子节点提取 Mermaid 源码
+ * @param {import('react').ReactNode} children
+ * @returns {string | null}
+ */
+function extractMermaidChart(children) {
+    const child = Children.only(children);
+    if (!child || typeof child !== 'object' || !('props' in child)) {
+        return null;
+    }
+
+    const className = child.props?.className ?? '';
+    if (!String(className).includes('language-mermaid')) {
+        return null;
+    }
+
+    return String(child.props.children ?? '').replace(/\n$/, '').trim();
+}
+
+function PreBlock({ children, ...props }) {
+    const chart = extractMermaidChart(children);
+    if (chart) {
+        return <MermaidDiagram chart={chart} />;
+    }
+
+    return <CodeBlock {...props}>{children}</CodeBlock>;
+}
+
+PreBlock.propTypes = {
+    children: PropTypes.node,
+};
+
+/**
  * 统一 Markdown 渲染（编辑器预览 + 文章详情）
  */
 const MarkdownContent = ({ content, className = '' }) => {
@@ -122,7 +155,7 @@ const MarkdownContent = ({ content, className = '' }) => {
                 rehypePlugins={[rehypeRaw, rehypeHighlight]}
                 components={{
                     img: MarkdownImage,
-                    pre: CodeBlock,
+                    pre: PreBlock,
                     a: ({ href, children, ...props }) => (
                         <a
                             href={href}
