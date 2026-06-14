@@ -12,6 +12,7 @@ dist
 dist-ssr
 public/sitemap.xml
 public/robots.txt
+public/posts-index.json
 public/rss.xml
 *.local
 

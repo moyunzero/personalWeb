@@ -171,7 +171,10 @@ async function resolveDataSourceId(notion, databaseId) {
     const explicit = getEnv('NOTION_DATA_SOURCE_ID');
     if (explicit) return explicit;
 
-    const db = await notion.databases.retrieve({ database_id: databaseId });
+    const db = await withRetry(
+        () => notion.databases.retrieve({ database_id: databaseId }),
+        { label: '获取 Notion 数据库', retries: 5, delayMs: 1500 }
+    );
     const sources = db.data_sources;
     if (sources?.length) {
         return sources[0].id;
@@ -204,13 +207,17 @@ async function fetchDatabasePages(notion, databaseId, publishedStatuses) {
     let cursor;
 
     do {
-        const response = await notion.dataSources.query({
-            data_source_id: dataSourceId,
-            start_cursor: cursor,
-            page_size: 100,
-            result_type: 'page',
-            ...(statusFilter ? { filter: statusFilter } : {}),
-        });
+        const response = await withRetry(
+            () =>
+                notion.dataSources.query({
+                    data_source_id: dataSourceId,
+                    start_cursor: cursor,
+                    page_size: 100,
+                    result_type: 'page',
+                    ...(statusFilter ? { filter: statusFilter } : {}),
+                }),
+            { label: '查询 Notion 页面列表', retries: 5, delayMs: 1500 }
+        );
         for (const page of response.results) {
             if (page.object !== 'page') continue;
             pages.push(page);
@@ -385,7 +392,10 @@ async function main() {
     let pages = [];
 
     if (pageId) {
-        const page = await notion.pages.retrieve({ page_id: pageId });
+        const page = await withRetry(
+            () => notion.pages.retrieve({ page_id: pageId }),
+            { label: '获取 Notion 页面', retries: 5, delayMs: 1500 }
+        );
         pages = [page];
         console.log('Notion 单页同步');
     } else {
@@ -464,6 +474,12 @@ main().catch((err) => {
     console.error('Notion 同步失败:', err.message);
     if (err.code === 'object_not_found') {
         console.error('提示: 请确认 NOTION_DATABASE_ID 正确，且已在 Notion 中将数据库「连接」到你的 Integration。');
+    } else if (
+        err.message === 'fetch failed' ||
+        err.cause?.code === 'ECONNRESET' ||
+        err.cause?.code === 'ETIMEDOUT'
+    ) {
+        console.error('提示: 连接 Notion API 时网络中断，请检查网络/代理后重试。');
     }
     process.exit(1);
 });

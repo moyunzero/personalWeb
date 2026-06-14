@@ -1,8 +1,8 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import BlogNavbar from '../components/blog/BlogNavbar';
 import MarkdownContent from '../components/blog/MarkdownContent';
-import { getPostBySlug, getAllPosts, getRelatedPosts, getAdjacentPosts } from '../blog';
+import { loadPostBySlug, getAllPosts, getRelatedPosts, getAdjacentPosts } from '../blog';
 import BlogPostNav from '../components/blog/BlogPostNav';
 import ReadingProgressBar from '../components/blog/ReadingProgressBar';
 import { getCategoryLabel } from '../blog/getCategories';
@@ -10,26 +10,74 @@ import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 const BlogDetail = () => {
     const { id } = useParams();
+    const [blog, setBlog] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [notFound, setNotFound] = useState(false);
 
-    const blog = useMemo(() => getPostBySlug(id), [id]);
+    const allPosts = useMemo(() => getAllPosts(), []);
+
+    useEffect(() => {
+        let cancelled = false;
+        setLoading(true);
+        setNotFound(false);
+        setBlog(null);
+
+        loadPostBySlug(id).then((post) => {
+            if (cancelled) return;
+            if (!post) {
+                setNotFound(true);
+            } else {
+                setBlog(post);
+            }
+            setLoading(false);
+        });
+
+        return () => {
+            cancelled = true;
+        };
+    }, [id]);
 
     const relatedSection = useMemo(() => {
         if (!blog) return { posts: [], heading: null, isRelated: false };
-        return getRelatedPosts(blog, getAllPosts(), { limit: 3 });
-    }, [blog]);
+        return getRelatedPosts(blog, allPosts, { limit: 3 });
+    }, [blog, allPosts]);
 
     const adjacentPosts = useMemo(() => {
         if (!blog) return { prev: null, next: null };
-        return getAdjacentPosts(blog, getAllPosts());
-    }, [blog]);
+        return getAdjacentPosts(blog, allPosts);
+    }, [blog, allPosts]);
 
     useDocumentMeta({
         title: blog?.title,
         description: blog?.description,
     });
 
-    if (!blog) {
+    if (notFound) {
         return <Navigate to="/blog" replace />;
+    }
+
+    if (loading) {
+        return (
+            <div className="relative z-10 min-h-screen bg-zinc-950 text-white">
+                <BlogNavbar />
+                <div className="container mx-auto max-w-3xl px-4 pb-20 pt-28">
+                    <div className="animate-pulse space-y-4">
+                        <div className="h-4 w-32 rounded bg-zinc-800" />
+                        <div className="h-10 w-3/4 rounded bg-zinc-800" />
+                        <div className="h-4 w-48 rounded bg-zinc-800" />
+                        <div className="mt-12 space-y-3">
+                            <div className="h-4 rounded bg-zinc-800/80" />
+                            <div className="h-4 rounded bg-zinc-800/80" />
+                            <div className="h-4 w-5/6 rounded bg-zinc-800/80" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (!blog) {
+        return null;
     }
 
     return (
