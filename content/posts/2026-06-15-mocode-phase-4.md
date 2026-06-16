@@ -10,9 +10,11 @@ tags:
   - LLM
   - ai
   - frontend
+  - Bun
+  - OpenTUI
 draft: false
 notionId: 380df5c0-26f4-807d-9eb5-d1ef86b5dfef
-notionSyncedAt: 2026-06-15T13:17:37.848Z
+notionSyncedAt: 2026-06-16T03:21:21.568Z
 ---
 
 Phase 3 的「会话 UI 壳层」在本阶段接上 **真实后端**：新增 **`@mocode/database`**（Prisma + Postgres）、**`@mocode/server`**（Hono REST API）与 **`@mocode/shared`**（模型白名单 + 流式 Zod Schema）。CLI 通过 **Hono 类型安全 Client** 调用 `POST/GET /sessions`，Home 提交首条消息后 **创建 Session 并写入首条 User Message**，再导航到 **`/sessions/:id`** 渲染数据库中的消息列表。认证、流式回复、会话列表 UI、Assistant 生成尚未实现。

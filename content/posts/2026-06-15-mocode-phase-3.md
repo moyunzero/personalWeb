@@ -10,9 +10,11 @@ tags:
   - LLM
   - ai
   - frontend
+  - Bun
+  - OpenTUI
 draft: false
 notionId: 380df5c0-26f4-80dc-a897-da6ecaf032c0
-notionSyncedAt: 2026-06-15T13:17:59.508Z
+notionSyncedAt: 2026-06-16T03:21:35.565Z
 ---
 
 在 Phase 2 的单页 Provider 壳层之上，本阶段引入 **React Router Memory Router**，将 CLI 拆为 **Home / NewSession / Session** 三个 Screen，并把 Provider 树迁入 **`RootLayout`**。新增可复用的 **`SessionShell`**（消息区 `scrollbox` + 底部 `InputBar` + 状态栏占位），以及 **`UserMessage`** **/** **`BotMessage`** **/** **`ErrorMessage`** 三类消息组件与 **`opentui-spinner`** 加载动画。Home 输入提交后会携带 `location.state` 导航到 `/sessions/new` 展示「创建会话中」的占位 UI；真实 Session API、Slash 命令与路由联动尚未完成。
