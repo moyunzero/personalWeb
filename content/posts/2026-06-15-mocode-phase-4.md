@@ -3,7 +3,7 @@ title: MoCode Phase 4 开发笔记
 slug: 2026-06-15-mocode-phase-4
 description: ""
 author: 墨韵
-date: 2026-06-15
+date: 2026-06-16
 categories:
   - note
 tags:
@@ -14,7 +14,7 @@ tags:
   - OpenTUI
 draft: false
 notionId: 380df5c0-26f4-807d-9eb5-d1ef86b5dfef
-notionSyncedAt: 2026-06-16T03:21:21.568Z
+notionSyncedAt: 2026-06-18T14:26:08.492Z
 ---
 
 Phase 3 的「会话 UI 壳层」在本阶段接上 **真实后端**：新增 **`@mocode/database`**（Prisma + Postgres）、**`@mocode/server`**（Hono REST API）与 **`@mocode/shared`**（模型白名单 + 流式 Zod Schema）。CLI 通过 **Hono 类型安全 Client** 调用 `POST/GET /sessions`，Home 提交首条消息后 **创建 Session 并写入首条 User Message**，再导航到 **`/sessions/:id`** 渲染数据库中的消息列表。认证、流式回复、会话列表 UI、Assistant 生成尚未实现。
