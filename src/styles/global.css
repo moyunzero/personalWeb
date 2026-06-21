@@ -37,3 +37,8 @@ body {
 .prose-blog pre {
   @apply bg-zinc-800 rounded-lg;
 }
+
+.prose-blog .mermaid-diagram-host svg,
+.prose-blog .mermaid-diagram svg {
+  @apply max-w-full h-auto;
+}

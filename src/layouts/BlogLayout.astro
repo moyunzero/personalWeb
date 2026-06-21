@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import type { SeoInput } from '../lib/seo';
+import MermaidHydrator from '../components/islands/MermaidHydrator';
 
 interface Props {
     seo: SeoInput;
@@ -26,4 +27,5 @@ const { seo } = Astro.props;
     <footer class="border-t border-zinc-800 py-8 text-center text-sm text-zinc-500">
         <p>© {new Date().getFullYear()} 墨韵</p>
     </footer>
+    <MermaidHydrator client:load />
 </BaseLayout>
