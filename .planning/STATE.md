@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: SEO 提升与 Astro 迁移
-status: Phase 5 planned — ready for execute
-stopped_at: Phase 5 planning complete
-last_updated: "2026-06-21T23:00:00.000Z"
-last_activity: 2026-06-21 — Phase 5 planned (launch close)
+status: v1.0 shipped — LAUNCH-05 backlog
+stopped_at: Phase 5 complete
+last_updated: "2026-06-21T23:30:00.000Z"
+last_activity: 2026-06-21 — Phase 5 launch-close + home content fix
 progress:
   total_phases: 5
-  completed_phases: 3
+  completed_phases: 5
   total_plans: 16
-  completed_plans: 13
-  percent: 81
+  completed_plans: 16
+  percent: 100
 ---
 
 # Project State
@@ -21,62 +21,51 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-21)
 
 **Core value:** 访客能通过搜索发现高质量技术博客内容，并顺畅阅读与探索作者的作品与技能。
-**Current focus:** Phase 5 — v1.0 上线收尾
+**Current focus:** v1.0 shipped — optional Rich Results follow-up
 
 ## Current Position
 
-Phase: 5 of 5 (planned)
-Plan: 0 of 3 in Phase 5
-Status: `/gsd-execute-phase 5`
-Last activity: 2026-06-21 — Phase 5 planning (deploy + webmaster UAT + milestone close)
+Phase: 5 of 5 (complete)
+Plan: 3 of 3 in Phase 5
+Status: v1.0 milestone shipped
+Last activity: 2026-06-21 — Astro live on GitHub Pages; Google/Bing webmaster confirmed; Baidu skipped
 
-Progress: [████████████████░░░░] 81%
+Progress: [████████████████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 4
-- Average duration: —
-- Total execution time: —
-
-**By Phase:**
-
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| PW-01 | 4 | 4 | — |
-
-**Recent Trend:** Phase 1 delivered in single execution session
+- Total plans completed: 16
+- Phases completed: 5
 
 ## Accumulated Context
 
 ### Decisions
 
-- Milestone v1.0: Astro 整站 SSG，分 4 阶段实施（见 ROADMAP.md）
-- 设计文档: `docs/SEO-MIGRATION-DESIGN.md`
-- Phase 1: 博客正文用 remark+rehype-highlight 构建时渲染（非 Astro deferred markdown），避免 content/posts 内图片路径被 Vite 错误解析
-- Phase 1 UAT: `.planning/phases/PW-01-astro-ssg/01-UAT.md` — 7/7 passed, no gaps
-- Phase 1 security: `.planning/phases/PW-01-astro-ssg/01-SECURITY.md` — threats_open: 0
-- Phase 2 UAT: `.planning/phases/PW-02-site-islands/02-UAT.md` — 9/9 pass, 1 skipped (no home featured block)
-- Phase 2 security: `.planning/phases/PW-02-site-islands/02-SECURITY.md` — threats_open: 0
-- Phase 3 plans: `.planning/phases/PW-03-ci/` — 03-01/02/03 PLAN.md; research 32/96 empty descriptions
+- Milestone v1.0: Astro 整站 SSG，5 阶段完成（见 ROADMAP.md）
+- Production deploy: `master` → GitHub Actions → GitHub Pages (Node 22)
+- Webmaster: Google + Bing verified/sitemap submitted; Baidu skipped per user
+- HomeMotion: `client:load` (not `client:visible`) — empty island blocked GSAP hydration
+- reveal-up: default visible in CSS; GSAP sets hidden state on load
 
 ### Pending Todos
 
-None.
+- LAUNCH-05: Rich Results Test on 3 blog URLs (manual)
 
 ### Blockers/Concerns
 
-- `github.io` 子路径对百度收录有天花板（已接受，见 PROJECT.md Out of Scope 边界）
+- None blocking production
 
 ## Deferred Items
 
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
-| *(none)* | | | |
+| Launch | LAUNCH-05 Rich Results | backlog | Phase 5 |
+| Launch | Baidu webmaster | skipped | User decision |
 
 ## Session Continuity
 
 Last session: 2026-06-21
-Stopped at: Phase 1 execution complete
-Resume file: `.planning/ROADMAP.md` Phase 2
+Stopped at: v1.0 shipped
+Resume file: `.planning/MILESTONES.md` v1.1 planning when needed

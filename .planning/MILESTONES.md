@@ -8,5 +8,5 @@ React 18 + Vite 个人站已上线 GitHub Pages（`moyunzero.github.io/personalW
 
 ## Milestones
 
-- 🚧 **v1.0 SEO 提升与 Astro 迁移** — Phases 1–4（in progress）
+- ✅ **v1.0 SEO 提升与 Astro 迁移** — shipped 2026-06-21（LAUNCH-05 Rich Results 待办）
 - 📋 **v1.1+** — 未规划

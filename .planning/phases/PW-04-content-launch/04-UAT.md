@@ -1,20 +1,14 @@
 ---
 status: partial
 phase: PW-04-content-launch
-source: 04-01-SUMMARY.md, 04-02-SUMMARY.md, 04-03-SUMMARY.md
+source: 04-01-SUMMARY.md, 04-02-SUMMARY.md, 04-03-SUMMARY.md, 05-02-SUMMARY.md
 started: 2026-06-21T22:22:00.000Z
-updated: 2026-06-21T22:25:00.000Z
+updated: 2026-06-21T23:30:00.000Z
 ---
 
 ## Current Test
 
-[testing paused — 2 manual LAUNCH-01 items outstanding]
-
-number: 11
-name: Webmaster Sitemap Submission
-expected: |
-  Follow docs/WEBMASTER-SUBMISSION.md: submit sitemap-index.xml to Google Search Console, Bing Webmaster, and 百度站长平台.
-awaiting: user confirmation (reply yes when done, or describe blockers)
+[testing paused — Rich Results manual check outstanding]
 
 ## Tests
 
@@ -69,14 +63,14 @@ result: pass
 note: Auto — file + README grep
 
 ### 11. Webmaster Sitemap Submission (LAUNCH-01 manual)
-expected: Sitemap submitted to Google Search Console, Bing Webmaster Tools, and 百度站长平台 per doc.
-result: pending
-note: Requires user accounts — cannot automate in CI
+expected: Sitemap submitted to Google Search Console and Bing Webmaster Tools per doc (Baidu optional).
+result: pass
+note: User confirmed Google+Bing 2026-06-21; Baidu skipped by user decision
 
 ### 12. Rich Results Test — 3 Posts (ROADMAP criterion)
 expected: Google Rich Results Test passes for 3 URLs in WEBMASTER-SUBMISSION.md (BlogPosting valid).
 result: pending
-note: External Google tool — user manual verification
+note: Not confirmed in Phase 5 checkpoint — run when ready
 
 ### 13. Phase 4 Automated UAT Suite
 expected: `yarn test:uat:4` — 15 vitest + 5 Playwright tests pass.
@@ -86,9 +80,9 @@ note: Auto — 20/20 passed on verify run
 ## Summary
 
 total: 13
-passed: 11
+passed: 12
 issues: 0
-pending: 2
+pending: 1
 skipped: 0
 blocked: 0
 
@@ -104,6 +98,7 @@ yarn seo:audit
 yarn seo:top-n-checklist
 yarn test:uat:4
 yarn perf:audit   # ~2 min, needs preview on :4321
+yarn verify:prod  # post-deploy smoke
 ```
 
 Manual after deploy:

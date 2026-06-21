@@ -2,7 +2,7 @@
 
 ## Milestones
 
-- 🚧 **v1.0 SEO 提升与 Astro 迁移** — Phases 1–5（Phase 5 planned）
+- 🚧 **v1.0 SEO 提升与 Astro 迁移** — Phases 1–5（LAUNCH-05 Rich Results 待办）
 
 ## Overview
 
@@ -14,7 +14,7 @@
 - [x] **Phase 2: 整站页面与交互岛** — 首页/作品集/关于迁移，GSAP/Lenis/Phaser，去掉 editor
 - [x] **Phase 3: 元数据流水线与 CI** — meta-batch、seo-audit、schema 严格校验
 - [x] **Phase 4: 内容优化与上线** — Top N 选题与深度优化、内链、性能与站长提交
-- [ ] **Phase 5: v1.0 上线收尾** — 生产部署、站长验证、Rich Results、里程碑归档
+- [x] **Phase 5: v1.0 上线收尾** — 生产部署、Google/Bing 站长验证、里程碑归档（Rich Results 待办）
 
 ## Phase Details
 
@@ -148,15 +148,15 @@ Plans:
 
 **Wave 1**
 
-- [ ] 05-01-PLAN.md — 提交实现 + 推送部署 + `verify-production.mjs` 生产冒烟（LAUNCH-03）
+- [x] 05-01-PLAN.md — 提交实现 + 推送部署 + `verify-production.mjs` 生产冒烟（LAUNCH-03）
 
 **Wave 2** *(depends on 05-01)*
 
-- [ ] 05-02-PLAN.md — 百度验证文件 + 站长/Rich Results 人工验收 + 关闭 04-UAT 11–12（LAUNCH-04、LAUNCH-05）
+- [x] 05-02-PLAN.md — Google/Bing 站长验收 + 关闭 04-UAT 11（LAUNCH-04 partial；百度跳过）
 
 **Wave 3** *(depends on 05-02)*
 
-- [ ] 05-03-PLAN.md — REQUIREMENTS 勾选 + ROADMAP/MILESTONES/STATE 更新 + 05-UAT（MILE-01、MILE-02）
+- [x] 05-03-PLAN.md — REQUIREMENTS 勾选 + ROADMAP/MILESTONES/STATE 更新 + 05-UAT（MILE-01、MILE-02）
 
 ## Progress
 
@@ -169,7 +169,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. 整站页面与交互岛 | 3/3 | Complete | 2026-06-21 |
 | 3. 元数据流水线与 CI | 3/3 | Complete | 2026-06-21 |
 | 4. 内容优化与上线 | 3/3 | Complete (UAT 11–12 → Phase 5) | 2026-06-21 |
-| 5. v1.0 上线收尾 | 0/3 | Planned | - |
+| 5. v1.0 上线收尾 | 3/3 | Complete (LAUNCH-05 pending) | 2026-06-21 |
 
 ---
 *Roadmap created: 2026-06-21 — Milestone v1.0*

@@ -120,7 +120,7 @@ yarn build && git push origin master
 - [x] `yarn seo:audit` 0 error
 - [x] `yarn perf:audit` 通过（Performance ≥ 85，LCP < 2.5s）
 - [x] `yarn verify:prod` 0 error（生产冒烟）
-- [ ] Google / 必应 / 百度 三平台 sitemap 已提交
+- [x] Google / 必应 sitemap 已提交（百度 v1.0 跳过）
 - [ ] Rich Results Test 上述 3 篇通过
 - [x] 生产环境抽查 `/blog/`、样本文章、分类页可访问
 
