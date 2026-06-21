@@ -9,6 +9,7 @@
 | robots.txt | https://moyunzero.github.io/personalWeb/robots.txt |
 | Google 验证文件 | https://moyunzero.github.io/personalWeb/googleef60eaecd43955c6.html |
 | Bing 验证文件 | https://moyunzero.github.io/personalWeb/BingSiteAuth.xml |
+| 百度验证文件 | 待添加 `public/baidu_verify_*.html` 后部署（见下方百度站长平台） |
 
 验证文件位于仓库 `public/`，构建后随 `dist/` 一并部署。
 
@@ -33,22 +34,50 @@
 
 ## 部署顺序（验证前必做）
 
+Astro v1.0 已于 2026-06-21 部署到生产。日常更新：
+
 ```bash
-yarn build
-git add public/googleef60eaecd43955c6.html public/BingSiteAuth.xml
-git commit -m "chore: add Google/Bing site verification files"
-git push   # 触发 GitHub Actions 部署到 Pages
+yarn build && yarn seo:audit   # 本地门禁
+git push origin master         # 触发 GitHub Actions 部署
 ```
 
-部署完成后（通常 1–3 分钟），用浏览器访问两个验证 URL，再在各平台点「验证」。
+首次添加验证文件时：
+
+```bash
+# 将平台下载的文件放入 public/
+git add public/googleef60eaecd43955c6.html public/BingSiteAuth.xml public/baidu_verify_*.html
+git commit -m "chore: add site verification files"
+git push origin master
+```
+
+部署完成后（通常 1–3 分钟），运行生产冒烟：
+
+```bash
+yarn verify:prod
+```
+
+预期输出 `Production verify: 0 error(s)`。可用 `PRODUCTION_URL` 覆盖目标站点。
+
+用浏览器访问验证 URL 后，再在各平台点「验证」。
+
+## 生产环境验证
+
+部署后等待 1–3 分钟 CDN 传播，然后：
+
+```bash
+yarn verify:prod
+```
+
+检查项：首页 200 + `zh-CN`、Google/Bing 验证文件、sitemap-index.xml。若存在 `public/baidu_verify_*.html`，脚本会自动增加百度 URL 检查。
 
 ## 百度站长平台
 
-1. 打开 [百度站长平台](https://ziyuan.baidu.com/)
+1. 打开 [百度搜索资源平台](https://ziyuan.baidu.com/)
 2. 添加站点 `https://moyunzero.github.io/personalWeb/`
-3. 完成验证（GitHub Pages 可用文件验证）
-4. 链接提交 → **sitemap** → 提交 `sitemap-index.xml` 完整 URL
-5. 注意：GitHub Pages 在国内访问与收录可能较慢，可配合主动推送（若可用）
+3. 选择 **文件验证**，下载 `baidu_verify_xxxx.html`，放入仓库 `public/`（勿改文件名）
+4. `git push` 部署后，用 `yarn verify:prod` 或浏览器确认百度验证 URL 返回 200
+5. 链接提交 → **sitemap** → 提交 `https://moyunzero.github.io/personalWeb/sitemap-index.xml`
+6. 注意：GitHub Pages 在国内访问与收录可能较慢
 
 ## Rich Results 抽查
 
@@ -62,12 +91,13 @@ git push   # 触发 GitHub Actions 部署到 Pages
 
 ## 上线检查清单
 
-- [ ] `yarn build` 0 error
-- [ ] `yarn seo:audit` 0 error
-- [ ] `yarn perf:audit` 通过（Performance ≥ 85，LCP < 2.5s）
+- [x] `yarn build` 0 error
+- [x] `yarn seo:audit` 0 error
+- [x] `yarn perf:audit` 通过（Performance ≥ 85，LCP < 2.5s）
+- [x] `yarn verify:prod` 0 error（生产冒烟）
 - [ ] Google / 必应 / 百度 三平台 sitemap 已提交
 - [ ] Rich Results Test 上述 3 篇通过
-- [ ] 生产环境抽查 `/blog/`、样本文章、分类页可访问
+- [x] 生产环境抽查 `/blog/`、样本文章、分类页可访问
 
 ## 本地维护命令
 
@@ -76,5 +106,6 @@ yarn seo:meta-batch --dry-run   # 元数据缺口报告
 yarn seo:top-n-score --dry-run  # Top N 评分预览
 yarn seo:top-n-checklist        # Top N 深度优化 checklist
 yarn perf:audit                 # Lighthouse 性能门禁（需 preview）
+yarn verify:prod                # 生产环境冒烟（部署后 1–3 分钟）
 yarn test:uat:4                 # Phase 4 自动化 UAT
 ```
