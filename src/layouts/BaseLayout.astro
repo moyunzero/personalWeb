@@ -47,6 +47,9 @@ const jsonLd =
         />
         <title>{seo.title}</title>
         <meta name="description" content={description} />
+        {SITE.baiduSiteVerification ? (
+            <meta name="baidu-site-verification" content={SITE.baiduSiteVerification} />
+        ) : null}
         {seo.keywords?.length ? (
             <meta name="keywords" content={seo.keywords.join(', ')} />
         ) : null}

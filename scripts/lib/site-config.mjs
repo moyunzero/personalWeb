@@ -1,4 +1,4 @@
-/** @type {{ name: string, title: string, description: string, url: string, origin: string, author: string, language: string, basePath: string }} */
+/** @type {{ name: string, title: string, description: string, url: string, origin: string, author: string, language: string, basePath: string, baiduSiteVerification?: string }} */
 export const SITE = {
     name: '墨韵',
     title: '墨韵 · 博客',
@@ -8,4 +8,5 @@ export const SITE = {
     author: '墨韵',
     language: 'zh-CN',
     basePath: '/personalWeb',
+    baiduSiteVerification: process.env.BAIDU_SITE_VERIFICATION || '',
 };

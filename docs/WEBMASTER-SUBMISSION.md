@@ -9,7 +9,7 @@
 | robots.txt | https://moyunzero.github.io/personalWeb/robots.txt |
 | Google 验证文件 | https://moyunzero.github.io/personalWeb/googleef60eaecd43955c6.html |
 | Bing 验证文件 | https://moyunzero.github.io/personalWeb/BingSiteAuth.xml |
-| 百度验证文件 | 待添加 `public/baidu_verify_*.html` 后部署（见下方百度站长平台） |
+| 百度验证 | HTML 标签（首页 meta）或 `public/baidu_verify_*.html`（见下方） |
 
 验证文件位于仓库 `public/`，构建后随 `dist/` 一并部署。
 
@@ -72,12 +72,37 @@ yarn verify:prod
 
 ## 百度站长平台
 
-1. 打开 [百度搜索资源平台](https://ziyuan.baidu.com/)
-2. 添加站点 `https://moyunzero.github.io/personalWeb/`
-3. 选择 **文件验证**，下载 `baidu_verify_xxxx.html`，放入仓库 `public/`（勿改文件名）
-4. `git push` 部署后，用 `yarn verify:prod` 或浏览器确认百度验证 URL 返回 200
-5. 链接提交 → **sitemap** → 提交 `https://moyunzero.github.io/personalWeb/sitemap-index.xml`
-6. 注意：GitHub Pages 在国内访问与收录可能较慢
+`github.io` 子域名**无法使用 CNAME 验证**，推荐二选一：
+
+### 方式 A：HTML 标签验证（推荐，适合 GitHub Pages）
+
+1. 打开 [百度搜索资源平台](https://ziyuan.baidu.com/) → 登录 → **用户中心** → **站点管理** → **添加网站**
+2. 站点地址填：`https://moyunzero.github.io/personalWeb/`（与浏览器实际访问一致）
+3. 验证方式选 **HTML标签验证**，复制 `content` 值（一串字母数字，不是整段 meta）
+4. 将 code 发给维护者，或本地设置环境变量后构建部署：
+
+```bash
+export BAIDU_SITE_VERIFICATION=你的content值
+yarn build && git push origin master
+```
+
+生产首页 `<head>` 会出现 `<meta name="baidu-site-verification" content="...">`。在平台点击 **完成验证**。
+
+也可在 GitHub Actions 的 `deploy.yml` build 步骤注入 `BAIDU_SITE_VERIFICATION` 密钥（Repository secrets）。
+
+### 方式 B：文件验证
+
+1. 同上添加站点后，选 **文件验证**
+2. 下载 `baidu_verify_xxxx.html`，**不要改文件名**
+3. 放入仓库 `public/`，`git push` 部署
+4. 浏览器打开 `https://moyunzero.github.io/personalWeb/baidu_verify_xxxx.html` 应可访问
+5. 回到平台点击 **完成验证**
+
+### 提交 sitemap
+
+验证通过后：链接提交 → **sitemap** → `https://moyunzero.github.io/personalWeb/sitemap-index.xml`
+
+注意：GitHub Pages 在国内访问与收录可能较慢。
 
 ## Rich Results 抽查
 
