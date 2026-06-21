@@ -1,0 +1,51 @@
+---
+interface RelatedPost {
+    id: string;
+    title: string;
+    description?: string;
+}
+
+interface Props {
+    heading: string | null;
+    posts: RelatedPost[];
+}
+
+const { heading, posts } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+if (!heading || posts.length === 0) {
+    return null;
+}
+---
+
+<section
+    class="mt-12 border-t border-zinc-800/80 pt-10"
+    data-testid="related-posts"
+>
+    <h2 class="mb-5 text-lg font-semibold text-zinc-300">{heading}</h2>
+    <ul class="space-y-3">
+        {
+            posts.map((post) => (
+                <li>
+                    <a
+                        href={`${base}blog/${post.id}/`}
+                        class="group block rounded-xl border border-zinc-800 bg-zinc-900/40 px-4 py-3 transition-colors hover:border-zinc-700 hover:bg-zinc-900"
+                    >
+                        <h3
+                            class="text-sm font-medium text-zinc-200 group-hover:text-white"
+                        >
+                            {post.title}
+                        </h3>
+                        {
+                            post.description && (
+                                <p class="mt-1 line-clamp-1 text-xs text-zinc-500">
+                                    {post.description}
+                                </p>
+                            )
+                        }
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</section>

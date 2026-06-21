@@ -1,7 +1,9 @@
 ---
 title: "Learn how to THINK in code – The Hard & Conceptual Parts of JavaScrip "
 slug: 2026-05-15-learn-how-to-think-in-code-the-hard-conc
-description: ""
+description: "Think in JavaScript: The Hard & Conceptual Parts 课程核心理念 ：学习
+  JavaScript 不应停留在背诵语法，而应深入理解 引擎与运行时机制（engine and runtime mechanics） 。
+  一、作用域（Scope） 1.1 什么是作用域 代码被划分为一…"
 author: 墨韵
 date: 2026-05-15
 categories:

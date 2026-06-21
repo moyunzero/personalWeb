@@ -7,6 +7,7 @@ import { mkdir, writeFile, access } from 'node:fs/promises';
 import { constants } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { extractExcerpt } from '../src/blog/excerpt.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -62,11 +63,13 @@ if (await exists(postPath)) {
 
 const categoryYaml = categories.map((c) => `  - ${c}`).join('\n');
 const sampleImage = `images/blog/${slug}/photo.jpg`;
+const introBody = `# ${title}\n\n在这里开始写作…`;
+const descriptionStub = extractExcerpt(introBody, 120);
 
 const template = `---
 title: ${JSON.stringify(title)}
 slug: ${slug}
-description: ""
+description: ${JSON.stringify(descriptionStub)}
 author: 墨韵
 date: ${new Date().toISOString().slice(0, 10)}
 categories:
@@ -76,9 +79,7 @@ draft: true
 featured: false
 ---
 
-# ${title}
-
-在这里开始写作…
+${introBody}
 
 ![示例图片](${sampleImage})
 `;

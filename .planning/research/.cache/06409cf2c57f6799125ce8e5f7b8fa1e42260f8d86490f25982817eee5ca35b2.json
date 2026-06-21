@@ -1,0 +1,1 @@
+{"content":"Astro copies public/ files as-is to build output root without transformation; referenced by URL path. Custom publicDir supported. Build produces dist/ for static deploy.","source":"docs","provider":"context7","confidence":"MEDIUM","fetched_at":"2026-06-21T14:42:42.325Z","ttl":86400000,"kind":"docs"}

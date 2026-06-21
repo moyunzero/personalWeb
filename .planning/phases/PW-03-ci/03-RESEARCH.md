@@ -501,17 +501,15 @@ Source: [CITED: docs.astro.build/en/guides/content-collections/] — `descriptio
 | A4 | Title auto-trim on apply is **out** (warn only) | meta-batch | Low — design says "修正 title 过长" but manual review safer |
 | A5 | Regex dist audit optional, not required for SEO-05 | Pattern 3 | Low — source audit + Zod sufficient |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Strict description min length: error or warn?**
-   - What we know: Design target 120–160 for Top N; batch uses excerpt ~120–160.
-   - Recommendation: **warn** for `< 30` chars in audit; **error** only for empty. Planner can tighten in Phase 4.
+1. **Strict description min length: error or warn?** — **RESOLVED:** `desc-short` (< 30 chars) is **warn** only; **error** only on empty published description (`desc-missing`). Phase 4 may tighten length targets for Top N.
 
-2. **Should `POST_SCHEMA_STRICT` be env var or hard-coded after wave 3-03?**
-   - Recommendation: Hard-code strict in schema after batch merged; remove env toggle to avoid CI/local drift.
+2. **Should `POST_SCHEMA_STRICT` be env var or hard-coded after wave 3-03?** — **RESOLVED:** Hard-code strict published-description requirement in `post-schema.mjs` in plan 03-03; remove env toggle to avoid CI/local drift.
 
-3. **Commit batch-applied 96 files in one plan or split?**
-   - Recommendation: Single atomic commit in 03-03 with audit green — easier rollback.
+3. **Commit batch-applied 96 files in one plan or split?** — **RESOLVED:** Single atomic commit in 03-03 Task 1 with audit green before enabling strict schema in Task 2.
+
+4. **When to chain `seo:audit` into `yarn build`?** — **RESOLVED:** Defer build chain until after `seo:meta-batch --apply` in 03-03 Task 1 so mid-phase CI does not fail on ~32 pre-batch empty descriptions.
 
 ## Environment Availability
 
@@ -647,8 +645,7 @@ Source: [CITED: docs.astro.build/en/guides/content-collections/] — `descriptio
 
 ### Open Questions
 
-- Description min-length as error vs warn (recommend warn < 30, error only empty).
-- Hard-code strict schema after batch vs env toggle (recommend hard-code).
+All resolved — see **Open Questions (RESOLVED)** section above.
 
 ### Ready for Planning
 

@@ -2,7 +2,9 @@
 title: System Design Course – APIs, Databases, Caching, CDNs, Load Balancing &
   Production Infra
 slug: 2026-05-27-system-design-course-apis-databases-cach
-description: ""
+description: 1. 引言 系统设计（System Design）是 中级 → 高级/资深工程师 的必备技能。
+  公司不是只招“会写代码”的人，而是招能做 架构决策 、让系统 高性能、可扩展、安全、生产就绪 的人。 本课程路径：从 单服务器 起步 → 数据库选型 →
+  扩展策略 → 负载均衡 → API 设计 → 协议/传输层 → RES…
 author: 墨韵
 date: 2026-04-20
 categories:

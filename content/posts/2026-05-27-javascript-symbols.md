@@ -1,7 +1,9 @@
 ---
 title: "探索 JavaScript  Symbols "
 slug: 2026-05-27-javascript-symbols
-description: ""
+description: unique 的符号与其他 JavaScript 原始类型不同，因为它们保证是唯一的。
+  当处理对象时，符号的真正力量才会显现。与字符串或数字不同，符号可以用作属性键而不会有与现有属性冲突的风险。这使得它们在为对象添加功能而不干扰现有代码时极为宝贵。
+  当你将符号用作属性键时，它不会出现在 或普通 循环中。 你仍然可…
 author: 墨韵
 date: 2025-04-17
 categories:
@@ -386,3 +388,10 @@ const SHARED_ACTION = Symbol.for('action');
 
 
 参考：[https://www.trevorlasn.com/blog/symbols-in-javascript](https://www.trevorlasn.com/blog/symbols-in-javascript)
+
+## 延伸阅读
+
+- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
+- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
+- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
+- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

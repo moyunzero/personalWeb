@@ -1,0 +1,37 @@
+---
+import { skills } from '../../data/skills';
+---
+
+<section id="skill" class="section">
+    <div class="container">
+        <h2 class="headline-2 reveal-up">技能树</h2>
+        <p class="text-zinc-400 mt-3 mb-8 max-w-[50ch] reveal-up">
+            从 CRUD 到 AI，持续探索中
+        </p>
+        <div class="grid gap-3 grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))]">
+            {
+                skills.map(({ imgSrc, label, desc, level }) => {
+                    const levelClass =
+                        level === 3 ? 'pulse-level-3' : level === 2 ? 'pulse-level-2' : 'pulse-level-1';
+                    return (
+                        <div
+                            class={`p-4 rounded-2xl bg-zinc-800 ring-1 ring-inset ring-zinc-50/5 transition-all duration-300 group hover:scale-[1.02] ${levelClass} reveal-up`}
+                        >
+                            <div class="relative z-10 flex items-center gap-4">
+                                <figure
+                                    class="img-box w-11 h-11 rounded-lg grid place-items-center bg-zinc-900/60 group-hover:scale-110 transition-transform duration-300"
+                                >
+                                    <img src={imgSrc} alt={label} width="24" height="24" />
+                                </figure>
+                                <div>
+                                    <h3 class="title-1 mb-1">{label}</h3>
+                                    <p class="text-sm text-zinc-400">{desc}</p>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })
+            }
+        </div>
+    </div>
+</section>

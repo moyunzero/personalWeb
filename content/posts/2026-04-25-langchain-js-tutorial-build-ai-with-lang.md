@@ -1,8 +1,9 @@
 ---
-title: "LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full
-  Crash Course "
+title: "LangChain JS Tutorial: Build AI With LangChain In JavaScript"
 slug: 2026-04-25-langchain-js-tutorial-build-ai-with-lang
-description: ""
+description: Introduction（引言） 问题痛点 ：YouTube
+  上学习资源海量，但手动搜索效率低、推荐不精准（尤其是特定学习目标，如“React Hooks 入门”）。 解决方案 ：用 LangChain JS 构建一个
+  智能代理（Agent） ，它能： 1. 从指定 YouTube 频道抓取视频数据； 2. 将视…
 author: 墨韵
 date: 2026-04-26
 categories:
@@ -275,3 +276,28 @@ notionSyncedAt: 2026-06-01T06:41:06.200Z
 
 
 核心收获是**掌握 Prompt + Chain + Retriever + Memory 的组合拳**，可以快速扩展出 Chatbot、RAG 系统、AI Agent 等任意 JS AI 应用。
+
+## 延伸阅读
+
+- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
+- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
+- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)
+- [HTML基础](/blog/2023-03-12-html/)
+
+## 相关推荐
+
+- [JavaScript](/blog/2023-04-02-javascript/)
+- [TypeScript](/blog/2023-04-20-typescript/)
+- [Node](/blog/2023-05-10-node/)
+- [10 个每个开发者都应该了解的 TypeScript 高级概念](/blog/2024-11-22-10-typescript/)
+- [探索开源 AI 模型：LLMs 和 Transformer 架构](/blog/2024-12-20-ai-llms-transformer/)
+- [CSS Tricks: Top 10 Mind-Blowing Front-End Hacks That will Blow Your Mind! ](/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/)
+- [JavaScript 解构指南](/blog/2025-01-26-javascript/)
+- [Full Stack App Build | Travel Log w/ Nuxt, Vue, Better Auth, Drizzle, Tailwind, DaisyUI, MapLibre](/blog/2026-04-04-full-stack-app-build-travel-log-w-nuxt-v/)
+- [探索 JavaScript  Symbols ](/blog/2026-05-27-javascript-symbols/)
+- [MoCode Phase 2 开发笔记](/blog/2026-06-15-mocode-phase-2/)
+- [MoCode Phase 3 开发笔记](/blog/2026-06-15-mocode-phase-3/)
+- [MoCode Phase 5 开发笔记](/blog/2026-06-17-mocode-phase-5/)
+- [MoCode Phase 7 开发笔记](/blog/2026-06-19-mocode-phase-7/)
+- [MoCode Phase 8 开发笔记](/blog/2026-06-20-mocode-phase-8/)
+- [使用 Tailwind CSS 进行响应式设计](/blog/2024-10-12-tailwind-css/)

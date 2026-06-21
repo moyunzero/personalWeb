@@ -1,0 +1,39 @@
+---
+import { aboutItems } from '../../data/about';
+
+const logoSrc = `${import.meta.env.BASE_URL}images/logo.svg`;
+---
+
+<section id="about" class="section">
+    <div class="container">
+        <div class="bg-zinc-800/50 p-7 rounded-2xl md:p-12 reveal-up">
+            <p class="text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch] leading-relaxed">
+                没有废话，只有折腾过的一些东西。
+                <br />
+                每个项目都是一次“我试试看”。
+                <br />
+                <span class="text-zinc-500">——什么都会一点，正在把“一点”变成“很多”</span>
+            </p>
+            <div class="flex flex-wrap items-center gap-4 md:gap-7">
+                {
+                    aboutItems.map(({ label, number }) => (
+                        <div>
+                            <div class="flex items-center md:mb-2">
+                                <span class="text-2xl font-semibold md:text-4xl">{number}</span>
+                                <span class="text-sky-400 font-semibold md:text-3xl">+</span>
+                            </div>
+                            <p class="text-sm text-zinc-400">{label}</p>
+                        </div>
+                    ))
+                }
+                <img
+                    src={logoSrc}
+                    alt="Logo"
+                    width="30"
+                    height="30"
+                    class="ml-auto md:w-[40px] md:h-[40px]"
+                />
+            </div>
+        </div>
+    </div>
+</section>

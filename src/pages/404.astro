@@ -1,0 +1,28 @@
+---
+import BlogLayout from '../layouts/BlogLayout.astro';
+import { SITE } from '../lib/site';
+
+const homeHref = import.meta.env.BASE_URL;
+const blogHref = `${import.meta.env.BASE_URL}blog/`;
+---
+
+<BlogLayout
+    seo={{
+        title: `页面未找到 · ${SITE.name}`,
+        description: '请求的页面不存在。',
+        path: '/404/',
+        noindex: true,
+    }}
+>
+    <div class="py-20 text-center">
+        <p class="text-6xl font-semibold text-zinc-600">404</p>
+        <h1 class="headline-2 mt-4 mb-4">页面未找到</h1>
+        <p class="text-zinc-400 mb-8">你访问的页面不存在或已被移除。</p>
+        <div class="flex justify-center gap-6 text-sm">
+            <a href={homeHref} class="text-violet-400 hover:text-violet-300"
+                >返回首页</a>
+            <a href={blogHref} class="text-violet-400 hover:text-violet-300"
+                >浏览博客</a>
+        </div>
+    </div>
+</BlogLayout>

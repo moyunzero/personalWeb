@@ -1,7 +1,9 @@
 ---
 title: MoCode Phase 5 开发笔记
 slug: 2026-06-17-mocode-phase-5
-description: ""
+description: Phase 4 的 Session API 在本阶段补上 生产可观测性 ：Server 接入 Sentry 中间件
+  （请求追踪、错误上报、结构化日志），Session 路由在列表 / 加载 / 创建 / 校验失败等关键路径写入 。同时将 拆成类型入口与运行时 Client
+  两个 export ，避免 CLI 为 …
 author: 墨韵
 date: 2026-06-17
 categories:
@@ -636,3 +638,10 @@ bun run dev:cli
 | `packages/server` | `db` ← `@mocode/database/client`；枚举 ← `@mocode/database/enums` |
 | `packages/cli`    | 类型 ← `@mocode/database`；枚举 ← `@mocode/database/enums`          |
 | 脚本 / 迁移           | `db` ← `@mocode/database/client`                               |
+
+## 延伸阅读
+
+- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
+- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
+- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
+- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

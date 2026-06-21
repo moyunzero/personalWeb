@@ -48,6 +48,14 @@
 
 - [ ] **LAUNCH-01**: 文档记录 Google / 必应 / 百度站长 sitemap 提交步骤（免费）
 - [ ] **LAUNCH-02**: 首页 Lighthouse Performance ≥ 85，LCP < 2.5s（4G 模拟）
+- [ ] **LAUNCH-03**: Astro `dist/` 部署至 GitHub Pages；验证文件与 sitemap 生产可访问
+- [ ] **LAUNCH-04**: Google / 必应 / 百度 三平台所有权验证 + sitemap 已提交
+- [ ] **LAUNCH-05**: Rich Results Test 抽查 3 篇博客通过
+
+### Milestone — v1.0 收尾
+
+- [ ] **MILE-01**: `REQUIREMENTS.md` 27 项 v1.0 全部勾选完成
+- [ ] **MILE-02**: `MILESTONES.md` v1.0 标记为已完成
 
 ## v2 Requirements
 
@@ -102,12 +110,17 @@ Deferred to future milestones.
 | SEO-08 | Phase 4 | Pending |
 | OPT-03 | Phase 4 | Pending |
 | OPT-04 | Phase 4 | Pending |
-| LAUNCH-01 | Phase 4 | Pending |
+| LAUNCH-01 | Phase 4 / 5 | Pending |
 | LAUNCH-02 | Phase 4 | Pending |
+| LAUNCH-03 | Phase 5 | Pending |
+| LAUNCH-04 | Phase 5 | Pending |
+| LAUNCH-05 | Phase 5 | Pending |
+| MILE-01 | Phase 5 | Pending |
+| MILE-02 | Phase 5 | Pending |
 
 **Coverage:**
 
-- v1.0 requirements: 27 total
+- v1.0 requirements: 32 total
 - Mapped to phases: 27
 - Unmapped: 0 ✓
 

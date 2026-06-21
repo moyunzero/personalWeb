@@ -1,5 +1,4 @@
 import { parseFrontmatter } from './frontmatter';
-import { extractExcerpt } from './excerpt';
 import { estimateReadTime, resolveBlogAsset } from './utils';
 import { validateCategoryIds } from './getCategories';
 
@@ -55,7 +54,7 @@ export function parsePost(filePath, raw) {
     const draft = Boolean(data.draft);
     const featured = Boolean(data.featured);
     const body = content.trim();
-    const description = String(data.description || '').trim() || extractExcerpt(body);
+    const description = String(data.description || '').trim();
 
     return {
         id: slug,

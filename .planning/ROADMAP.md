@@ -2,7 +2,7 @@
 
 ## Milestones
 
-- 🚧 **v1.0 SEO 提升与 Astro 迁移** — Phases 1–4（in progress）
+- 🚧 **v1.0 SEO 提升与 Astro 迁移** — Phases 1–5（Phase 5 planned）
 
 ## Overview
 
@@ -10,10 +10,11 @@
 
 ## Phases
 
-- [ ] **Phase 1: Astro 基础与博客 SSG** — Astro 骨架、博客静态页、SEO head、sitemap、GH Pages 部署
-- [ ] **Phase 2: 整站页面与交互岛** — 首页/作品集/关于迁移，GSAP/Lenis/Phaser，去掉 editor
-- [ ] **Phase 3: 元数据流水线与 CI** — meta-batch、seo-audit、schema 严格校验
-- [ ] **Phase 4: 内容优化与上线** — Top N 选题与深度优化、内链、性能与站长提交
+- [x] **Phase 1: Astro 基础与博客 SSG** — Astro 骨架、博客静态页、SEO head、sitemap、GH Pages 部署
+- [x] **Phase 2: 整站页面与交互岛** — 首页/作品集/关于迁移，GSAP/Lenis/Phaser，去掉 editor
+- [x] **Phase 3: 元数据流水线与 CI** — meta-batch、seo-audit、schema 严格校验
+- [x] **Phase 4: 内容优化与上线** — Top N 选题与深度优化、内链、性能与站长提交
+- [ ] **Phase 5: v1.0 上线收尾** — 生产部署、站长验证、Rich Results、里程碑归档
 
 ## Phase Details
 
@@ -33,19 +34,19 @@
 Plans:
 **Wave 1**
 
-- [ ] 01-01-PLAN.md — 初始化 Astro 5（React/Tailwind/sitemap 集成）、Wave 0 Vitest + frontmatter 测试、目录与 `astro.config.mjs`
+- [x] 01-01-PLAN.md — 初始化 Astro 5（React/Tailwind/sitemap 集成）、Wave 0 Vitest + frontmatter 测试、目录与 `astro.config.mjs`
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 01-02-PLAN.md — Content Collections 自定义 loader（D-09）+ 博客列表/详情 SSG + Shiki 正文
+- [x] 01-02-PLAN.md — Content Collections 自定义 loader（D-09）+ 博客列表/详情 SSG + Shiki 正文
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 01-03-PLAN.md — BaseLayout/BlogLayout 构建时 SEO head（canonical、OG、BlogPosting JSON-LD、`lang=zh-CN`）
+- [x] 01-03-PLAN.md — BaseLayout/BlogLayout 构建时 SEO head（canonical、OG、BlogPosting JSON-LD、`lang=zh-CN`）
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
-- [ ] 01-04-PLAN.md — sitemap/robots 集成、占位首页、404 处理、deploy.yml 切换 `astro build`
+- [x] 01-04-PLAN.md — sitemap/robots 集成、占位首页、404 处理、deploy.yml 切换 `astro build`
 
 ### Phase 2: 整站页面与交互岛
 
@@ -63,9 +64,17 @@ Plans:
 
 Plans:
 
-- [ ] 02-01: 首页静态层 + HomeMotion 岛（GSAP/Lenis `client:visible`）
-- [ ] 02-02: GameIsland 点击加载 Phaser + 作品集/关于页迁移
-- [ ] 02-03: 移除 BlogEditor/路由；清理旧 Vite SPA 入口与依赖
+**Wave 1**
+
+- [x] `02-01-PLAN.md` — 首页静态层 + HomeMotion 岛（GSAP/Lenis `client:visible`）
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [x] `02-02-PLAN.md` — GameIsland 点击加载 Phaser + 作品集 description/SEO
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [x] `02-03-PLAN.md` — 移除 BlogEditor/路由；清理 Vite SPA 入口；更新 README
 
 ### Phase 3: 元数据流水线与 CI
 
@@ -80,12 +89,18 @@ Plans:
 4. `yarn seo:audit` 在 CI 中失败于 error；全库 build 通过严格 `description` 校验
 
 **Plans**: 3 plans
-
 Plans:
+**Wave 1**
 
-- [ ] 03-01: 实现 `seo:meta-batch` 脚本（扫描、建议、apply、slug 保护）
-- [ ] 03-02: 实现 `seo:audit` + 接入 `yarn build` 与 GitHub Actions
-- [ ] 03-03: 执行 batch apply + 启用严格 schema；修复 audit 报错
+- [x] 03-01-PLAN.md — `seo:meta-batch` 脚本（扫描、建议、apply、slug 保护）— Wave 1
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [x] 03-02-PLAN.md — `seo:audit` + blog:new / notion:sync 对齐 schema（build 链在 03-03 apply 后接入）
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [x] 03-03-PLAN.md — 全库 batch apply + 启用严格 description schema — Wave 3
 
 ### Phase 4: 内容优化与上线
 
@@ -103,21 +118,58 @@ Plans:
 
 Plans:
 
-- [ ] 04-01: 相关文章组件 + 分类聚合（SEO-07、SEO-08）
-- [ ] 04-02: Top N 选题评分 + 深度优化执行（OPT-03、OPT-04）
-- [ ] 04-03: 性能验收 + 站长提交文档 + 上线检查清单（LAUNCH-01、LAUNCH-02）
+**Wave 1**
+
+- [x] 04-01-PLAN.md — 相关文章 adapter + RelatedPosts + 静态分类 hub 页 + e2e（SEO-07、SEO-08）
+
+**Wave 2** *(depends on 04-01)*
+
+- [x] 04-02-PLAN.md — Top N 评分 CLI + checklist + 15–20 篇深度优化（OPT-03、OPT-04）
+
+**Wave 3** *(depends on 04-02)*
+
+- [x] 04-03-PLAN.md — 首页性能 + LHCI + 站长文档 + 上线验收（LAUNCH-01、LAUNCH-02）— human checkpoint pending
+
+### Phase 5: v1.0 上线收尾
+
+**Goal**: Astro 站点生产上线、三平台站长验证与 Rich Results 通过、v1.0 里程碑正式关闭
+**Depends on**: Phase 4
+**Requirements**: LAUNCH-03, LAUNCH-04, LAUNCH-05, MILE-01, MILE-02
+**Success Criteria** (what must be TRUE):
+
+1. `origin/master` 部署 Astro `dist/` 至 GitHub Pages；验证文件与 `sitemap-index.xml` 生产可访问
+2. Google / 必应 / 百度 三平台完成所有权验证并提交 sitemap
+3. Rich Results Test 抽查 3 篇博客通过
+4. `REQUIREMENTS.md` 27 项全部 `[x]`；`MILESTONES.md` v1.0 标记完成
+
+**Plans**: 3 plans
+
+Plans:
+
+**Wave 1**
+
+- [ ] 05-01-PLAN.md — 提交实现 + 推送部署 + `verify-production.mjs` 生产冒烟（LAUNCH-03）
+
+**Wave 2** *(depends on 05-01)*
+
+- [ ] 05-02-PLAN.md — 百度验证文件 + 站长/Rich Results 人工验收 + 关闭 04-UAT 11–12（LAUNCH-04、LAUNCH-05）
+
+**Wave 3** *(depends on 05-02)*
+
+- [ ] 05-03-PLAN.md — REQUIREMENTS 勾选 + ROADMAP/MILESTONES/STATE 更新 + 05-UAT（MILE-01、MILE-02）
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Astro 基础与博客 SSG | 0/4 | Not started | - |
-| 2. 整站页面与交互岛 | 0/3 | Not started | - |
-| 3. 元数据流水线与 CI | 0/3 | Not started | - |
-| 4. 内容优化与上线 | 0/3 | Not started | - |
+| 1. Astro 基础与博客 SSG | 4/4 | Complete | 2026-06-21 |
+| 2. 整站页面与交互岛 | 3/3 | Complete | 2026-06-21 |
+| 3. 元数据流水线与 CI | 3/3 | Complete | 2026-06-21 |
+| 4. 内容优化与上线 | 3/3 | Complete (UAT 11–12 → Phase 5) | 2026-06-21 |
+| 5. v1.0 上线收尾 | 0/3 | Planned | - |
 
 ---
 *Roadmap created: 2026-06-21 — Milestone v1.0*

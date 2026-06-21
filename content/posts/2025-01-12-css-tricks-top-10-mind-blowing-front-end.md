@@ -1,7 +1,9 @@
 ---
-title: "CSS Tricks: Top 10 Mind-Blowing Front-End Hacks That will Blow Your Mind! "
+title: "CSS Tricks: Top 10 Mind-Blowing Front-End Hacks That will Bl"
 slug: 2025-01-12-css-tricks-top-10-mind-blowing-front-end
-description: "使用 –custom-properties 定义可重用值，然后在您的 CSS 中使用它们！"
+description: 1. CSS Variables Magic 使用 –custom properties 定义可重用值，然后在您的 CSS
+  中使用它们！ 2. 隐藏悬停效果 不在 CSS 中添加悬停效果？试试使用 和子选择器进行隐蔽的悬停交互！ 你明白了吗？我们是如何不使用 CSS
+  悬停效果创建具有悬停效果的框的。 3. 边框半…
 author: 墨韵
 date: 2025-01-12
 categories:
@@ -547,3 +549,10 @@ img {
 
 
 ![%E6%88%AA%E5%B1%8F2024-11-11_22.20.33.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-598189d4f3.png)
+
+## 延伸阅读
+
+- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
+- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
+- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
+- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

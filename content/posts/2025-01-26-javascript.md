@@ -1,7 +1,9 @@
 ---
 title: JavaScript 解构指南
 slug: 2025-01-26-javascript
-description: 解构赋值允许从数组或对象中提取单个值并将它们分配给一组标识符
+description: 如果你花了大量时间深入研究现代
+  JavaScript，很可能你已经看到了足够多的省略号（...），可以把最忧郁的90年代角色扮演游戏主角都比下去。我不会责怪你觉得它们有点让人困惑。当然，我也不会责怪你觉得
+  JavaScript 里的任何东西都让人困惑，但我总觉得这些省略号乍一看是特别不直观的。再加上你常常会在“解…
 author: 墨韵
 date: 2025-01-26
 categories:
@@ -332,3 +334,10 @@ console.log( ...myObject );
 
 > Uncaught SyntaxError: expected expression, got '...'
 ```
+
+## 延伸阅读
+
+- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
+- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
+- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
+- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

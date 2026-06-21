@@ -1,0 +1,50 @@
+---
+const base = import.meta.env.BASE_URL;
+const resumeHref = `${base}resume.pdf`;
+---
+
+<section id="home" class="pt-28 lg:pt-36 relative overflow-hidden">
+    <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] lg:w-[800px] lg:h-[800px] bg-gradient-to-br from-sky-400/10 via-sky-400/5 to-transparent rounded-full blur-3xl pointer-events-none"
+    ></div>
+    <div
+        class="absolute top-1/4 right-1/4 w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] bg-gradient-to-br from-emerald-400/10 via-emerald-400/5 to-transparent rounded-full blur-3xl pointer-events-none"
+    ></div>
+    <div class="container relative z-10">
+        <div class="max-w-4xl mx-auto text-center lg:text-left">
+            <div class="flex items-center justify-center lg:justify-start gap-3 mb-6">
+                <figure
+                    class="w-9 h-9 rounded-lg flex-shrink-0 bg-gradient-to-br from-sky-400 via-emerald-400 to-purple-500 relative overflow-hidden"
+                >
+                    <div class="absolute top-1 left-1 w-3 h-3 rounded-full bg-white/30"></div>
+                    <div class="absolute bottom-1 right-1 w-2 h-2 rounded-full bg-white/40"></div>
+                    <div
+                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-white/60"
+                    ></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
+                </figure>
+                <div class="flex items-center gap-1.5 text-zinc-400 text-sm tracking-wide">
+                    <span class="relative w-2 h-2 rounded-full bg-emerald-400">
+                        <span class="absolute inset-0 rounded-full bg-emerald-400 animate-ping"></span>
+                    </span>
+                    正在摸鱼中 🐟
+                </div>
+            </div>
+            <h2
+                class="headline-1 max-w-full sm:max-w-3xl lg:max-w-4xl mx-auto lg:mx-0 mt-5 mb-10 lg:mb-12 leading-tight"
+            >
+                用代码创造有趣的东西 ✨
+            </h2>
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <a href={resumeHref} class="btn btn-primary">
+                    看看我的简历
+                    <span class="material-symbols-rounded" aria-hidden="true">download</span>
+                </a>
+                <a href="#about" class="btn btn-outline">
+                    了解更多
+                    <span class="material-symbols-rounded" aria-hidden="true">arrow_downward</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

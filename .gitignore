@@ -10,6 +10,8 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+.astro/
+.lighthouseci/
 public/sitemap.xml
 public/robots.txt
 public/posts-index.json
@@ -18,6 +20,8 @@ public/rss.xml
 
 # Playwright / MCP 调试快照（本地测试产物）
 .playwright-mcp/
+test-results/
+playwright-report/
 
 # 环境变量：全部忽略，仅保留 .env.example 作为模板
 # 生产环境通过 GitHub Actions / Vercel 等 CI 注入
@@ -42,7 +46,7 @@ public/rss.xml
 # Kiro directories and files
 .kiro/
 
-# Test files
+# Test files (allow project tests/ suite)
 *.test.js
 *.test.jsx
 *.test.ts
@@ -51,6 +55,8 @@ public/rss.xml
 *.spec.jsx
 *.spec.ts
 *.spec.tsx
+!tests/
+!tests/**
 src/test/
 vitest.config.js
 

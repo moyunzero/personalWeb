@@ -1,7 +1,9 @@
 ---
 title: MoCode Phase 3 开发笔记
 slug: 2026-06-15-mocode-phase-3
-description: ""
+description: 在 Phase 2 的单页 Provider 壳层之上，本阶段引入 React Router Memory Router ，将 CLI
+  拆为 Home / NewSession / Session 三个 Screen，并把 Provider 树迁入 。新增可复用的 （消息区 + 底部 +
+  状态栏占位），以及 / …
 author: 墨韵
 date: 2026-06-15
 categories:
@@ -661,3 +663,10 @@ git checkout moyunzero/feat/cli-phase3-session-ui
 
 
 ---
+
+## 延伸阅读
+
+- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
+- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
+- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
+- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

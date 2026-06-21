@@ -1,0 +1,74 @@
+---
+const base = import.meta.env.BASE_URL;
+const logoSrc = `${base}images/logo.svg`;
+
+const sitemap = [
+    { label: '首页', href: '#home' },
+    { label: '关于', href: '#about' },
+    { label: '作品', href: '#work' },
+    { label: '联系', href: '#contact' },
+];
+
+const socials = [{ label: 'GitHub', href: 'https://github.com/moyunzero' }];
+const year = new Date().getFullYear();
+---
+
+<footer class="section">
+    <div class="container">
+        <div class="lg:grid lg:grid-cols-2">
+            <div class="mb-10">
+                <h2 class="headline-1 mb-8 lg:max-w-[12ch] reveal-up">一起搞点有意思的？</h2>
+                <a href="mailto:zero305747648@gmail.com" class="btn btn-primary reveal-up">
+                    聊聊项目
+                    <span class="material-symbols-rounded" aria-hidden="true">chevron_right</span>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 gap-4 lg:pl-20">
+                <div>
+                    <p class="mb-2 reveal-up">导航</p>
+                    <ul>
+                        {
+                            sitemap.map(({ label, href }) => (
+                                <li>
+                                    <a
+                                        href={href}
+                                        class="block text-sm text-zinc-400 py-1 transition-colors hover:text-zinc-200 reveal-up"
+                                    >
+                                        {label}
+                                    </a>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+                <div>
+                    <p class="mb-2 reveal-up">社交</p>
+                    <ul>
+                        {
+                            socials.map(({ label, href }) => (
+                                <li>
+                                    <a
+                                        href={href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="block text-sm text-zinc-400 py-1 transition-colors hover:text-zinc-200 reveal-up"
+                                    >
+                                        {label}
+                                    </a>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center justify-between pt-10 mb-8">
+            <a href={base} class="logo reveal-up">
+                <img src={logoSrc} alt="Logo" width="40" height="40" />
+            </a>
+            <p class="text-zinc-500 text-sm reveal-up">
+                &copy; {year} <span class="text-zinc-200">Moyun</span>
+            </p>
+        </div>
+    </div>
+</footer>

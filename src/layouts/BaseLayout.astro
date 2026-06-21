@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+import { SITE } from '../lib/site';
+import {
+    canonicalUrl,
+    ogImageUrl,
+    articleJsonLd,
+    websiteJsonLd,
+    type SeoInput,
+} from '../lib/seo';
+
+interface Props {
+    seo: SeoInput;
+    jsonLd?: Record<string, unknown>[];
+}
+
+const { seo, jsonLd: jsonLdProp } = Astro.props;
+const canonical = canonicalUrl(seo);
+const ogImage = ogImageUrl(seo);
+const description = seo.description ?? SITE.description;
+const jsonLd =
+    jsonLdProp ??
+    [websiteJsonLd(), articleJsonLd(seo)].filter(Boolean);
+---
+
+<!doctype html>
+<html lang={SITE.language}>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            rel="preload"
+            as="style"
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Lora:wght@400&display=swap"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Lora:wght@400&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+            media="print"
+            onload="this.media='all'"
+        />
+        <title>{seo.title}</title>
+        <meta name="description" content={description} />
+        {seo.keywords?.length ? (
+            <meta name="keywords" content={seo.keywords.join(', ')} />
+        ) : null}
+        {seo.noindex ? <meta name="robots" content="noindex, nofollow" /> : null}
+        <link rel="canonical" href={canonical} />
+        <meta property="og:type" content={seo.type ?? 'website'} />
+        <meta property="og:site_name" content={SITE.name} />
+        <meta property="og:title" content={seo.title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+        {ogImage ? <meta property="og:image" content={ogImage} /> : null}
+        <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+        <meta name="twitter:title" content={seo.title} />
+        <meta name="twitter:description" content={description} />
+        {ogImage ? <meta name="twitter:image" content={ogImage} /> : null}
+        {jsonLd.map((item) => (
+            <script type="application/ld+json" set:html={JSON.stringify(item)} />
+        ))}
+    </head>
+    <body class="min-h-screen">
+        <slot />
+    </body>
+</html>

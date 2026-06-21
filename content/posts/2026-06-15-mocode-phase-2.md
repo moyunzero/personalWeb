@@ -1,7 +1,9 @@
 ---
 title: MoCode Phase 2 开发笔记
 slug: 2026-06-15-mocode-phase-2
-description: ""
+description: 在 Phase 1 的输入框与 Slash 菜单之上，本阶段补齐 可切换的 32 套配色主题 （持久化到 ），并引入四层 React
+  Context Provider 管理 键盘焦点栈、模态对话框、Toast 通知 。Slash 命令通过统一的 调用 / / ；
+  已实现带搜索、实时预览、取消回滚的主题选择器，其余…
 author: 墨韵
 date: 2026-06-15
 categories:
@@ -748,3 +750,10 @@ bun run dev:cli
 | Ctrl+C 直接退出                                  | 对应层是否 `push` 了 responder；输入框是否为空                      |
 | Toast 不消失                                    | `setTimeout` 是否被进程阻塞；检查 `duration`                    |
 | 取消主题仍被改掉                                     | `ThemeDialogContent` unmount 回滚是否触发（勿在 DevTools 强杀进程） |
+
+## 延伸阅读
+
+- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
+- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
+- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
+- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

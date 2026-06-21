@@ -1,7 +1,9 @@
 ---
 title: MoCode Phase 7 开发笔记
 slug: 2026-06-19-mocode-phase-7
-description: ""
+description: Phase 6 流式对话已通，但 模型与 Agent 模式仍硬编码 （ · ）， · · 仅为 Toast 或占位文案。本阶段新增
+  统一管理 与 ，扩展 注入 / / ；实现三个基于 的选择器，其中 拉取 Session API 并跳转路由 。 Tab 在输入框内切换 Build ↔︎
+  Plan， 输入框左边框、…
 author: 墨韵
 date: 2026-06-19
 categories:
@@ -911,3 +913,10 @@ bun run dev:cli
 | Model       | `gemini-2.5-flash` | `PromptConfig.model`    |
 | 提交          | `Enter 提交`         | `terminal-capabilities` |
 | 换行          | `Shift+Enter 换行` 等 | 同上                      |
+
+## 延伸阅读
+
+- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
+- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
+- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
+- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

@@ -1,7 +1,9 @@
 ---
 title: "MoCode Phase 1 开发笔记 "
 slug: 2026-06-14-mocode-phase-1
-description: ""
+description: 用 React 写终端 UI （OpenTUI），在输入框上方实现 Slash 命令自动补全 ，并通过 Kitty Keyboard
+  + xterm modifyOtherKeys 让 Enter / Shift+Enter 在不同终端里行为可区分。Apple Terminal
+  有硬限制，用 启用 Option as…
 author: 墨韵
 date: 2026-06-14
 categories:
@@ -1820,3 +1822,28 @@ Ghostty、iTerm2、Kitty、WezTerm、Warp 等：
 
 
 Claude Code 文档称 Terminal「无需 setup 即可 Shift+Enter」，与 Terminal.app 实测不符。
+
+## 延伸阅读
+
+- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
+- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
+- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)
+- [HTML基础](/blog/2023-03-12-html/)
+
+## 相关推荐
+
+- [JavaScript](/blog/2023-04-02-javascript/)
+- [TypeScript](/blog/2023-04-20-typescript/)
+- [Node](/blog/2023-05-10-node/)
+- [10 个每个开发者都应该了解的 TypeScript 高级概念](/blog/2024-11-22-10-typescript/)
+- [探索开源 AI 模型：LLMs 和 Transformer 架构](/blog/2024-12-20-ai-llms-transformer/)
+- [CSS Tricks: Top 10 Mind-Blowing Front-End Hacks That will Blow Your Mind! ](/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/)
+- [JavaScript 解构指南](/blog/2025-01-26-javascript/)
+- [Full Stack App Build | Travel Log w/ Nuxt, Vue, Better Auth, Drizzle, Tailwind, DaisyUI, MapLibre](/blog/2026-04-04-full-stack-app-build-travel-log-w-nuxt-v/)
+- [探索 JavaScript  Symbols ](/blog/2026-05-27-javascript-symbols/)
+- [MoCode Phase 2 开发笔记](/blog/2026-06-15-mocode-phase-2/)
+- [MoCode Phase 3 开发笔记](/blog/2026-06-15-mocode-phase-3/)
+- [MoCode Phase 5 开发笔记](/blog/2026-06-17-mocode-phase-5/)
+- [MoCode Phase 7 开发笔记](/blog/2026-06-19-mocode-phase-7/)
+- [MoCode Phase 8 开发笔记](/blog/2026-06-20-mocode-phase-8/)
+- [使用 Tailwind CSS 进行响应式设计](/blog/2024-10-12-tailwind-css/)

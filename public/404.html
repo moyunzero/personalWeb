@@ -1,47 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Web</title>
-    <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // https://github.com/rafgraph/spa-github-pages
-      // This script checks to see if a redirect is present in the query string,
-      // converts it back into the correct url and adds it to the
-      // browser's history using window.history.replaceState(...),
-      // which causes the browser to load the correct site path within
-      // the single page app.
-      (function(l) {
-        if (l.search[1] === '/' ) {
-          var decoded = l.search.slice(1).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&')
-          }).join('?');
-          window.history.replaceState(null, null,
-              l.pathname.slice(0, -1) + decoded + l.hash
-          );
-        }
-      }(window.location))
-    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>页面未找到 · 墨韵</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #18181b;
+        color: #fafafa;
+        display: flex;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+      }
+      a { color: #a78bfa; }
+    </style>
   </head>
   <body>
-    <!-- 
-      This file is used to handle 404 errors on GitHub Pages.
-      When a user visits a direct link (e.g. /blog), GitHub Pages 
-      will return a 404 error because it doesn't find the folder.
-      This script will redirect the user back to index.html with 
-       the original path as a query parameter.
-    -->
-    <script type="text/javascript">
-      // Redirect to index.html
-      var path = window.location.pathname;
-      var repo = '/personalWeb/';
-      if (path.startsWith(repo)) {
-        var subPath = path.slice(repo.length);
-        window.location.replace(repo + '?/' + subPath.replace(/&/g, '~and~') + window.location.hash);
-      } else {
-        window.location.replace('/?/' + path.replace(/&/g, '~and~') + window.location.hash);
-      }
-    </script>
+    <div>
+      <p style="font-size: 4rem; font-weight: 600; color: #52525b">404</p>
+      <h1 style="font-size: 1.5rem; margin: 1rem 0">页面未找到</h1>
+      <p style="color: #a1a1aa; margin-bottom: 2rem">
+        你访问的页面不存在或已被移除。
+      </p>
+      <a href="/personalWeb/">返回首页</a>
+    </div>
   </body>
 </html>

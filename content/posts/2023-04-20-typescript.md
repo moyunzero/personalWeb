@@ -1,7 +1,9 @@
 ---
 title: TypeScript
 slug: 2023-04-20-typescript
-description: ""
+description: 一、TypeScript 语言简介 1.1 概述 TypeScript（简称 TS）是微软公司开发的一种基于 JavaScript
+  （简称 JS）语言的编程语言。 TypeScript 可以看成是 JavaScript 的超集（superset），即它继承了后者的全部语法，所有
+  JavaScript 脚本都可以当…
 author: 墨韵
 date: 2023-04-20
 categories:
@@ -10582,3 +10584,10 @@ tsc app.ts util.ts --target esnext --outfile index.js`
 
 
 [https://typescript.p6p.net/typescript-tutorial/intro.html](https://typescript.p6p.net/typescript-tutorial/intro.html)
+
+## 延伸阅读
+
+- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
+- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
+- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
+- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

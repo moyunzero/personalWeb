@@ -1,13 +1,11 @@
 import { lazy } from 'react';
 import MainLayout from '../layouts/MainLayout';
 
-// 懒加载页面组件
-const Home = lazy(() => import('../pages/Home'));
-const Blog = lazy(() => import('../pages/Blog'));
-const BlogDetail = lazy(() => import('../pages/BlogDetail'));
-const BlogEditor = lazy(() => import('../components/blog/BlogEditor'));
+// Legacy Vite SPA routes — production site uses Astro (yarn dev / yarn build).
+const Home = lazy(() => import('../pages/_Home'));
+const Blog = lazy(() => import('../pages/_Blog'));
+const BlogDetail = lazy(() => import('../pages/_BlogDetail'));
 
-// 路由配置
 export const routes = {
     element: MainLayout,
     children: [
@@ -27,15 +25,6 @@ export const routes = {
             element: BlogDetail,
             title: '博客详情',
         },
-        ...(import.meta.env.DEV
-            ? [
-                  {
-                      path: '/blog/editor',
-                      element: BlogEditor,
-                      title: '博客编辑器',
-                  },
-              ]
-            : []),
     ],
 };
 

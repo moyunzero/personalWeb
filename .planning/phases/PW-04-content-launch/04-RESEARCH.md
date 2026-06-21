@@ -527,15 +527,10 @@ test('blog detail shows 3 related links', async ({ page }) => {
 | A4 | `@astrojs/sitemap` auto-includes new category routes | Architecture | Low — standard Astro behavior |
 | A5 | Site origin `moyunzero.github.io` in webmaster docs | Webmaster docs | Low — matches `site-config.mjs` |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Cover alt frontmatter field**
-   - What we know: Detail uses `alt=""`; checklist requires alt text.
-   - Recommendation: Use `data.title` as alt immediately; optional `coverAlt` in schema later.
-
-2. **Tag pages (`/blog/tag/{tag}/`)**
-   - What we know: Legacy had tag filter; SEO-08 doesn't require it.
-   - Recommendation: Defer unless user requests in discuss-phase.
+1. **Cover alt frontmatter field** — **RESOLVED:** Use `data.title` as cover img alt immediately; optional `coverAlt` schema deferred.
+2. **Tag pages (`/blog/tag/{tag}/`)** — **RESOLVED:** Defer; SEO-08 satisfied by static category hubs only.
 
 ## Environment Availability
 

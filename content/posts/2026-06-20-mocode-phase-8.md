@@ -1,7 +1,9 @@
 ---
 title: MoCode Phase 8 开发笔记
 slug: 2026-06-20-mocode-phase-8
-description: ""
+description: Phase 6 只有纯文本 SSE，Phase 7 的 PromptConfig 也未接到 submit。本阶段将 MoCode
+  升级为 终端 Agent ：Server 在 下注册 7 个 Vercel AI SDK tools （PLAN 只读 / BUILD 可写 +
+  bash）， 多步循环（最多 50 步…
 author: 墨韵
 date: 2026-06-20
 categories:
@@ -1480,3 +1482,10 @@ cd packages/server && bun run test:providers
 | bash          | `{ stdout, stderr, exitCode }`                        | `{ error }`         |
 
 > tool-result SSE 中 `result` 为上述对象的 `JSON.stringify` 字符串。
+
+## 延伸阅读
+
+- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
+- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
+- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
+- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

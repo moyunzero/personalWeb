@@ -18,6 +18,8 @@ import { fileURLToPath } from 'node:url';
 import { Client } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md';
 import { stringifyFrontmatter, parseFrontmatter } from '../src/blog/frontmatter.js';
+import { extractExcerpt } from '../src/blog/excerpt.js';
+import { validatePostData } from './lib/post-schema.mjs';
 import {
     buildPostSlug,
     buildSlugRegistry,
@@ -311,6 +313,15 @@ async function syncPage(page, ctx) {
             });
         }
 
+        if (!body.trim()) {
+            console.warn(`  ⚠ 正文为空，跳过`);
+            return;
+        }
+
+        if (!meta.description.trim()) {
+            meta.description = extractExcerpt(body, 160);
+        }
+
         const frontmatter = {
             title: meta.title,
             slug,
@@ -324,6 +335,19 @@ async function syncPage(page, ctx) {
             notionId: meta.notionId,
             notionSyncedAt: new Date().toISOString(),
         };
+
+        const validation = validatePostData({
+            slug,
+            title: meta.title,
+            description: meta.description,
+            publishedAt: meta.date,
+            categories: meta.categories,
+            tags: meta.tags,
+            draft: false,
+        });
+        if (!validation.success) {
+            console.warn(`  ⚠ frontmatter validation: ${validation.error.message}`);
+        }
 
         const fileContent = stringifyFrontmatter(body, frontmatter);
         await mkdir(path.dirname(postPath), { recursive: true });

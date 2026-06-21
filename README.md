@@ -132,7 +132,7 @@ public/images/blog/     # 图片，按 slug 分子目录
 
 ### 发布一篇文章
 
-**方式一：命令行脚手架（推荐）**
+使用命令行创建本地 Markdown，或通过 Notion 同步：
 
 ```bash
 yarn blog:new "周末咖啡" --categories daily,photo
@@ -141,15 +141,7 @@ yarn blog:new "周末咖啡" --categories daily,photo
 git add content public/images/blog && git commit -m "post: 周末咖啡" && git push
 ```
 
-**方式二：开发环境编辑器**
-
-```bash
-yarn dev
-# 打开 /blog/editor（仅开发环境可用）
-# 填写后点击「下载 .md」，保存到 content/posts/
-```
-
-**方式三：从 Notion 同步（推荐写长文）**
+**从 Notion 同步（推荐写长文）**
 
 在 Notion 里维护一篇「博客数据库」，本地或 GitHub Actions 一键拉取为 Markdown + 图片。
 
@@ -263,7 +255,16 @@ yarn build
 ```bash
 yarn preview
 ```
-在浏览器中打开显示的地址（通常是 `http://localhost:4173`），检查构建结果是否正常。
+在浏览器中打开显示的地址（通常是 `http://localhost:4321/personalWeb/`），检查构建结果是否正常。
+
+### SEO 与上线
+
+- 站长平台提交步骤：[docs/WEBMASTER-SUBMISSION.md](./docs/WEBMASTER-SUBMISSION.md)
+- `yarn seo:audit` — 构建前元数据校验（已接入 `yarn build`）
+- `yarn seo:top-n-score` — Top N 文章评分队列
+- `yarn seo:top-n-checklist` — Top N 深度优化 checklist
+- `yarn perf:audit` — 首页 Lighthouse 门禁（需先 `yarn preview` 或脚本自动启动）
+- `yarn test:uat:4` — Phase 4 自动化 UAT（内链 + 性能冒烟）
 
 ### 线上部署
 

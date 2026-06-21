@@ -1,0 +1,21 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { SeoInput } from '../lib/seo';
+import { personJsonLd, websiteJsonLd } from '../lib/seo';
+import HomeHeader from '../components/islands/HomeHeader';
+import '../index.css';
+
+interface Props {
+    seo: SeoInput;
+}
+
+const { seo } = Astro.props;
+const jsonLd = [websiteJsonLd(), personJsonLd()];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+    <HomeHeader client:visible />
+    <div class="relative z-10">
+        <slot />
+    </div>
+</BaseLayout>

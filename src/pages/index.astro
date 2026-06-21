@@ -1,0 +1,35 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import Main from '../components/home/Main.astro';
+import About from '../components/home/About.astro';
+import Skill from '../components/home/Skill.astro';
+import Work from '../components/home/Work.astro';
+import HomeFooter from '../components/home/HomeFooter.astro';
+import ContactIsland from '../components/islands/ContactIsland';
+import HomeMotion from '../components/islands/HomeMotion';
+import ParticleIsland from '../components/islands/ParticleIsland';
+import MouseTrailIsland from '../components/islands/MouseTrailIsland';
+import GameIsland from '../components/islands/GameIsland';
+import { SITE } from '../lib/site';
+---
+
+<HomeLayout
+    seo={{
+        title: `${SITE.name} · 个人站点`,
+        description: SITE.description,
+        path: '/',
+    }}
+>
+    <main>
+        <Main />
+        <About />
+        <Skill />
+        <Work />
+        <ContactIsland client:visible />
+    </main>
+    <HomeFooter />
+    <HomeMotion client:visible="react" />
+    <ParticleIsland client:visible="react" />
+    <MouseTrailIsland client:idle="react" />
+    <GameIsland client:only="react" />
+</HomeLayout>
