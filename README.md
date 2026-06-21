@@ -1,184 +1,125 @@
-# 墨韵 - 个人网站
+# 墨韵 · 个人网站
 
-基于 React 18 和 Vite 构建的现代化个人网站，展示作品集、博客和个人技能。项目采用最新的前端技术栈，注重性能优化和用户体验。
+个人作品集与博客站点，基于 **Astro 5** 静态生成，部署在 GitHub Pages。
 
-## 🚀 技术栈
+**线上地址：** https://moyunzero.github.io/personalWeb/
 
-- **核心框架**: React 18
-- **构建工具**: Vite
-- **路由管理**: React Router v7
-- **样式解决方案**: TailwindCSS
-- **动画效果**: GSAP
-- **滚动优化**: Lenis
-- **代码规范**: ESLint
-- **类型检查**: PropTypes
-- **Markdown 解析**: react-markdown
-- **代码高亮**: highlight.js
+## 技术栈
 
-## 📁 项目结构
+| 类别 | 技术 |
+|------|------|
+| 框架 | Astro 5（SSG）+ React 18 岛（首页交互） |
+| 样式 | Tailwind CSS |
+| 内容 | Markdown（`content/posts/`）+ Content Collections |
+| 博客渲染 | remark/rehype、Shiki 高亮、Mermaid（文章页按需加载） |
+| 动画 / 游戏 | GSAP、Lenis、Phaser（首页懒加载） |
+| 部署 | GitHub Actions → GitHub Pages |
+| 内容同步 | Notion → `yarn notion:sync` |
 
-```
-zero-web/
-├── src/
-│   ├── assets/            # 静态资源（图片、字体等）
-│   ├── components/        # 组件目录
-│   │   ├── common/       # 通用组件
-│   │   └── home/         # 首页相关组件
-│   ├── constants/        # 常量配置
-│   │   └── styles.js     # 样式常量（颜色、间距、字体等）
-│   ├── hooks/            # 自定义 Hooks
-│   │   ├── useScrollToTop.js  # 滚动处理
-│   │   └── useMediaQuery.js   # 响应式布局
-│   ├── layouts/          # 布局组件
-│   ├── pages/            # 页面组件
-│   │   ├── Home.jsx     # 首页
-│   │   ├── Blog.jsx     # 博客列表页
-│   │   └── BlogDetail.jsx # 博客详情页
-│   ├── components/       # 组件目录
-│   │   ├── blog/        # 博客相关组件
-│   │   │   ├── BlogNavbar.jsx # 博客导航栏
-│   │   │   └── BlogEditor.jsx # 博客编辑器
-│   ├── blog/            # 博客加载逻辑（content/posts）
-│   ├── data/            # 静态数据（如 projects.js）
-│   ├── routes/          # 路由配置
-│   ├── utils/           # 工具函数（防抖、节流等）
-│   ├── App.jsx          # 应用入口
-│   └── main.jsx         # 主入口文件
-```
-
-## ✨ 核心特性
-
-- 🎯 **性能优化**
-  - 路由懒加载
-  - 组件记忆化
-  - 图片懒加载
-  - 滚动性能优化
-
-- 📱 **响应式设计**
-  - 移动端优先
-  - 断点管理
-  - 媒体查询封装
-
-- 🎨 **现代化 UI**
-  - TailwindCSS 样式
-  - GSAP 动画
-  - 平滑滚动
-  - 主题定制
-
-- 🛡️ **可靠性**
-  - 错误边界处理
-  - PropTypes 类型检查
-  - 统一的错误处理
-  - 加载状态反馈
-
-- ✍️ **博客系统**
-  - Markdown 编辑器
-  - 实时预览
-  - 一键发布
-  - 代码高亮
-  - 标签管理
-
-
-## 🚀 快速开始
-
-1. **克隆项目**
-```bash
-git clone [repository-url]
-```
-
-2. **安装依赖**
-```bash
-yarn install
-```
-
-3. **开发环境运行**
-```bash
-yarn dev
-```
-
-4. **生产环境构建**
-```bash
-yarn build
-```
-
-## ⚙️ 环境配置
-
-在项目根目录创建 `.env` 文件：
-
-```env
-# API配置
-VITE_API_URL=http://localhost:3000
-
-# 环境标识
-VITE_ENV=development
-
-# 应用配置
-VITE_APP_TITLE=墨韵
-VITE_APP_DESCRIPTION=展示作品、博客和技能的个人网站
-```
-
-## 📝 博客功能使用指南
-
-文章以 **Markdown 文件** 存放在仓库中，构建时自动加载，推送到 GitHub 后由 Actions 部署到 GitHub Pages。
-
-### 目录结构
+## 项目结构
 
 ```text
-content/
-  categories.json       # 自定义分类（可随意增删）
-  posts/*.md            # 文章
-public/images/blog/     # 图片，按 slug 分子目录
+personalWeb/
+├── content/
+│   ├── categories.json      # 博客分类定义
+│   └── posts/*.md           # 文章 Markdown
+├── public/
+│   ├── images/blog/         # 文章图片（按 slug 分子目录）
+│   └── …                    # 验证文件、静态资源
+├── src/
+│   ├── pages/               # Astro 路由（首页、博客列表/详情/分类）
+│   ├── layouts/             # BaseLayout、BlogLayout
+│   ├── components/          # Astro 组件 + React 岛
+│   ├── lib/                 # SEO、Markdown、博客工具
+│   └── loaders/             # Content Collections loader
+├── scripts/                 # notion-sync、seo-audit、new-post 等
+├── docs/                    # 上线与站长文档
+└── dist/                    # 构建产物（勿手改）
 ```
 
-### 发布一篇文章
+## 快速开始
 
-使用命令行创建本地 Markdown，或通过 Notion 同步：
+```bash
+git clone https://github.com/moyunzero/personalWeb.git
+cd personalWeb
+yarn install
+yarn dev          # http://localhost:4321/personalWeb/
+```
+
+```bash
+yarn build        # 含 seo:audit 门禁
+yarn preview      # 本地预览 dist
+yarn test         # Vitest
+yarn lint         # ESLint
+```
+
+## 环境变量
+
+复制模板并按需填写（**勿提交** `.env.local`）：
+
+```bash
+cp .env.example .env.local
+```
+
+| 变量 | 用途 |
+|------|------|
+| `VITE_CHAT_API_URL` | 首页聊天机器人 API（会打进前端 bundle） |
+| `NOTION_TOKEN` | Notion 同步 Integration Token |
+| `NOTION_DATABASE_ID` | Notion 博客数据库 ID |
+
+详见 [.env.example](./.env.example) 中的可选 `NOTION_PROP_*` 覆盖项。
+
+## 发布博客文章
+
+文章以 Markdown 存放在仓库中；**推送到 `master` 后自动构建部署**。
+
+### 方式 A：命令行新建
 
 ```bash
 yarn blog:new "周末咖啡" --categories daily,photo
 # 编辑 content/posts/xxx.md，将 draft 改为 false
-# 图片放入 public/images/blog/xxx/
-git add content public/images/blog && git commit -m "post: 周末咖啡" && git push
+# 图片放入 public/images/blog/<slug>/
+git add content/posts public/images/blog
+git commit -m "post: 周末咖啡"
+git push
 ```
 
-**从 Notion 同步（推荐写长文）**
+### 方式 B：从 Notion 同步（推荐长文）
 
-在 Notion 里维护一篇「博客数据库」，本地或 GitHub Actions 一键拉取为 Markdown + 图片。
+**首次配置（只需一次）：**
 
-1. 打开 [Notion Integrations](https://www.notion.so/my-integrations) → 新建 Integration → 复制 **Internal Integration Token**
-2. 在 Notion 新建数据库，建议列名：
+1. [Notion Integrations](https://www.notion.so/my-integrations) 创建 Integration，复制 Token
+2. 在 Notion 创建博客数据库，建议列名：
 
 | 列名 | 类型 | 说明 |
 |------|------|------|
 | Title | 标题 | 文章标题 |
 | Status | 选择 | `Published` 或 `已发布` 才会同步 |
 | Date | 日期 | 发布日期 |
-| Categories | 多选 | 填 `daily` / `note` / `tech`（与 categories.json 一致） |
+| Categories | 多选 | 与 `content/categories.json` 的 `id` 一致，如 `note`、`daily` |
 | Tags | 多选 | 标签 |
 | Description | 文本 | 摘要 |
-| Slug | 文本 | 可选，URL 路径；留空则自动生成 |
-| Cover | 文件 | 可选封面图 |
+| Slug | 文本 | 可选；留空则自动生成 |
+| Cover | 文件 | 可选封面 |
 
-3. 数据库页面 **··· → 连接** → 选择你的 Integration
-4. 复制数据库 ID（URL 中 `notion.so/xxx?v=` 前面那段 32 位 ID）
-5. 配置环境变量（复制 `.env.example` → `.env.local`）：
+3. 数据库 **··· → 连接** → 选择 Integration
+4. 复制数据库 ID（URL 中 `notion.so/<ID>?v=` 那段 32 位字符）
+5. 写入 `.env.local`：`NOTION_TOKEN`、`NOTION_DATABASE_ID`
 
-```bash
-NOTION_TOKEN=secret_xxx
-NOTION_DATABASE_ID=你的数据库ID
-```
-
-6. 同步：
+**日常同步：**
 
 ```bash
-yarn notion:sync              # 增量同步（仅新增或 Notion 有改动的文章）
-yarn notion:sync --all        # 全量同步全部已发布文章
+yarn notion:sync              # 增量（新增或 Notion 有更新的文章）
+yarn notion:sync --all        # 全量重拉全部已发布文章
 yarn notion:sync --page <id>  # 只同步一篇（Notion 页面 URL 中的 id）
-yarn notion:sync --dry-run    # 仅预览，不写文件
-git add content/posts public/images/blog && git commit -m "post: sync from Notion" && git push
+yarn notion:sync --dry-run    # 预览，不写文件
+
+git add content/posts public/images/blog
+git commit -m "post: sync from Notion"
+git push
 ```
 
-**GitHub Actions 自动同步**：在仓库 Settings → Secrets 添加 `NOTION_TOKEN`、`NOTION_DATABASE_ID`，在 Actions 页运行 **Sync blog from Notion** 工作流即可自动提交。
+或在 GitHub **Actions → Sync blog from Notion** 手动运行（需已配置 Secrets：`NOTION_TOKEN`、`NOTION_DATABASE_ID`），工作流会自动 commit 并 push。
 
 > Token 仅用于本地脚本或 CI，不会打进前端 bundle。
 
@@ -203,88 +144,49 @@ draft: false
 
 ### 自定义分类
 
-编辑 `content/categories.json`，例如：
+编辑 `content/categories.json`：
 
 ```json
 [
-  { "id": "daily", "label": "日常", "order": 1 },
-  { "id": "note", "label": "笔记", "order": 2 }
+  { "id": "note", "label": "技术记录", "order": 1 },
+  { "id": "daily", "label": "日常", "order": 2 }
 ]
 ```
 
-文章的 `categories` 字段填写对应的 `id` 即可。
+文章的 `categories` 填写对应 `id`。
 
-## 📖 开发指南
+## SEO 与质量门禁
 
-### 组件开发规范
-- 使用函数组件和 Hooks
-- 必要时使用 React.memo() 优化性能
-- 使用 PropTypes 进行类型检查
-- 组件文件使用 .jsx 扩展名
-- 遵循单一职责原则
+| 命令 | 说明 |
+|------|------|
+| `yarn seo:audit` | 构建前元数据校验（已接入 `yarn build`） |
+| `yarn seo:meta-batch --dry-run` | 全库元数据缺口报告 |
+| `yarn seo:meta-batch --apply` | 批量补全 description 等 |
+| `yarn seo:top-n-score` | Top N 文章评分队列 |
+| `yarn seo:top-n-checklist` | Top N 深度优化 checklist |
+| `yarn perf:audit` | Lighthouse 性能门禁（需 preview 或脚本自启） |
+| `yarn verify:prod` | 生产环境冒烟（部署后 1–3 分钟） |
+| `yarn test:uat:3` / `yarn test:uat:4` | 阶段性 UAT |
 
-### 样式开发规范
-- 优先使用 TailwindCSS 类名
-- 遵循 styles.js 中的预定义常量
-- 使用语义化的类名
-- 保持样式的可复用性
+站长平台提交步骤：[docs/WEBMASTER-SUBMISSION.md](./docs/WEBMASTER-SUBMISSION.md)
 
-### 性能优化实践
-- 合理使用 React.lazy() 和 Suspense
-- 使用 useCallback 和 useMemo 优化性能
-- 图片使用 loading="lazy" 属性
-- 使用防抖和节流控制事件频率
+上线检查清单：[docs/LAUNCH.md](./docs/LAUNCH.md)
 
-### 工具函数使用
-- 从 utils/index.js 导入通用函数
-- 使用 JSDoc 注释保持文档完整性
-- 遵循函数式编程原则
-- 保持函数的纯粹性
+## 部署
 
-## 🔧 构建部署
+本站使用 **GitHub Pages**（子路径 `/personalWeb/`）。推送 `master` 触发 [.github/workflows/deploy.yml](./.github/workflows/deploy.yml)。
 
-### 本地构建
+详细说明见 [DEPLOYMENT.md](./DEPLOYMENT.md)。
 
-1. **构建项目**
-```bash
-yarn build
-```
-构建完成后，会在项目根目录生成 `dist` 文件夹，包含所有需要部署的静态文件。
+## 相关文档
 
-2. **预览构建结果**
-```bash
-yarn preview
-```
-在浏览器中打开显示的地址（通常是 `http://localhost:4321/personalWeb/`），检查构建结果是否正常。
+| 文档 | 说明 |
+|------|------|
+| [DEPLOYMENT.md](./DEPLOYMENT.md) | 构建、GitHub Pages、Notion CI |
+| [docs/LAUNCH.md](./docs/LAUNCH.md) | 上线后检查与维护命令 |
+| [docs/WEBMASTER-SUBMISSION.md](./docs/WEBMASTER-SUBMISSION.md) | Google / Bing 站长提交 |
+| [docs/SEO-MIGRATION-DESIGN.md](./docs/SEO-MIGRATION-DESIGN.md) | Astro 迁移与 SEO 设计记录 |
 
-### SEO 与上线
-
-- 站长平台提交步骤：[docs/WEBMASTER-SUBMISSION.md](./docs/WEBMASTER-SUBMISSION.md)
-- `yarn seo:audit` — 构建前元数据校验（已接入 `yarn build`）
-- `yarn seo:top-n-score` — Top N 文章评分队列
-- `yarn seo:top-n-checklist` — Top N 深度优化 checklist
-- `yarn perf:audit` — 首页 Lighthouse 门禁（需先 `yarn preview` 或脚本自动启动）
-- `yarn test:uat:4` — Phase 4 自动化 UAT（内链 + 性能冒烟）
-
-### 线上部署
-
-详细的部署指南请查看 [**DEPLOYMENT.md**](./DEPLOYMENT.md) 文档。
-
-**快速部署方案推荐：**
-
-- 🌟 **Vercel**（推荐新手）- 零配置，5分钟完成部署
-- 🚀 **Netlify** - 功能丰富，支持表单和函数
-- 📄 **GitHub Pages** - 适合已有 GitHub 仓库的项目
-- 🖥️ **云服务器 (Nginx)** - 完全控制，适合有服务器经验的开发者
-
-**部署步骤概览：**
-1. 构建项目：`yarn build`
-2. 选择部署平台（推荐 Vercel）
-3. 按照 [DEPLOYMENT.md](./DEPLOYMENT.md) 中的详细步骤操作
-4. 部署完成后检查路由、移动端适配等功能
-
-详细步骤、配置说明、常见问题排查等，请查看 [**DEPLOYMENT.md**](./DEPLOYMENT.md)。
-
-## 📄 许可证
+## 许可证
 
 MIT

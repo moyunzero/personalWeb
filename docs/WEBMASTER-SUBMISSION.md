@@ -126,11 +126,13 @@ yarn build && git push origin master
 
 ## 本地维护命令
 
+完整清单见 [LAUNCH.md](./LAUNCH.md)。
+
 ```bash
 yarn seo:meta-batch --dry-run   # 元数据缺口报告
 yarn seo:top-n-score --dry-run  # Top N 评分预览
 yarn seo:top-n-checklist        # Top N 深度优化 checklist
-yarn perf:audit                 # Lighthouse 性能门禁（需 preview）
-yarn verify:prod                # 生产环境冒烟（部署后 1–3 分钟）
-yarn test:uat:4                 # Phase 4 自动化 UAT
+yarn perf:audit                 # Lighthouse 性能门禁（yarn preview 后执行）
+yarn verify:prod                # 生产冒烟：首页、验证文件、sitemap、博客链接
+yarn test:uat:4                 # 相关文章与性能 UAT
 ```

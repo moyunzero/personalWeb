@@ -1,7 +1,8 @@
 # SEO 提升与 Astro 整站迁移设计
 
-> 状态：设计已确认（brainstorming 产出）  
-> 日期：2026-06-21
+> 状态：**已实施**（v1.0 已上线，2026-06-21）  
+> 日期：2026-06-21  
+> 运维文档：[LAUNCH.md](./LAUNCH.md)、[WEBMASTER-SUBMISSION.md](./WEBMASTER-SUBMISSION.md)
 
 ## Understanding Summary
 
