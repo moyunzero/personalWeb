@@ -9,11 +9,17 @@ const ANIMATION_CONFIG = {
     duration: 1,
     y: 0,
     opacity: 1,
+    hiddenY: 80,
 };
 
 function prefersReducedMotion() {
     if (typeof window === 'undefined') return false;
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function isInView(element: HTMLElement) {
+    const rect = element.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom > 0;
 }
 
 export default function HomeMotion() {
@@ -51,15 +57,28 @@ export default function HomeMotion() {
             const { ScrollTrigger } = await import('gsap/ScrollTrigger');
             gsap.registerPlugin(ScrollTrigger);
 
+            const elements = gsap.utils.toArray<HTMLElement>('.reveal-up');
+
             if (prefersReducedMotion()) {
-                const elements = gsap.utils.toArray<HTMLElement>('.reveal-up');
                 elements.forEach((element) => {
                     gsap.set(element, { opacity: 1, y: 0 });
                 });
                 return;
             }
 
-            const elements = gsap.utils.toArray<HTMLElement>('.reveal-up');
+            const reveal = (element: HTMLElement) => {
+                gsap.to(element, {
+                    y: ANIMATION_CONFIG.y,
+                    opacity: ANIMATION_CONFIG.opacity,
+                    ease: ANIMATION_CONFIG.ease,
+                    duration: ANIMATION_CONFIG.duration,
+                    onComplete: () => {
+                        element.style.willChange = 'auto';
+                    },
+                });
+            };
+
+            gsap.set(elements, { opacity: 0, y: ANIMATION_CONFIG.hiddenY });
 
             elements.forEach((element) => {
                 element.style.willChange = 'transform, opacity';
@@ -68,19 +87,16 @@ export default function HomeMotion() {
                     start: ANIMATION_CONFIG.start,
                     end: ANIMATION_CONFIG.end,
                     scrub: true,
-                    onEnter: () => {
-                        gsap.to(element, {
-                            y: ANIMATION_CONFIG.y,
-                            opacity: ANIMATION_CONFIG.opacity,
-                            ease: ANIMATION_CONFIG.ease,
-                            duration: ANIMATION_CONFIG.duration,
-                            onComplete: () => {
-                                element.style.willChange = 'auto';
-                            },
-                        });
-                    },
+                    onEnter: () => reveal(element),
                 });
                 scrollTriggers.push(st);
+            });
+
+            ScrollTrigger.refresh();
+            elements.forEach((element) => {
+                if (isInView(element)) {
+                    reveal(element);
+                }
             });
         };
 

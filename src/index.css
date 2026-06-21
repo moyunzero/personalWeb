@@ -67,7 +67,7 @@ body{
 }
 
 .reveal-up{
-  @apply opacity-0 translate-y-20
+  @apply opacity-100 translate-y-0
 }
 
 /* 脉冲呼吸动画 - 入门 */
