@@ -8,16 +8,17 @@ interface Props {
 }
 
 const { seo } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout seo={seo}>
     <header class="border-b border-zinc-800">
         <div class="container flex items-center justify-between py-4">
-            <a href="/" class="text-lg font-semibold text-zinc-100 hover:text-white">
+            <a href={base} class="text-lg font-semibold text-zinc-100 hover:text-white">
                 {seo.title.split(' · ')[0]}
             </a>
             <nav class="flex gap-4 text-sm text-zinc-400">
-                <a href="/blog/" class="hover:text-zinc-100">博客</a>
+                <a href={`${base}blog/`} class="hover:text-zinc-100">博客</a>
             </nav>
         </div>
     </header>
