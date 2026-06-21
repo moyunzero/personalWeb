@@ -654,20 +654,16 @@ import { SITE } from '../lib/site';
 | A4 | SPA 404.html should be replaced, not kept as redirect | Pattern 6 | Users hitting 404 get broken SPA redirect post-migration |
 | A5 | `description` schema stays optional in Phase 1 | Pitfall 6 | Premature strict schema blocks all 96 posts |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Dev server base path:** Keep `base: '/personalWeb/'` in dev (matches prod) or use env switch (`'/'` locally)?
-   - What we know: GH Pages prod requires subpath base [CITED: docs.astro.build/en/guides/deploy/github/]
-   - What's unclear: Developer ergonomics preference
-   - Recommendation: Match prod base in dev to avoid surprise; use `astro dev --base /personalWeb/` or consistent config
+   - **RESOLVED:** Use `base: '/personalWeb/'` in dev and prod (astro.config.mjs). No env switch — avoids prod-only path bugs.
 
 2. **Custom loader vs pre-build normalizer for Notion YAML**
-   - What we know: D-09 requires `parseFrontmatter`; unknown count of affected files
-   - Recommendation: Custom loader (cleaner); spike with `astro build` on full corpus in plan 01-02
+   - **RESOLVED:** Custom Content Collections loader wrapping `parseFrontmatter` from `src/blog/frontmatter.js` (D-09). Implemented in plan 01-02.
 
 3. **Sitemap filename:** `@astrojs/sitemap` emits `sitemap-index.xml` + `sitemap-0.xml`, not `sitemap.xml`
-   - What we know: Existing `robots.txt` points to `/sitemap.xml`
-   - Recommendation: Update robots to `sitemap-index.xml`; add redirect or configure integration if needed
+   - **RESOLVED:** `robots.txt.ts` references `sitemap-index.xml`. Add `src/pages/sitemap.xml.ts` alias/redirect to satisfy D-13 legacy `/sitemap.xml` (plan 01-04 Task 1).
 
 ## Environment Availability
 

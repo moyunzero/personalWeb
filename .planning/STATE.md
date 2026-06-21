@@ -4,7 +4,7 @@ milestone: v1.0
 milestone_name: SEO 提升与 Astro 迁移
 status: Roadmap approved — ready for `/gsd-plan-phase 1`
 stopped_at: Phase 1 context gathered
-last_updated: "2026-06-21T10:10:43.511Z"
+last_updated: "2026-06-21T10:22:38.116Z"
 last_activity: 2026-06-21 — Milestone v1.0 started from docs/SEO-MIGRATION-DESIGN.md
 progress:
   total_phases: 4

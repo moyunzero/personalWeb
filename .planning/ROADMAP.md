@@ -30,13 +30,22 @@
 4. GitHub Actions 成功部署至 GitHub Pages，博客路由可访问
 
 **Plans**: 4 plans
-
 Plans:
+**Wave 1**
 
-- [ ] 01-01: 初始化 Astro（React 集成、`base`、Tailwind、目录结构）
-- [ ] 01-02: Content Collections + 博客列表/详情页 SSG + 构建时代码高亮
-- [ ] 01-03: BaseLayout/BlogLayout SEO head（canonical、OG、JSON-LD、`lang=zh-CN`）
-- [ ] 01-04: sitemap/robots 构建集成 + Actions 切换 `astro build`
+- [ ] 01-01-PLAN.md — 初始化 Astro 5（React/Tailwind/sitemap 集成）、Wave 0 Vitest + frontmatter 测试、目录与 `astro.config.mjs`
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 01-02-PLAN.md — Content Collections 自定义 loader（D-09）+ 博客列表/详情 SSG + Shiki 正文
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 01-03-PLAN.md — BaseLayout/BlogLayout 构建时 SEO head（canonical、OG、BlogPosting JSON-LD、`lang=zh-CN`）
+
+**Wave 4** *(blocked on Wave 3 completion)*
+
+- [ ] 01-04-PLAN.md — sitemap/robots 集成、占位首页、404 处理、deploy.yml 切换 `astro build`
 
 ### Phase 2: 整站页面与交互岛
 
