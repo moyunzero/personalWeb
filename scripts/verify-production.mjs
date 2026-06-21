@@ -45,11 +45,28 @@ const CHECKS = [
         },
     },
     {
-        id: 'sitemap-index',
-        url: `${baseUrl}/sitemap-index.xml`,
+        id: 'blog-index-links',
+        url: `${baseUrl}/blog/`,
         validate: (body, status) => {
             if (status !== 200) return `status ${status}`;
-            if (!body.includes('sitemap')) return 'unexpected sitemap-index body';
+            const prefix = `${baseUrl}/blog/`;
+            if (!body.includes(`href="${prefix}`)) {
+                return 'missing absolute blog article links under base path';
+            }
+            if (body.includes('href="/blog/') && !body.includes(`href="${prefix}`)) {
+                return 'found /blog/ links without personalWeb base';
+            }
+            return null;
+        },
+    },
+    {
+        id: 'blog-article-200',
+        url: `${baseUrl}/blog/2026-06-21-mocode-phase-9/`,
+        validate: (body, status) => {
+            if (status !== 200) return `status ${status}`;
+            if (!body.includes('<article') && !body.includes('prose-blog')) {
+                return 'missing article body';
+            }
             return null;
         },
     },

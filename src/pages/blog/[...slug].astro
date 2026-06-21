@@ -7,6 +7,7 @@ import { getRelatedForEntry } from '../../lib/related';
 import { renderMarkdown } from '../../lib/markdown';
 import { getCategoryLabel } from '../../blog/getCategories.js';
 import { SITE } from '../../lib/site';
+import MermaidHydrator from '../../components/islands/MermaidHydrator';
 
 export async function getStaticPaths() {
     const posts = await getCollection('posts', ({ data }) => !data.draft);
@@ -22,6 +23,7 @@ const html = await renderMarkdown(body);
 const allPosts = await getPublishedPosts();
 const related = getRelatedForEntry(post, allPosts, 3);
 const base = import.meta.env.BASE_URL;
+const hasMermaid = html.includes('mermaid-diagram-host');
 ---
 
 <BlogLayout
@@ -84,4 +86,5 @@ const base = import.meta.env.BASE_URL;
         <div class="prose-blog" set:html={html} />
     </article>
     <RelatedPosts heading={related.heading} posts={related.posts} />
+    {hasMermaid ? <MermaidHydrator client:idle /> : null}
 </BlogLayout>
