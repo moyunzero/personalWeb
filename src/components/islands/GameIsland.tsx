@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import GameTooltip from '../../game/GameTooltip';
+import ChatTrigger from '../chat/ChatTrigger';
+import ChatPanel from '../chat/ChatPanel';
 
 export default function GameIsland() {
     const [started, setStarted] = useState(false);
@@ -80,6 +82,8 @@ export default function GameIsland() {
                 }}
             />
             <GameTooltip />
+            <ChatTrigger />
+            <ChatPanel />
         </>
     );
 }
