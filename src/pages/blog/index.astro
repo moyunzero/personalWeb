@@ -1,6 +1,7 @@
 ---
 import BlogLayout from '../../layouts/BlogLayout.astro';
 import BlogPostCard from '../../components/blog/BlogPostCard.astro';
+import BlogSearch from '../../components/islands/BlogSearch.tsx';
 import { getPublishedPosts } from '../../lib/blog';
 import { groupPostsByYear } from '../../lib/posts';
 import { getCategories } from '../../blog/getCategories.js';
@@ -43,24 +44,32 @@ const base = import.meta.env.BASE_URL;
             }
         </nav>
     </div>
-    {
-        yearGroups.map(({ year, posts: yearPosts }) => (
-            <section class="mb-12">
-                <h2 class="mb-6 text-2xl font-semibold text-zinc-300">{year}</h2>
-                <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {yearPosts.map((post) => (
-                        <BlogPostCard
-                            slug={post.data.slug}
-                            title={post.data.title}
-                            description={post.data.description}
-                            publishedAt={post.data.publishedAt}
-                            categories={post.data.categories}
-                            tags={post.data.tags}
-                            coverImage={post.data.coverImage}
-                        />
-                    ))}
-                </div>
-            </section>
-        ))
-    }
+    <BlogSearch client:load totalCount={posts.length} />
+    <div id="blog-post-list">
+        {
+            yearGroups.map(({ year, posts: yearPosts }) => (
+                <section class="mb-12" data-blog-year>
+                    <h2 class="mb-6 text-2xl font-semibold text-zinc-300">
+                        {year}
+                    </h2>
+                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        {yearPosts.map((post) => (
+                            <BlogPostCard
+                                slug={post.data.slug}
+                                title={post.data.title}
+                                description={post.data.description}
+                                publishedAt={post.data.publishedAt}
+                                categories={post.data.categories}
+                                tags={post.data.tags}
+                                coverImage={post.data.coverImage}
+                            />
+                        ))}
+                    </div>
+                </section>
+            ))
+        }
+    </div>
+    <p id="blog-post-list-empty" class="!hidden py-12 text-center text-zinc-500">
+        没有符合搜索条件的文章，试试其他关键词。
+    </p>
 </BlogLayout>

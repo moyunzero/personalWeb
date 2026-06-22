@@ -33,10 +33,16 @@ const formattedDate = Number.isNaN(date.getTime())
       });
 const base = import.meta.env.BASE_URL;
 const href = `${base}blog/${slug}/`;
+const searchPayload = JSON.stringify({
+    title,
+    description: description ?? '',
+    tags: tags ?? [],
+});
 ---
 
 <a
     href={href}
+    data-blog-search={searchPayload}
     class="flex h-full flex-col overflow-hidden rounded-lg bg-zinc-800 transition-colors hover:bg-zinc-700"
 >
     {

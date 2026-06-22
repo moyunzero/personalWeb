@@ -1,13 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
 import BlogLayout from '../../../layouts/BlogLayout.astro';
 import BlogPostCard from '../../../components/blog/BlogPostCard.astro';
+import BlogSearch from '../../../components/islands/BlogSearch.tsx';
 import { getCategories } from '../../../blog/getCategories.js';
+import { getPublishedPosts } from '../../../lib/blog';
 import { SITE } from '../../../lib/site';
 
 export async function getStaticPaths() {
     const categories = getCategories();
-    const posts = await getCollection('posts', ({ data }) => !data.draft);
+    const posts = await getPublishedPosts();
 
     return categories.map(({ id, label }) => ({
         params: { id },
@@ -67,19 +68,27 @@ const base = import.meta.env.BASE_URL;
     </div>
     {
         posts.length > 0 ? (
-            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {posts.map((post) => (
-                    <BlogPostCard
-                        slug={post.data.slug}
-                        title={post.data.title}
-                        description={post.data.description}
-                        publishedAt={post.data.publishedAt}
-                        categories={post.data.categories}
-                        tags={post.data.tags}
-                        coverImage={post.data.coverImage}
-                    />
-                ))}
-            </div>
+            <>
+                <BlogSearch client:load totalCount={posts.length} />
+                <div id="blog-post-list">
+                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        {posts.map((post) => (
+                            <BlogPostCard
+                                slug={post.data.slug}
+                                title={post.data.title}
+                                description={post.data.description}
+                                publishedAt={post.data.publishedAt}
+                                categories={post.data.categories}
+                                tags={post.data.tags}
+                                coverImage={post.data.coverImage}
+                            />
+                        ))}
+                    </div>
+                </div>
+                <p id="blog-post-list-empty" class="!hidden py-12 text-center text-zinc-500">
+                    没有符合搜索条件的文章，试试其他关键词。
+                </p>
+            </>
         ) : (
             <p class="text-zinc-500">该分类下暂无文章。</p>
         )
