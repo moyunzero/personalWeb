@@ -5,7 +5,7 @@ description: Phase 8–10 在 Server 端 用 执行 readFile / bash 等工具，
   CLI 在开发者本机、Server 在云端 。Server 磁盘上没有用户项目，工具读写的永远是错误路径。Phase 11 将工具 执行 下沉到 CLI（
   ），Server 只保留 too…
 author: 墨韵
-date: 2026-06-22
+date: 2026-06-23
 categories:
   - note
 tags:
@@ -14,7 +14,7 @@ tags:
   - LLM
 draft: false
 notionId: 387df5c0-26f4-801a-91aa-daaf23ac1dad
-notionSyncedAt: 2026-06-22T03:11:47.195Z
+notionSyncedAt: 2026-06-24T11:31:19.074Z
 ---
 
 Phase 8–10 在 **Server 端** 用 `session.cwd` 执行 readFile / bash 等工具，但 MoCode 的真实使用场景是：**CLI 在开发者本机、Server 在云端**。Server 磁盘上没有用户项目，工具读写的永远是错误路径。Phase 11 将工具 **执行** 下沉到 CLI（`process.cwd()`），Server 只保留 **tool contracts**（给模型看的定义，无 `execute`），并通过 AI SDK 官方的 **client-side tool loop**（`onToolCall` → `executeLocalTool` → `addToolOutput` → 自动 re-submit）完成多步 Agent。同时用 **`UIMessage[]`** 替换独立的 `Message` 表与自研 SSE 协议（`chatStreamEventSchema`），大幅删减 Server/CLI 样板代码，并让 **tool 结果进入 LLM 历史**（`validateUIMessages` + `convertToModelMessages`）。

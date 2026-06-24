@@ -66,6 +66,12 @@ export const skills = [
         level: 1
     },
     {
+        imgSrc: `${base}images/wechat-miniprogram.svg`,
+        label: '微信小程序',
+        desc: '原生小程序与架构开发',
+        level: 1
+    },
+    {
         imgSrc: `${base}images/nodejs.svg`,
         label: 'Node.js',
         desc: '服务端开发',

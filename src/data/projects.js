@@ -23,16 +23,22 @@ export const projects = [
         projectLink: 'https://apps.apple.com/us/app/%E5%BF%83%E6%99%B4mo/id6759703686 '
     },
     {
-        imgSrc: `${base}images/xiuxian.png`,
-        title: '修仙欠费中',
-        tags: ['Nuxt', 'Vue3', 'TypeScript'],
-        projectLink: 'https://www.debt-xiuxian.online/',
-    },
-    {
         imgSrc: `${base}images/saleme.png`,
         title: '傻了么',
         tags: ['ReactNative', 'Expo', 'TypeScript'],
         projectLink: 'https://apps.apple.com/us/app/%E5%82%BB%E4%BA%86%E4%B9%88/id6770218110'
+    },
+    {
+        imgSrc: `${base}images/salary.png`,
+        title: '薪时宝',
+        tags: ['微信小程序', '云开发', 'JavaScript'],
+        projectLink: 'https://github.com/moyunzero/salary-record'
+    },
+    {
+        imgSrc: `${base}images/xiuxian.png`,
+        title: '修仙欠费中',
+        tags: ['Nuxt', 'Vue3', 'TypeScript'],
+        projectLink: 'https://www.debt-xiuxian.online/',
     },
     {
         imgSrc: `${base}images/travel.png`,
