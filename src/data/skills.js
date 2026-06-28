@@ -42,8 +42,14 @@ export const skills = [
         level: 1
     },
     {
+        imgSrc: `${base}images/nextjs.svg`,
+        label: 'Next.js',
+        desc: 'React 全栈框架',
+        level: 1
+    },
+    {
         imgSrc: `${base}images/nuxt.svg`,
-        label: 'Nuxt',
+        label: 'Nuxt.js',
         desc: '全栈框架',
         level: 1
     },

@@ -35,6 +35,12 @@ export const projects = [
         projectLink: 'https://github.com/moyunzero/salary-record'
     },
     {
+        imgSrc: `${base}images/lookjob.png`,
+        title: 'LookJob',
+        tags: ['Next', 'InsForge', 'AI SDK'],
+        projectLink: 'https://github.com/moyunzero/look-job'
+    },
+    {
         imgSrc: `${base}images/xiuxian.png`,
         title: '修仙欠费中',
         tags: ['Nuxt', 'Vue3', 'TypeScript'],
