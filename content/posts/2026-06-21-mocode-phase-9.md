@@ -14,7 +14,7 @@ tags:
   - LLM
 draft: false
 notionId: 386df5c0-26f4-80f3-9bc2-dda9c897227f
-notionSyncedAt: 2026-06-21T14:45:37.744Z
+notionSyncedAt: 2026-06-29T10:28:31.575Z
 ---
 
 Phase 4 起 Session API 用硬编码 **`userId: "mock-user"`**，任何人都能读写全部会话。本阶段接入 **Clerk OAuth**：CLI 执行 **`/login`** 走浏览器 **PKCE** 授权，token 存 **`~/.mocode/auth.json`**；Hono **`requireAuth`** 用 **`@clerk/backend`** 校验 Bearer token，并把 **`userId`** 注入 **`/sessions`**、**`/chat`** 路由做数据隔离。因 Clerk 只允许预注册固定 **`redirect_uri`**，采用 **API relay 两跳 redirect**（Clerk → Server `/auth/callback` → CLI 临时 localhost 端口）。CLI 输入框新增 **`@`** **mention 文件选择器**：在 **`process.cwd()`** 下异步扫描路径，弹出与 Slash 命令菜单互斥的 **`FileMentionMenu`**，支持键盘上下选择与 Enter 插入。

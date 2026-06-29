@@ -3,7 +3,7 @@ title: 探索开源 AI 模型：LLMs 和 Transformer 架构
 slug: 2024-12-20-ai-llms-transformer
 description: 当你开始探索人工智能系统的迷人领域时，你会遇到两种塑造未来的主要架构： 大型语言模型（Large Language
   Models，简称LLMs） 和 Transformer
-  。两者都建立在深度学习基础上，这些开源AI模型在理解和生成人类语言方面展现出强大的能力。选择适合你需求的架构，取决于预期应用场景、计算资源需…
+  。两者都建立在深度学习基础上，这些开源AI模型在理解和生成人类语言方面展现出强大的能力。选择适合你需求的架构，取决于预期应用场景、计算资源需求以及…
 author: 墨韵
 date: 2024-12-20
 categories:
@@ -13,7 +13,7 @@ tags:
   - ai
 draft: false
 notionId: 370df5c0-26f4-80e1-8183-e9f2a141c83a
-notionSyncedAt: 2026-06-01T06:40:55.892Z
+notionSyncedAt: 2026-06-29T10:33:26.689Z
 ---
 
 当你开始探索人工智能系统的迷人领域时，你会遇到两种塑造未来的主要架构：**大型语言模型（Large Language Models，简称LLMs）** 和 **Transformer**。两者都建立在深度学习基础上，这些开源AI模型在理解和生成人类语言方面展现出强大的能力。选择适合你需求的架构，取决于预期应用场景、计算资源需求以及模型的可获取性。
@@ -304,10 +304,3 @@ Transformer架构的优势在于它能够捕捉整个序列中的**长距离依�
 
 
 文章来源：[https://llmmodels.org/blog/exploring-open-source-ai-models-llms-and-transformer-architectures/](https://llmmodels.org/blog/exploring-open-source-ai-models-llms-and-transformer-architectures/)
-
-## 延伸阅读
-
-- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
-- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
-- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
-- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

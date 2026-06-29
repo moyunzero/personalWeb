@@ -1,7 +1,9 @@
 ---
 title: 使用 JavaScript 生成器来可视化算法
 slug: 2025-04-26-javascript
-description: 冒泡排序是一种简单的排序算法，其原理是重复地遍历要排序的数列。
+description: 现在有冒泡排序算法：
+  冒泡排序是一种简单的排序算法，其原理是重复地遍历要排序的数列，一次比较两个元素，如果它们的顺序错误就把它们交换过来。遍历数列的工作是重复进行的，直到没有再需要交换的元素为止，也就是说该数列已经排序完成。
+  1. 外层循环 ：控制冒泡排序的轮数，总共需要遍历 n 1 次，其中 n 是数组的长度。 2.…
 author: 墨韵
 date: 2025-04-26
 categories:
@@ -11,7 +13,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-8065-89da-c3d8bfc563ae
-notionSyncedAt: 2026-05-27T04:40:03.572Z
+notionSyncedAt: 2026-06-29T10:37:09.153Z
 ---
 
 现在有冒泡排序算法：

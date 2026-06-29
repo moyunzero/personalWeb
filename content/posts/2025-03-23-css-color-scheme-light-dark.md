@@ -1,7 +1,9 @@
 ---
 title: "CSS：color-scheme: light dark "
 slug: 2025-03-23-css-color-scheme-light-dark
-description: HTML 不仅有标准的白底黑字主题，还有一个原生的黑底白字版本。
+description: 默认 HTML color scheme HTML 不仅有标准的白底黑字主题，还有一个原生的黑底白字版本。
+  开箱即用——为创建暗色模式界面提供了一个基础，节省了处理输入框、按钮等元素颜色的复杂性。 如果在根元素上声明 而没有使用任何 @media 查询或者其他
+  CSS，页面将通过查看访客的操作系统 (OS) 偏好自动应…
 author: 墨韵
 date: 2025-03-23
 categories:
@@ -10,7 +12,7 @@ tags:
   - CSS
 draft: false
 notionId: 36ddf5c0-26f4-8089-869d-fcbe7b8fd1b8
-notionSyncedAt: 2026-05-27T04:40:10.810Z
+notionSyncedAt: 2026-06-29T10:37:20.900Z
 ---
 
 ## 默认 HTML color scheme

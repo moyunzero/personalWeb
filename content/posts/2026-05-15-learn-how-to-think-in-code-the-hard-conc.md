@@ -13,7 +13,7 @@ tags:
   - frontend
 draft: false
 notionId: 36ddf5c0-26f4-807f-8a26-d15e7072c088
-notionSyncedAt: 2026-05-29T06:18:45.397Z
+notionSyncedAt: 2026-06-29T10:37:00.444Z
 ---
 
 ## Think in JavaScript: The Hard & Conceptual Parts

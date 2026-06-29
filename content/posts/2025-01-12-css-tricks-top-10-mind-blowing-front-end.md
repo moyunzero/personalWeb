@@ -1,9 +1,9 @@
 ---
-title: "CSS Tricks: Top 10 Mind-Blowing Front-End Hacks That will Bl"
+title: "CSS Tricks: Top 10 Mind-Blowing Front-End Hacks That will Blow Your Mind! "
 slug: 2025-01-12-css-tricks-top-10-mind-blowing-front-end
 description: 1. CSS Variables Magic 使用 –custom properties 定义可重用值，然后在您的 CSS
   中使用它们！ 2. 隐藏悬停效果 不在 CSS 中添加悬停效果？试试使用 和子选择器进行隐蔽的悬停交互！ 你明白了吗？我们是如何不使用 CSS
-  悬停效果创建具有悬停效果的框的。 3. 边框半…
+  悬停效果创建具有悬停效果的框的。 3. 边框半径技巧…
 author: 墨韵
 date: 2025-01-12
 categories:
@@ -12,7 +12,7 @@ tags:
   - CSS
 draft: false
 notionId: 36ddf5c0-26f4-805e-a1de-eee44abc58ec
-notionSyncedAt: 2026-05-27T04:37:09.670Z
+notionSyncedAt: 2026-06-29T10:36:07.274Z
 ---
 
 # **1. CSS Variables Magic**
@@ -71,7 +71,7 @@ body {
 ```
 
 
-![%E6%88%AA%E5%B1%8F2024-11-11_22.04.10.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-9534a59eb1.png)
+![%E6%88%AA%E5%B1%8F2024-11-11_22.04.10.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-4d85709cca.png)
 
 
 # **2. 隐藏悬停效果**
@@ -139,7 +139,7 @@ button:not(:hover) {
 ```
 
 
-![%E6%88%AA%E5%B1%8F2024-11-11_22.05.57.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-2b4d461f6d.png)
+![%E6%88%AA%E5%B1%8F2024-11-11_22.05.57.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-210b786bd0.png)
 
 
 你明白了吗？我们是如何不使用 CSS 悬停效果创建具有悬停效果的框的。
@@ -211,7 +211,7 @@ button:not(:hover) {
 ```
 
 
-![%E6%88%AA%E5%B1%8F2024-11-11_22.11.38.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-ee6874e9ae.png)
+![%E6%88%AA%E5%B1%8F2024-11-11_22.11.38.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-3ab11fee5b.png)
 
 
 # **4. SVG 作为背景** 
@@ -266,7 +266,7 @@ background: url('data:image/svg+xml,...');
 ```
 
 
-![%E6%88%AA%E5%B1%8F2024-11-11_22.14.02.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-297910307d.png)
+![%E6%88%AA%E5%B1%8F2024-11-11_22.14.02.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-add35ef178.png)
 
 
 # **5. CSS 网格模板魔法**
@@ -325,7 +325,7 @@ background: url('data:image/svg+xml,...');
 ```
 
 
-![%E6%88%AA%E5%B1%8F2024-11-11_22.15.13.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-c6db7ce1b2.png)
+![%E6%88%AA%E5%B1%8F2024-11-11_22.15.13.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-3e366f75a9.png)
 
 
 # **6. 动态形状的裁剪路径**
@@ -379,7 +379,7 @@ background: url('data:image/svg+xml,...');
 ```
 
 
-![%E6%88%AA%E5%B1%8F2024-11-11_22.16.31.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-41f9793a1b.png)
+![%E6%88%AA%E5%B1%8F2024-11-11_22.16.31.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-c2bdd05558.png)
 
 
 # **7. CSS 滚动快照**
@@ -464,7 +464,7 @@ background: url('data:image/svg+xml,...');
 ```
 
 
-![%E6%88%AA%E5%B1%8F2024-11-11_22.17.51.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-65d924fade.png)
+![%E6%88%AA%E5%B1%8F2024-11-11_22.17.51.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-480c913e30.png)
 
 
 # **8. CSS 滤镜实现 WOW 效果** 
@@ -515,7 +515,7 @@ img {
 ```
 
 
-![%E6%88%AA%E5%B1%8F2024-11-11_22.19.08.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-a246876462.png)
+![%E6%88%AA%E5%B1%8F2024-11-11_22.19.08.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-faf52884e4.png)
 
 
 # **9. 对象适配，完美图像** 
@@ -548,11 +548,4 @@ img {
 ```
 
 
-![%E6%88%AA%E5%B1%8F2024-11-11_22.20.33.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-598189d4f3.png)
-
-## 延伸阅读
-
-- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
-- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
-- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
-- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)
+![%E6%88%AA%E5%B1%8F2024-11-11_22.20.33.png](images/blog/2025-01-12-css-tricks-top-10-mind-blowing-front-end/img-ed4832063e.png)

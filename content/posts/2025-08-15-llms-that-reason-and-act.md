@@ -11,7 +11,7 @@ tags:
   - ai
 draft: false
 notionId: 374df5c0-26f4-80d6-90d0-f8c2383a815e
-notionSyncedAt: 2026-06-03T13:49:55.235Z
+notionSyncedAt: 2026-06-29T10:33:04.208Z
 ---
 
 ## **什么是 ReAct？**
@@ -29,7 +29,7 @@ ReAct 系统扩展了[**模块化推理、知识和语言 (MRKL) 系统** ](htt
 以下是来自 HotPotQA [**2**](https://learnprompting.org/docs/agents/react#footnote-label) 的示例，这是一个需要复杂推理的问答数据集。ReAct 允许逻辑学习模型 (LLM) 对问题进行推理（思维 1），并执行操作（例如，查询 Google）（行动 1）。然后，它接收观察结果（观察 1），并继续执行思维-行动循环，直到得出结论（行动 3）。
 
 
-![%E6%88%AA%E5%B1%8F2026-06-03_16.34.10.png](images/blog/2025-08-15-llms-that-reason-and-act/img-ad999e1cbb.png)
+![%E6%88%AA%E5%B1%8F2026-06-03_16.34.10.png](images/blog/2025-08-15-llms-that-reason-and-act/img-7ee9896329.png)
 
 
 熟悉[**强化学习（RL）**](https://learnprompting.org/vocabulary/reinforcement_learning) 的读者可能会发现，这个过程与经典的 RL 状态-动作-奖励循环类似。ReAct 在其论文中对此进行了一些形式化描述。
@@ -41,7 +41,7 @@ ReAct 系统扩展了[**模块化推理、知识和语言 (MRKL) 系统** ](htt
 谷歌使用 ReAct 对 PaLM LLM [**3**](https://learnprompting.org/docs/agents/react#footnote-label) 进行了实验，结果显示其在复杂推理任务中取得了显著改进。ReAct 在 FEVER [**4**](https://learnprompting.org/docs/agents/react#footnote-label) 等数据集上进行了测试，重点关注事实提取和验证
 
 
-![%E6%88%AA%E5%B1%8F2026-06-03_16.34.41.png](images/blog/2025-08-15-llms-that-reason-and-act/img-4960456c3a.png)
+![%E6%88%AA%E5%B1%8F2026-06-03_16.34.41.png](images/blog/2025-08-15-llms-that-reason-and-act/img-f7c5e05d18.png)
 
 
 ---

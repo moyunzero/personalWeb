@@ -12,7 +12,7 @@ tags:
   - LLM
 draft: false
 notionId: 38adf5c0-26f4-80d3-a93a-f7745c8101a1
-notionSyncedAt: 2026-06-25T13:51:16.707Z
+notionSyncedAt: 2026-06-29T10:26:42.657Z
 ---
 
 **AI Agent 的完整工作流程** —— 一个被称为 **Thought-Action-Observation（思考-行动-观察）** 的循环机制。这也是大多数 Agent 框架（如 ReAct）的核心基础。
@@ -39,7 +39,7 @@ Agent 的工作是一个**持续循环**：
 在实际框架中，这些规则和指导方针通常被**直接嵌入系统提示**中，确保每次循环都遵循既定逻辑。
 
 
-![AgentCycle.gif](images/blog/2026-06-10-understanding-ai-agents-through-the-thou/img-28e934a35b.gif)
+![AgentCycle.gif](images/blog/2026-06-10-understanding-ai-agents-through-the-thou/img-05ff0e40c0.gif)
 
 
 ### 经典示例：Alfred 天气 Agent

@@ -1,7 +1,10 @@
 ---
 title: "使用 JavaScript 生成随机迷宫 "
 slug: 2025-01-18-javascript
-description: 随机迷宫
+description: embed 定义约束
+  有很多不同类型的迷宫以及制作它们的方法。在开始编写代码之前，我仔细思考了对迷宫的需求以及避免陷入复杂性的因素。我最终确定了一些基本约束条件：
+  迷宫将是矩形的。 有一条穿过迷宫的唯一路径。 路径始终从左侧边缘到右侧边缘。 应该可以访问迷宫中的每一个方块。 The Game Plan
+  把迷宫创建过程分…
 author: 墨韵
 date: 2025-01-18
 categories:
@@ -10,7 +13,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-808e-a949-ca65d1742f8c
-notionSyncedAt: 2026-05-27T04:40:20.456Z
+notionSyncedAt: 2026-06-29T10:37:27.737Z
 ---
 
 [embed](https://codepen.io/phebert/pen/zYgqwVe)

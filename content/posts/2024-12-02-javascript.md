@@ -11,7 +11,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-8032-9445-fa0aeaa511ce
-notionSyncedAt: 2026-05-27T05:51:00.421Z
+notionSyncedAt: 2026-06-29T10:35:06.639Z
 ---
 
 # 什么是事件循环？

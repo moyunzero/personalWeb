@@ -13,7 +13,7 @@ tags:
   - 计算机
 draft: false
 notionId: 36ddf5c0-26f4-807e-b1c6-c44b34058978
-notionSyncedAt: 2026-05-27T05:52:28.655Z
+notionSyncedAt: 2026-06-29T10:35:28.800Z
 ---
 
 ### 1. 引言
@@ -38,7 +38,7 @@ notionSyncedAt: 2026-05-27T05:52:28.655Z
 **图示**（最基础架构）：
 
 
-![figure-1-1-WCFZBBLA_%281%29.webp](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-375d687e8d.webp)
+![figure-1-1-WCFZBBLA_%281%29.webp](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-3b25436e99.webp)
 
 
 **代码示例**（Node.js 简单服务器）：
@@ -60,7 +60,7 @@ app.listen(3000);
 **最佳实践**：从小规模单机开始，理解每个组件瓶颈（CPU、内存、DB I/O），再扩展。生产中**绝不**把前端和后端、DB 混在同一台服务器（三层架构：Presentation / Logic / Data）。
 
 
-![4a38175b-11e8-40ae-879c-ab3ce2027089_2008x1252.jpg](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-e9d2534f95.jpg)
+![4a38175b-11e8-40ae-879c-ab3ce2027089_2008x1252.jpg](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-895e47f681.jpg)
 
 
 ### 3. 数据库：SQL、NoSQL、Graph
@@ -81,10 +81,10 @@ app.listen(3000);
 **对比图**：
 
 
-![differences-between-sql-databases-and-nosql-databases.webp](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-66902c9492.webp)
+![differences-between-sql-databases-and-nosql-databases.webp](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-0ecd00e109.webp)
 
 
-![sql-vs-nosql-comparision.webp](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-7cf17d8f9c.webp)
+![sql-vs-nosql-comparision.webp](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-6b1960b54f.webp)
 
 
 **选择原则**：
@@ -128,10 +128,10 @@ app.listen(3000);
 **图示**：
 
 
-![1650e3bc-2d6b-47ee-8370-a5e1b1c79abf_1600x1032.png](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-52a2f45db7.png)
+![1650e3bc-2d6b-47ee-8370-a5e1b1c79abf_1600x1032.png](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-f5f2668fe5.png)
 
 
-![Diagram-1--1--1.jpg](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-5186f17e53.jpg)
+![Diagram-1--1--1.jpg](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-66e4d3dc2b.jpg)
 
 
 **Caching & CDN 融入**：负载均衡前可加 CDN 缓存静态资源，极大降低后端压力（生产基础设施核心）。
@@ -209,10 +209,10 @@ DELETE /api/products/123              # 删除
 **图示**：
 
 
-![rest_api_works.png](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-abc31d071c.png)
+![rest_api_works.png](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-e43ffda38e.png)
 
 
-![3605e817-3083-4fbe-9faa-bc626cfb497a_1938x1246.png](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-421e2be1a7.png)
+![3605e817-3083-4fbe-9faa-bc626cfb497a_1938x1246.png](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-6d628f5ac7.png)
 
 
 **最佳实践**：无状态、HATEOAS（可选）、统一错误格式 `{ "code": 400, "message": "..." }`。
@@ -274,7 +274,7 @@ query {
 **JWT 流程图**：
 
 
-![https___dev-to-uploads.s3.amazonaws.com_uploads_articles_8wiw2dbjerzq6br66qv8.webp](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-a4fd9bc07a.webp)
+![https___dev-to-uploads.s3.amazonaws.com_uploads_articles_8wiw2dbjerzq6br66qv8.webp](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-6b6d22ad9e.webp)
 
 
 **Node.js JWT 示例**（生产级）：
@@ -314,7 +314,7 @@ const verifyToken = (req, res, next) => {
 **对比表**：
 
 
-![access-control-models-comparison.jpg](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-f69dc4ee5f.jpg)
+![access-control-models-comparison.jpg](images/blog/2026-05-27-system-design-course-apis-databases-cach/img-c475c41911.jpg)
 
 
 **最佳实践**：真实系统**RBAC + ABAC 混合**，权限写在 JWT Claims 中。

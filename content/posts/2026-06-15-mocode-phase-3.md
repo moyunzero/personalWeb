@@ -3,7 +3,7 @@ title: MoCode Phase 3 开发笔记
 slug: 2026-06-15-mocode-phase-3
 description: 在 Phase 2 的单页 Provider 壳层之上，本阶段引入 React Router Memory Router ，将 CLI
   拆为 Home / NewSession / Session 三个 Screen，并把 Provider 树迁入 。新增可复用的 （消息区 + 底部 +
-  状态栏占位），以及 / …
+  状态栏占位），以及 / / 三…
 author: 墨韵
 date: 2026-06-15
 categories:
@@ -16,7 +16,7 @@ tags:
   - OpenTUI
 draft: false
 notionId: 380df5c0-26f4-80dc-a897-da6ecaf032c0
-notionSyncedAt: 2026-06-16T03:21:35.565Z
+notionSyncedAt: 2026-06-29T10:31:43.136Z
 ---
 
 在 Phase 2 的单页 Provider 壳层之上，本阶段引入 **React Router Memory Router**，将 CLI 拆为 **Home / NewSession / Session** 三个 Screen，并把 Provider 树迁入 **`RootLayout`**。新增可复用的 **`SessionShell`**（消息区 `scrollbox` + 底部 `InputBar` + 状态栏占位），以及 **`UserMessage`** **/** **`BotMessage`** **/** **`ErrorMessage`** 三类消息组件与 **`opentui-spinner`** 加载动画。Home 输入提交后会携带 `location.state` 导航到 `/sessions/new` 展示「创建会话中」的占位 UI；真实 Session API、Slash 命令与路由联动尚未完成。
@@ -663,10 +663,3 @@ git checkout moyunzero/feat/cli-phase3-session-ui
 
 
 ---
-
-## 延伸阅读
-
-- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
-- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
-- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
-- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

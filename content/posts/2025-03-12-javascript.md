@@ -11,7 +11,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-80dc-8b6a-dd8b4b3d8881
-notionSyncedAt: 2026-05-27T04:40:13.123Z
+notionSyncedAt: 2026-06-29T10:37:21.998Z
 ---
 
 在 JavaScript 中，内存管理通过自动垃圾回收器来处理。它通过回收未使用对象来释放内存。自动内存管理很有帮助，但并不完美。如果对象没有被正确清除或释放，仍然可能发生内存泄漏。

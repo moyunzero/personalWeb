@@ -3,7 +3,7 @@ title: MoCode Phase 7 开发笔记
 slug: 2026-06-19-mocode-phase-7
 description: Phase 6 流式对话已通，但 模型与 Agent 模式仍硬编码 （ · ）， · · 仅为 Toast 或占位文案。本阶段新增
   统一管理 与 ，扩展 注入 / / ；实现三个基于 的选择器，其中 拉取 Session API 并跳转路由 。 Tab 在输入框内切换 Build ↔︎
-  Plan， 输入框左边框、…
+  Plan， 输入框左边框、Sta…
 author: 墨韵
 date: 2026-06-19
 categories:
@@ -15,7 +15,7 @@ tags:
   - ai
 draft: false
 notionId: 385df5c0-26f4-80b9-884b-ec07a955228a
-notionSyncedAt: 2026-06-20T15:54:24.738Z
+notionSyncedAt: 2026-06-29T10:29:45.372Z
 ---
 
 Phase 6 流式对话已通，但 **模型与 Agent 模式仍硬编码**（`DEFAULT_CHAT_MODEL_ID` · `BUILD`），`/agents` · `/models` · `/sessions` 仅为 Toast 或占位文案。本阶段新增 **`PromptConfigProvider`** 统一管理 `mode` 与 `model`，扩展 **`CommandContext`** 注入 `setMode` / `setModel` / `navigate`；实现三个基于 **`DialogSearchList`** 的选择器，其中 **`/sessions`** **拉取 Session API 并跳转路由**。**Tab** 在输入框内切换 Build ↔︎ Plan，**输入框左边框、StatusBar、Spinner** 随 mode 变色。`session.tsx` 发消息时尚未读取 PromptConfig，属已知缺口。
@@ -913,10 +913,3 @@ bun run dev:cli
 | Model       | `gemini-2.5-flash` | `PromptConfig.model`    |
 | 提交          | `Enter 提交`         | `terminal-capabilities` |
 | 换行          | `Shift+Enter 换行` 等 | 同上                      |
-
-## 延伸阅读
-
-- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
-- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
-- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
-- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

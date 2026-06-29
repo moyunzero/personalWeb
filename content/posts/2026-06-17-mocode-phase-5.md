@@ -3,7 +3,7 @@ title: MoCode Phase 5 开发笔记
 slug: 2026-06-17-mocode-phase-5
 description: Phase 4 的 Session API 在本阶段补上 生产可观测性 ：Server 接入 Sentry 中间件
   （请求追踪、错误上报、结构化日志），Session 路由在列表 / 加载 / 创建 / 校验失败等关键路径写入 。同时将 拆成类型入口与运行时 Client
-  两个 export ，避免 CLI 为 …
+  两个 export ，避免 CLI 为 Hon…
 author: 墨韵
 date: 2026-06-17
 categories:
@@ -15,7 +15,7 @@ tags:
   - ai
 draft: false
 notionId: 381df5c0-26f4-80d5-815b-cad6bd2c4558
-notionSyncedAt: 2026-06-18T14:24:26.352Z
+notionSyncedAt: 2026-06-29T10:30:55.770Z
 ---
 
 Phase 4 的 Session API 在本阶段补上 **生产可观测性**：Server 接入 **Sentry 中间件**（请求追踪、错误上报、结构化日志），Session 路由在列表 / 加载 / 创建 / 校验失败等关键路径写入 **`Sentry.logger`**。同时将 **`@mocode/database`** **拆成类型入口与运行时 Client 两个 export**，避免 CLI 为 Hono RPC 类型而误拉 Prisma 运行时。CLI 侧仅 **`ToastProvider`** **用** **`useMemo`** **稳定 Context 引用**，减少无关重渲染。流式 Chat、认证、Session 列表 UI 仍未实现。
@@ -638,10 +638,3 @@ bun run dev:cli
 | `packages/server` | `db` ← `@mocode/database/client`；枚举 ← `@mocode/database/enums` |
 | `packages/cli`    | 类型 ← `@mocode/database`；枚举 ← `@mocode/database/enums`          |
 | 脚本 / 迁移           | `db` ← `@mocode/database/client`                               |
-
-## 延伸阅读
-
-- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
-- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
-- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
-- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

@@ -1,7 +1,9 @@
 ---
 title: 如何使用开发者工具在浏览器中调试 JavaScript
 slug: 2025-06-20-javascript
-description: 调试 JavaScript
+description: 准备了一些有问题的代码，这些代码应该加四个数字并计算它们的平均值。 这是代码的 HTML：
+  这是将标签推到相应行并稍微放大输入元素和按钮的最小 CSS： 这里是出现错误的 JavaScript 代码： 这里是输入 4 个数字，比如 ， ， ，
+  ，然后点击 按钮会发生的情况： 不幸的是，数字被合并了，平均值是基于这个计算…
 author: 墨韵
 date: 2025-06-20
 categories:
@@ -10,7 +12,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-8013-a784-e824c998e754
-notionSyncedAt: 2026-05-27T04:39:12.528Z
+notionSyncedAt: 2026-06-29T10:36:31.766Z
 ---
 
 准备了一些有问题的代码，这些代码应该加四个数字并计算它们的平均值。
@@ -63,7 +65,7 @@ button {
 ```
 
 
-![%E6%88%AA%E5%B1%8F2024-11-19_22.53.29.png](images/blog/2025-06-20-javascript/img-cccaf5144f.png)
+![%E6%88%AA%E5%B1%8F2024-11-19_22.53.29.png](images/blog/2025-06-20-javascript/img-cda99c59ee.png)
 
 
 这里是出现错误的 JavaScript 代码：
@@ -102,7 +104,7 @@ calculateBtn.addEventListener('click', handleButtonClick);
 这里是输入 4 个数字，比如 `3` ， `4` ， `2` ， `1` ，然后点击 `Calculate Sum and Average` 按钮会发生的情况：
 
 
-![%E6%88%AA%E5%B1%8F2024-11-19_22.54.12.png](images/blog/2025-06-20-javascript/img-6066d0ae9d.png)
+![%E6%88%AA%E5%B1%8F2024-11-19_22.54.12.png](images/blog/2025-06-20-javascript/img-b02d62a850.png)
 
 
 不幸的是，数字被合并了，平均值是基于这个计算的，这意味着正在发生连接而不是加法。有缺陷的加法也导致平均值计算有缺陷。
@@ -135,7 +137,7 @@ calculateBtn.addEventListener('click', handleButtonClick);
 这里是对 Chrome 开发者工具“Sources”标签页的简要解剖：
 
 
-![%E6%88%AA%E5%B1%8F2024-11-19_22.55.44.png](images/blog/2025-06-20-javascript/img-b8a1705159.png)
+![%E6%88%AA%E5%B1%8F2024-11-19_22.55.44.png](images/blog/2025-06-20-javascript/img-a5ca8abee3.png)
 
 
 在调试器标签页上方有一些灰色图标。当它们处于活动状态时，可以让你逐步执行代码并添加或删除断点。
@@ -166,7 +168,7 @@ calculateBtn.addEventListener('click', handleButtonClick);
 例如，让我们在第 14 行添加一个断点，然后输入四个数字并点击 `Calculate Sum and Average` 按钮，以便代码运行：
 
 
-![%E6%88%AA%E5%B1%8F2024-11-19_22.57.59.png](images/blog/2025-06-20-javascript/img-d73ad3200b.png)
+![%E6%88%AA%E5%B1%8F2024-11-19_22.57.59.png](images/blog/2025-06-20-javascript/img-ce11624b98.png)
 
 
 此时，你可以看到执行没有继续——这就是为什么你在“局部”下看到所有变量的值都显示为“不可用”。
@@ -175,13 +177,13 @@ calculateBtn.addEventListener('click', handleButtonClick);
 从这里，您可以开始逐行执行代码，通过点击右上角的步骤图标：
 
 
-![%E6%88%AA%E5%B1%8F2024-11-19_22.59.03.png](images/blog/2025-06-20-javascript/img-c5061c0978.png)
+![%E6%88%AA%E5%B1%8F2024-11-19_22.59.03.png](images/blog/2025-06-20-javascript/img-029c652f47.png)
 
 
 一旦点击步骤图标，你退出的那一行就会执行。
 
 
-![%E6%88%AA%E5%B1%8F2024-11-19_22.59.39.png](images/blog/2025-06-20-javascript/img-7bf5131a5e.png)
+![%E6%88%AA%E5%B1%8F2024-11-19_22.59.39.png](images/blog/2025-06-20-javascript/img-9f375d6a6a.png)
 
 
 您可以看到 `"3"` 是行 `14` 的值。这个值被一对双引号包围。这意味着它是一个字符串。不过，您需要确保这一点，这正是监视功能让您做到的。您很快就会了解这个功能。
@@ -193,7 +195,7 @@ calculateBtn.addEventListener('click', handleButtonClick);
 我将继续在行 `23` 处设置断点并再次运行代码：
 
 
-![%E6%88%AA%E5%B1%8F2024-11-19_23.00.23.png](images/blog/2025-06-20-javascript/img-5316ec61f4.png)
+![%E6%88%AA%E5%B1%8F2024-11-19_23.00.23.png](images/blog/2025-06-20-javascript/img-403c457796.png)
 
 
 ## **如何使用开发者工具的watch功能**
@@ -208,7 +210,7 @@ calculateBtn.addEventListener('click', handleButtonClick);
 要添加监视表达式，请点击“监视”旁边的加号（+）图标，然后在键盘上按 `ENTER` 。
 
 
-![%E6%88%AA%E5%B1%8F2024-11-19_23.01.36.png](images/blog/2025-06-20-javascript/img-3885920a26.png)
+![%E6%88%AA%E5%B1%8F2024-11-19_23.01.36.png](images/blog/2025-06-20-javascript/img-49d29ad6b1.png)
 
 
 这里是一些确认 `num1` - `num4` 和 `total` 是字符串的表达式——但它们应该是整数：
@@ -217,7 +219,7 @@ calculateBtn.addEventListener('click', handleButtonClick);
 您也可以在控制台标签中通过检查变量类型来验证此内容：
 
 
-![%E6%88%AA%E5%B1%8F2024-11-19_23.02.22.png](images/blog/2025-06-20-javascript/img-333899d6fa.png)
+![%E6%88%AA%E5%B1%8F2024-11-19_23.02.22.png](images/blog/2025-06-20-javascript/img-c4287338d8.png)
 
 
 这意味着您输入的数字被视为字符串。这是因为，在 JavaScript 中，从 HTML 元素（如输入字段）检索的值始终被视为字符串。
@@ -238,7 +240,7 @@ calculateBtn.addEventListener('click', handleButtonClick);
 一旦你这样做并再次运行代码，正确的数据类型应该会在监视器中显示，正确的变量值应该会在“局部”下显示
 
 
-![%E6%88%AA%E5%B1%8F2024-11-19_23.03.08.png](images/blog/2025-06-20-javascript/img-f870146edc.png)
+![%E6%88%AA%E5%B1%8F2024-11-19_23.03.08.png](images/blog/2025-06-20-javascript/img-0c16f19e2d.png)
 
 
 ```javascript

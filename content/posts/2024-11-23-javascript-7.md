@@ -10,7 +10,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-80cc-8b54-cd6a3cbdf263
-notionSyncedAt: 2026-05-27T04:34:44.753Z
+notionSyncedAt: 2026-06-29T10:35:46.849Z
 ---
 
 在 JavaScript 中，继承是重用代码和管理复杂对象关系的一种基本方式。凭借其基于原型的模型，JavaScript 拥有几种继承模式，每种模式都提供了独特的优势。让我们探讨这些技术，并了解每种模式在何时最为有效。

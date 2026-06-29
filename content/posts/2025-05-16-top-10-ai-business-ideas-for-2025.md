@@ -1,7 +1,9 @@
 ---
 title: "Top 10 AI Business Ideas For 2025 "
 slug: 2025-05-16-top-10-ai-business-ideas-for-2025
-description: 人工智能（AI）是指能够执行通常需要人类智能的任务的计算机系统的开发
+description: 什么是人工智能？
+  人工智能（AI）是指能够执行通常需要人类智能的任务的计算机系统的开发。这些任务包括学习、推理、解决问题、理解语言、识别模式，甚至做出决策。人工智能的工作原理是使用算法和数据来模仿认知功能，使机器能够从经验中“学习”，并随着时间的推移提高其性能，而无需显式编程。
+  人工智能有不同类型，从专为语音识别或图像…
 author: 墨韵
 date: 2025-05-16
 categories:
@@ -11,7 +13,7 @@ tags:
   - ai
 draft: false
 notionId: 36ddf5c0-26f4-80ab-90f5-d9600e877af0
-notionSyncedAt: 2026-05-27T04:39:59.514Z
+notionSyncedAt: 2026-06-29T10:37:05.834Z
 ---
 
 # **什么是人工智能？**

@@ -15,7 +15,7 @@ tags:
   - LLM
 draft: false
 notionId: 38ddf5c0-26f4-80e7-be1c-fdb0ef427434
-notionSyncedAt: 2026-06-28T09:56:12.635Z
+notionSyncedAt: 2026-06-29T10:25:41.826Z
 ---
 
 README 曾承诺「支持恢复中断的流式响应」，Phase 11 移除旧 `/resume` 路由后产生缺口。本 Phase 在 **不新增** **`POST /chat/:id/resume`** 的前提下，通过 **Esc 持久化 partial**、**composer 恢复**、**工具** **`Interrupted by user`**、**user-only 自动续写**、**`/resume`** **regenerate** 与 **SaaS** **`StreamReplayBuffer`** 补齐 HARNESS-07/08。

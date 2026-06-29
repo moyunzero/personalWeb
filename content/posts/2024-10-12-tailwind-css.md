@@ -1,9 +1,7 @@
 ---
 title: 使用 Tailwind CSS 进行响应式设计
 slug: 2024-10-12-tailwind-css
-description: Tailwind 提供了一种简单有效的方法来使你的设计适应不同的屏幕尺寸，无需编写任何自定义媒体查询即可创建响应式布局。 1. 了解
-  Tailwind 的响应式实用程序 Tailwind CSS 提供遵循 移动优先
-  方法的响应式实用程序。这意味着默认情况下，没有任何断点应用的样式会针对小屏幕。要修改较大屏幕的样式…
+description: Tailwind 提供了一种简单有效的方法来使你的设计适应不同的屏幕尺寸，无需编写任何自定义媒体查询即可创建响应式布局。
 author: 墨韵
 date: 2024-10-12
 categories:
@@ -12,7 +10,7 @@ tags:
   - CSS
 draft: false
 notionId: 36ddf5c0-26f4-80d4-a85b-c516ebbe0fc5
-notionSyncedAt: 2026-05-27T04:36:29.740Z
+notionSyncedAt: 2026-06-29T10:35:56.394Z
 ---
 
 Tailwind 提供了一种简单有效的方法来使你的设计适应不同的屏幕尺寸，无需编写任何自定义媒体查询即可创建响应式布局。
@@ -112,10 +110,3 @@ Tailwind 可以轻松使用 Flexbox 构建响应式布局，允许您在不同�
 
 - flex-col ：在小屏幕上垂直堆叠项目。
 - md:flex-row ：在中型屏幕和更大屏幕上切换到水平布局。
-
-## 延伸阅读
-
-- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
-- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
-- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
-- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

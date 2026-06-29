@@ -1,7 +1,9 @@
 ---
 title: 每个开发人员都应该了解的 5 个 JavaScript 概念
 slug: 2025-10-21-5-javascript
-description: 早些时候，JavaScript 只提供了 var 关键字来声明变量。但 var 有一些问题。
+description: 1.let和const关键字 早些时候，JavaScript 只提供了 var 关键字来声明变量。但 var 有一些问题。
+  首先是它的范围，可以是全局的或功能性的。 其次，用 var 声明的变量可以重新声明。此外，var 变量可以更新这一事实也可能存在问题。
+  因此，JavaScript 提供了两个新的关键字来应对不需要…
 author: 墨韵
 date: 2025-10-21
 categories:
@@ -10,7 +12,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-801a-99b3-ee821fd72101
-notionSyncedAt: 2026-05-27T04:37:36.551Z
+notionSyncedAt: 2026-06-29T10:36:15.758Z
 ---
 
 # **1.let和const关键字**

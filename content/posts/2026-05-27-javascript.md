@@ -13,7 +13,7 @@ tags:
   - frontend
 draft: false
 notionId: 36ddf5c0-26f4-804b-b495-d7ee33c93a0f
-notionSyncedAt: 2026-05-27T05:51:16.793Z
+notionSyncedAt: 2026-06-29T10:35:10.224Z
 ---
 
 # **1. 函数式编程**
@@ -29,7 +29,7 @@ notionSyncedAt: 2026-05-27T05:51:16.793Z
 遵循这些原则，函数式编程确保代码干净、可预测且易于维护。
 
 
-![%E6%88%AA%E5%B1%8F2024-12-27_22.22.58.png](images/blog/2026-05-27-javascript/img-ca25e8c8af.png)
+![%E6%88%AA%E5%B1%8F2024-12-27_22.22.58.png](images/blog/2026-05-27-javascript/img-a6567a9244.png)
 
 
 # 2. 一级函数

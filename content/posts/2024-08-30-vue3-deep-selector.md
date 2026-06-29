@@ -1,7 +1,9 @@
 ---
 title: Vue3 深度选择器 Deep selector
 slug: 2024-08-30-vue3-deep-selector
-description: "什么情况下需要用到深度选择器 Deep selector ?"
+description: "什么情况下需要用到深度选择器 Deep selector ? 有如下组件定义 期望设置el card
+  title的title为加粗，实际无效。实际上生成代码 因此就有了 Deep selector。这部分Vue3 的文档有所提及：<u Vue3: Deep
+  selector </u 写法变为： Vue2 支持以下写法:…"
 author: 墨韵
 date: 2024-08-30
 categories:
@@ -11,7 +13,7 @@ tags:
   - Vue
 draft: false
 notionId: 36ddf5c0-26f4-8069-95fd-f01270611243
-notionSyncedAt: 2026-05-27T04:40:28.092Z
+notionSyncedAt: 2026-06-29T10:37:38.836Z
 ---
 
 ## 什么情况下需要用到深度选择器 Deep selector ?

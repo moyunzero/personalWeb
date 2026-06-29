@@ -1,7 +1,8 @@
 ---
 title: 6 Best Open-Source AI Chatbot Builders
 slug: 2025-06-15-6-best-open-source-ai-chatbot-builders
-description: 开源聊天机器人不仅仅是自动回复的工具——它们代表了一个蓬勃发展的开发者社区。
+description: https://github.com/huggingface/chat ui
+  开源聊天机器人不仅仅是自动回复的工具——它们代表了一个蓬勃发展的开发者社区，这些开发者为构建多功能、透明且可定制的对话代理做出了贡献。无论你是想在网站上嵌入聊天机器人，创建企业助理，还是探索基于人工智能的聊天潜力，开源解决方案都提供了将你的愿…
 author: 墨韵
 date: 2025-06-15
 categories:
@@ -10,7 +11,7 @@ tags:
   - ChatGPT
 draft: false
 notionId: 36ddf5c0-26f4-8012-b3cd-c9defad63635
-notionSyncedAt: 2026-05-27T04:39:44.559Z
+notionSyncedAt: 2026-06-29T10:36:49.676Z
 ---
 
 [https://github.com/huggingface/chat-ui](https://github.com/huggingface/chat-ui)

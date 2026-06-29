@@ -11,7 +11,7 @@ tags:
   - ai
 draft: false
 notionId: 374df5c0-26f4-80e3-a010-e8d8066c6097
-notionSyncedAt: 2026-06-03T13:50:02.955Z
+notionSyncedAt: 2026-06-29T10:33:07.284Z
 ---
 
 ## **流式传输**
@@ -65,7 +65,7 @@ LLM一次生成一个词元（token）。词元是文本的一个单元，它可
 服务器发送事件 (SSE) 是一种协议，它允许服务器通过单个 HTTP 连接实时向客户端推送更新。每个数据块都作为单独的事件发送。
 
 
-![%E6%88%AA%E5%B1%8F2026-06-03_15.06.17.png](images/blog/2025-03-10-streaming-responses-in-ai-how-ai-outputs/img-4baa47e091.png)
+![%E6%88%AA%E5%B1%8F2026-06-03_15.06.17.png](images/blog/2025-03-10-streaming-responses-in-ai-how-ai-outputs/img-9cae265065.png)
 
 
 每个 `data` 字段代表客户端可以立即显示的响应的一部分。

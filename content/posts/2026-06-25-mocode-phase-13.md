@@ -15,7 +15,7 @@ tags:
   - OpenTUI
 draft: false
 notionId: 38ddf5c0-26f4-8014-b140-d1a38566429b
-notionSyncedAt: 2026-06-28T09:56:41.073Z
+notionSyncedAt: 2026-06-29T10:26:10.113Z
 ---
 
 在 Phase 11「Server 流式 + CLI 本地执行」与 Phase 12「bash 审批门」之上，交付 **Harness 平台扩展**：CLI 作为 **唯一 MCP 客户端**，通过 `~/.mocode/mcp.json` 与项目 `.mocode/mcp.json` **并集合并**连接外部工具服务器；工具以 Claude Code 命名 **`mcp__<server>__<tool>`** 注册进模型上下文，**执行始终在 CLI**（SaaS 模式仅合并 schema）。新增 **`mocode --local`** **BYOK**：`keys.json` + `/keys` 向导 + `LocalChatTransport` 进程内 `streamText`，会话落盘 `~/.mocode/projects/<cwd>/`。MCP **写工具**复用 bash 三选项审批；`/mcp` 提供运行时状态、启用切换与重连。UAT 8/8 通过。

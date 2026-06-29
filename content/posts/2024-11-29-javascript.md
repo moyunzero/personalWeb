@@ -11,7 +11,7 @@ tags:
   - frontend
 draft: false
 notionId: 36ddf5c0-26f4-8035-9420-de1aa6a81f65
-notionSyncedAt: 2026-05-27T05:50:55.267Z
+notionSyncedAt: 2026-06-29T10:35:02.138Z
 ---
 
 # **什么是事件委托？**

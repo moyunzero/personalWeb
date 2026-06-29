@@ -3,7 +3,7 @@ title: MoCode Phase 8 开发笔记
 slug: 2026-06-20-mocode-phase-8
 description: Phase 6 只有纯文本 SSE，Phase 7 的 PromptConfig 也未接到 submit。本阶段将 MoCode
   升级为 终端 Agent ：Server 在 下注册 7 个 Vercel AI SDK tools （PLAN 只读 / BUILD 可写 +
-  bash）， 多步循环（最多 50 步…
+  bash）， 多步循环（最多 50 步），并…
 author: 墨韵
 date: 2026-06-20
 categories:
@@ -14,7 +14,7 @@ tags:
   - LLM
 draft: false
 notionId: 385df5c0-26f4-8069-bf09-c61add6268b4
-notionSyncedAt: 2026-06-20T15:53:53.622Z
+notionSyncedAt: 2026-06-29T10:29:15.146Z
 ---
 
 Phase 6 只有纯文本 SSE，Phase 7 的 PromptConfig 也未接到 submit。本阶段将 MoCode 升级为 **终端 Agent**：Server 在 `session.cwd` 下注册 **7 个 Vercel AI SDK tools**（PLAN 只读 / BUILD 可写 + bash），`streamText` 多步循环（最多 50 步），并把 **reasoning / tool-call / text** 写入 `Message.parts` JSON 同时推送 SSE。CLI **`useChat`** 解析新事件类型，**`BotMessage`** 展示 Thinking 与工具调用行；**`session.tsx`** **/** **`new-session.tsx`** finally 读取 PromptConfig 并在建会话时写入 **`cwd: process.cwd()`**。各 Provider 在 **`model.ts`** 配置 **`providerOptions`** 以启用 reasoning 流。
@@ -1482,10 +1482,3 @@ cd packages/server && bun run test:providers
 | bash          | `{ stdout, stderr, exitCode }`                        | `{ error }`         |
 
 > tool-result SSE 中 `result` 为上述对象的 `JSON.stringify` 字符串。
-
-## 延伸阅读
-
-- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
-- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
-- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
-- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

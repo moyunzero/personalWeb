@@ -10,7 +10,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-80b1-a2c0-cc64bcb1cb0f
-notionSyncedAt: 2026-05-27T04:40:04.374Z
+notionSyncedAt: 2026-06-29T10:37:10.047Z
 ---
 
 **Local Storages**是一个基于浏览器的重要 API，允许开发人员直接在浏览器中存储、检索和管理数据。与会话存储不同，本地存储即使在浏览器关闭后仍然存在，因此非常适合保存用户首选项、应用程序设置或需要在会话之间保留的任何类型的数据。但是，请务必注意，数据仅限于存储其的浏览器。例如，Chrome 中保存的数据在 Firefox 中不可用。

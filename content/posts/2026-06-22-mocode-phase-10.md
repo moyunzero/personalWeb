@@ -14,7 +14,7 @@ tags:
   - LLM
 draft: false
 notionId: 386df5c0-26f4-80e9-9638-c37ad1b84e1c
-notionSyncedAt: 2026-06-22T03:12:23.661Z
+notionSyncedAt: 2026-06-29T10:27:52.374Z
 ---
 
 Phase 9 解决了「是谁在调用 API」，Phase 10 解决「有没有额度继续用」。接入 **Polar.sh** 作为 credits 计费后端：Clerk **`userId`** 直接映射 Polar **`externalCustomerId`**，无需单独同步客户表。Server 在 **创建会话、提交消息、resume 流** 前用 **`requireCreditsBalance`** 查 Polar meter 余额，**≤0 返回 402**；Chat 流结束后从 AI SDK **`onFinish.totalUsage`** 按 **`@mocode/shared`** **模型目录价** 换算 credits（**$0.01/credit，非零成本至少 1 credit**），以 **`mocode_usage`** 事件 ingest 到 Polar，**`externalId = chat-message:{messageId}`** 保证幂等。CLI **`/upgrade`**、**`/usage`** 分别打开 Polar checkout 与客户 portal。

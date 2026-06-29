@@ -12,7 +12,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-80eb-936a-c88df0c44d01
-notionSyncedAt: 2026-05-27T05:50:48.035Z
+notionSyncedAt: 2026-06-29T10:34:52.511Z
 ---
 
 # **什么是浅拷贝？**

@@ -3,7 +3,7 @@ title: JavaScript
 slug: 2023-04-02-javascript
 description: 一、什么是JavaScript 1.1 JavaScript 完整的JavaScript实现包含以下： 核心（ ECMAScript
   ） 文档对象模型（ DOM ） 浏览器对象模型（ BOM ） 1.1.1 ECMAScript 即ECMA
-  262定义的语言，不局限于Web浏览器。ECMAScript只是对实现规…
+  262定义的语言，不局限于Web浏览器。ECMAScript只是对实现规范描述…
 author: 墨韵
 date: 2023-04-02
 categories:
@@ -12,7 +12,7 @@ tags:
   - frontend
 draft: false
 notionId: b6a71235-b53e-4fe1-91cc-030ed702364d
-notionSyncedAt: 2026-05-29T06:52:15.314Z
+notionSyncedAt: 2026-06-29T10:41:53.274Z
 ---
 
 # 一、什么是JavaScript
@@ -19292,10 +19292,3 @@ fetchProducts();
 
 
 [https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Asynchronous/Introducing](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Asynchronous/Introducing)
-
-## 延伸阅读
-
-- [LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full Crash Course ](/blog/2026-04-25-langchain-js-tutorial-build-ai-with-lang/)
-- [MoCode Phase 1 开发笔记 ](/blog/2026-06-14-mocode-phase-1/)
-- [MoCode Phase 4 开发笔记](/blog/2026-06-15-mocode-phase-4/)
-- [MoCode Phase 6 开发笔记](/blog/2026-06-18-mocode-phase-6/)

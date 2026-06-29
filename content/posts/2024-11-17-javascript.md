@@ -1,7 +1,9 @@
 ---
 title: 精通 JavaScript 中的日期：处理日期和时间
 slug: 2024-11-17-javascript
-description: "UTC 是一个标准、通用的时区，作为所有其他时区的基准。"
+description: 理解时间标准和时区 UTC（Coordinated Universal Time） UTC
+  是一个标准、通用的时区，作为所有其他时区的基准。 UTC 和 GMT：虽然 UTC 和 GMT 显示的时间相同，但它们并不完全相同。GMT 是一个时区，而
+  UTC 是一个时间标准。 这些差异很小，通常不会影响 JavaScrip…
 author: 墨韵
 date: 2024-11-17
 categories:
@@ -11,7 +13,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-8056-8f1c-c5c0461ee979
-notionSyncedAt: 2026-05-27T04:36:27.653Z
+notionSyncedAt: 2026-06-29T10:35:54.306Z
 ---
 
 # **理解时间标准和时区**
@@ -44,7 +46,7 @@ UTC 和 GMT：虽然 UTC 和 GMT 显示的时间相同，但它们并不完全�
 返回 ISO 8601 格式的日期和时间字符串。我们上面看到的 UTC 是一个提供通用时间参考的标准，而 ISO 8601 则是以标准化方式格式化日期和时间值，以确保通信的一致性、清晰性和避免混淆
 
 
-![%E6%88%AA%E5%B1%8F2024-11-15_22.27.15.png](images/blog/2024-11-17-javascript/img-c6b9a8a882.png)
+![%E6%88%AA%E5%B1%8F2024-11-15_22.27.15.png](images/blog/2024-11-17-javascript/img-e723a94036.png)
 
 
 ## 基于区域的格式
@@ -140,7 +142,7 @@ console.log(new Date().getTime()+ " ~~ " + Date.now())
 当不使用 new 调用时，它返回当前日期和时间的字符串表示形式。
 
 
-![%E6%88%AA%E5%B1%8F2024-11-15_22.34.54.png](images/blog/2024-11-17-javascript/img-77ea3b0526.png)
+![%E6%88%AA%E5%B1%8F2024-11-15_22.34.54.png](images/blog/2024-11-17-javascript/img-00274df9ed.png)
 
 
 ## 日期格式化附加区域设置选项

@@ -1,7 +1,9 @@
 ---
 title: "JavaScript 中的 Promise 映射 "
 slug: 2025-01-09-javascript-promise
-description: 想象一下：你得到了一系列需要异步处理的项目。这些项目可能代表了一些ID，你需要为每个ID获取数据。
+description: 问题 想象一下：你得到了一系列需要异步处理的项目。这些项目可能代表了一些ID，你需要为每个ID获取数据。这里是人们常犯的一个错误：
+  好的，那么这里出了什么问题？ map函数返回的是一个promise数组，并没有等待它们解决。这不是我们想要的效果，并且在后续使用结果时可能会导致混乱。
+  The for…of Loop So…
 author: 墨韵
 date: 2025-01-09
 categories:
@@ -10,7 +12,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-8018-ac8e-f18ebfd1aed1
-notionSyncedAt: 2026-05-27T04:40:21.383Z
+notionSyncedAt: 2026-06-29T10:37:28.610Z
 ---
 
 # 问题

@@ -11,7 +11,7 @@ tags:
   - TypeScript
 draft: false
 notionId: 36ddf5c0-26f4-80a3-ae24-ef4b41832322
-notionSyncedAt: 2026-05-27T05:50:57.665Z
+notionSyncedAt: 2026-06-29T10:35:04.206Z
 ---
 
 # 理解 TypeScript 工具类型

@@ -1,7 +1,9 @@
 ---
 title: " JavaScript 如何工作：对引擎、运行时、调用堆栈的概述 "
 slug: 2025-01-20-javascript
-description: 越来越多的团队广泛的把JavaScript应用到前端、后台、hybrid 应用、嵌入式等等领域。
+description: 随着JavaScript越来越流行，越来越多的团队广泛的把JavaScript应用到前端、后台、hybrid 应用、嵌入式等等领域。
+  通过了解它的底层构建以及它是怎么发挥作用的，可以帮助我们写出更好的代码与应用。据 GitHut 统计显示，JavaScript 长期占据GitHub中 和
+  的榜首，并且在其他的类别中也不…
 author: 墨韵
 date: 2025-01-20
 categories:
@@ -11,7 +13,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-80e9-b596-d9642844e1a4
-notionSyncedAt: 2026-05-27T04:37:12.012Z
+notionSyncedAt: 2026-06-29T10:36:08.622Z
 ---
 
 随着JavaScript越来越流行，越来越多的团队广泛的把JavaScript应用到前端、后台、hybrid 应用、嵌入式等等领域。

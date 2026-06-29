@@ -1,7 +1,9 @@
 ---
 title: 10 AI Assistants for Frontend Developers That Will Change the Way You Code (1)
 slug: 2025-03-28-10-ai-assistants-for-frontend-developers
-description: Webcrumbs 的 Frontend AI 是一款 AI 助手，旨在通过根据用户请求、图像或屏幕截图生成 UI 组件代码来帮助前端开发人员加快开发过程。
+description: 1. Webcrumbs Instant Component Generation with TailwindCSS
+  Webcrumbs 的 Frontend AI 是一款 AI 助手，旨在通过根据用户请求、图像或屏幕截图生成 UI 组件代码来帮助前端开发人员加快开发过程。
+  这个AI工具允许开发者编写特定的提示，生成U…
 author: 墨韵
 date: 2025-03-28
 categories:
@@ -11,7 +13,7 @@ tags:
   - 资讯
 draft: false
 notionId: 36ddf5c0-26f4-801b-8719-e1a781867a57
-notionSyncedAt: 2026-05-27T04:37:41.050Z
+notionSyncedAt: 2026-06-29T10:36:20.091Z
 ---
 
 # **1.** [**Webcrumbs**](https://tools.webcrumbs.org/frontend-ai) **- Instant Component Generation with TailwindCSS**

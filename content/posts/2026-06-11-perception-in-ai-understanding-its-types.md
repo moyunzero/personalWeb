@@ -10,7 +10,7 @@ tags:
   - LLM
 draft: false
 notionId: 38adf5c0-26f4-8011-bbed-c16bbe255d95
-notionSyncedAt: 2026-06-25T13:51:11.278Z
+notionSyncedAt: 2026-06-29T10:26:39.728Z
 ---
 
 ## **人工智能中的感知是什么？**

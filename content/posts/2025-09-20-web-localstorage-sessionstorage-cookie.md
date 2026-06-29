@@ -11,7 +11,7 @@ tags:
   - frontend
 draft: false
 notionId: 36ddf5c0-26f4-8022-b720-ef90368bab43
-notionSyncedAt: 2026-05-27T04:37:37.539Z
+notionSyncedAt: 2026-06-29T10:36:16.782Z
 ---
 
 在现代 Web 开发中，管理客户端数据已成为一项基本技能。开发人员通常依靠 localStorage、sessionStorage 和 Cookie 在用户的浏览器中存储数据。虽然这三种机制的用途相似，但它们在容量、持久性和使用案例方面存在明显差异。

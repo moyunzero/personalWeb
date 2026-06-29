@@ -15,7 +15,7 @@ tags:
   - LLM
 draft: false
 notionId: 38ddf5c0-26f4-804b-92e3-f7f018019177
-notionSyncedAt: 2026-06-28T09:57:06.119Z
+notionSyncedAt: 2026-06-29T10:26:32.773Z
 ---
 
 在 Phase 11「Server 流式 + CLI 本地执行工具」架构之上，补齐 **Harness 基础能力**：`grep` 内部换用 **ripgrep**（原生 `.gitignore`）、新增 **`gitStatus`** **/** **`gitDiff`** 只读工具（PLAN/BUILD 均可用）、Build 模式对 **危险 bash** 走 **TUI 审批弹窗**（blocklist + 会话 allowlist）。权限模型对齐 Claude Code：**TUI 是唯一确认门**，chat 不能成为二次权限 gate；Reject 后 model 不得用「你确认后我再试」类软重试。Prompt、CLI gate、`output-error` 三层约束 + 回归测试锁 wording。

@@ -11,7 +11,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-801f-8a82-e1167edd45cc
-notionSyncedAt: 2026-06-03T13:50:52.753Z
+notionSyncedAt: 2026-06-29T10:37:04.658Z
 ---
 
 在系统之间传输加密签名 JSON 数据的标准机制是 JSON Web 令牌 (JWT)。它们通常用于访问控制、会话处理和身份验证。
@@ -26,7 +26,7 @@ notionSyncedAt: 2026-06-03T13:50:52.753Z
 有效负载、签名和标头构成 JWT。如以下示例所示，使用点来区分其中的每一个：
 
 
-![1_dJZuAISzvABvajxg8yBUtg.webp](images/blog/2025-05-27-json-web-token-jwt/img-76c7d5b9a5.webp)
+![1_dJZuAISzvABvajxg8yBUtg.webp](images/blog/2025-05-27-json-web-token-jwt/img-1a8106d421.webp)
 
 
 JWT 的标头和有效负载部分只是 base64url 编码的 JSON 对象。如上所示，标头包含有关令牌本身的元数据，而有效负载包含有关用户的实际“声明”。签名是通过公钥或私钥对标头和有效负载进行签名而生成的。
@@ -41,7 +41,7 @@ JWT 的标头和有效负载部分只是 base64url 编码的 JSON 对象。如�
 JWT（JSON Web Token）规范，它将信息表示为在两方之间传输的 JSON 对象，通常与 JSON Web 签名（JWS）或 JSON Web 加密（JWE）扩展一起使用。术语“JWT”实际上包括 JWS 和 JWE 令牌。 JWS 通过签名来保护令牌内容，而 JWE 通过加密来实现这一点。与 JWT 相关的漏洞可应用于 JWS 和 JWE，但每种情况下的风险可能有所不同。
 
 
-![1_l0jINYMw7oFYzueShduwHg.webp](images/blog/2025-05-27-json-web-token-jwt/img-8096469526.webp)
+![1_l0jINYMw7oFYzueShduwHg.webp](images/blog/2025-05-27-json-web-token-jwt/img-a0d7d5ba5d.webp)
 
 
 # JWT 攻击
@@ -66,13 +66,13 @@ JWT 攻击可以通过假冒先前已认证的用户来绕过身份验证和访�
 我们提到过JWT可以使用各种算法进行签名，所以让我们稍微讨论一下这个话题。例如，HS256（HMAC + SHA-256）使用的是“对称”密钥。这意味着服务器使用相同的密钥来签名和验证令牌。这必须像密码一样保密。
 
 
-![1_jjHgkFsP9MKVCnsJn7rP5A.webp](images/blog/2025-05-27-json-web-token-jwt/img-b0b8debfad.webp)
+![1_jjHgkFsP9MKVCnsJn7rP5A.webp](images/blog/2025-05-27-json-web-token-jwt/img-72b96f670a.webp)
 
 
 RS256（RSA + SHA-256）是一种“非对称”算法。它由服务器用于签名令牌的私钥和一个数学上相关的公钥组成，公钥可用于验证签名。
 
 
-![1_QjQnbLg77J2HApFfzdGXIA.webp](images/blog/2025-05-27-json-web-token-jwt/img-d4d3631bb9.webp)
+![1_QjQnbLg77J2HApFfzdGXIA.webp](images/blog/2025-05-27-json-web-token-jwt/img-9485f5cd62.webp)
 
 
 顾名思义，私钥必须保持隐藏，而公钥通常会公开，以便任何人都可以验证由服务器生成的令牌的签名。也就是说，虽然服务器期望使用像RS256这样的非对称算法，但攻击者可以使用像HS256这样的对称方法签署令牌，从而使服务器认为它是有效的。公钥可以在标准端点如 /jwks.json 或 /.well-known/jwks 处找到。

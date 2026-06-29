@@ -1,7 +1,9 @@
 ---
 title: Think You Know JavaScript? These 15 Quirks Will Change Your Mind!  (1)
 slug: 2025-06-02-think-you-know-javascript-these-15-quirk
-description: JavaScript 使用 IEEE-754 进行浮点运算，这可能导致精度问题。
+description: 1. but Not 您可能期望 等于 ，但这里有个问题： 是正确的，但 是错误的。 这是因为 JavaScript 的相等运算符（
+  ）触发了类型强制转换。当你将一个字符串与一个数字进行比较时，JS 会首先尝试将字符串转换为数字。由于 实际上没有数值，它变成了 。但是 变成了数字
+  ，所以当我们比较 时，结果是正确的！…
 author: 墨韵
 date: 2025-06-02
 categories:
@@ -10,7 +12,7 @@ tags:
   - JavaScript
 draft: false
 notionId: 36ddf5c0-26f4-802f-8dac-fe6214f843e7
-notionSyncedAt: 2026-05-27T04:37:43.831Z
+notionSyncedAt: 2026-06-29T10:36:22.173Z
 ---
 
 # **1.** **`"False" == 0`** **but Not** **`"False" == "0"`** 
