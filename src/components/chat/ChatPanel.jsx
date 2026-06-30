@@ -6,7 +6,7 @@ const STORAGE_KEY = 'codex-chat-history';
 const MAX_HISTORY = 30; // 最多保存的消息数，避免 localStorage 膨胀
 
 const SUGGESTIONS = [
-    { label: '介绍一下「心晴 MO」', value: '介绍一下你的「心晴 MO」项目' },
+    { label: '介绍一下「MoCode」', value: '介绍一下你的「MoCode」项目' },
     { label: '介绍一下你自己', value: '介绍一下你自己，做过哪些有意思的项目？' },
     { label: '最近心情不太好', value: '我最近心情不太好，怎么办？' },
 ];
