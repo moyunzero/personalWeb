@@ -5,16 +5,22 @@ const base = import.meta.env.BASE_URL;
  */
 export const projects = [
     {
-        imgSrc: `${base}images/blue-ai.png`,
-        title: 'Blueprint AI',
-        tags: ['AI', 'Vue3', 'Prompt'],
-        projectLink: 'https://github.com/moyunzero/Blueprint-AI',
-    },
-    {
         imgSrc: `${base}images/mocode.png`,
         title: 'MoCode-TUI',
         tags: ['LLM', 'Bun', 'OpenTUI'],
         projectLink: 'https://github.com/moyunzero/MoCode-TUI',
+    },
+    {
+        imgSrc: `${base}images/gpt.png`,
+        title: 'Personal Emotion GPT',
+        tags: ['Next', 'RAG', 'Tailwind'],
+        projectLink: 'https://personal-emotion-gpt.vercel.app',
+    },
+    {
+        imgSrc: `${base}images/blue-ai.png`,
+        title: 'Blueprint AI',
+        tags: ['AI', 'Vue3', 'Prompt'],
+        projectLink: 'https://github.com/moyunzero/Blueprint-AI',
     },
     {
         imgSrc: `${base}images/xqmo.png`,
