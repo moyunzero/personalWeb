@@ -5,7 +5,7 @@ description: "Think in JavaScript: The Hard & Conceptual Parts 课程核心理�
   JavaScript 不应停留在背诵语法，而应深入理解 引擎与运行时机制（engine and runtime mechanics） 。
   一、作用域（Scope） 1.1 什么是作用域 代码被划分为一…"
 author: 墨韵
-date: 2026-05-15
+date: 2026-05-13
 categories:
   - note
 tags:
@@ -13,7 +13,7 @@ tags:
   - frontend
 draft: false
 notionId: 36ddf5c0-26f4-807f-8a26-d15e7072c088
-notionSyncedAt: 2026-06-29T10:37:00.444Z
+notionSyncedAt: 2026-07-04T05:10:02.424Z
 ---
 
 ## Think in JavaScript: The Hard & Conceptual Parts

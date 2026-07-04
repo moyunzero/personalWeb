@@ -4,14 +4,14 @@ slug: 2026-05-25-what-is-prompt-engineering
 description: 技术与我们互动的方式正在不断演变。在人工智能（AI）领域中，最令人兴奋的近期进展之一，就是机器被训练得能够像人类一样思考、学习甚至交流。在生成式人工智能（Generative
   AI）等领域的无数发展中，有一门微妙的艺术正变得日益重要： 提示词工程（Prompt Engineering） 。 想象一下与机器进行一场对话：…
 author: 墨韵
-date: 2026-05-25
+date: 2026-05-14
 categories:
   - note
 tags:
   - ai
 draft: false
 notionId: 38adf5c0-26f4-8013-b1ae-cb20b17b7ff7
-notionSyncedAt: 2026-06-29T10:26:37.594Z
+notionSyncedAt: 2026-07-04T05:09:50.842Z
 ---
 
 技术与我们互动的方式正在不断演变。在人工智能（AI）领域中，最令人兴奋的近期进展之一，就是机器被训练得能够像人类一样思考、学习甚至交流。在生成式人工智能（Generative AI）等领域的无数发展中，有一门微妙的艺术正变得日益重要：**提示词工程（Prompt Engineering）**。
