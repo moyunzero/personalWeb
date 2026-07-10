@@ -5,7 +5,7 @@ description: Phase 1 将 v0.1 的单页 RAG 聊天原型演进为 可管理知�
   文档，由 NestJS BullMQ worker 异步完成解析→切块→向量化→写入 Astra，聊天回答结束后以折叠卡片形式展示可溯源引用。工程上完成了
   yarn workspaces mo…
 author: 墨韵
-date: 2026-07-03
+date: 2026-06-27
 categories:
   - note
 tags:
@@ -14,7 +14,7 @@ tags:
   - RAG
 draft: false
 notionId: 393df5c0-26f4-80e0-be96-dbd0dc7058d2
-notionSyncedAt: 2026-07-04T05:09:20.705Z
+notionSyncedAt: 2026-07-10T13:58:22.065Z
 ---
 
 Phase 1 将 v0.1 的单页 RAG 聊天原型演进为**可管理知识库的平台**：用户可上传 PDF/MD/TXT/DOCX 文档，由 NestJS BullMQ worker 异步完成解析→切块→向量化→写入 Astra，聊天回答结束后以折叠卡片形式展示可溯源引用。工程上完成了 yarn workspaces monorepo 迁移、PostgreSQL 多租户元数据层（workspaceId Day 1 落库）、VectorStore 抽象、三层智能查询路由（意图→embedding 预检→LLM）、LangSmith 可选追踪，以及 agent-service SSE 透传骨架，为 Phase 2 LangGraph 多 Agent 奠定基础。
