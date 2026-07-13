@@ -5,7 +5,7 @@ description: 用 React 写终端 UI （OpenTUI），在输入框上方实现 Sla
   + xterm modifyOtherKeys 让 Enter / Shift+Enter 在不同终端里行为可区分。Apple Terminal
   有硬限制，用 启用 Option as…
 author: 墨韵
-date: 2026-06-14
+date: 2026-06-13
 categories:
   - note
 tags:
@@ -17,7 +17,7 @@ tags:
   - TypeScript
 draft: false
 notionId: 37fdf5c0-26f4-8091-a3d8-f8d982d643f9
-notionSyncedAt: 2026-06-29T10:32:46.552Z
+notionSyncedAt: 2026-07-13T12:14:39.673Z
 ---
 
 用 **React 写终端 UI**（OpenTUI），在输入框上方实现 **Slash 命令自动补全**，并通过 **Kitty Keyboard + xterm modifyOtherKeys** 让 Enter / Shift+Enter 在不同终端里行为可区分。Apple Terminal 有硬限制，用 `--terminal-setup` 启用 Option-as-Meta 作为降级方案。

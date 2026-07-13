@@ -13,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 396df5c0-26f4-800f-a479-e9383b355089
-notionSyncedAt: 2026-07-10T13:56:02.338Z
+notionSyncedAt: 2026-07-13T12:13:34.697Z
 ---
 
 > _"工具执行前先做权限判断"_ — 权限管线决定哪些操作需要审批。
@@ -40,7 +40,7 @@ s2 的 Agent 有 5 个工具。file tools 受 `safe_path` 保护，但 bash 不�
 ## 解决方案
 
 
-![permission-overview.svg](images/blog/2026-06-29-learn-claude-code-3-permission/img-5f7ff3d089.svg)
+![permission-overview.svg](images/blog/2026-06-29-learn-claude-code-3-permission/img-23dffa9d8f.svg)
 
 
 
@@ -66,7 +66,7 @@ s2 的 Agent 有 5 个工具。file tools 受 `safe_path` 保护，但 bash 不�
 ## 工作原理
 
 
-![permission-pipeline.svg](images/blog/2026-06-29-learn-claude-code-3-permission/img-4817d7a440.svg)
+![permission-pipeline.svg](images/blog/2026-06-29-learn-claude-code-3-permission/img-db09528e99.svg)
 
 
 **闸门 1**：一张硬拒绝表，先查，命中就返回阻止信息。（简单字符串匹配不是可靠安全机制，命令变体和 shell 展开可能绕过。CC 的做法见附录。）

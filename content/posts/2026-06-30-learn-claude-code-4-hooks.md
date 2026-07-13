@@ -13,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 396df5c0-26f4-80ae-a53b-c4aa1aa01cae
-notionSyncedAt: 2026-07-10T13:55:50.812Z
+notionSyncedAt: 2026-07-13T12:13:25.568Z
 ---
 
 > _"挂在循环上, 不写进循环里"_ — hook 在工具执行前后注入扩展逻辑。
@@ -59,7 +59,7 @@ def agent_loop(messages):
 ## 解决方案
 
 
-![hooks-overview.svg](images/blog/2026-06-30-learn-claude-code-4-hooks/img-9bfff41370.svg)
+![hooks-overview.svg](images/blog/2026-06-30-learn-claude-code-4-hooks/img-68538a1817.svg)
 
 
 s3 的循环和权限逻辑完全保留。唯一的变动是把 `check_permission()` 从循环体内移到了 hook 上，循环不再直接调用任何检查函数，改为 `trigger_hooks("PreToolUse", block)`，由注册表决定跑什么。

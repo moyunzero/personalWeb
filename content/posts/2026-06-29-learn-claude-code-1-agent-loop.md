@@ -13,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 396df5c0-26f4-8009-b9a6-d417e00ff98d
-notionSyncedAt: 2026-07-10T13:56:14.745Z
+notionSyncedAt: 2026-07-13T12:13:37.344Z
 ---
 
 > _"One loop & Bash is all you need"_ — 一个工具 + 一个循环 = 一个 Agent。
@@ -46,7 +46,7 @@ notionSyncedAt: 2026-07-10T13:56:14.745Z
 ## 解决方案
 
 
-![agent-loop.svg](images/blog/2026-06-29-learn-claude-code-1-agent-loop/img-450ac05a7c.svg)
+![agent-loop.svg](images/blog/2026-06-29-learn-claude-code-1-agent-loop/img-6bde9356c5.svg)
 
 
 一个 `while True` 循环，模型调用工具就继续，不调用就停。整个过程只有两个信号：

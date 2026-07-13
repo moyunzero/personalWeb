@@ -5,7 +5,7 @@ description: 在 Phase 1 的输入框与 Slash 菜单之上，本阶段补齐 �
   Context Provider 管理 键盘焦点栈、模态对话框、Toast 通知 。Slash 命令通过统一的 调用 / / ；
   已实现带搜索、实时预览、取消回滚的主题选择器，其余命令以…
 author: 墨韵
-date: 2026-06-15
+date: 2026-06-14
 categories:
   - note
 tags:
@@ -15,7 +15,7 @@ tags:
   - OpenTUI
 draft: false
 notionId: 37fdf5c0-26f4-80ac-b87b-fc6f78f17065
-notionSyncedAt: 2026-06-29T10:32:09.691Z
+notionSyncedAt: 2026-07-13T12:13:58.852Z
 ---
 
 在 Phase 1 的输入框与 Slash 菜单之上，本阶段补齐 **可切换的 32 套配色主题**（持久化到 `~/.mocode/preferences.json`），并引入四层 **React Context Provider** 管理 **键盘焦点栈、模态对话框、Toast 通知**。Slash 命令通过统一的 `CommandContext` 调用 `toast` / `dialog` / `exit`；`/theme` 已实现带搜索、实时预览、取消回滚的主题选择器，其余命令以 Toast 或占位 Dialog 反馈。

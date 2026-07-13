@@ -13,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 396df5c0-26f4-80f2-88c7-ed4b84e6f922
-notionSyncedAt: 2026-07-10T13:55:43.754Z
+notionSyncedAt: 2026-07-13T12:13:16.717Z
 ---
 
 > _"没有计划的 agent 走哪算哪"_ — 先列步骤再动手，长任务更不容易漏项。
@@ -43,7 +43,7 @@ Agent 开始干活，改了 3 个文件，跑了个测试，发现 2 个失败�
 ## 解决方案
 
 
-![todo-overview.svg](images/blog/2026-06-30-learn-claude-code-5-todowrite/img-31a1273886.svg)
+![todo-overview.svg](images/blog/2026-06-30-learn-claude-code-5-todowrite/img-0b061a08c8.svg)
 
 
 新增的 `todo_write` 工具和 reminder 机制。`todo_write` 本身不做任何实际工作，不能读文件、不能跑命令，只是让 Agent 在动手之前先理清思路。

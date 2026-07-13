@@ -13,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 396df5c0-26f4-8097-ada6-d5a595215f96
-notionSyncedAt: 2026-07-10T13:55:38.906Z
+notionSyncedAt: 2026-07-13T12:13:12.770Z
 ---
 
 > _"大任务拆小, 每个小任务干净的上下文"_ — Subagent 用独立 messages[], 不污染主对话。
@@ -43,7 +43,7 @@ Agent 在修一个 bug。它读了 30 个文件来追踪调用链，中间聊了
 ## 解决方案
 
 
-![subagent-overview.svg](images/blog/2026-06-30-learn-claude-code-6-subagent/img-d35c6ef2b8.svg)
+![subagent-overview.svg](images/blog/2026-06-30-learn-claude-code-6-subagent/img-163620d993.svg)
 
 
 重点转向新增的 `task` 工具。调用它时，spawn 一个子 Agent，拥有全新的 `messages[]`，跑自己的循环，结束后只把摘要文本回传给主 Agent。对话上下文被丢弃，但文件系统的副作用（写文件、改文件、跑命令）保留在工作目录中。
