@@ -50,7 +50,7 @@ Project workflow depth: **Medium** (see `docs/scope/scope.md`). Cursor always ap
 
 - Production site is **Astro only** (`yarn dev` / `yarn build`). The legacy Vite SPA entry and duplicate JSX trees were removed; do not reintroduce them.
 - Legacy SPA ban list lives in `tests/fixtures/legacy-spa-paths.ts`. Cleanup and import scan tests enforce it; keep that module the single authoring place for banned paths and removed packages.
-- CI: `.github/workflows/ci.yml` runs `yarn test` on `pull_request` and on push to `master`. Deploy (`.github/workflows/deploy.yml`) stays build and GitHub Pages only.
+- CI: `.github/workflows/ci.yml` runs `yarn build` then `yarn test` on `pull_request` and on push to `master`. Deploy (`.github/workflows/deploy.yml`) stays build and GitHub Pages only.
 - Always use `import.meta.env.BASE_URL` for links and assets. Site lives at `/personalWeb/` on GitHub Pages.
 - URLs use trailing slashes (`/blog/slug/`).
 - New interactivity goes in `src/components/islands/*.tsx` with an explicit `client:*` directive.

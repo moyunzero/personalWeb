@@ -9,13 +9,16 @@ function readText(relativePath: string) {
 }
 
 describe('legacy SPA CI workflow contract', () => {
-    it('ci.yml runs yarn test on pull_request and push to master (AC-6)', () => {
+    it('ci.yml builds then runs yarn test on pull_request and push to master (AC-6)', () => {
         const ci = readText('.github/workflows/ci.yml');
         expect(ci).toMatch(/pull_request:/);
         expect(ci).toMatch(/push:\s*\n\s*branches:\s*\["master"\]/);
         expect(ci).toMatch(/node-version:\s*22/);
         expect(ci).toMatch(/yarn install --frozen-lockfile/);
+        expect(ci).toMatch(/run:\s*yarn build/);
         expect(ci).toMatch(/run:\s*yarn test/);
+        // Build must precede Test so dist-dependent suites have artifacts
+        expect(ci.indexOf('yarn build')).toBeLessThan(ci.indexOf('yarn test'));
     });
 
     it('uses yarn test as the only local guard command (AC-7)', () => {
