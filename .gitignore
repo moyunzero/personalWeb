@@ -7,44 +7,70 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies & build output
 node_modules
 dist
 dist-ssr
 .astro/
 .lighthouseci/
+coverage/
+.cache/
+*.tsbuildinfo
+
+# Generated site artifacts (rebuilt by Astro / scripts)
 public/sitemap.xml
 public/robots.txt
 public/posts-index.json
 public/rss.xml
-*.local
 
-# Playwright / MCP 调试快照（本地测试产物）
+# Yarn is the package manager; ignore npm lockfile if generated locally
+package-lock.json
+
+# Environment & secrets (keep only .env.example as the public template)
+# Production injects secrets via GitHub Actions / host env, never the repo
+*.local
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+credentials.json
+**/credentials.json
+service-account*.json
+**/secrets/
+
+# Playwright / MCP debug snapshots (local test artifacts)
 .playwright-mcp/
 test-results/
 playwright-report/
 
-# 环境变量：全部忽略，仅保留 .env.example 作为模板
-# 生产环境通过 GitHub Actions / Vercel 等 CI 注入
-.env
-.env.*
-!.env.example
-
-# Editor directories and files
+# Editor / OS
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
-# Cursor specific
+# Local AI / agent tooling (machine-specific; not part of the open source app)
+.cursor/
 .cursorrules
-
-# Kiro directories and files
+.agents/
+.claude/
 .kiro/
+.codegraph/
+.planning/
+
+# Local Remotion / video experiment (large; not part of the Astro site)
+video/
+
+# Notion sync / UAT scratch image dirs (empty placeholders from automation runs)
+public/images/blog/**/*uat*/
 
 # Test files (allow project tests/ suite)
 *.test.js
@@ -58,6 +84,3 @@ playwright-report/
 !tests/
 !tests/**
 src/test/
-vitest.config.js
-
-.cursor/

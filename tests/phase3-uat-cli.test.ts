@@ -1,6 +1,6 @@
 import { execSync } from 'node:child_process';
 import { readFile, unlink } from 'node:fs/promises';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { parseFrontmatter } from '../src/blog/frontmatter.js';
@@ -12,9 +12,12 @@ function run(cmd: string) {
 }
 
 describe('Phase 3 UAT — CLI pipeline', () => {
-    it('meta-batch dry-run: 96 scanned, 0 description updates', () => {
+    it('meta-batch dry-run: all posts scanned, 0 description updates', () => {
+        const postCount = readdirSync(path.join(root, 'content/posts')).filter((f) =>
+            f.endsWith('.md'),
+        ).length;
         const out = run('yarn seo:meta-batch --dry-run');
-        expect(out).toMatch(/Posts scanned: 96/);
+        expect(out).toMatch(new RegExp(`Posts scanned: ${postCount}`));
         expect(out).toMatch(/Would update \(description\): 0/);
     });
 
