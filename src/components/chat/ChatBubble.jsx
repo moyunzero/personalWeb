@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
@@ -116,11 +115,5 @@ const ChatBubble = ({ role, content, streaming = false, error = false }) => {
     );
 };
 
-ChatBubble.propTypes = {
-    role: PropTypes.oneOf(['user', 'assistant']).isRequired,
-    content: PropTypes.string.isRequired,
-    streaming: PropTypes.bool,
-    error: PropTypes.bool,
-};
 
 export default ChatBubble;

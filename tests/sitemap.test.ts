@@ -32,12 +32,15 @@ describe('sitemap and robots', () => {
         expect(xml).toContain('https://moyunzero.github.io/personalWeb/blog/');
     });
 
-    it('sitemap URL count matches published posts + home + blog index', async () => {
+    it('sitemap URL count matches published posts + home + blog index + category pages', async () => {
         const posts = await loadPostsForBuild();
         const published = posts.filter((p) => !p.draft);
+        const categories = JSON.parse(
+            readFileSync(path.resolve('content/categories.json'), 'utf8'),
+        ) as unknown[];
         const xml = readUrlsetXml();
         const locCount = (xml.match(/<loc>/g) ?? []).length;
-        expect(locCount).toBe(published.length + 2);
+        expect(locCount).toBe(published.length + 2 + categories.length);
     });
 
     it('robots.txt references sitemap-index.xml', () => {

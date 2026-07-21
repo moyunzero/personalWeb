@@ -3,10 +3,7 @@ import tailwindScrollbar from 'tailwind-scrollbar';
 import typography from '@tailwindcss/typography';
 
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx,astro,html}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx,astro,html}"],
   theme: {
     extend: {
       fontFamily:{

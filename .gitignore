@@ -61,3 +61,5 @@ src/test/
 vitest.config.js
 
 .cursor/
+.agents/
+.claude/
