@@ -17,6 +17,8 @@ body{
 /* Home only: hide native scrollbar, keep scroll (AC-8). Blog uses global.css defaults. */
 html.home-cosmos-scroll {
   scrollbar-width: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 html.home-cosmos-scroll::-webkit-scrollbar {
   display: none;
