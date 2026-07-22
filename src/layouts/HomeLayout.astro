@@ -13,9 +13,11 @@ const { seo } = Astro.props;
 const jsonLd = [websiteJsonLd(), personJsonLd()];
 ---
 
-<BaseLayout seo={seo} jsonLd={jsonLd}>
+<BaseLayout seo={seo} jsonLd={jsonLd} htmlClass="home-cosmos-scroll">
     <HomeHeader client:visible />
-    <div class="relative z-10">
+    {/* Cosmos layers live outside the z-10 content stacking context so content paints above them. */}
+    <slot name="background" />
+    <div class="relative z-10" data-cosmos-hit>
         <slot />
     </div>
 </BaseLayout>

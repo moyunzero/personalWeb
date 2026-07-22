@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "yarn seo:audit && astro build",
+    "build": "node scripts/check-cosmos-assets.mjs && yarn seo:audit && astro build",
     "build:astro": "astro build",
     "lint": "eslint .",
     "preview": "astro preview",
@@ -20,6 +20,8 @@
     "seo:top-n-score": "node scripts/seo-top-n-score.mjs",
     "seo:top-n-checklist": "node scripts/seo-top-n-checklist.mjs",
     "perf:audit": "node scripts/run-perf-audit.mjs",
+    "assets:cosmos": "node scripts/prepare-threejs-assets.mjs",
+    "assets:cosmos:check": "node scripts/check-cosmos-assets.mjs",
     "test:uat:4": "vitest --run tests/related-posts.test.ts tests/top-n-score.test.ts tests/top-n-checklist.test.ts && playwright test tests/e2e/phase4-launch-uat.spec.ts",
     "verify:prod": "node scripts/verify-production.mjs"
   },
@@ -41,6 +43,7 @@
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.1",
     "tailwind-scrollbar": "^3.1.0",
+    "three": "^0.185",
     "yaml": "^2.9.0",
     "zod": "^4.4.3"
   },
@@ -56,6 +59,7 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@types/three": "^0.185",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.13.0",
     "eslint-plugin-react": "^7.37.2",
@@ -67,6 +71,7 @@
     "lighthouse": "13.4.0",
     "notion-to-md": "^3.1.9",
     "postcss": "^8.4.49",
+    "sharp": "^0.35.3",
     "tailwindcss": "^3.4.15",
     "vitest": "^4.1.5"
   }

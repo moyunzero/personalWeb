@@ -11,6 +11,7 @@ Personal portfolio and blog site for 墨韵. Astro static site with React island
 |---|---------|-------|--------|
 | 1 | Remove legacy Vite SPA | Cleanup | done |
 | 2 | CI guard against legacy imports | Hardening | done |
+| 3 | Cosmic starfield home background | Experience | done |
 
 ## Cleanup
 
@@ -42,9 +43,33 @@ Block new imports from removed SPA paths so the cleanup cannot quietly regress.
 - [x] Test it: `/test CI guard against legacy imports`
 Spec [0002](../specs/0002-ci-guard-against-legacy-imports.md)
 
+## Experience
+
+### 3. Cosmic starfield home background · done · Full
+Replace the home page 2D `ParticleIsland` with an immersive cosmos: optimized blue-nebula HDR sky, a procedural sun, and eight planets on a scaled Kepler model that auto-advances; scroll shifts camera focus by section narrative; keep explore UX, fallbacks, and blog exclusion.
+**Done when:** home shows HDR + sun + eight moving planets with section focus mapping; visitors can drag and Ctrl/Cmd-zoom without breaking page scroll; reduced motion and weak devices get poster/CSS fallback; blog routes stay free of the 3D island and planet assets; web derivative textures stay within budget; Full pipeline (verify, test, review, document) and Lighthouse floors pass.
+- [x] Design it (spec): `/architect Cosmic starfield home background`
+- [x] Build it: `/develop Cosmic starfield home background`（Phase A 星场壳）
+   - [x] Fallback + CosmicStarfieldIsland shell, remove ParticleIsland (AC-1, AC-4, AC-5)
+   - [x] WebGL gate, Three scene, idle drift (AC-1, AC-2, AC-5)
+   - [x] Explore hit test, orbit, zoom (AC-2, AC-3, AC-4)
+   - [x] Unit tests, blog exclusion, islands AGENTS (AC-5, AC-6)
+   - [x] Build + perf:audit home gates (AC-7)
+   - [x] UX: stacking slot, round stars, Ctrl/Cmd zoom, hide scrollbar (AC-1, AC-2, AC-4, AC-8)
+- [x] Build it (Phase B 太阳系): `/develop Cosmic starfield home background`
+   - [x] Asset pipeline → `public/threejs-assets/web/` + budget gate (AC-1, AC-7)
+   - [x] Kepler model + solar system scene modules (AC-1, AC-9, AC-10)
+   - [x] Island wiring: auto time, section focus, poster fallback (AC-1–AC-5, AC-9, AC-10)
+   - [x] Tests + blog asset exclusion + perf:audit (AC-6, AC-7, AC-8)
+   - code in `src/components/islands/CosmicStarfieldIsland.tsx`, `src/components/islands/cosmosHitTest.ts`, `src/components/islands/solarSystemModel.ts`, `src/components/islands/solarSystemScene.ts`, `scripts/prepare-threejs-assets.mjs`, `src/pages/index.astro`, `src/layouts/HomeLayout.astro`, `tests/cosmic-starfield-island.test.ts`, `public/threejs-assets/web/`
+- [x] Verify it: `/check verify Cosmic starfield home background`
+- [x] Test it: `/test Cosmic starfield home background`
+Spec [0003](../specs/0003-cosmic-starfield-home-background.md)
+
 ## Deferred
 Out of scope for the current build pass, kept so the plan stays honest.
 - Expand ESLint to TypeScript and Astro and mirror the ban list for editor feedback · from spec 0002 · needs a decision
+- Cosmic background on blog shell or beyond home · deferred from feature 3 scope choice (home only)
 
 ## Legend
 

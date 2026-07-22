@@ -4,6 +4,24 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Blog article / list body stays copyable; home and chrome do not. */
+.blog-copyable,
+.blog-copyable * {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Contact and other fields must stay editable on the non-copy home. */
+input,
+textarea,
+select,
+[contenteditable='true'] {
+  -webkit-user-select: text !important;
+  user-select: text !important;
 }
 
 body {
