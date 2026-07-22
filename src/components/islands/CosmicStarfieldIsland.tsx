@@ -38,6 +38,9 @@ import {
 const VIEW_OFFSET_X = -0.1;
 const VIEW_OFFSET_Y = -0.14;
 
+/** Start downloading three.js as soon as this island chunk parses. */
+const threeModule = import('three');
+
 function sectionFromId(id: string | null): SectionId | null {
     if (!id) return null;
     return (SECTION_ORDER as readonly string[]).includes(id) ? (id as SectionId) : null;
@@ -310,7 +313,7 @@ export default function CosmicStarfieldIsland() {
         const observers: IntersectionObserver[] = [];
 
         (async () => {
-            const THREE = await import('three');
+            const THREE = await threeModule;
             if (cancelled || !hostRef.current) return;
 
             const probe = document.createElement('canvas');
@@ -347,7 +350,7 @@ export default function CosmicStarfieldIsland() {
             renderer.domElement.addEventListener('webglcontextlost', onContextLost, false);
 
             const tier = window.innerWidth < 768 ? 'mobile' : 'desktop';
-            const built = await buildSolarSystemScene(THREE, {
+            const built = buildSolarSystemScene(THREE, {
                 baseUrl: import.meta.env.BASE_URL,
                 tier,
             });
