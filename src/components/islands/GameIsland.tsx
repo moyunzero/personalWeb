@@ -1,10 +1,24 @@
-import { useState, useEffect, useRef } from 'react';
-import GameTooltip from '../../game/GameTooltip';
-import ChatTrigger from '../chat/ChatTrigger';
-import ChatPanel from '../chat/ChatPanel';
+import { useState, useEffect, useRef, useCallback, type ComponentType } from 'react';
+
+let phaserPrefetchStarted = false;
+
+function prefetchPhaserBundle() {
+    if (phaserPrefetchStarted) return;
+    phaserPrefetchStarted = true;
+    void import('phaser');
+    void import('../../game/scenes/GameScene');
+}
+
+type GameUiModule = {
+    GameTooltip: ComponentType;
+    ChatTrigger: ComponentType;
+    ChatPanel: ComponentType;
+};
 
 export default function GameIsland() {
     const [started, setStarted] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [gameUi, setGameUi] = useState<GameUiModule | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const gameRef = useRef<import('phaser').Game | null>(null);
 
@@ -12,38 +26,51 @@ export default function GameIsland() {
         if (!started) return;
 
         let cancelled = false;
+        setLoading(true);
 
-        (async () => {
-            const [{ default: Phaser }, { default: GameScene }] = await Promise.all([
-                import('phaser'),
-                import('../../game/scenes/GameScene'),
-            ]);
+        void Promise.all([
+            import('phaser'),
+            import('../../game/scenes/GameScene'),
+            import('../../game/GameTooltip'),
+            import('../chat/ChatTrigger'),
+            import('../chat/ChatPanel'),
+        ]).then(
+            ([
+                { default: Phaser },
+                { default: GameScene },
+                { default: GameTooltip },
+                { default: ChatTrigger },
+                { default: ChatPanel },
+            ]) => {
+                if (cancelled || !containerRef.current) return;
 
-            if (cancelled || !containerRef.current) return;
+                setGameUi({ GameTooltip, ChatTrigger, ChatPanel });
 
-            const game = new Phaser.Game({
-                type: Phaser.AUTO,
-                transparent: true,
-                backgroundColor: 'rgba(0,0,0,0)',
-                parent: containerRef.current,
-                scale: {
-                    mode: Phaser.Scale.RESIZE,
-                    width: window.innerWidth,
-                    height: window.innerHeight,
-                },
-                physics: {
-                    default: 'arcade',
-                    arcade: {
-                        gravity: { y: 800 },
-                        debug: false,
+                const game = new Phaser.Game({
+                    type: Phaser.AUTO,
+                    transparent: true,
+                    backgroundColor: 'rgba(0,0,0,0)',
+                    parent: containerRef.current,
+                    scale: {
+                        mode: Phaser.Scale.RESIZE,
+                        width: window.innerWidth,
+                        height: window.innerHeight,
                     },
-                },
-                scene: [GameScene],
-                banner: false,
-            });
+                    physics: {
+                        default: 'arcade',
+                        arcade: {
+                            gravity: { y: 800 },
+                            debug: false,
+                        },
+                    },
+                    scene: [GameScene],
+                    banner: false,
+                });
 
-            gameRef.current = game;
-        })();
+                gameRef.current = game;
+                setLoading(false);
+            },
+        );
 
         return () => {
             cancelled = true;
@@ -54,12 +81,23 @@ export default function GameIsland() {
         };
     }, [started]);
 
+    const onWarmup = useCallback(() => {
+        prefetchPhaserBundle();
+    }, []);
+
+    const onStart = useCallback(() => {
+        prefetchPhaserBundle();
+        setStarted(true);
+    }, []);
+
     if (!started) {
         return (
             <button
                 type="button"
                 data-no-cosmos
-                onClick={() => setStarted(true)}
+                onClick={onStart}
+                onPointerEnter={onWarmup}
+                onFocus={onWarmup}
                 className="fixed bottom-6 left-6 z-[100] px-4 py-2 rounded-xl bg-zinc-800/90 text-sm text-cyan-300 ring-1 ring-cyan-400/30 hover:bg-zinc-700 transition-colors"
                 aria-label="点击启动忍者小游戏"
             >
@@ -67,6 +105,8 @@ export default function GameIsland() {
             </button>
         );
     }
+
+    const { GameTooltip, ChatTrigger, ChatPanel } = gameUi ?? {};
 
     return (
         <>
@@ -83,9 +123,18 @@ export default function GameIsland() {
                     overflow: 'hidden',
                 }}
             />
-            <GameTooltip />
-            <ChatTrigger />
-            <ChatPanel />
+            {loading ? (
+                <div
+                    data-no-cosmos
+                    className="fixed bottom-6 left-6 z-[100] px-4 py-2 rounded-xl bg-zinc-800/90 text-sm text-cyan-300 ring-1 ring-cyan-400/30"
+                    aria-live="polite"
+                >
+                    忍者登场中…
+                </div>
+            ) : null}
+            {GameTooltip ? <GameTooltip /> : null}
+            {ChatTrigger ? <ChatTrigger /> : null}
+            {ChatPanel ? <ChatPanel /> : null}
         </>
     );
 }

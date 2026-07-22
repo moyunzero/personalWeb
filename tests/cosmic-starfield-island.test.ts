@@ -418,9 +418,40 @@ describe('solarSystemScene wiring (AC-1, AC-5)', () => {
 
     it('uses fallbackColor when a surface map is missing (AC-5)', () => {
         const scene = readFileSync(scenePath, 'utf8');
-        expect(scene).toMatch(/color:\s*map\s*\?\s*0xffffff\s*:\s*p\.fallbackColor/);
+        expect(scene).toMatch(/color:\s*p\.fallbackColor/);
+        expect(scene).toMatch(/if\s*\(!map\)\s*return/);
         expect(scene).toMatch(/catch/);
         expect(scene).toMatch(/return null/);
+    });
+
+    it('returns the scene synchronously and applies textures in parallel (AC-1, AC-5)', () => {
+        const scene = readFileSync(scenePath, 'utf8');
+        expect(scene).toMatch(/export function buildSolarSystemScene/);
+        expect(scene).not.toMatch(/export async function buildSolarSystemScene/);
+        expect(scene).toMatch(/startHdrLoad/);
+        expect(scene).toMatch(/const planetTexPs = new Map/);
+        expect(scene).toMatch(/void sunTexP\.then/);
+        expect(scene).toMatch(/void planetTexPs\.get\(p\.id\)\?\.then/);
+        expect(scene).toMatch(/scene\.background = new THREE\.Color/);
+    });
+});
+
+describe('cosmos load performance wiring (AC-1, AC-7)', () => {
+    it('prefetches three.js at island module scope before WebGL init', () => {
+        const source = readFileSync(islandPath, 'utf8');
+        expect(source).toMatch(/const threeModule = import\('three'\)/);
+        expect(source).toMatch(/await threeModule/);
+        expect(source).toMatch(/buildSolarSystemScene\(THREE/);
+        expect(source).not.toMatch(/await buildSolarSystemScene/);
+    });
+
+    it('home preloads poster and prefetches HDR and sun assets', () => {
+        const source = readFileSync(indexPath, 'utf8');
+        expect(source).toMatch(/rel="preload"/);
+        expect(source).toMatch(/fetchpriority="high"/);
+        expect(source).toMatch(/hdr_blue_nebulae_poster\.webp/);
+        expect(source).toMatch(/rel="prefetch"[\s\S]*hdr_blue_nebulae\.hdr/);
+        expect(source).toMatch(/rel="prefetch"[\s\S]*sun\.jpg/);
     });
 });
 

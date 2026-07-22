@@ -49,12 +49,23 @@ const SURFACE_FILES: Record<PlanetId, string> = {
     neptune: 'neptune.jpg',
 };
 
+type Texture = import('three').Texture;
+type TextureLoader = import('three').TextureLoader;
+
+function trackTexture(
+    textures: Texture[],
+    tex: Texture | null,
+): Texture | null {
+    if (tex) textures.push(tex);
+    return tex;
+}
+
 async function loadTexture(
     THREE: ThreeModule,
-    loader: import('three').TextureLoader,
+    loader: TextureLoader,
     url: string,
     colorSpace: typeof import('three').SRGBColorSpace,
-): Promise<import('three').Texture | null> {
+): Promise<Texture | null> {
     try {
         const tex = await loader.loadAsync(url);
         tex.colorSpace = colorSpace;
@@ -65,34 +76,47 @@ async function loadTexture(
     }
 }
 
-export async function buildSolarSystemScene(
+/** Fire-and-forget HDR; scene keeps color fallback until the map arrives. */
+function startHdrLoad(
+    THREE: ThreeModule,
+    scene: import('three').Scene,
+    baseUrl: string,
+    textures: Texture[],
+): void {
+    void (async () => {
+        try {
+            const { HDRLoader } = await import('three/addons/loaders/HDRLoader.js');
+            const hdr = new HDRLoader();
+            const envMap = await hdr.loadAsync(assetUrl(baseUrl, 'hdr_blue_nebulae.hdr'));
+            envMap.mapping = THREE.EquirectangularReflectionMapping;
+            scene.background = envMap;
+            scene.environment = envMap;
+            textures.push(envMap);
+        } catch {
+            /* keep color fallback */
+        }
+    })();
+}
+
+export function buildSolarSystemScene(
     THREE: ThreeModule,
     opts: { baseUrl: string; tier: CosmosTier },
-): Promise<{
+): {
     scene: import('three').Scene;
     handles: SolarSystemHandles;
-}> {
+} {
     const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x05060f);
+
     const disposables: Array<{ dispose: () => void }> = [];
-    const textures: import('three').Texture[] = [];
+    const textures: Texture[] = [];
 
     const track = <T extends { dispose: () => void }>(obj: T): T => {
         disposables.push(obj);
         return obj;
     };
 
-    // HDR environment
-    try {
-        const { HDRLoader } = await import('three/addons/loaders/HDRLoader.js');
-        const hdr = new HDRLoader();
-        const envMap = await hdr.loadAsync(assetUrl(opts.baseUrl, 'hdr_blue_nebulae.hdr'));
-        envMap.mapping = THREE.EquirectangularReflectionMapping;
-        scene.background = envMap;
-        scene.environment = envMap;
-        textures.push(envMap);
-    } catch {
-        scene.background = new THREE.Color(0x05060f);
-    }
+    startHdrLoad(THREE, scene, opts.baseUrl, textures);
 
     const root = new THREE.Group();
     scene.add(root);
@@ -100,21 +124,47 @@ export async function buildSolarSystemScene(
     scene.add(new THREE.AmbientLight(0x93a3c8, 0.7));
 
     const texLoader = new THREE.TextureLoader();
+    const srgb = THREE.SRGBColorSpace;
+    const base = opts.baseUrl;
 
-    const sunGeo = track(new THREE.SphereGeometry(SUN_RADIUS, 32, 24));
-    const sunTex = await loadTexture(
+    // Kick off all surface loads in parallel (GH Pages: avoid sequential waterfall).
+    const sunTexP = loadTexture(THREE, texLoader, assetUrl(base, 'sun.jpg'), srgb);
+    const planetTexPs = new Map(
+        PLANETS.map((p) => [
+            p.id,
+            loadTexture(THREE, texLoader, assetUrl(base, SURFACE_FILES[p.id]), srgb),
+        ]),
+    ) as Map<PlanetId, Promise<Texture | null>>;
+    const earthNightP = loadTexture(THREE, texLoader, assetUrl(base, 'earth_night.jpg'), srgb);
+    const earthCloudsP = loadTexture(
         THREE,
         texLoader,
-        assetUrl(opts.baseUrl, 'sun.jpg'),
-        THREE.SRGBColorSpace,
+        assetUrl(base, 'earth_clouds.jpg'),
+        srgb,
     );
-    if (sunTex) textures.push(sunTex);
+    const venusAtmP = loadTexture(
+        THREE,
+        texLoader,
+        assetUrl(base, 'venus_atmosphere.jpg'),
+        srgb,
+    );
+    const saturnRingP = loadTexture(THREE, texLoader, assetUrl(base, 'saturn_ring.png'), srgb);
+    const moonTexP = loadTexture(THREE, texLoader, assetUrl(base, 'moon.jpg'), srgb);
+
+    const sunGeo = track(new THREE.SphereGeometry(SUN_RADIUS, 32, 24));
     const sunMat = track(
         new THREE.MeshBasicMaterial({
-            map: sunTex ?? undefined,
-            color: sunTex ? 0xffffff : 0xffe6a0,
+            color: 0xffe6a0,
         }),
     );
+    void sunTexP.then((tex) => {
+        if (!tex) return;
+        trackTexture(textures, tex);
+        sunMat.map = tex;
+        sunMat.color.setHex(0xffffff);
+        sunMat.needsUpdate = true;
+    });
+
     const sunPivot = new THREE.Group();
     const sunTilt = new THREE.Group();
     sunTilt.rotation.z = SUN.axialTilt;
@@ -123,12 +173,9 @@ export async function buildSolarSystemScene(
     sunPivot.add(sunTilt);
     root.add(sunPivot);
 
-    // decay 0: constant falloff so the compressed outer orbits stay readable
     const sunLight = new THREE.PointLight(0xfff2d0, 2.2, 0, 0);
     sunPivot.add(sunLight);
 
-    // Soft camera-facing halo (radial gradient sprite); replaces the old
-    // translucent shell whose hard silhouette read as a yellow ring.
     const glowCanvas = document.createElement('canvas');
     glowCanvas.width = 128;
     glowCanvas.height = 128;
@@ -171,25 +218,14 @@ export async function buildSolarSystemScene(
         group.name = p.id;
         root.add(group);
 
-        // Real obliquity: body, clouds, and ring all live in the tilted frame
         const tilt = new THREE.Group();
         tilt.rotation.z = p.axialTilt;
         group.add(tilt);
 
-        const radius = 1; // scaled each frame via planetState
-        const geo = track(new THREE.SphereGeometry(radius, segs, Math.floor(segs * 0.75)));
-        const map = await loadTexture(
-            THREE,
-            texLoader,
-            assetUrl(opts.baseUrl, SURFACE_FILES[p.id]),
-            THREE.SRGBColorSpace,
-        );
-        if (map) textures.push(map);
-
+        const geo = track(new THREE.SphereGeometry(1, segs, Math.floor(segs * 0.75)));
         const mat = track(
             new THREE.MeshStandardMaterial({
-                map: map ?? undefined,
-                color: map ? 0xffffff : p.fallbackColor,
+                color: p.fallbackColor,
                 roughness: 0.85,
                 metalness: 0.05,
             }),
@@ -198,82 +234,67 @@ export async function buildSolarSystemScene(
         tilt.add(body);
         const extras: import('three').Object3D[] = [];
 
+        void planetTexPs.get(p.id)?.then((map) => {
+            if (!map) return;
+            trackTexture(textures, map);
+            mat.map = map;
+            mat.color.setHex(0xffffff);
+            mat.needsUpdate = true;
+        });
+
         if (p.id === 'earth') {
-            const night = await loadTexture(
-                THREE,
-                texLoader,
-                assetUrl(opts.baseUrl, 'earth_night.jpg'),
-                THREE.SRGBColorSpace,
-            );
-            if (night) {
-                textures.push(night);
+            void earthNightP.then((night) => {
+                if (!night) return;
+                trackTexture(textures, night);
                 mat.emissiveMap = night;
                 mat.emissive = new THREE.Color(0xffffff);
                 mat.emissiveIntensity = 0.55;
-            }
-            const cloudsMap = await loadTexture(
-                THREE,
-                texLoader,
-                assetUrl(opts.baseUrl, 'earth_clouds.jpg'),
-                THREE.SRGBColorSpace,
+                mat.needsUpdate = true;
+            });
+
+            const cloudGeo = track(new THREE.SphereGeometry(1.02, segs, Math.floor(segs * 0.75)));
+            const cloudMat = track(
+                new THREE.MeshStandardMaterial({
+                    color: 0xffffff,
+                    transparent: true,
+                    opacity: 0.85,
+                    depthWrite: false,
+                }),
             );
-            if (cloudsMap) {
-                textures.push(cloudsMap);
-                const cloudGeo = track(
-                    new THREE.SphereGeometry(1.02, segs, Math.floor(segs * 0.75)),
-                );
-                // clouds jpg is white-on-black: use as alphaMap so land stays visible
-                const cloudMat = track(
-                    new THREE.MeshStandardMaterial({
-                        color: 0xffffff,
-                        alphaMap: cloudsMap,
-                        transparent: true,
-                        opacity: 0.85,
-                        depthWrite: false,
-                    }),
-                );
-                const clouds = new THREE.Mesh(cloudGeo, cloudMat);
-                tilt.add(clouds);
-                extras.push(clouds);
-            }
+            const clouds = new THREE.Mesh(cloudGeo, cloudMat);
+            tilt.add(clouds);
+            extras.push(clouds);
+            void earthCloudsP.then((cloudsMap) => {
+                if (!cloudsMap) return;
+                trackTexture(textures, cloudsMap);
+                cloudMat.alphaMap = cloudsMap;
+                cloudMat.needsUpdate = true;
+            });
         }
 
         if (p.id === 'venus') {
-            const atm = await loadTexture(
-                THREE,
-                texLoader,
-                assetUrl(opts.baseUrl, 'venus_atmosphere.jpg'),
-                THREE.SRGBColorSpace,
+            const atmGeo = track(new THREE.SphereGeometry(1.04, segs, Math.floor(segs * 0.75)));
+            const atmMat = track(
+                new THREE.MeshStandardMaterial({
+                    color: 0xe8c4a0,
+                    transparent: true,
+                    opacity: 0.5,
+                    depthWrite: false,
+                }),
             );
-            if (atm) {
-                textures.push(atm);
-                const atmGeo = track(
-                    new THREE.SphereGeometry(1.04, segs, Math.floor(segs * 0.75)),
-                );
-                const atmMat = track(
-                    new THREE.MeshStandardMaterial({
-                        map: atm,
-                        transparent: true,
-                        opacity: 0.5,
-                        depthWrite: false,
-                    }),
-                );
-                const shell = new THREE.Mesh(atmGeo, atmMat);
-                tilt.add(shell);
-                extras.push(shell);
-            }
+            const shell = new THREE.Mesh(atmGeo, atmMat);
+            tilt.add(shell);
+            extras.push(shell);
+            void venusAtmP.then((atm) => {
+                if (!atm) return;
+                trackTexture(textures, atm);
+                atmMat.map = atm;
+                atmMat.color.setHex(0xffffff);
+                atmMat.needsUpdate = true;
+            });
         }
 
         if (p.id === 'saturn') {
-            const ringMap = await loadTexture(
-                THREE,
-                texLoader,
-                assetUrl(opts.baseUrl, 'saturn_ring.png'),
-                THREE.SRGBColorSpace,
-            );
-            if (ringMap) {
-                textures.push(ringMap);
-            }
             const ringGeo = track(new THREE.RingGeometry(1.4, 2.4, 64));
             const pos = ringGeo.attributes.position;
             const uv = ringGeo.attributes.uv;
@@ -286,25 +307,29 @@ export async function buildSolarSystemScene(
             uv.needsUpdate = true;
             const ringMat = track(
                 new THREE.MeshBasicMaterial({
-                    map: ringMap ?? undefined,
-                    color: ringMap ? 0xffffff : 0xc9b68a,
+                    color: 0xc9b68a,
                     side: THREE.DoubleSide,
                     transparent: true,
-                    opacity: ringMap ? 0.9 : 0.55,
+                    opacity: 0.55,
                     depthWrite: false,
                 }),
             );
-            // Flat in the planet's equatorial plane; the tilt group supplies
-            // Saturn's real 26.7° obliquity.
             const ring = new THREE.Mesh(ringGeo, ringMat);
             ring.rotation.x = -Math.PI / 2;
             tilt.add(ring);
+            void saturnRingP.then((ringMap) => {
+                if (!ringMap) return;
+                trackTexture(textures, ringMap);
+                ringMat.map = ringMap;
+                ringMat.color.setHex(0xffffff);
+                ringMat.opacity = 0.9;
+                ringMat.needsUpdate = true;
+            });
         }
 
         planets.set(p.id, { group, body, extras });
     }
 
-    // Moon lives on the earth group so it tracks earth automatically
     const earthEntry = planets.get('earth');
     const moonGroup = new THREE.Group();
     moonGroup.name = 'moon';
@@ -314,17 +339,9 @@ export async function buildSolarSystemScene(
         root.add(moonGroup);
     }
     const moonGeo = track(new THREE.SphereGeometry(1, 24, 18));
-    const moonMap = await loadTexture(
-        THREE,
-        texLoader,
-        assetUrl(opts.baseUrl, 'moon.jpg'),
-        THREE.SRGBColorSpace,
-    );
-    if (moonMap) textures.push(moonMap);
     const moonMat = track(
         new THREE.MeshStandardMaterial({
-            map: moonMap ?? undefined,
-            color: moonMap ? 0xffffff : MOON.fallbackColor,
+            color: MOON.fallbackColor,
             roughness: 0.95,
             metalness: 0,
         }),
@@ -334,6 +351,13 @@ export async function buildSolarSystemScene(
     moonTilt.rotation.z = MOON.axialTilt;
     moonTilt.add(moonBody);
     moonGroup.add(moonTilt);
+    void moonTexP.then((moonMap) => {
+        if (!moonMap) return;
+        trackTexture(textures, moonMap);
+        moonMat.map = moonMap;
+        moonMat.color.setHex(0xffffff);
+        moonMat.needsUpdate = true;
+    });
 
     const handles: SolarSystemHandles = {
         root,
@@ -376,7 +400,6 @@ export function applyPlanetStates(
 
     const m = moonStateAt(tDays);
     handles.moon.group.position.set(m.dx, m.dy, m.dz);
-    // Counter parent earth scale so moon keeps its absolute visual radius
     handles.moon.group.scale.setScalar(m.radius / Math.max(earthScale, 1e-6));
     handles.moon.body.rotation.y = m.spin;
 

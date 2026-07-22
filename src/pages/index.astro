@@ -13,7 +13,12 @@ import GameIsland from '../components/islands/GameIsland';
 import { SITE } from '../lib/site';
 
 const posterUrl = `${import.meta.env.BASE_URL}threejs-assets/web/hdr_blue_nebulae_poster.webp`;
+const cosmosBase = `${import.meta.env.BASE_URL}threejs-assets/web/`;
 ---
+
+<link rel="preload" as="image" href={posterUrl} fetchpriority="high" />
+<link rel="prefetch" href={`${cosmosBase}hdr_blue_nebulae.hdr`} />
+<link rel="prefetch" href={`${cosmosBase}sun.jpg`} />
 
 <HomeLayout
     seo={{
@@ -55,5 +60,5 @@ const posterUrl = `${import.meta.env.BASE_URL}threejs-assets/web/hdr_blue_nebula
     <HomeMotion client:load />
     <CosmicStarfieldIsland client:visible="react" slot="background" />
     <MouseTrailIsland client:idle="react" />
-    <GameIsland client:only="react" />
+    <GameIsland client:visible="react" />
 </HomeLayout>
