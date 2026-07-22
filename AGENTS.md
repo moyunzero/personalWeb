@@ -48,6 +48,7 @@ Project workflow depth: **Medium** (see `docs/scope/scope.md`). Cursor always ap
 
 ## Rules
 
+- **Language with the human**: reply to the user in **Chinese** (简体中文). Skill progress notes, decision summaries, and PR/commit message drafts for this repo should also be Chinese unless the user asks otherwise. Keep code identifiers, file paths, commands, and acceptance IDs (`AC-1`, …) in their original form. Specs under `docs/specs/` for this project should be written in Chinese when newly authored or when the user asks to convert them.
 - Production site is **Astro only** (`yarn dev` / `yarn build`). The legacy Vite SPA entry and duplicate JSX trees were removed; do not reintroduce them.
 - Legacy SPA ban list lives in `tests/fixtures/legacy-spa-paths.ts`. Cleanup and import scan tests enforce it; keep that module the single authoring place for banned paths and removed packages.
 - CI: `.github/workflows/ci.yml` runs `yarn build` then `yarn test` on `pull_request` and on push to `master`. Deploy (`.github/workflows/deploy.yml`) stays build and GitHub Pages only.
@@ -68,7 +69,9 @@ Project workflow depth: **Medium** (see `docs/scope/scope.md`). Cursor always ap
 - [tailwind-design-system](.agents/skills/tailwind-design-system/): `wshobson/agents`, Tailwind design system patterns
 - [phaser-best-practices](.agents/skills/phaser-best-practices/): `onmax/nuxt-skills`, Phaser 3 game patterns (GameIsland)
 - [game-setup-and-config](.agents/skills/game-setup-and-config/): `phaserjs/phaser`, official Phaser game setup
-- [sprites-and-images](.agents/skills/sprites-and-images/): `phaserjs/phaser`, official Phaser sprite and image loading
+- [threejs-fundamentals](.agents/skills/threejs-fundamentals/): `cloudai-x/threejs-skills`, home cosmos WebGL (see islands AGENTS.md)
+- [threejs-animation](.agents/skills/threejs-animation/): `cloudai-x/threejs-skills`, idle drift / rAF
+- [threejs-interaction](.agents/skills/threejs-interaction/): `cloudai-x/threejs-skills`, orbit / zoom (advisory)
 
 ## Context files
 

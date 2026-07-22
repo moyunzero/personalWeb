@@ -12,9 +12,10 @@ import {
 interface Props {
     seo: SeoInput;
     jsonLd?: Record<string, unknown>[];
+    htmlClass?: string;
 }
 
-const { seo, jsonLd: jsonLdProp } = Astro.props;
+const { seo, jsonLd: jsonLdProp, htmlClass } = Astro.props;
 const canonical = canonicalUrl(seo);
 const ogImage = ogImageUrl(seo);
 const description = seo.description ?? SITE.description;
@@ -24,7 +25,7 @@ const jsonLd =
 ---
 
 <!doctype html>
-<html lang={SITE.language}>
+<html lang={SITE.language} class={htmlClass}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

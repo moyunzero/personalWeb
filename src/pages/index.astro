@@ -7,10 +7,12 @@ import Work from '../components/home/Work.astro';
 import HomeFooter from '../components/home/HomeFooter.astro';
 import ContactIsland from '../components/islands/ContactIsland';
 import HomeMotion from '../components/islands/HomeMotion';
-import ParticleIsland from '../components/islands/ParticleIsland';
+import CosmicStarfieldIsland from '../components/islands/CosmicStarfieldIsland';
 import MouseTrailIsland from '../components/islands/MouseTrailIsland';
 import GameIsland from '../components/islands/GameIsland';
 import { SITE } from '../lib/site';
+
+const posterUrl = `${import.meta.env.BASE_URL}threejs-assets/web/hdr_blue_nebulae_poster.webp`;
 ---
 
 <HomeLayout
@@ -20,7 +22,29 @@ import { SITE } from '../lib/site';
         path: '/',
     }}
 >
-    <main>
+    {/* SSR HDR poster; WebGL fades in after successful init (AC-1 / AC-5). */}
+    <div
+        slot="background"
+        data-cosmos-fallback
+        class="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+        style="background-color:#05060f"
+        aria-hidden="true"
+    >
+        <img
+            src={posterUrl}
+            alt=""
+            width="1920"
+            height="960"
+            decoding="async"
+            class="absolute inset-0 h-full w-full object-cover opacity-90"
+        />
+        <div
+            class="absolute inset-0"
+            style="background:linear-gradient(to bottom, rgba(5,6,15,0.55) 0%, rgba(5,6,15,0.25) 22%, rgba(5,6,15,0.08) 45%, rgba(5,6,15,0.18) 100%)"
+        >
+        </div>
+    </div>
+    <main data-cosmos-hit>
         <Main />
         <About />
         <Skill />
@@ -29,7 +53,7 @@ import { SITE } from '../lib/site';
     </main>
     <HomeFooter />
     <HomeMotion client:load />
-    <ParticleIsland client:visible="react" />
+    <CosmicStarfieldIsland client:visible="react" slot="background" />
     <MouseTrailIsland client:idle="react" />
     <GameIsland client:only="react" />
 </HomeLayout>

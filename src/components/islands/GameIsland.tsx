@@ -58,6 +58,7 @@ export default function GameIsland() {
         return (
             <button
                 type="button"
+                data-no-cosmos
                 onClick={() => setStarted(true)}
                 className="fixed bottom-6 left-6 z-[100] px-4 py-2 rounded-xl bg-zinc-800/90 text-sm text-cyan-300 ring-1 ring-cyan-400/30 hover:bg-zinc-700 transition-colors"
                 aria-label="点击启动忍者小游戏"
@@ -72,6 +73,7 @@ export default function GameIsland() {
             <div
                 ref={containerRef}
                 id="phaser-container"
+                data-no-cosmos
                 aria-hidden="true"
                 style={{
                     position: 'fixed',

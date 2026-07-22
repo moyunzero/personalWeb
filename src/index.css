@@ -14,6 +14,14 @@ body{
   @apply bg-zinc-900 text-zinc-50
 }
 
+/* Home only: hide native scrollbar, keep scroll (AC-8). Blog uses global.css defaults. */
+html.home-cosmos-scroll {
+  scrollbar-width: none;
+}
+html.home-cosmos-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 /**
  * 排版
  */
