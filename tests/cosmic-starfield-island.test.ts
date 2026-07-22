@@ -18,11 +18,15 @@ import {
     reseedLastPointerAfterPinch,
 } from '../src/components/islands/cosmosHitTest';
 import {
+    DISC_CLEARANCE,
+    ECCENTRICITY_SCALE,
+    HIGHLIGHT_SCALE,
     INITIAL_CAMERA_PITCH,
     PLANETS,
     SECTION_FOCUS,
     SECTION_ORDER,
     SUN,
+    SUN_RADIUS,
     TIME_SCALE_DAYS_PER_SEC,
     compressPeriod,
     compressSemiMajor,
@@ -32,6 +36,7 @@ import {
     solveEccentricAnomaly,
     sunSpinAt,
     systemStateAt,
+    visualExtent,
 } from '../src/components/islands/solarSystemModel';
 
 const islandPath = path.resolve('src/components/islands/CosmicStarfieldIsland.tsx');
@@ -244,15 +249,50 @@ describe('solarSystemModel (AC-9, AC-10)', () => {
 
     it('initial epoch keeps planet discs clear of each other', () => {
         const states = systemStateAt(0);
-        const extent = (s: { id: string; radius: number }) =>
-            s.id === 'saturn' ? s.radius * 2.4 : s.radius;
         for (let i = 0; i < states.length; i++) {
             for (let j = i + 1; j < states.length; j++) {
                 const a = states[i];
                 const b = states[j];
                 const dist = Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
-                // Saturn extent includes the ring; leave margin for highlight scale
-                expect(dist).toBeGreaterThan(extent(a) + extent(b) + 1);
+                const need =
+                    (visualExtent(a) + visualExtent(b)) * HIGHLIGHT_SCALE + DISC_CLEARANCE;
+                expect(dist).toBeGreaterThan(need);
+            }
+            const fromSun = Math.hypot(states[i].x, states[i].y, states[i].z);
+            expect(fromSun).toBeGreaterThan(
+                SUN_RADIUS + visualExtent(states[i]) * HIGHLIGHT_SCALE + DISC_CLEARANCE,
+            );
+        }
+    });
+
+    it('adjacent compressed orbits always clear discs even when aligned (AC-9)', () => {
+        for (let i = 0; i < PLANETS.length - 1; i++) {
+            const a = PLANETS[i];
+            const b = PLANETS[i + 1];
+            // Worst case peri/apo on the same ray after eccentricity scale
+            const ra = compressSemiMajor(a.aAu);
+            const rb = compressSemiMajor(b.aAu);
+            const ea = a.eccentricity * ECCENTRICITY_SCALE;
+            const eb = b.eccentricity * ECCENTRICITY_SCALE;
+            const gap = rb * (1 - eb) - ra * (1 + ea);
+            const need =
+                (visualExtent(a) + visualExtent(b)) * HIGHLIGHT_SCALE + DISC_CLEARANCE;
+            expect(gap).toBeGreaterThan(need);
+        }
+    });
+
+    it('planets stay clear across a long simulated window (AC-9)', () => {
+        for (let t = 0; t <= 4000; t += 5) {
+            const states = systemStateAt(t);
+            for (let i = 0; i < states.length; i++) {
+                for (let j = i + 1; j < states.length; j++) {
+                    const a = states[i];
+                    const b = states[j];
+                    const dist = Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
+                    const need =
+                        (visualExtent(a) + visualExtent(b)) * HIGHLIGHT_SCALE + DISC_CLEARANCE;
+                    expect(dist, `${a.id}+${b.id} at t=${t}`).toBeGreaterThan(need);
+                }
             }
         }
     });

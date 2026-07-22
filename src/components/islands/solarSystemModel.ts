@@ -52,19 +52,19 @@ const TAU = Math.PI * 2;
 
 /**
  * Staged initial MEAN LONGITUDE (L ≈ Ω + ω + M) per planet, in degrees.
- * Chosen so the home camera sees distinct discs (no line-of-sight merges)
- * while keeping AC-10 focus pairs in a frameable arc. Staging L (not M)
+ * Spaced ~55–60° apart so home framing does not stack discs on one ray
+ * (Mercury+Saturn used to share ~86° and looked glued). Staging L (not M)
  * keeps the scatter meaningful in world space.
  */
 const STAGED_LONGITUDE_DEG: Record<PlanetId, number> = {
-    mercury: 23,
-    venus: 105,
-    earth: 151,
-    mars: 218,
-    jupiter: 290,
-    saturn: 10,
-    uranus: 70,
-    neptune: 120,
+    mercury: 25,
+    venus: 85,
+    earth: 145,
+    mars: 205,
+    jupiter: 265,
+    saturn: 325,
+    uranus: 40,
+    neptune: 100,
 };
 
 export function stagedMeanAnomaly0(
@@ -114,7 +114,7 @@ const PLANETS_RAW: readonly Omit<PlanetElements, 'meanAnomaly0'>[] = [
         periodDays: 365.256,
         rotationDays: 0.9973,
         axialTilt: deg(23.44),
-        visualRadius: 2.4,
+        visualRadius: 2.2,
         fallbackColor: 0x3a6ea5,
     },
     {
@@ -127,7 +127,7 @@ const PLANETS_RAW: readonly Omit<PlanetElements, 'meanAnomaly0'>[] = [
         periodDays: 686.98,
         rotationDays: 1.026,
         axialTilt: deg(25.19),
-        visualRadius: 1.6,
+        visualRadius: 1.5,
         fallbackColor: 0xb85c38,
     },
     {
@@ -140,7 +140,8 @@ const PLANETS_RAW: readonly Omit<PlanetElements, 'meanAnomaly0'>[] = [
         periodDays: 4332.59,
         rotationDays: 0.414,
         axialTilt: deg(3.13),
-        visualRadius: 6.5,
+        // Sized so adjacent compressed orbits still clear (incl. rings / highlight).
+        visualRadius: 4.2,
         fallbackColor: 0xc9a36a,
     },
     {
@@ -153,7 +154,7 @@ const PLANETS_RAW: readonly Omit<PlanetElements, 'meanAnomaly0'>[] = [
         periodDays: 10759.22,
         rotationDays: 0.444,
         axialTilt: deg(26.73),
-        visualRadius: 6,
+        visualRadius: 3.6,
         fallbackColor: 0xd4c08a,
     },
     {
@@ -166,7 +167,7 @@ const PLANETS_RAW: readonly Omit<PlanetElements, 'meanAnomaly0'>[] = [
         periodDays: 30688.5,
         rotationDays: -0.718,
         axialTilt: deg(97.77),
-        visualRadius: 4.0,
+        visualRadius: 2.8,
         fallbackColor: 0x7ec8c8,
     },
     {
@@ -179,7 +180,7 @@ const PLANETS_RAW: readonly Omit<PlanetElements, 'meanAnomaly0'>[] = [
         periodDays: 60182,
         rotationDays: 0.671,
         axialTilt: deg(28.32),
-        visualRadius: 4.0,
+        visualRadius: 2.8,
         fallbackColor: 0x3f6fd6,
     },
 ] as const;
@@ -217,13 +218,33 @@ export const PERIOD_COMPRESS_EXP = 0.45;
 export const SPIN_SCALE = 0.008;
 
 /**
- * Orbit band after AU compression. ORBIT_MIN stays outside SUN_RADIUS so
- * Mercury clears the sun disc (AC-9).
+ * Orbit band. ORBIT_MIN clears the sun disc. ORBIT_MAX is a soft aesthetic
+ * ceiling for log targets; actual radii are raised as needed so peri/apo
+ * discs never mesh (AC-9).
  */
-export const ORBIT_MIN = 28;
-export const ORBIT_MAX = 92;
+export const ORBIT_MIN = 30;
+export const ORBIT_MAX = 160;
+/** Extra gap beyond disc extents when checking / sizing orbits. */
+export const DISC_CLEARANCE = 3;
+/** Matches applyPlanetStates highlight scale (lit planets grow slightly). */
+export const HIGHLIGHT_SCALE = 1.14;
+/**
+ * Visual eccentricity scale. Full fact-sheet e on a compressed orbit lets
+ * peri/apo ranges overlap. Keep a readable ellipse without mesh collisions.
+ */
+export const ECCENTRICITY_SCALE = 0.25;
 /** Kept visually subordinate to the planet narrative (decorative vista). */
 export const SUN_RADIUS = 10;
+
+/** Radial extent used for clearance (Saturn includes ring). */
+export function visualExtent(planet: {
+    id: string;
+    visualRadius?: number;
+    radius?: number;
+}): number {
+    const r = planet.visualRadius ?? planet.radius ?? 0;
+    return planet.id === 'saturn' ? r * 2.4 : r;
+}
 
 /** Sun equatorial rotation (~25.05 days) and obliquity to the ecliptic. */
 export const SUN = {
@@ -253,10 +274,46 @@ const A_MIN = PLANETS[0].aAu;
 const A_MAX = PLANETS[PLANETS.length - 1].aAu;
 const LOG_SPAN = Math.log(A_MAX / A_MIN);
 
-/** Monotone log compression of AU → visual orbit radius (AC-9). */
-export function compressSemiMajor(aAu: number): number {
+/** Soft log target (may be raised by clearance packing). */
+function logOrbitTarget(aAu: number): number {
     const t = Math.log(Math.max(aAu, A_MIN) / A_MIN) / LOG_SPAN;
     return ORBIT_MIN + (ORBIT_MAX - ORBIT_MIN) * Math.pow(t, 0.85);
+}
+
+/**
+ * Monotone visual semi-major axes: at least the log compression target, and
+ * large enough that worst-case peri/apo on one ray still clears discs.
+ */
+const ORBIT_BY_ID: Record<PlanetId, number> = (() => {
+    const out = {} as Record<PlanetId, number>;
+    let prevA = 0;
+    for (let i = 0; i < PLANETS.length; i++) {
+        const p = PLANETS[i];
+        const logTarget = logOrbitTarget(p.aAu);
+        if (i === 0) {
+            out[p.id] = Math.max(ORBIT_MIN, logTarget);
+            prevA = out[p.id];
+            continue;
+        }
+        const prev = PLANETS[i - 1];
+        const ePrev = prev.eccentricity * ECCENTRICITY_SCALE;
+        const eCur = p.eccentricity * ECCENTRICITY_SCALE;
+        const need =
+            (visualExtent(prev) + visualExtent(p)) * HIGHLIGHT_SCALE + DISC_CLEARANCE;
+        const minA = (prevA * (1 + ePrev) + need) / Math.max(1e-6, 1 - eCur);
+        out[p.id] = Math.max(logTarget, minA);
+        prevA = out[p.id];
+    }
+    return out;
+})();
+
+/** Monotone AU → visual orbit radius with disc clearance (AC-9). */
+export function compressSemiMajor(aAu: number): number {
+    // Exact planet AU hits the packed table; otherwise interpolate by log target.
+    for (const p of PLANETS) {
+        if (Math.abs(p.aAu - aAu) < 1e-9) return ORBIT_BY_ID[p.id];
+    }
+    return logOrbitTarget(aAu);
 }
 
 const P_MIN = PLANETS[0].periodDays;
@@ -313,15 +370,16 @@ export type PlanetState = {
 
 export function planetStateAt(planet: PlanetElements, tDays: number): PlanetState {
     const a = compressSemiMajor(planet.aAu);
+    const e = planet.eccentricity * ECCENTRICITY_SCALE;
     const n = (Math.PI * 2) / compressPeriod(planet.periodDays);
     const M = planet.meanAnomaly0 + n * tDays;
-    const E = solveEccentricAnomaly(M, planet.eccentricity);
+    const E = solveEccentricAnomaly(M, e);
     const cosE = Math.cos(E);
     const sinE = Math.sin(E);
-    const r = a * (1 - planet.eccentricity * cosE);
+    const r = a * (1 - e * cosE);
     const trueAnomaly = Math.atan2(
-        Math.sqrt(1 - planet.eccentricity ** 2) * sinE,
-        cosE - planet.eccentricity,
+        Math.sqrt(Math.max(0, 1 - e ** 2)) * sinE,
+        cosE - e,
     );
     const { x, y, z } = orbitalToWorld(
         r,
@@ -401,11 +459,12 @@ export function focusPoseFor(
     const n = Math.max(1, ids.length);
     if (section === 'home') {
         // Wide establishing shot: whole system reads as a mid-distance vista
+        const outer = compressSemiMajor(PLANETS[PLANETS.length - 1].aAu);
         return {
             targetX: 0,
             targetY: 0,
             targetZ: 0,
-            distance: ORBIT_MAX * 2.8,
+            distance: outer * 2.8,
         };
     }
     return {

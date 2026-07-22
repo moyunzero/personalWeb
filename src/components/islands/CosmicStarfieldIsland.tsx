@@ -353,7 +353,7 @@ export default function CosmicStarfieldIsland() {
             });
             if (cancelled) {
                 built.handles.dispose();
-                renderer.dispose();
+                renderer?.dispose();
                 renderer = null;
                 return;
             }
