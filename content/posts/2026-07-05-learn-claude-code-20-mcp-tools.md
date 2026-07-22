@@ -1,5 +1,5 @@
 ---
-title: Learn Claude Code -20-MCP Tools
+title: Learn Claude Code -20-Comprehensive Agent Turn
 slug: 2026-07-05-learn-claude-code-20-mcp-tools
 description: '"机制很多，循环一个" — 工具、权限、记忆、任务、团队、插件都挂在同一个 while True 上。 Harness 层 : 综合
   问题 一个能长期工作的 coding agent 需要同时拥有： 工具分发和权限边界 hooks 扩展点 todo 计划和任务图 技能、记忆、系统
@@ -13,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 399df5c0-26f4-8033-848d-c84abdf7065f
-notionSyncedAt: 2026-07-10T13:53:53.953Z
+notionSyncedAt: 2026-07-22T15:41:28.219Z
 ---
 
 > _"机制很多，循环一个"_ — 工具、权限、记忆、任务、团队、插件都挂在同一个 while True 上。
@@ -49,7 +49,7 @@ notionSyncedAt: 2026-07-10T13:53:53.953Z
 ## 解决方案
 
 
-![system-architecture.svg](images/blog/2026-07-05-learn-claude-code-20-mcp-tools/img-2eaa595a92.svg)
+![system-architecture.svg](images/blog/2026-07-05-learn-claude-code-20-mcp-tools/img-78719faa61.svg)
 
 
 ```plain text

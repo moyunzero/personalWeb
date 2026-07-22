@@ -13,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 396df5c0-26f4-8009-b9a6-d417e00ff98d
-notionSyncedAt: 2026-07-13T12:13:37.344Z
+notionSyncedAt: 2026-07-22T15:41:35.741Z
 ---
 
 > _"One loop & Bash is all you need"_ — 一个工具 + 一个循环 = 一个 Agent。
@@ -46,7 +46,7 @@ notionSyncedAt: 2026-07-13T12:13:37.344Z
 ## 解决方案
 
 
-![agent-loop.svg](images/blog/2026-06-29-learn-claude-code-1-agent-loop/img-6bde9356c5.svg)
+![agent-loop.svg](images/blog/2026-06-29-learn-claude-code-1-agent-loop/img-c04d8a7fa7.svg)
 
 
 一个 `while True` 循环，模型调用工具就继续，不调用就停。整个过程只有两个信号：
@@ -146,3 +146,60 @@ def agent_loop(messages):
 
 
 这就是最小可运行的 agent harness 内核。它不是智能本身，而是让模型能持续行动的最小运行框架，模型负责决策（要不要调工具、调哪个），harness 负责执行（调了就跑、结果喂回去）。
+
+<details>
+<summary>深入 CC 源码</summary>
+> 
+>
+> 核心差异就两个：CC 不看 `stop_reason` 字段而是检查内容里有没有 tool_use 块（因为流式响应中 stop_reason 不可靠）；CC 有更多的退出路径和恢复策略做生产级保护。
+>
+>
+
+**本文30 行** **`while True`** **就是 CC 1729 行的核心。** 下面每一项都是在这个核心上叠加的保护机制。
+
+
+一、循环结构差异
+
+
+本文检查 `response.stop_reason`。CC 不把它作为循环继续的唯一依据——流式响应中 `stop_reason` 可能还没更新但内容里已经有 `tool_use` 块了。CC 用 `needsFollowUp` 标志：接收到流式消息时（`query.ts:830-834`），只要检测到 `tool_use` 块就设为 `true`；`QueryEngine.ts` 会从 `message_delta` 捕获真实 `stop_reason` 用于其他逻辑，但 query loop 本身靠 `needsFollowUp` 决定是否继续。
+
+
+```typescript
+// query.ts:554-558
+// stop_reason === 'tool_use' is unreliable.
+// Set during streaming whenever a tool_use block arrives.
+let needsFollowUp = false
+```
+
+
+二、State 对象 10 字段（本文只用 messages）
+
+
+| #  | 字段                             | 用途                       |
+| -- | ------------------------------ | ------------------------ |
+| 1  | `messages`                     | 当前迭代的消息数组                |
+| 2  | `toolUseContext`               | 工具、信号、权限上下文              |
+| 3  | `autoCompactTracking`          | 压缩状态追踪                   |
+| 4  | `maxOutputTokensRecoveryCount` | token 恢复尝试次数（上限 3）       |
+| 5  | `hasAttemptedReactiveCompact`  | 本轮是否已尝试响应式压缩             |
+| 6  | `maxOutputTokensOverride`      | 8K→64K 的升级覆盖             |
+| 7  | `pendingToolUseSummary`        | 后台 Haiku 生成的 tool use 摘要 |
+| 8  | `stopHookActive`               | 停止钩子是否产生阻塞错误             |
+| 9  | `turnCount`                    | 轮次计数（maxTurns 检查）        |
+| 10 | `transition`                   | 上一次继续原因                  |
+
+> 注：`taskBudgetRemaining`（`query.ts:291`）是 loop-local 局部变量，不在 State 上。源码注释明确写了 "Loop-local (not on State)"。
+
+三、多条退出和继续路径
+
+
+本文只有 1 条退出路径（模型不调工具就结束）。生产版有多条退出和继续路径，覆盖 blocking limit、prompt too long、model error、abort、hook stop、max turns、token budget continuation、reactive compact retry 等场景。每种场景都有对应的恢复或退出策略。
+
+
+四、流式工具执行和 QueryEngine
+
+
+CC 的 `StreamingToolExecutor`（`query.ts:561`）让工具在模型还在生成时就开始并行执行（根据工具是否 concurrency-safe 决定并发或独占）。`QueryEngine.ts` 额外加了费用超限、结构化输出验证失败等保护。
+
+
+</details>
