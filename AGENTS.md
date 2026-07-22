@@ -4,7 +4,7 @@
 
 - **Language / Runtime**: JavaScript and TypeScript, Node 22 (CI), ESM (`"type": "module"`)
 - **Framework**: Astro 5 (static SSG) + React 18 islands
-- **Key dependencies**: Tailwind CSS, Content Collections, GSAP/Lenis, Phaser 3, Notion sync, Zod
+- **Key dependencies**: Tailwind CSS, Content Collections, GSAP/Lenis, Phaser 3, Three.js (home cosmos), Notion sync, Zod
 - **Package manager**: yarn
 
 ## Build approach
@@ -20,12 +20,16 @@ yarn install
 # Dev server (base path /personalWeb/)
 yarn dev
 
-# Build (runs seo:audit first; fails on SEO errors)
+# Build (cosmos asset gate, then seo:audit; fails on missing web/ textures or SEO errors)
 yarn build
 
 # Test (also the CI gate; no separate legacy guard script)
 yarn test
 yarn test:e2e
+
+# Home cosmos textures (local source → public/threejs-assets/web/; commit web/ derivatives)
+yarn assets:cosmos
+yarn assets:cosmos:check
 
 # Blog
 yarn blog:new "标题" --categories note
@@ -60,6 +64,8 @@ Project workflow depth: **Medium** (see `docs/scope/scope.md`). Cursor always ap
 - No path alias (`@/`). Use relative imports.
 - ESLint covers `.js` / `.jsx` only, not `.ts` or `.astro`.
 - Shared site config: `scripts/lib/site-config.mjs` (`SITE.origin`, `SITE.basePath`, `SITE.url`).
+- Home cosmos runtime only loads `public/threejs-assets/web/` (never source 8K/HDR). `yarn build` runs `scripts/check-cosmos-assets.mjs` first. Blog routes must not import the cosmos island or those assets.
+- Outside blog article/list body (`BlogLayout` `main.blog-copyable`), pages use `user-select: none`; form fields stay selectable for editing.
 
 ## Agent skills
 

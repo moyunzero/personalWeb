@@ -11,7 +11,9 @@ Interactive UI loaded as Astro islands. Static markup stays in `.astro` files; a
 | `HomeMotion.tsx` | GSAP scroll reveals (`client:load`) |
 | `HomeHeader.tsx` | Mobile nav, anchor scroll |
 | `ContactIsland.tsx` | Contact form interactivity (`client:visible`) |
-| `CosmicStarfieldIsland.tsx` / `MouseTrailIsland.tsx` | Home cosmos WebGL + mouse trail (`client:visible` / `client:idle`) |
+| `CosmicStarfieldIsland.tsx` | Home solar system WebGL (`client:visible`); HDR + sun + eight planets |
+| `cosmosHitTest.ts` / `solarSystemModel.ts` / `solarSystemScene.ts` | Explore hit test, Kepler packing, Three scene build/dispose |
+| `MouseTrailIsland.tsx` | Mouse trail (`client:idle`) |
 | `GameIsland.tsx` | Lazy Phaser game (`client:only="react"`) |
 | `BlogSearch.tsx` | Client side blog list filter |
 | `MermaidHydrator.tsx` | Mermaid diagrams in posts |
@@ -21,7 +23,7 @@ Interactive UI loaded as Astro islands. Static markup stays in `.astro` files; a
 - Pick hydration by cost: `client:visible` or `client:idle` for below the fold; `client:load` only when needed on first paint.
 - Heavy libs (Phaser, GSAP, Three) must stay behind dynamic `import()` inside the island.
 - Do not add new SPA routing. Islands enhance static pages only.
-- Home cosmos: Astro `data-cosmos-fallback` is always first paint; `CosmicStarfieldIsland` only upgrades after WebGL init. Background mounts via `HomeLayout` `background` slot (outside `z-10` content). Desktop zoom: Ctrl/Cmd + wheel only. Home hides native scrollbar (`html.home-cosmos-scroll` in `index.css`). Blog routes must not import it.
+- Home cosmos: Astro `data-cosmos-fallback` (HDR poster) is always first paint; `CosmicStarfieldIsland` fades in after WebGL init. Background mounts via `HomeLayout` `background` slot (outside `z-10` content). Visual Kepler packing in `solarSystemModel.ts` must keep discs clear (incl. Saturn rings / highlight scale). Desktop zoom: Ctrl/Cmd + wheel only (persistent `zoomFactor`). Home hides native scrollbar (`html.home-cosmos-scroll`). Blog routes must not import cosmos modules or `threejs-assets/web/`. `ParticleIsland` is removed; do not reintroduce it.
 
 ## Agent skills
 

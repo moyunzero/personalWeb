@@ -11,6 +11,8 @@ Node ESM scripts for blog workflow, SEO quality gates, performance audit, and pr
 | `scripts/notion-sync.mjs` | Notion database → Markdown + images |
 | `scripts/seo-audit.mjs` | Build gate: frontmatter and category validation |
 | `scripts/new-post.mjs` | Scaffold a new post in `content/posts/` |
+| `scripts/prepare-threejs-assets.mjs` | Source HDR/planets → `public/threejs-assets/web/` (+ budget) |
+| `scripts/check-cosmos-assets.mjs` | Build/CI gate: required `web/` files present and under budget |
 | `scripts/lib/site-config.mjs` | Canonical `SITE` object (origin, basePath, url) |
 | `scripts/lib/post-schema.mjs` | Zod schema for Content Collections |
 | `scripts/lib/meta-rules.mjs` | SEO audit rules |
@@ -25,6 +27,8 @@ yarn notion:sync --all        # full resync
 yarn notion:sync --dry-run    # preview only
 yarn seo:audit                # run gate (also runs before build)
 yarn seo:meta-batch --dry-run # report meta gaps
+yarn assets:cosmos            # regenerate web/ cosmos textures from assets/threejs-source/
+yarn assets:cosmos:check      # verify committed web/ files (also first step of yarn build)
 yarn perf:audit               # Lighthouse (starts preview if needed)
 yarn verify:prod              # live site smoke
 ```
@@ -33,7 +37,8 @@ yarn verify:prod              # live site smoke
 
 - Notion env vars load from `.env.local` / `.env`: `NOTION_TOKEN`, `NOTION_DATABASE_ID`.
 - Legacy `generate-static.mjs` was removed; do not reintroduce a SPA static generator.
-- `yarn build` = `seo:audit` then `astro build`. Use `build:astro` only to skip the gate intentionally.
+- `yarn build` = `check-cosmos-assets` then `seo:audit` then `astro build`. Use `build:astro` only to skip gates intentionally.
+- Cosmos source textures live in `assets/threejs-source/` (gitignored); only commit `public/threejs-assets/web/` derivatives.
 
 ## Agent skills
 
