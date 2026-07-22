@@ -22,6 +22,7 @@ import {
     ECCENTRICITY_SCALE,
     HIGHLIGHT_SCALE,
     INITIAL_CAMERA_PITCH,
+    MOON,
     PLANETS,
     SECTION_FOCUS,
     SECTION_ORDER,
@@ -33,11 +34,37 @@ import {
     focusPoseFor,
     moonStateAt,
     orbitalToWorld,
+    planetStateAt,
     solveEccentricAnomaly,
     sunSpinAt,
     systemStateAt,
     visualExtent,
+    type PlanetState,
 } from '../src/components/islands/solarSystemModel';
+
+function clearanceNeed(
+    a: { id: string; visualRadius?: number; radius?: number },
+    b: { id: string; visualRadius?: number; radius?: number },
+): number {
+    return (visualExtent(a) + visualExtent(b)) * HIGHLIGHT_SCALE + DISC_CLEARANCE;
+}
+
+function assertPairClear(a: PlanetState, b: PlanetState, label: string) {
+    const dist = Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
+    expect(dist, label).toBeGreaterThan(clearanceNeed(a, b));
+}
+
+function assertSystemClear(states: PlanetState[], label: string) {
+    for (let i = 0; i < states.length; i++) {
+        const fromSun = Math.hypot(states[i].x, states[i].y, states[i].z);
+        expect(fromSun, `${label} sun+${states[i].id}`).toBeGreaterThan(
+            SUN_RADIUS + visualExtent(states[i]) * HIGHLIGHT_SCALE + DISC_CLEARANCE,
+        );
+        for (let j = i + 1; j < states.length; j++) {
+            assertPairClear(states[i], states[j], `${label} ${states[i].id}+${states[j].id}`);
+        }
+    }
+}
 
 const islandPath = path.resolve('src/components/islands/CosmicStarfieldIsland.tsx');
 const indexPath = path.resolve('src/pages/index.astro');
@@ -248,21 +275,7 @@ describe('solarSystemModel (AC-9, AC-10)', () => {
     });
 
     it('initial epoch keeps planet discs clear of each other', () => {
-        const states = systemStateAt(0);
-        for (let i = 0; i < states.length; i++) {
-            for (let j = i + 1; j < states.length; j++) {
-                const a = states[i];
-                const b = states[j];
-                const dist = Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
-                const need =
-                    (visualExtent(a) + visualExtent(b)) * HIGHLIGHT_SCALE + DISC_CLEARANCE;
-                expect(dist).toBeGreaterThan(need);
-            }
-            const fromSun = Math.hypot(states[i].x, states[i].y, states[i].z);
-            expect(fromSun).toBeGreaterThan(
-                SUN_RADIUS + visualExtent(states[i]) * HIGHLIGHT_SCALE + DISC_CLEARANCE,
-            );
-        }
+        assertSystemClear(systemStateAt(0), 't=0');
     });
 
     it('adjacent compressed orbits always clear discs even when aligned (AC-9)', () => {
@@ -275,25 +288,44 @@ describe('solarSystemModel (AC-9, AC-10)', () => {
             const ea = a.eccentricity * ECCENTRICITY_SCALE;
             const eb = b.eccentricity * ECCENTRICITY_SCALE;
             const gap = rb * (1 - eb) - ra * (1 + ea);
-            const need =
-                (visualExtent(a) + visualExtent(b)) * HIGHLIGHT_SCALE + DISC_CLEARANCE;
-            expect(gap).toBeGreaterThan(need);
+            expect(gap, `${a.id}->${b.id}`).toBeGreaterThan(clearanceNeed(a, b));
         }
     });
 
-    it('planets stay clear across a long simulated window (AC-9)', () => {
-        for (let t = 0; t <= 4000; t += 5) {
-            const states = systemStateAt(t);
-            for (let i = 0; i < states.length; i++) {
-                for (let j = i + 1; j < states.length; j++) {
-                    const a = states[i];
-                    const b = states[j];
-                    const dist = Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
-                    const need =
-                        (visualExtent(a) + visualExtent(b)) * HIGHLIGHT_SCALE + DISC_CLEARANCE;
-                    expect(dist, `${a.id}+${b.id} at t=${t}`).toBeGreaterThan(need);
+    it('planets stay clear across a long coupled-time window (AC-9)', () => {
+        // ~20000 sim-days at TIME_SCALE covers many inner orbits and several outer ones
+        for (let t = 0; t <= 20_000; t += 2) {
+            assertSystemClear(systemStateAt(t), `t=${t}`);
+        }
+    });
+
+    it('adjacent planets never mesh for any independent orbital phase pair (AC-9)', () => {
+        const STEPS = 48;
+        for (let i = 0; i < PLANETS.length - 1; i++) {
+            const inner = PLANETS[i];
+            const outer = PLANETS[i + 1];
+            const periodA = compressPeriod(inner.periodDays);
+            const periodB = compressPeriod(outer.periodDays);
+            for (let ka = 0; ka < STEPS; ka++) {
+                for (let kb = 0; kb < STEPS; kb++) {
+                    const a = planetStateAt(inner, (ka / STEPS) * periodA);
+                    const b = planetStateAt(outer, (kb / STEPS) * periodB);
+                    assertPairClear(
+                        a,
+                        b,
+                        `${inner.id}+${outer.id} phase ${ka}/${kb}`,
+                    );
                 }
             }
+        }
+    });
+
+    it('moon stays outside the earth disc in local space', () => {
+        for (let t = 0; t <= 2_000; t += 1) {
+            const m = moonStateAt(t);
+            const dist = Math.hypot(m.dx, m.dy, m.dz);
+            // Earth mesh radius is 1 in local space; moon orbitFactor must clear both radii
+            expect(dist).toBeGreaterThan(1 + MOON.visualRadius);
         }
     });
 
@@ -309,8 +341,9 @@ describe('solarSystemModel (AC-9, AC-10)', () => {
         const neptTravel = Math.hypot(b[7].x - a[7].x, b[7].z - a[7].z);
         expect(mercTravel).toBeGreaterThan(neptTravel);
 
-        const peri = compressSemiMajor(PLANETS[0].aAu) * (1 - PLANETS[0].eccentricity);
-        const aph = compressSemiMajor(PLANETS[0].aAu) * (1 + PLANETS[0].eccentricity);
+        const e = PLANETS[0].eccentricity * ECCENTRICITY_SCALE;
+        const peri = compressSemiMajor(PLANETS[0].aAu) * (1 - e);
+        const aph = compressSemiMajor(PLANETS[0].aAu) * (1 + e);
         expect(aph).toBeGreaterThan(peri);
 
         const E = solveEccentricAnomaly(1.2, 0.2);
