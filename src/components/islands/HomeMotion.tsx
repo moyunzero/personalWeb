@@ -50,7 +50,7 @@ export default function HomeMotion() {
     }, []);
 
     useGSAP(() => {
-        let scrollTriggers: import('gsap/ScrollTrigger').ScrollTrigger[] = [];
+        const scrollTriggers: import('gsap/ScrollTrigger').ScrollTrigger[] = [];
 
         const run = async () => {
             const { default: gsap } = await import('gsap');

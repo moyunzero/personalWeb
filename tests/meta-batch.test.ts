@@ -1,5 +1,4 @@
-import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
-import os from 'node:os';
+import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { parseFrontmatter } from '../src/blog/frontmatter.js';
@@ -28,27 +27,7 @@ describe('meta-batch', () => {
     });
 
     it('apply fills empty description from excerpt', async () => {
-        const tmp = await mkdtemp(path.join(os.tmpdir(), 'meta-batch-'));
-        const filePath = path.join(tmp, 'test-post.md');
-        const body = '# Title\n\nUnique body content for excerpt test.';
-        const raw = `---\ntitle: Title\ndraft: false\ndescription: ""\n---\n\n${body}`;
-        await writeFile(filePath, raw, 'utf8');
-
-        const { data, content } = parseFrontmatter(raw);
         const { runMetaBatch } = await import('../scripts/seo-meta-batch.mjs');
-
-        // Use temp path — override via post shape (write only if path under POSTS_DIR fails)
-        // Test via in-memory apply simulation on stringify
-        const posts = [
-            {
-                file: 'test-post.md',
-                filePath,
-                fileSlug: 'test-post',
-                data,
-                content,
-                raw,
-            },
-        ];
 
         // runMetaBatch refuses writes outside POSTS_DIR — use real posts dir fixture
         const fixturePath = path.join(postsDir, '_meta-batch-fixture.md');
