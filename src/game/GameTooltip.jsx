@@ -4,13 +4,6 @@ import { useEffect, useState, useRef } from 'react';
  * GameTooltip — listens for 'shinobi-hover-change' events dispatched by
  * GameScene and renders a cyberpunk-styled keyboard controls hint.
  */
-const KEY_MAP = [
-  { key: 'W',     label: '跳跃', wide: false },
-  { key: 'A',     label: '左移', wide: false },
-  { key: 'D',     label: '右移', wide: false },
-  { key: 'SPACE', label: '攻击', wide: true  },
-];
-
 const GameTooltip = () => {
   const [visible, setVisible] = useState(false);
   const [floatAway, setFloatAway] = useState(false);
@@ -88,7 +81,7 @@ const GameTooltip = () => {
       // Float-away animation duration is 1s in real browsers
       // In test environments (jsdom), animations don't run, so we use a shorter timeout
       // to ensure tests complete within their timeout windows
-      const isTest = typeof process !== 'undefined' && process.env.NODE_ENV === 'test';
+      const isTest = import.meta.env?.MODE === 'test';
       const timeout = setTimeout(() => {
         setVisible(false);
         setFloatAway(false);

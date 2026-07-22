@@ -5,7 +5,6 @@ const FRAME_SIZE   = 128;   // All Shinobi sprites use 128×128 frames
 const FLOOR_OFFSET = 0;     // Distance from viewport bottom to floor (px)
 const MOVE_SPEED   = 200;   // Horizontal velocity (px/s)
 const JUMP_VEL     = -600;  // Vertical impulse on jump (px/s, negative = up)
-const GRAVITY      = 800;   // Pixels/s² — set in config but also used locally
 const CHAR_SCALE   = 1;     // Native 128 px; smaller on mobile (see resize)
 
 // Shinobi sprite frame counts (verified via sips)

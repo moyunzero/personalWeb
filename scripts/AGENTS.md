@@ -14,6 +14,8 @@ Node ESM scripts for blog workflow, SEO quality gates, performance audit, and pr
 | `scripts/prepare-threejs-assets.mjs` | Source HDR/planets → `public/threejs-assets/web/` (+ budget) |
 | `scripts/check-cosmos-assets.mjs` | Build/CI gate: required `web/` files present and under budget |
 | `scripts/lib/site-config.mjs` | Canonical `SITE` object (origin, basePath, url) |
+| `scripts/lib/legacy-spa-paths.mjs` | Canonical legacy SPA banned path lists (Vitest fixture re-exports) |
+| `scripts/lib/legacy-spa-import-guard.mjs` | Shared resolved path helpers for Vitest scan and ESLint rule |
 | `scripts/lib/post-schema.mjs` | Zod schema for Content Collections |
 | `scripts/lib/meta-rules.mjs` | SEO audit rules |
 | `scripts/run-perf-audit.mjs` | Lighthouse CI wrapper |
@@ -27,6 +29,7 @@ yarn notion:sync --all        # full resync
 yarn notion:sync --dry-run    # preview only
 yarn seo:audit                # run gate (also runs before build)
 yarn seo:meta-batch --dry-run # report meta gaps
+yarn lint                      # ESLint (src/, tests/, root configs)
 yarn assets:cosmos            # regenerate web/ cosmos textures from assets/threejs-source/
 yarn assets:cosmos:check      # verify committed web/ files (also first step of yarn build)
 yarn perf:audit               # Lighthouse (starts preview if needed)

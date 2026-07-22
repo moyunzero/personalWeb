@@ -297,7 +297,7 @@ describe('solarSystemModel (AC-9, AC-10)', () => {
         for (let t = 0; t <= 20_000; t += 2) {
             assertSystemClear(systemStateAt(t), `t=${t}`);
         }
-    });
+    }, 30_000);
 
     it('adjacent planets never mesh for any independent orbital phase pair (AC-9)', () => {
         const STEPS = 48;

@@ -12,6 +12,7 @@ Personal portfolio and blog site for 墨韵. Astro static site with React island
 | 1 | Remove legacy Vite SPA | Cleanup | done |
 | 2 | CI guard against legacy imports | Hardening | done |
 | 3 | Cosmic starfield home background | Experience | done |
+| 4 | Expand ESLint to TypeScript and Astro | Hardening | done |
 
 ## Cleanup
 
@@ -43,6 +44,20 @@ Block new imports from removed SPA paths so the cleanup cannot quietly regress.
 - [x] Test it: `/test CI guard against legacy imports`
 Spec [0002](../specs/0002-ci-guard-against-legacy-imports.md)
 
+### 4. Expand ESLint to TypeScript and Astro · done
+Extend lint to `.ts`, `.tsx`, and `.astro`, and mirror the legacy SPA ban list in the editor so bad imports show up before CI, alongside the existing import scan tests.
+**Done when:** `yarn lint` covers TS/Astro without noisy false positives; banned legacy SPA paths are restricted in ESLint; contributors get editor feedback that matches the CI import guard.
+- [x] Design it (spec): `/architect Expand ESLint to TypeScript and Astro`
+- [x] Build it: `/develop Expand ESLint to TypeScript and Astro`
+   - [x] Shared banned list + guard helpers (`scripts/lib/`, AC-5, AC-8)
+   - [x] TS/TSX/Astro flat config + dependencies (AC-1–AC-3)
+   - [x] AST legacy import rule + baseline lint green (AC-4, AC-6, AC-9)
+   - [x] CI lint step after build (AC-7)
+   - code in `scripts/lib/legacy-spa-paths.mjs`, `scripts/lib/legacy-spa-import-guard.mjs`, `eslint-rules/no-legacy-spa-imports.mjs`, `eslint.config.js`, `.github/workflows/ci.yml`, `tests/fixtures/legacy-spa-paths.ts`, `tests/lib/legacy-spa-import-scan.ts`
+- [x] Verify it: `/check verify Expand ESLint to TypeScript and Astro`
+- [x] Test it: `/test Expand ESLint to TypeScript and Astro`
+Spec [0004](../specs/0004-expand-eslint-typescript-astro.md)
+
 ## Experience
 
 ### 3. Cosmic starfield home background · done · Full
@@ -68,7 +83,8 @@ Spec [0003](../specs/0003-cosmic-starfield-home-background.md)
 
 ## Deferred
 Out of scope for the current build pass, kept so the plan stays honest.
-- Expand ESLint to TypeScript and Astro and mirror the ban list for editor feedback · from spec 0002 · needs a decision
+- Confirm `threejs-assets` source licensing and site attribution · from spec 0003 follow-up
+- Optional weak device tier for home cosmos (`deviceMemory` / `hardwareConcurrency`) · from spec 0003 follow-up
 - Cosmic background on blog shell or beyond home · deferred from feature 3 scope choice (home only)
 
 ## Legend

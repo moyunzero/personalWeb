@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { checkPost, runChecklist } from '../scripts/lib/top-n-checklist.mjs';
+import { checkPost } from '../scripts/lib/top-n-checklist.mjs';
 
 const TEST_DESCRIPTION = '测'.repeat(125);
 
