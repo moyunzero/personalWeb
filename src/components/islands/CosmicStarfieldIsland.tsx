@@ -323,6 +323,10 @@ export default function CosmicStarfieldIsland() {
 
         const observers: IntersectionObserver[] = [];
 
+        // Register before async Three init so an early spectacle:start is not missed.
+        document.addEventListener('spectacle:start', onSpectacleStart);
+        document.addEventListener('spectacle:end', onSpectacleEnd);
+
         (async () => {
             const THREE = await threeModule;
             if (cancelled || !hostRef.current) return;
@@ -421,8 +425,6 @@ export default function CosmicStarfieldIsland() {
 
             window.addEventListener('resize', resize);
             document.addEventListener('visibilitychange', onVisibility);
-            document.addEventListener('spectacle:start', onSpectacleStart);
-            document.addEventListener('spectacle:end', onSpectacleEnd);
             window.addEventListener('pointerdown', onPointerDown, { passive: true });
             window.addEventListener('pointermove', onPointerMove, { passive: false });
             window.addEventListener('pointerup', onPointerUp);

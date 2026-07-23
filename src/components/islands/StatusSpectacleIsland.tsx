@@ -212,6 +212,11 @@ export default function StatusSpectacleIsland() {
                 scheduleAuto(false);
                 return;
             }
+            // Auto path may dispose inside update(); do not re-arm a dead loop (AC-9).
+            if (!sceneHandles) {
+                rafId = 0;
+                return;
+            }
             rafId = requestAnimationFrame(tick);
         };
 

@@ -435,7 +435,10 @@ export function buildSpectacleScene(opts: SpectacleSceneOptions): SpectacleScene
             }>((res, rej) => {
                 loader.load(glbUrl, res as (g: unknown) => void, undefined, rej);
             });
-            if (disposed) return;
+            if (disposed) {
+                rejectReady(new Error('disposed before ready'));
+                return;
+            }
 
             const model = gltf.scene;
             let meshOk = false;
@@ -681,6 +684,8 @@ export function buildSpectacleScene(opts: SpectacleSceneOptions): SpectacleScene
 
     const dispose = () => {
         disposed = true;
+        // Unblock await sceneHandles.ready if GLB load never finished (AC-9).
+        rejectReady(new Error('disposed before ready'));
         renderer.domElement.removeEventListener('webglcontextlost', onContextLost);
         const w = window as Window & { __spectacleProbe?: unknown };
         delete w.__spectacleProbe;

@@ -240,6 +240,56 @@ describe('Status spectacle wiring (source)', () => {
         expect(tickBody).toMatch(/try\s*\{/);
         expect(tickBody).toMatch(/catch/);
         expect(tickBody).toMatch(/forceCancel/);
+        // After update(), do not re-arm RAF when scene was disposed mid-frame (auto complete).
+        expect(tickBody).toMatch(/if\s*\(\s*!sceneHandles\s*\)/);
+        expect(tickBody).toMatch(/rafId\s*=\s*0/);
+    });
+
+    it('rejects ready when disposed mid-load (AC-9 regression)', () => {
+        const scene = readFileSync(
+            path.resolve('src/components/islands/spectacleScene.ts'),
+            'utf8',
+        );
+        expect(scene).toMatch(/if\s*\(\s*disposed\s*\)\s*\{[\s\S]*?rejectReady/);
+        const disposeAt = scene.lastIndexOf('const dispose =');
+        expect(disposeAt).toBeGreaterThan(-1);
+        const disposeBody = scene.slice(disposeAt, disposeAt + 400);
+        expect(disposeBody).toMatch(/rejectReady/);
+    });
+
+    it('cosmos locks on spectacle events before async Three init (AC-8 regression)', () => {
+        const cosmos = readFileSync(
+            path.resolve('src/components/islands/CosmicStarfieldIsland.tsx'),
+            'utf8',
+        );
+        const effectStart = cosmos.indexOf('useEffect(() => {');
+        const asyncStart = cosmos.indexOf('(async () => {', effectStart);
+        const syncChunk = cosmos.slice(effectStart, asyncStart);
+        expect(syncChunk).toMatch(/spectacle:start/);
+        expect(syncChunk).toMatch(/spectacle:end/);
+        // Must not only register inside the post-await listener block.
+        const afterAsync = cosmos.slice(asyncStart);
+        const lateStart = afterAsync.indexOf("addEventListener('spectacle:start'");
+        expect(lateStart).toBe(-1);
+        expect(cosmos).toMatch(/spectacleLocked\s*=\s*true/);
+        expect(cosmos).toMatch(/spectacleLocked\s*=\s*false/);
+        expect(cosmos).toMatch(/removeEventListener\(['"]spectacle:start['"]/);
+        expect(cosmos).toMatch(/removeEventListener\(['"]spectacle:end['"]/);
+    });
+
+    it('tick re-arms RAF only while the scene is alive (AC-9)', () => {
+        const island = readFileSync(islandPath, 'utf8');
+        const tickAt = island.indexOf('const tick =');
+        const startLoopAt = island.indexOf('const startLoop', tickAt);
+        const tickBody = island.slice(tickAt, startLoopAt);
+        expect(tickBody).toMatch(/if\s*\(\s*!sceneHandles\s*\)/);
+        expect(tickBody).toMatch(/rafId\s*=\s*requestAnimationFrame\(\s*tick\s*\)/);
+        const startLoopBody = island.slice(
+            startLoopAt,
+            island.indexOf('const beginPortalBeast', startLoopAt),
+        );
+        // Clearing rafId on dispose lets the next auto run startLoop again.
+        expect(startLoopBody).toMatch(/if\s*\(\s*rafId\s*\)\s*return/);
     });
 
     it('status hit is a non-button row (AC-1)', () => {
@@ -318,13 +368,18 @@ describe('spectacle assets (AC-7)', () => {
         expect(existsSync(spectacleDir)).toBe(true);
         const glb = path.join(spectacleDir, 'model.glb');
         expect(existsSync(glb)).toBe(true);
-        let total = 0;
-        for (const name of readdirSync(spectacleDir)) {
-            if (name.startsWith('.')) continue;
-            const full = path.join(spectacleDir, name);
-            const st = statSync(full);
-            if (st.isFile()) total += st.size;
-        }
+        const sumFiles = (dir: string): number => {
+            let total = 0;
+            for (const name of readdirSync(dir)) {
+                if (name.startsWith('.')) continue;
+                const full = path.join(dir, name);
+                const st = statSync(full);
+                if (st.isDirectory()) total += sumFiles(full);
+                else if (st.isFile()) total += st.size;
+            }
+            return total;
+        };
+        const total = sumFiles(spectacleDir);
         expect(total).toBeLessThanOrEqual(SPECTACLE_BUDGET);
         expect(total).toBeGreaterThan(0);
     });
