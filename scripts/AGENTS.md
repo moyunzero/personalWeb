@@ -11,8 +11,9 @@ Node ESM scripts for blog workflow, SEO quality gates, performance audit, and pr
 | `scripts/notion-sync.mjs` | Notion database → Markdown + images |
 | `scripts/seo-audit.mjs` | Build gate: frontmatter and category validation |
 | `scripts/new-post.mjs` | Scaffold a new post in `content/posts/` |
-| `scripts/prepare-threejs-assets.mjs` | Source HDR/planets → `public/threejs-assets/web/` (+ budget) |
-| `scripts/check-cosmos-assets.mjs` | Build/CI gate: required `web/` files present and under budget |
+| `scripts/prepare-threejs-assets.mjs` | Source HDR/planets → `public/threejs-assets/web/` (+ cosmos budget; leaves `web/spectacle/` alone) |
+| `scripts/prepare-spectacle-assets.mjs` | Shark source → `public/threejs-assets/web/spectacle/pyjama-shark/` (≤2.5 MB) |
+| `scripts/check-cosmos-assets.mjs` | Build/CI gate: cosmos `web/` files + spectacle pack present and under their budgets |
 | `scripts/lib/site-config.mjs` | Canonical `SITE` object (origin, basePath, url) |
 | `scripts/lib/legacy-spa-paths.mjs` | Canonical legacy SPA banned path lists (Vitest fixture re-exports) |
 | `scripts/lib/legacy-spa-import-guard.mjs` | Shared resolved path helpers for Vitest scan and ESLint rule |
@@ -32,6 +33,7 @@ yarn seo:meta-batch --dry-run # report meta gaps
 yarn lint                      # ESLint (src/, tests/, root configs)
 yarn assets:cosmos            # regenerate web/ cosmos textures from assets/threejs-source/
 yarn assets:cosmos:check      # verify committed web/ files (also first step of yarn build)
+yarn assets:spectacle         # regenerate web/spectacle shark glTF from assets/spectacle-source/
 yarn perf:audit               # Lighthouse (starts preview if needed)
 yarn verify:prod              # live site smoke
 ```
@@ -42,6 +44,7 @@ yarn verify:prod              # live site smoke
 - Legacy `generate-static.mjs` was removed; do not reintroduce a SPA static generator.
 - `yarn build` = `check-cosmos-assets` then `seo:audit` then `astro build`. Use `build:astro` only to skip gates intentionally.
 - Cosmos source textures live in `assets/threejs-source/` (gitignored); only commit `public/threejs-assets/web/` derivatives.
+- Spectacle shark source lives in `assets/spectacle-source/` (gitignored); only commit `public/threejs-assets/web/spectacle/` derivatives (≤2.5 MB hard cap).
 
 ## Agent skills
 

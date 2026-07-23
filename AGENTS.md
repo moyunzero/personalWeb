@@ -4,7 +4,7 @@
 
 - **Language / Runtime**: JavaScript and TypeScript, Node 22 (CI), ESM (`"type": "module"`)
 - **Framework**: Astro 5 (static SSG) + React 18 islands
-- **Key dependencies**: Tailwind CSS, Content Collections, GSAP/Lenis, Phaser 3, Three.js (home cosmos), Notion sync, Zod
+- **Key dependencies**: Tailwind CSS, Content Collections, GSAP/Lenis, Phaser 3, Three.js (home cosmos + status spectacle), Notion sync, Zod
 - **Package manager**: yarn
 
 ## Build approach
@@ -20,7 +20,7 @@ yarn install
 # Dev server (base path /personalWeb/)
 yarn dev
 
-# Build (cosmos asset gate, then seo:audit; fails on missing web/ textures or SEO errors)
+# Build (cosmos + spectacle asset gate, then seo:audit; fails on missing web/ assets or SEO errors)
 yarn build
 
 # Lint (src/ and tests/ only; scripts/ ignored)
@@ -33,6 +33,9 @@ yarn test:e2e
 # Home cosmos textures (local source → public/threejs-assets/web/; commit web/ derivatives)
 yarn assets:cosmos
 yarn assets:cosmos:check
+
+# Home status spectacle shark glTF (assets/spectacle-source → public/threejs-assets/web/spectacle/)
+yarn assets:spectacle
 
 # Blog
 yarn blog:new "标题" --categories note
@@ -67,7 +70,7 @@ Project workflow depth: **Medium** (see `docs/scope/scope.md`). Cursor always ap
 - No path alias (`@/`). Use relative imports.
 - ESLint (`yarn lint`) covers `src/**` and `tests/**` for `.js`, `.jsx`, `.ts`, `.tsx`, and `.astro`, plus root config files; uses `typescript-eslint` recommended (non type aware) and `eslint-plugin-astro`. `scripts/**` is Vitest scanned only, not ESLint linted.
 - Shared site config: `scripts/lib/site-config.mjs` (`SITE.origin`, `SITE.basePath`, `SITE.url`).
-- Home cosmos runtime only loads `public/threejs-assets/web/` (never source 8K/HDR). `yarn build` runs `scripts/check-cosmos-assets.mjs` first. Blog routes must not import the cosmos island or those assets.
+- Home cosmos runtime only loads `public/threejs-assets/web/` (never source 8K/HDR). Home status spectacle runtime only loads `public/threejs-assets/web/spectacle/` (shark source in gitignored `assets/spectacle-source/`). `yarn build` runs `scripts/check-cosmos-assets.mjs` first (cosmos budget + spectacle ≤2.5 MB). Blog routes must not import the cosmos or spectacle islands or those assets.
 - Outside blog article/list body (`BlogLayout` `main.blog-copyable`), pages use `user-select: none`; form fields stay selectable for editing.
 
 ## Agent skills
