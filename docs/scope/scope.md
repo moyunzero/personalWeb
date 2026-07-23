@@ -13,6 +13,7 @@ Personal portfolio and blog site for 墨韵. Astro static site with React island
 | 2 | CI guard against legacy imports | Hardening | done |
 | 3 | Cosmic starfield home background | Experience | done |
 | 4 | Expand ESLint to TypeScript and Astro | Hardening | done |
+| 5 | Home status rift and beast spectacle | Experience | done |
 
 ## Cleanup
 
@@ -80,6 +81,21 @@ Replace the home page 2D `ParticleIsland` with an immersive cosmos: optimized bl
 - [x] Verify it: `/check verify Cosmic starfield home background`
 - [x] Test it: `/test Cosmic starfield home background`
 Spec [0003](../specs/0003-cosmic-starfield-home-background.md)
+
+### 5. Home status rift and beast spectacle · done · Journey · Full
+On the home hero, clicking the avatar chip and the “正在摸鱼中” status runs an anime grade sequence: the hit region splits, a black hole or vortex appears in a random on page region, a giant creature emerges from it, swims, then exits back through the portal; during the click path the status copy flips to “已 dead”, and after the spectacle the split heals back slowly. Occasional auto triggers reuse the portal and creature spectacle only; they must not change the avatar chip or status copy. Black hole look follows gravitational lensing and accretion disk principles (reference demo for ideas only). Creature pack is Pyjama Shark Free under Sketchfab Free Standard (no on-site credit; web glTF under budget).
+**Done when:** click on those two home controls plays split → portal → creature enter/wander/exit → status “已 dead” → split heal then back to fishing; auto triggers play the same portal and creature path without touching those controls; reduced motion and weak devices get a safe skip; blog routes stay free of the spectacle assets; license rules for the creature pack are followed; Full pipeline (verify, test, review, document) passes.
+- [x] Design it (spec): `/architect Home status rift and beast spectacle`
+- [x] Build it: `/develop Home status rift and beast spectacle`
+   - [x] Runtime model + portal sampling pure helpers (AC-2, AC-3, AC-4)
+   - [x] Journey path 1 shell: status DOM bind, GSAP split/heal, island lock (AC-1, AC-2)
+   - [x] Journey path 1 3D: shark glTF + portal shader + swim narrative (AC-1, AC-7)
+   - [x] Journey path 2 auto schedule shared 3D segment (AC-3)
+   - [x] Harden: cosmos events, visibility dispose, blog exclusion, budget + perf (AC-5…AC-10)
+   - code in `src/components/islands/StatusSpectacleIsland.tsx`, `src/components/islands/spectacleModel.ts`, `src/components/islands/spectacleScene.ts`, `src/components/home/Main.astro`, `src/pages/index.astro`, `src/components/islands/CosmicStarfieldIsland.tsx`, `scripts/prepare-spectacle-assets.mjs`, `scripts/check-cosmos-assets.mjs`, `public/threejs-assets/web/spectacle/pyjama-shark/`, `tests/home-status-spectacle.test.ts`, `tests/e2e/home-status-spectacle-uat.spec.ts`
+- [x] Verify it: `/check verify Home status rift and beast spectacle`
+- [x] Test it: `/test Home status rift and beast spectacle`
+Spec [0005](../specs/0005-home-status-rift-beast.md)
 
 ## Deferred
 Out of scope for the current build pass, kept so the plan stays honest.

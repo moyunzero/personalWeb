@@ -10,6 +10,7 @@ import HomeMotion from '../components/islands/HomeMotion';
 import CosmicStarfieldIsland from '../components/islands/CosmicStarfieldIsland';
 import MouseTrailIsland from '../components/islands/MouseTrailIsland';
 import GameIsland from '../components/islands/GameIsland';
+import StatusSpectacleIsland from '../components/islands/StatusSpectacleIsland';
 import { SITE } from '../lib/site';
 
 const posterUrl = `${import.meta.env.BASE_URL}threejs-assets/web/hdr_blue_nebulae_poster.webp`;
@@ -58,6 +59,7 @@ const cosmosBase = `${import.meta.env.BASE_URL}threejs-assets/web/`;
     </main>
     <HomeFooter />
     <HomeMotion client:load />
+    <StatusSpectacleIsland client:load />
     <CosmicStarfieldIsland client:visible="react" slot="background" />
     <MouseTrailIsland client:idle="react" />
     <GameIsland client:visible="react" />
