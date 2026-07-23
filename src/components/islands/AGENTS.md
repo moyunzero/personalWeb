@@ -11,8 +11,10 @@ Interactive UI loaded as Astro islands. Static markup stays in `.astro` files; a
 | `HomeMotion.tsx` | GSAP scroll reveals (`client:load`) |
 | `HomeHeader.tsx` | Mobile nav, anchor scroll |
 | `ContactIsland.tsx` | Contact form interactivity (`client:visible`) |
-| `CosmicStarfieldIsland.tsx` | Home solar system WebGL (`client:visible`); module scope `import('three')`; progressive textures + async HDR via `solarSystemScene.ts` |
+| `CosmicStarfieldIsland.tsx` | Home solar system WebGL (`client:visible`); module scope `import('three')`; progressive textures + async HDR via `solarSystemScene.ts`; listens for `spectacle:start` / `end` to pause explore |
 | `cosmosHitTest.ts` / `solarSystemModel.ts` / `solarSystemScene.ts` | Explore hit test, Kepler packing, Three scene build/dispose |
+| `StatusSpectacleIsland.tsx` | Home status rift + shark portal (`client:load`); GSAP split; events `spectacle:start` / `end` |
+| `spectacleModel.ts` / `spectacleScene.ts` | Portal sampling / phase helpers; Three portal shader + Pyjama Shark glTF |
 | `MouseTrailIsland.tsx` | Mouse trail (`client:idle`) |
 | `GameIsland.tsx` | Lazy Phaser game (`client:visible`); Chat/Tooltip dynamic import on start; pointerenter/focus prefetches Phaser |
 | `BlogSearch.tsx` | Client side blog list filter |
@@ -24,6 +26,7 @@ Interactive UI loaded as Astro islands. Static markup stays in `.astro` files; a
 - Heavy libs (Phaser, GSAP, Three) must stay behind dynamic `import()` inside the island.
 - Do not add new SPA routing. Islands enhance static pages only.
 - Home cosmos: Astro `data-cosmos-fallback` (HDR poster) is always first paint; `index.astro` preloads poster and prefetches HDR/sun; `CosmicStarfieldIsland` fades in after WebGL skeleton (fallback colors first, textures/HDR apply async). Background mounts via `HomeLayout` `background` slot (outside `z-10` content). Visual Kepler packing in `solarSystemModel.ts` must keep discs clear (incl. Saturn rings / highlight scale). Desktop zoom: Ctrl/Cmd + wheel only (persistent `zoomFactor`). Home hides native scrollbar (`html.home-cosmos-scroll`). Blog routes must not import cosmos modules or `threejs-assets/web/`. `ParticleIsland` is removed; do not reintroduce it.
+- Home status spectacle: only on `index.astro` (`client:load`). Status hit is a non button row (`data-status-spectacle-hit`); copy node `data-status-spectacle-copy`. Runtime glTF is `threejs-assets/web/spectacle/pyjama-shark/model.glb` only. Pair `spectacle:start` / `end` with cosmos lock; register cosmos listeners before async Three init. Blog must not import spectacle island or `web/spectacle/`.
 
 ## Agent skills
 
