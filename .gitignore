@@ -65,6 +65,7 @@ Thumbs.db
 .kiro/
 .codegraph/
 .planning/
+.tmp/
 
 # Local Remotion / video experiment (large; not part of the Astro site)
 video/
@@ -72,6 +73,10 @@ video/
 # Cosmos source textures (~100MB+ 8K/HDR/.blend). Runtime uses public/threejs-assets/web/ only.
 # Regenerate derivatives locally with `yarn assets:cosmos` when sources change.
 assets/threejs-source/
+
+# Spectacle shark source (.blend + 4K). Runtime uses public/threejs-assets/web/spectacle/ only.
+# Regenerate with `yarn assets:spectacle` when sources change.
+assets/spectacle-source/
 
 # Notion sync / UAT scratch image dirs (empty placeholders from automation runs)
 public/images/blog/**/*uat*/

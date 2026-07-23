@@ -68,6 +68,7 @@ export default function CosmicStarfieldIsland() {
         let distance = DEFAULT_DISTANCE;
         let yawVelocity = 0;
         let exploring = false;
+        let spectacleLocked = false;
         let pendingPointer: { x: number; y: number; touch: boolean } | null = null;
         let lastPointer = { x: 0, y: 0 };
         let lastTs = performance.now();
@@ -204,7 +205,7 @@ export default function CosmicStarfieldIsland() {
         };
 
         const onPointerDown = (event: PointerEvent) => {
-            if (!renderer) return;
+            if (!renderer || spectacleLocked) return;
             const under = document.elementFromPoint(event.clientX, event.clientY);
             if (!isCosmosExploreTarget(under)) return;
 
@@ -229,7 +230,7 @@ export default function CosmicStarfieldIsland() {
         };
 
         const onPointerMove = (event: PointerEvent) => {
-            if (!renderer) return;
+            if (!renderer || spectacleLocked) return;
             if (!activePointers.has(event.pointerId) && !pendingPointer && !exploring) return;
 
             if (activePointers.has(event.pointerId)) {
@@ -288,7 +289,7 @@ export default function CosmicStarfieldIsland() {
         };
 
         const onWheel = (event: WheelEvent) => {
-            if (!renderer) return;
+            if (!renderer || spectacleLocked) return;
             if (!event.ctrlKey && !event.metaKey) return;
             const under = document.elementFromPoint(event.clientX, event.clientY);
             if (!isCosmosExploreTarget(under)) return;
@@ -296,6 +297,16 @@ export default function CosmicStarfieldIsland() {
             const next = zoomFactor * (event.deltaY > 0 ? 1.06 : 0.94);
             zoomFactor = clampZoomFactor(next);
             distance = framedDistance();
+        };
+
+        const onSpectacleStart = () => {
+            spectacleLocked = true;
+            endExplore();
+            activePointers.clear();
+        };
+
+        const onSpectacleEnd = () => {
+            spectacleLocked = false;
         };
 
         const setSection = (next: SectionId) => {
@@ -311,6 +322,10 @@ export default function CosmicStarfieldIsland() {
         };
 
         const observers: IntersectionObserver[] = [];
+
+        // Register before async Three init so an early spectacle:start is not missed.
+        document.addEventListener('spectacle:start', onSpectacleStart);
+        document.addEventListener('spectacle:end', onSpectacleEnd);
 
         (async () => {
             const THREE = await threeModule;
@@ -423,6 +438,8 @@ export default function CosmicStarfieldIsland() {
             for (const io of observers) io.disconnect();
             window.removeEventListener('resize', resize);
             document.removeEventListener('visibilitychange', onVisibility);
+            document.removeEventListener('spectacle:start', onSpectacleStart);
+            document.removeEventListener('spectacle:end', onSpectacleEnd);
             window.removeEventListener('pointerdown', onPointerDown);
             window.removeEventListener('pointermove', onPointerMove);
             window.removeEventListener('pointerup', onPointerUp);

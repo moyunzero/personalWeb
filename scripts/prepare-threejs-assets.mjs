@@ -177,7 +177,8 @@ async function totalBytes(dir) {
 async function main() {
     await mkdir(OUT, { recursive: true });
     for (const name of await readdir(OUT)) {
-        await rm(path.join(OUT, name), { force: true });
+        if (name === 'spectacle') continue;
+        await rm(path.join(OUT, name), { force: true, recursive: true });
     }
 
     console.log('Preparing HDR + poster…');
@@ -186,13 +187,21 @@ async function main() {
     await preparePlanets();
 
     const { sum, rows } = await totalBytes(OUT);
-    console.log('\nweb/ outputs:');
+    // Exclude spectacle/ from cosmos budget (separate AC-7 budget).
+    let cosmosSum = 0;
+    const cosmosRows = [];
     for (const row of rows) {
+        if (row.name === 'spectacle') continue;
+        cosmosSum += row.size;
+        cosmosRows.push(row);
+    }
+    console.log('\nweb/ outputs (cosmos):');
+    for (const row of cosmosRows) {
         console.log(`  ${(row.size / 1024).toFixed(1).padStart(8)} KB  ${row.name}`);
     }
-    console.log(`\nTotal: ${(sum / (1024 * 1024)).toFixed(2)} MB / ${(BUDGET_BYTES / (1024 * 1024)).toFixed(0)} MB budget`);
+    console.log(`\nTotal: ${(cosmosSum / (1024 * 1024)).toFixed(2)} MB / ${(BUDGET_BYTES / (1024 * 1024)).toFixed(0)} MB budget`);
 
-    if (sum > BUDGET_BYTES) {
+    if (cosmosSum > BUDGET_BYTES) {
         console.error('Budget exceeded (AC-7). Reduce sizes and re-run.');
         process.exit(1);
     }
