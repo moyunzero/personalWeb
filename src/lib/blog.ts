@@ -24,3 +24,33 @@ export function formatPostDate(value: string): string {
         day: 'numeric',
     });
 }
+
+function pad2(n: number): string {
+    return String(n).padStart(2, '0');
+}
+
+/** Ledger column date: MM.DD */
+export function formatLedgerDate(value: string): string {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return value;
+    return `${pad2(date.getMonth() + 1)}.${pad2(date.getDate())}`;
+}
+
+/** Editorial eyebrow date: YYYY.MM.DD */
+export function formatEditorialDate(value: string): string {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return value;
+    return `${date.getFullYear()}.${pad2(date.getMonth() + 1)}.${pad2(date.getDate())}`;
+}
+
+export function buildBlogSearchPayload(fields: {
+    title: string;
+    description?: string;
+    tags?: string[];
+}): string {
+    return JSON.stringify({
+        title: fields.title,
+        description: fields.description ?? '',
+        tags: fields.tags ?? [],
+    });
+}
