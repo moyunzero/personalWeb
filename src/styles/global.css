@@ -49,7 +49,12 @@ body {
 }
 
 .prose-blog {
-  @apply prose prose-invert prose-lg max-w-none;
+  @apply prose prose-invert prose-lg max-w-none font-serif;
+}
+
+.prose-blog pre,
+.prose-blog code {
+  @apply font-sans;
 }
 
 .prose-blog pre {
@@ -59,4 +64,12 @@ body {
 .prose-blog .mermaid-diagram-host svg,
 .prose-blog .mermaid-diagram svg {
   @apply max-w-full h-auto;
+}
+
+.blog-ledger-title {
+  @apply font-serif text-base text-zinc-50 sm:text-lg;
+}
+
+.blog-eyebrow {
+  @apply font-mono text-xs uppercase tracking-[0.1em] text-sky-400;
 }

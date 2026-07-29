@@ -19,9 +19,9 @@ describe('legacy SPA import scan', () => {
 
     it('matches by resolved path with extension, not basename alone (AC-4)', () => {
         const importer = 'src/pages/blog/index.astro';
-        const kept = resolveToRepoPath(importer, '../../components/blog/BlogPostCard.astro');
+        const kept = resolveToRepoPath(importer, '../../components/blog/LedgerRow.astro');
         const banned = resolveToRepoPath(importer, '../../components/blog/BlogPostCard.jsx');
-        expect(kept).toBe('src/components/blog/BlogPostCard.astro');
+        expect(kept).toBe('src/components/blog/LedgerRow.astro');
         expect(banned).toBe('src/components/blog/BlogPostCard.jsx');
         expect(isBannedResolvedPath(kept!)).toBe(false);
         expect(isBannedResolvedPath(banned!)).toBe(true);

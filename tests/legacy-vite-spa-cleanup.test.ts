@@ -17,7 +17,7 @@ const productionKeepFiles = [
     'src/layouts/HomeLayout.astro',
     'src/layouts/BlogLayout.astro',
     'src/components/islands/GameIsland.tsx',
-    'src/components/blog/BlogPostCard.astro',
+    'src/components/blog/LedgerRow.astro',
     'src/components/home/Main.astro',
     'src/components/chat/ChatBubble.jsx',
     'src/game/scenes/GameScene.js',

@@ -45,6 +45,9 @@ service-account*.json
 test-results/
 playwright-report/
 
+# Brainstorm visual companion (local session mockups)
+.superpowers/
+
 # Editor / OS
 .vscode/*
 !.vscode/extensions.json

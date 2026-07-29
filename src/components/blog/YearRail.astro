@@ -1,0 +1,30 @@
+---
+interface Props {
+    years: number[];
+    activeYear?: number;
+}
+
+const { years, activeYear } = Astro.props;
+const current = activeYear ?? years[0];
+---
+
+<nav
+    class="blog-year-rail flex gap-2 overflow-x-auto pb-2 sm:flex-col sm:overflow-visible sm:border-r sm:border-zinc-800 sm:pb-0 sm:pr-4"
+    aria-label="按年份浏览"
+>
+    {
+        years.map((year) => (
+            <a
+                href={`#year-${year}`}
+                class:list={[
+                    'shrink-0 rounded-full px-3 py-1 font-mono text-sm transition-colors sm:rounded-none sm:px-0 sm:py-2',
+                    year === current
+                        ? 'bg-zinc-800 text-sky-400 sm:bg-transparent'
+                        : 'text-zinc-500 hover:text-zinc-200',
+                ]}
+            >
+                {year}
+            </a>
+        ))
+    }
+</nav>
