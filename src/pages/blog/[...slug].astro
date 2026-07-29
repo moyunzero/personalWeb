@@ -2,10 +2,10 @@
 import { getCollection } from 'astro:content';
 import BlogLayout from '../../layouts/BlogLayout.astro';
 import RelatedPosts from '../../components/blog/RelatedPosts.astro';
-import { formatPostDate, getPublishedPosts } from '../../lib/blog';
+import EditorialHeader from '../../components/blog/EditorialHeader.astro';
+import { getPublishedPosts } from '../../lib/blog';
 import { getRelatedForEntry } from '../../lib/related';
 import { renderMarkdown } from '../../lib/markdown';
-import { getCategoryLabel } from '../../blog/getCategories.js';
 import { SITE } from '../../lib/site';
 import MermaidHydrator from '../../components/islands/MermaidHydrator';
 
@@ -22,7 +22,6 @@ const { data, body } = post;
 const html = await renderMarkdown(body);
 const allPosts = await getPublishedPosts();
 const related = getRelatedForEntry(post, allPosts, 3);
-const base = import.meta.env.BASE_URL;
 const hasMermaid = html.includes('mermaid-diagram-host');
 ---
 
@@ -41,48 +40,15 @@ const hasMermaid = html.includes('mermaid-diagram-host');
     }}
 >
     <article class="mx-auto max-w-3xl">
-        {
-            data.coverImage && (
-                <img
-                    src={data.coverImage}
-                    alt={data.title}
-                    class="mb-8 w-full rounded-lg object-cover"
-                />
-            )
-        }
-        <header class="mb-8 border-b border-zinc-800 pb-8">
-            <h1 class="headline-2 mb-4">{data.title}</h1>
-            {
-                data.description && (
-                    <p class="text-lg text-zinc-400">{data.description}</p>
-                )
-            }
-            <div class="mt-4 flex flex-wrap items-center gap-3 text-sm text-zinc-500">
-                <span>{data.author}</span>
-                <span aria-hidden="true">·</span>
-                <time datetime={data.publishedAt}>
-                    {formatPostDate(data.publishedAt)}
-                </time>
-                {
-                    data.readTime && (
-                        <>
-                            <span aria-hidden="true">·</span>
-                            <span>{data.readTime} 分钟阅读</span>
-                        </>
-                    )
-                }
-                {
-                    data.categories?.map((id) => (
-                        <a
-                            href={`${base}blog/category/${id}/`}
-                            class="rounded bg-violet-500/20 px-2 py-0.5 text-violet-300 transition-colors hover:bg-violet-500/30"
-                        >
-                            {getCategoryLabel(id)}
-                        </a>
-                    ))
-                }
-            </div>
-        </header>
+        <EditorialHeader
+            title={data.title}
+            description={data.description}
+            publishedAt={data.publishedAt}
+            categories={data.categories}
+            author={data.author}
+            readTime={data.readTime}
+            coverImage={data.coverImage}
+        />
         <div class="prose-blog" set:html={html} />
     </article>
     <RelatedPosts heading={related.heading} posts={related.posts} />

@@ -1,0 +1,80 @@
+---
+import { formatEditorialDate } from '../../lib/blog';
+import { getCategoryLabel } from '../../blog/getCategories.js';
+
+interface Props {
+    title: string;
+    description?: string;
+    publishedAt: string;
+    categories?: string[];
+    author?: string;
+    readTime?: number;
+    coverImage?: string;
+}
+
+const {
+    title,
+    description,
+    publishedAt,
+    categories = [],
+    author,
+    readTime,
+    coverImage,
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const dateLabel = formatEditorialDate(publishedAt);
+const catParts = categories.map((id) => getCategoryLabel(id));
+---
+
+<header class="mb-10">
+    <p class="blog-eyebrow mb-4">
+        {
+            catParts.length > 0 ? (
+                <>
+                    {catParts.map((label, i) => (
+                        <>
+                            {i > 0 ? <span aria-hidden="true"> · </span> : null}
+                            <a
+                                href={`${base}blog/category/${categories[i]}/`}
+                                class="hover:text-sky-300"
+                            >
+                                {label}
+                            </a>
+                        </>
+                    ))}
+                    <span aria-hidden="true"> · </span>
+                </>
+            ) : null
+        }
+        <time datetime={publishedAt}>{dateLabel}</time>
+    </p>
+    <h1 class="headline-2 mb-4 max-w-[18ch] sm:max-w-[22ch]">{title}</h1>
+    {
+        description ? (
+            <p class="mb-8 max-w-2xl border-l-2 border-zinc-700 pl-4 font-sans text-lg text-zinc-400">
+                {description}
+            </p>
+        ) : null
+    }
+    {
+        coverImage ? (
+            <img
+                src={coverImage}
+                alt=""
+                class="mb-8 w-full rounded-md object-cover"
+            />
+        ) : null
+    }
+    {
+        author || readTime ? (
+            <div class="flex flex-wrap items-center gap-3 font-sans text-sm text-zinc-500">
+                {author ? <span>{author}</span> : null}
+                {author && readTime ? (
+                    <span aria-hidden="true">·</span>
+                ) : null}
+                {readTime ? <span>{readTime} 分钟阅读</span> : null}
+            </div>
+        ) : null
+    }
+</header>
