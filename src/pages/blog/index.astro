@@ -1,6 +1,7 @@
 ---
 import BlogLayout from '../../layouts/BlogLayout.astro';
-import BlogPostCard from '../../components/blog/BlogPostCard.astro';
+import LedgerRow from '../../components/blog/LedgerRow.astro';
+import YearRail from '../../components/blog/YearRail.astro';
 import BlogSearch from '../../components/islands/BlogSearch.tsx';
 import { getPublishedPosts } from '../../lib/blog';
 import { groupPostsByYear } from '../../lib/posts';
@@ -9,6 +10,7 @@ import { SITE } from '../../lib/site';
 
 const posts = await getPublishedPosts();
 const yearGroups = groupPostsByYear(posts);
+const years = yearGroups.map((g) => g.year).filter((y) => y > 0);
 const categories = getCategories();
 const base = import.meta.env.BASE_URL;
 ---
@@ -22,7 +24,7 @@ const base = import.meta.env.BASE_URL;
 >
     <div class="mb-10">
         <h1 class="headline-1 mb-4">博客</h1>
-        <p class="text-zinc-400 max-w-2xl mb-6">
+        <p class="mb-6 max-w-2xl text-zinc-400">
             技术文章、阅读笔记与开发实践。
         </p>
         <nav class="flex flex-wrap gap-2 text-sm">
@@ -45,29 +47,41 @@ const base = import.meta.env.BASE_URL;
         </nav>
     </div>
     <BlogSearch client:load totalCount={posts.length} />
-    <div id="blog-post-list">
+    <div id="blog-post-list" class="flex flex-col gap-8 sm:flex-row sm:gap-10">
         {
-            yearGroups.map(({ year, posts: yearPosts }) => (
-                <section class="mb-12" data-blog-year>
-                    <h2 class="mb-6 text-2xl font-semibold text-zinc-300">
-                        {year}
-                    </h2>
-                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        {yearPosts.map((post) => (
-                            <BlogPostCard
-                                slug={post.data.slug}
-                                title={post.data.title}
-                                description={post.data.description}
-                                publishedAt={post.data.publishedAt}
-                                categories={post.data.categories}
-                                tags={post.data.tags}
-                                coverImage={post.data.coverImage}
-                            />
-                        ))}
-                    </div>
-                </section>
-            ))
+            years.length > 0 ? (
+                <aside class="sm:w-16 sm:shrink-0">
+                    <YearRail years={years} activeYear={years[0]} />
+                </aside>
+            ) : null
         }
+        <div class="min-w-0 flex-1">
+            {
+                yearGroups.map(({ year, posts: yearPosts }) => (
+                    <section
+                        class="mb-12"
+                        id={year > 0 ? `year-${year}` : undefined}
+                        data-blog-year
+                    >
+                        <h2 class="mb-4 font-mono text-sm text-zinc-500">
+                            {year > 0 ? `${year} · ${yearPosts.length} 篇` : '未知日期'}
+                        </h2>
+                        <div>
+                            {yearPosts.map((post) => (
+                                <LedgerRow
+                                    slug={post.data.slug}
+                                    title={post.data.title}
+                                    description={post.data.description}
+                                    publishedAt={post.data.publishedAt}
+                                    categories={post.data.categories}
+                                    tags={post.data.tags}
+                                />
+                            ))}
+                        </div>
+                    </section>
+                ))
+            }
+        </div>
     </div>
     <p id="blog-post-list-empty" class="!hidden py-12 text-center text-zinc-500">
         没有符合搜索条件的文章，试试其他关键词。
