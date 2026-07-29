@@ -1,7 +1,6 @@
 ---
 import BlogLayout from '../../../layouts/BlogLayout.astro';
 import LedgerRow from '../../../components/blog/LedgerRow.astro';
-import YearRail from '../../../components/blog/YearRail.astro';
 import BlogSearch from '../../../components/islands/BlogSearch.tsx';
 import { getCategories } from '../../../blog/getCategories.js';
 import { getPublishedPosts } from '../../../lib/blog';
@@ -25,7 +24,8 @@ const { category, posts } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const yearGroups = groupPostsByYear(posts);
 const years = yearGroups.map((g) => g.year).filter((y) => y > 0);
-const showRail = years.length > 1;
+const latestYear = years[0];
+const useYearFilter = years.length > 1;
 ---
 
 <BlogLayout
@@ -74,62 +74,50 @@ const showRail = years.length > 1;
     {
         posts.length > 0 ? (
             <>
-                <BlogSearch client:load totalCount={posts.length} />
-                <div
-                    id="blog-post-list"
-                    class:list={[
-                        'flex flex-col gap-8 sm:gap-10',
-                        showRail ? 'sm:flex-row' : null,
-                    ]}
-                >
+                <BlogSearch
+                    client:load
+                    totalCount={posts.length}
+                    years={years}
+                />
+                <div id="blog-post-list" class="min-w-0">
                     {
-                        showRail ? (
-                            <aside class="sm:w-16 sm:shrink-0">
-                                <YearRail years={years} activeYear={years[0]} />
-                            </aside>
-                        ) : null
+                        yearGroups.map(({ year, posts: yearPosts }) => (
+                            <section
+                                class="mb-12"
+                                id={year > 0 ? `year-${year}` : undefined}
+                                data-blog-year
+                                data-year={year > 0 ? String(year) : undefined}
+                                hidden={
+                                    useYearFilter &&
+                                    year > 0 &&
+                                    year !== latestYear
+                                }
+                            >
+                                <h2 class="mb-4 font-mono text-sm text-zinc-500">
+                                    {year > 0
+                                        ? `${year} · ${yearPosts.length} 篇`
+                                        : '未知日期'}
+                                </h2>
+                                <div>
+                                    {yearPosts.map((post) => (
+                                        <LedgerRow
+                                            slug={post.data.slug}
+                                            title={post.data.title}
+                                            description={post.data.description}
+                                            publishedAt={post.data.publishedAt}
+                                            categories={post.data.categories}
+                                            tags={post.data.tags}
+                                        />
+                                    ))}
+                                </div>
+                            </section>
+                        ))
                     }
-                    <div class="min-w-0 flex-1">
-                        {
-                            yearGroups.map(({ year, posts: yearPosts }) => (
-                                <section
-                                    class="mb-12"
-                                    id={
-                                        showRail && year > 0
-                                            ? `year-${year}`
-                                            : undefined
-                                    }
-                                    data-blog-year
-                                >
-                                    {
-                                        showRail ? (
-                                            <h2 class="mb-4 font-mono text-sm text-zinc-500">
-                                                {year > 0
-                                                    ? `${year} · ${yearPosts.length} 篇`
-                                                    : '未知日期'}
-                                            </h2>
-                                        ) : null
-                                    }
-                                    <div>
-                                        {yearPosts.map((post) => (
-                                            <LedgerRow
-                                                slug={post.data.slug}
-                                                title={post.data.title}
-                                                description={post.data.description}
-                                                publishedAt={post.data.publishedAt}
-                                                categories={post.data.categories}
-                                                tags={post.data.tags}
-                                            />
-                                        ))}
-                                    </div>
-                                </section>
-                            ))
-                        }
-                    </div>
                 </div>
                 <p
                     id="blog-post-list-empty"
                     class="!hidden py-12 text-center text-zinc-500"
+                    hidden
                 >
                     没有符合搜索条件的文章，试试其他关键词。
                 </p>

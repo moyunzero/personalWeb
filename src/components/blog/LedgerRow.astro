@@ -26,6 +26,7 @@ const searchPayload = buildBlogSearchPayload({ title, description, tags });
 const mmdd = formatLedgerDate(publishedAt);
 const primaryCat = categories[0];
 const catLabel = primaryCat ? getCategoryLabel(primaryCat) : '—';
+const visibleTags = tags.slice(0, 3);
 ---
 
 <a
@@ -47,6 +48,20 @@ const catLabel = primaryCat ? getCategoryLabel(primaryCat) : '—';
             description ? (
                 <span class="mt-1 line-clamp-1 block font-sans text-xs text-zinc-500 sm:text-sm">
                     {description}
+                </span>
+            ) : null
+        }
+        {
+            visibleTags.length > 0 ? (
+                <span class="mt-2 flex flex-wrap gap-1.5 font-sans">
+                    {visibleTags.map((tag) => (
+                        <span
+                            class="max-w-[9rem] truncate rounded bg-sky-500/20 px-2 py-0.5 text-xs text-sky-300"
+                            title={tag}
+                        >
+                            {tag}
+                        </span>
+                    ))}
                 </span>
             ) : null
         }

@@ -7,6 +7,7 @@ interface Props {
     description?: string;
     publishedAt: string;
     categories?: string[];
+    tags?: string[];
     author?: string;
     readTime?: number;
     coverImage?: string;
@@ -17,6 +18,7 @@ const {
     description,
     publishedAt,
     categories = [],
+    tags = [],
     author,
     readTime,
     coverImage,
@@ -66,15 +68,20 @@ const catParts = categories.map((id) => getCategoryLabel(id));
             />
         ) : null
     }
-    {
-        author || readTime ? (
-            <div class="flex flex-wrap items-center gap-3 font-sans text-sm text-zinc-500">
-                {author ? <span>{author}</span> : null}
-                {author && readTime ? (
-                    <span aria-hidden="true">·</span>
-                ) : null}
-                {readTime ? <span>{readTime} 分钟阅读</span> : null}
-            </div>
-        ) : null
-    }
+    <div class="flex flex-wrap items-center gap-3 font-sans text-sm text-zinc-500">
+        {author ? <span>{author}</span> : null}
+        {author && readTime ? <span aria-hidden="true">·</span> : null}
+        {readTime ? <span>{readTime} 分钟阅读</span> : null}
+        {
+            tags.length > 0 ? (
+                <span class="flex w-full flex-wrap gap-1.5 pt-1 sm:w-auto sm:pt-0">
+                    {tags.map((tag) => (
+                        <span class="rounded bg-sky-500/20 px-2 py-0.5 text-xs text-sky-300">
+                            {tag}
+                        </span>
+                    ))}
+                </span>
+            ) : null
+        }
+    </div>
 </header>
