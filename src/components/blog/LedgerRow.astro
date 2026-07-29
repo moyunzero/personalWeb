@@ -1,0 +1,57 @@
+---
+import { formatLedgerDate, buildBlogSearchPayload } from '../../lib/blog';
+import { getCategoryLabel } from '../../blog/getCategories.js';
+
+interface Props {
+    slug: string;
+    title: string;
+    description?: string;
+    publishedAt: string;
+    categories?: string[];
+    tags?: string[];
+}
+
+const {
+    slug,
+    title,
+    description,
+    publishedAt,
+    categories = [],
+    tags = [],
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const href = `${base}blog/${slug}/`;
+const searchPayload = buildBlogSearchPayload({ title, description, tags });
+const mmdd = formatLedgerDate(publishedAt);
+const primaryCat = categories[0];
+const catLabel = primaryCat ? getCategoryLabel(primaryCat) : '—';
+---
+
+<a
+    href={href}
+    data-blog-search={searchPayload}
+    class="blog-ledger-row group grid grid-cols-[3.5rem_1fr] gap-x-3 gap-y-1 border-b border-zinc-800/80 py-3 sm:grid-cols-[3.5rem_1fr_auto] sm:items-baseline"
+>
+    <time
+        datetime={publishedAt}
+        class="font-mono text-xs text-zinc-400 tabular-nums group-hover:text-sky-400 sm:text-sm"
+    >
+        {mmdd}
+    </time>
+    <span class="min-w-0">
+        <span class="blog-ledger-title line-clamp-2 group-hover:text-white">
+            {title}
+        </span>
+        {
+            description ? (
+                <span class="mt-1 line-clamp-1 block font-sans text-xs text-zinc-500 sm:text-sm">
+                    {description}
+                </span>
+            ) : null
+        }
+    </span>
+    <span class="col-start-2 font-sans text-xs text-zinc-500 sm:col-start-auto sm:justify-self-end">
+        {catLabel}
+    </span>
+</a>
