@@ -44,9 +44,9 @@ describe('eslint expand TypeScript and Astro (spec 0004)', () => {
 
         it('matches resolved paths with extension, not basename alone (AC-4, AC-8)', () => {
             const importer = 'src/pages/blog/index.astro';
-            const kept = resolveToRepoPath(importer, '../../components/blog/BlogPostCard.astro');
+            const kept = resolveToRepoPath(importer, '../../components/blog/LedgerRow.astro');
             const banned = resolveToRepoPath(importer, '../../components/blog/BlogPostCard.jsx');
-            expect(kept).toBe('src/components/blog/BlogPostCard.astro');
+            expect(kept).toBe('src/components/blog/LedgerRow.astro');
             expect(banned).toBe('src/components/blog/BlogPostCard.jsx');
             expect(isBannedResolvedPath(kept!)).toBe(false);
             expect(isBannedResolvedPath(banned!)).toBe(true);
@@ -81,7 +81,7 @@ describe('eslint expand TypeScript and Astro (spec 0004)', () => {
                         filename: path.join(root, 'src/components/islands/HomeMotion.tsx'),
                     },
                     {
-                        code: "import Card from '../../components/blog/BlogPostCard.astro';",
+                        code: "import Card from '../../components/blog/LedgerRow.astro';",
                         filename: path.join(root, 'src/pages/blog/index.astro'),
                     },
                 ],
@@ -165,7 +165,7 @@ describe('eslint expand TypeScript and Astro (spec 0004)', () => {
         }, 20_000);
 
         it('lints Astro sources without parse errors (AC-3)', () => {
-            const astroResult = runEslint('src/components/blog/BlogPostCard.astro');
+            const astroResult = runEslint('src/components/blog/LedgerRow.astro');
             expect(astroResult.exitCode).toBe(0);
             expect(astroResult.combined).not.toMatch(/Parsing error/i);
         }, 20_000);
