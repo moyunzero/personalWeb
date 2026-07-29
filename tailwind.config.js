@@ -6,9 +6,10 @@ export default {
   content: ["./src/**/*.{js,ts,jsx,tsx,astro,html}"],
   theme: {
     extend: {
-      fontFamily:{
-        'sans': ['Montserrat', 'sans-serif'],
-      }
+      fontFamily: {
+        sans: ['Montserrat', 'sans-serif'],
+        serif: ['Lora', 'Georgia', 'serif'],
+      },
     },
   },
   plugins: [tailwindScrollbar, typography],
