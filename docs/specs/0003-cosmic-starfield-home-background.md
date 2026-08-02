@@ -230,7 +230,7 @@ v1 落地为**单档衍生**（桌面与移动共用同一 `web/` 集；运行�
 ### Phase C — 首屏加载路径（已完成）
 
 15. [x] `index.astro`：宇宙/游戏岛改为 `client:load`；去掉 HDR 早期 prefetch；保留 poster preload 与 sun prefetch；Vitest + Playwright 锁定。满足 **AC-7**（加载路径条款）
-16. [ ] 若 `startHdrLoad` 仍早于太阳 mesh 挂图，将 kickoff 挪到太阳（及 fallback 色行星）入图之后，以符合 AC-7 骨架就绪定义
+16. [x] 将 `startHdrLoad` 挪到太阳（及 fallback 色行星）入图之后，以符合 AC-7 骨架就绪定义
 
 ## Consequences
 
@@ -255,7 +255,7 @@ v1 落地为**单档衍生**（桌面与移动共用同一 `web/` 集；运行�
 - [x] `/develop` Phase B 按 Build plan 8–14 执行
 - [x] Phase C 首屏加载路径（Build plan 15）已落地并有回归测试
 - [x] `/sync` 已把太阳系加载约定写入 islands AGENTS.md
-- [ ] Build plan 16：HDR kickoff 顺序与「骨架就绪」对齐（若实现仍提前）
+- [x] Build plan 16：HDR kickoff 顺序与「骨架就绪」对齐
 - [ ] 确认 `threejs-assets` 源文件许可与署名
 - [ ] 博客壳层宇宙背景仍延后（scope Deferred）
 - [ ] 可选：deviceMemory / hardwareConcurrency 启发式强化 AC-5 档位

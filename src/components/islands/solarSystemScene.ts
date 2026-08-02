@@ -116,8 +116,6 @@ export function buildSolarSystemScene(
         return obj;
     };
 
-    startHdrLoad(THREE, scene, opts.baseUrl, textures);
-
     const root = new THREE.Group();
     scene.add(root);
 
@@ -358,6 +356,9 @@ export function buildSolarSystemScene(
         moonMat.color.setHex(0xffffff);
         moonMat.needsUpdate = true;
     });
+
+    // AC-7: kick HDR only after sun + fallback-color planets are in the graph.
+    startHdrLoad(THREE, scene, opts.baseUrl, textures);
 
     const handles: SolarSystemHandles = {
         root,
