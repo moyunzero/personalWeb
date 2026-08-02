@@ -435,6 +435,20 @@ describe('solarSystemScene wiring (AC-1, AC-5)', () => {
         expect(scene).toMatch(/void planetTexPs\.get\(p\.id\)\?\.then/);
         expect(scene).toMatch(/scene\.background = new THREE\.Color/);
     });
+
+    // covers: AC-7 — HDR kickoff after sun + fallback planets are in the graph
+    it('starts HDR load only after sun and planet meshes are hung (AC-7)', () => {
+        const scene = readFileSync(scenePath, 'utf8');
+        const sunHung = scene.indexOf('root.add(sunPivot)');
+        const planetsSet = scene.lastIndexOf('planets.set(p.id');
+        const hdrKick = scene.indexOf('startHdrLoad(THREE, scene');
+        expect(sunHung).toBeGreaterThan(-1);
+        expect(planetsSet).toBeGreaterThan(-1);
+        expect(hdrKick).toBeGreaterThan(-1);
+        expect(hdrKick).toBeGreaterThan(sunHung);
+        expect(hdrKick).toBeGreaterThan(planetsSet);
+        expect(scene.indexOf('startHdrLoad(THREE, scene')).toBe(hdrKick);
+    });
 });
 
 describe('cosmos load performance wiring (AC-1, AC-7)', () => {
