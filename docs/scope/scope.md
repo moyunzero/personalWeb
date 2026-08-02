@@ -14,6 +14,7 @@ Personal portfolio and blog site for 墨韵. Astro static site with React island
 | 3 | Cosmic starfield home background | Experience | done |
 | 4 | Expand ESLint to TypeScript and Astro | Hardening | done |
 | 5 | Home status rift and beast spectacle | Experience | done |
+| 6 | SEO index check (crawl + optional GSC) | Hardening | done |
 
 ## Cleanup
 
@@ -58,6 +59,20 @@ Extend lint to `.ts`, `.tsx`, and `.astro`, and mirror the legacy SPA ban list i
 - [x] Verify it: `/check verify Expand ESLint to TypeScript and Astro`
 - [x] Test it: `/test Expand ESLint to TypeScript and Astro`
 Spec [0004](../specs/0004-expand-eslint-typescript-astro.md)
+
+### 6. SEO index check (crawl + optional GSC) · done
+本地命令验收博客「可收录」（robots / sitemap / 抽样 HTML）与可选 Google Search Console 真收录抽查；默认未收录不失败，不进 CI。
+**Done when:** `yarn seo:index-check` 在无密钥时跑通 A 层；有 `GOOGLE_APPLICATION_CREDENTIALS` 时抽查索引状态；Vitest 覆盖纯函数与分支；文档说明用法与密钥配置。
+- [x] Design it (spec): `/architect 收录验收自动化`
+- [x] Build it: `/develop SEO index check`
+   - [x] Pure helpers: robots / sitemap / sample / HTML asserts (AC-2, AC-3, AC-4, AC-9)
+   - [x] CLI A layer + `yarn seo:index-check` + verify files (AC-1, AC-5, AC-8)
+   - [x] Optional GSC B layer + `--strict` / SKIP (AC-6, AC-7)
+   - [x] Vitest mocks + WEBMASTER / scripts AGENTS docs (AC-9, AC-10)
+   - code in `scripts/lib/seo-index-check-lib.mjs`, `scripts/seo-index-check.mjs`, `tests/seo-index-check.test.ts`, `docs/WEBMASTER-SUBMISSION.md`
+- [x] Verify it: `/check verify SEO index check`
+- [x] Test it: `/test SEO index check`
+Spec [0006](../specs/0006-seo-index-check.md)
 
 ## Experience
 

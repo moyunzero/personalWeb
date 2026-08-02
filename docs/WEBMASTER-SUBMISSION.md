@@ -124,6 +124,36 @@ yarn build && git push origin master
 - [ ] Rich Results Test 上述 3 篇通过
 - [x] 生产环境抽查 `/blog/`、样本文章、分类页可访问
 
+## 收录验收（`yarn seo:index-check`）
+
+发布后可用本地命令做分层验收（**不进 CI**，见 spec 0006）：
+
+| 层 | 含义 | 条件 |
+|----|------|------|
+| **A 可收录** | robots 允许抓取、sitemap 含博客文、抽样文章 200 / 无 `noindex` / 有 BlogPosting、站长验证文件可达 | 始终运行；失败则 exit 1 |
+| **B 真收录** | Google Search Console URL Inspection 抽查样本索引状态 | 需本机服务账号 JSON；未配置则 `SKIP`，不失败 |
+
+```bash
+# 仅 A 层（无需密钥）
+yarn seo:index-check
+
+# 抽样数量 / 未收录也失败
+yarn seo:index-check --sample 10
+yarn seo:index-check --strict
+
+# A + B：先按上文「Google Search Console」验证站点，再创建 GCP 服务账号并下载 JSON 密钥
+# 1) Cloud Console → 启用「Google Search Console API」
+# 2) 创建服务账号 → 密钥 → JSON（保存到本机，勿提交 git）
+# 3) Search Console → 用户和权限 → 添加服务账号邮箱（完整权限）
+export GOOGLE_APPLICATION_CREDENTIALS="/绝对路径/到/密钥.json"
+# 可选：与 GSC「网址前缀」资源一致
+export GSC_SITE_URL="https://moyunzero.github.io/personalWeb/"
+yarn seo:index-check
+```
+
+也可覆盖生产基址：`PRODUCTION_URL`（与 `yarn verify:prod` 相同）。  
+默认未收录只打 **warning**（exit 0）；加 `--strict` 才把未收录或 Inspection 失败当作 exit 1。
+
 ## 本地维护命令
 
 完整清单见 [LAUNCH.md](./LAUNCH.md)。
@@ -132,6 +162,7 @@ yarn build && git push origin master
 yarn seo:meta-batch --dry-run   # 元数据缺口报告
 yarn seo:top-n-score --dry-run  # Top N 评分预览
 yarn seo:top-n-checklist        # Top N 深度优化 checklist
+yarn seo:index-check            # 可收录 + 可选 GSC 真收录抽查
 yarn perf:audit                 # Lighthouse 性能门禁（yarn preview 后执行）
 yarn verify:prod                # 生产冒烟：首页、验证文件、sitemap、博客链接
 yarn test:uat:4                 # 相关文章与性能 UAT

@@ -21,6 +21,8 @@ Node ESM scripts for blog workflow, SEO quality gates, performance audit, and pr
 | `scripts/lib/meta-rules.mjs` | SEO audit rules |
 | `scripts/run-perf-audit.mjs` | Lighthouse CI wrapper |
 | `scripts/verify-production.mjs` | Post deploy smoke against live URLs |
+| `scripts/seo-index-check.mjs` | Post deploy crawl readiness + optional GSC URL Inspection |
+| `scripts/lib/seo-index-check-lib.mjs` | Pure helpers for seo-index-check (unit tested) |
 
 ## Commands
 
@@ -30,6 +32,7 @@ yarn notion:sync --all        # full resync
 yarn notion:sync --dry-run    # preview only
 yarn seo:audit                # run gate (also runs before build)
 yarn seo:meta-batch --dry-run # report meta gaps
+yarn seo:index-check          # crawl readiness; optional GSC with credentials
 yarn lint                      # ESLint (src/, tests/, root configs)
 yarn assets:cosmos            # regenerate web/ cosmos textures from assets/threejs-source/
 yarn assets:cosmos:check      # verify committed web/ files (also first step of yarn build)
@@ -45,6 +48,7 @@ yarn verify:prod              # live site smoke
 - `yarn build` = `check-cosmos-assets` then `seo:audit` then `astro build`. Use `build:astro` only to skip gates intentionally.
 - Cosmos source textures live in `assets/threejs-source/` (gitignored); only commit `public/threejs-assets/web/` derivatives.
 - Spectacle shark source lives in `assets/spectacle-source/` (gitignored); only commit `public/threejs-assets/web/spectacle/` derivatives (≤2.5 MB hard cap).
+- `yarn seo:index-check` is local only (not CI). Optional env: `GOOGLE_APPLICATION_CREDENTIALS`, `GSC_SITE_URL`, `PRODUCTION_URL`. Flags: `--sample N`, `--strict` (unindexed or GSC errors fail). Never commit service account JSON.
 
 ## Agent skills
 

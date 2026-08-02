@@ -30,9 +30,11 @@ yarn verify:prod --skip-network   # 仅检查 dist 产物
 
 ```bash
 yarn verify:prod
+yarn seo:index-check          # 可收录门禁；配置 GOOGLE_APPLICATION_CREDENTIALS 后可查 GSC 真收录
 ```
 
-应覆盖：首页、`google`/`bing` 验证文件、sitemap、博客列表文章链接、样本文章页。
+应覆盖：首页、`google`/`bing` 验证文件、sitemap、博客列表文章链接、样本文章页。  
+`seo:index-check` 细则见 [WEBMASTER-SUBMISSION.md](./WEBMASTER-SUBMISSION.md#收录验收yarn-seoindex-check)。
 
 手动抽查：
 
