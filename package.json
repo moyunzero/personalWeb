@@ -19,6 +19,7 @@
     "seo:audit": "node scripts/seo-audit.mjs",
     "seo:top-n-score": "node scripts/seo-top-n-score.mjs",
     "seo:top-n-checklist": "node scripts/seo-top-n-checklist.mjs",
+    "seo:index-check": "node scripts/seo-index-check.mjs",
     "perf:audit": "node scripts/run-perf-audit.mjs",
     "assets:cosmos": "node scripts/prepare-threejs-assets.mjs",
     "assets:cosmos:check": "node scripts/check-cosmos-assets.mjs",

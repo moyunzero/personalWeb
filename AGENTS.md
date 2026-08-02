@@ -40,6 +40,10 @@ yarn assets:spectacle
 # Blog
 yarn blog:new "标题" --categories note
 yarn notion:sync
+
+# SEO / production smoke (local; seo:index-check is not in CI)
+yarn verify:prod
+yarn seo:index-check
 ```
 
 ## Specs
@@ -88,7 +92,7 @@ Project workflow depth: **Medium** (see `docs/scope/scope.md`). Cursor always ap
 ## Context files
 
 - [content/AGENTS.md](content/AGENTS.md) (blog Markdown and taxonomy)
-- [scripts/AGENTS.md](scripts/AGENTS.md) (Notion sync, SEO gates, perf audit)
+- [scripts/AGENTS.md](scripts/AGENTS.md) (Notion sync, SEO gates, index check, perf audit)
 - [src/blog/AGENTS.md](src/blog/AGENTS.md) (shared post parsing for loader, scripts, and tests)
 - [src/components/islands/AGENTS.md](src/components/islands/AGENTS.md) (React hydration boundaries)
 
