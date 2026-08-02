@@ -9,6 +9,45 @@ test.describe('Cosmic starfield home background (spec 0003)', () => {
         await expect(page.locator('body')).toContainText('用代码创造有趣的东西');
     });
 
+    // covers: AC-1, AC-7 — built HTML must not race ~2MB HDR against three.js on first paint
+    test('home head warms poster and sun without early HDR prefetch (AC-1, AC-7)', async ({
+        page,
+    }) => {
+        await page.goto('./');
+        const headLinks = await page.evaluate(() =>
+            Array.from(document.head.querySelectorAll('link')).map((link) => ({
+                rel: link.rel,
+                href: link.href,
+                as: link.getAttribute('as'),
+                fetchpriority: link.getAttribute('fetchpriority'),
+            })),
+        );
+
+        const posterPreload = headLinks.find(
+            (link) =>
+                link.rel === 'preload' &&
+                link.href.includes('hdr_blue_nebulae_poster') &&
+                (link.as === 'image' || link.as === null),
+        );
+        expect(posterPreload).toBeTruthy();
+        expect(posterPreload?.fetchpriority).toBe('high');
+
+        expect(
+            headLinks.some((link) => link.rel === 'prefetch' && link.href.includes('sun.jpg')),
+        ).toBe(true);
+
+        expect(
+            headLinks.some(
+                (link) => link.rel === 'prefetch' && link.href.includes('hdr_blue_nebulae.hdr'),
+            ),
+        ).toBe(false);
+
+        await expect(page.getByRole('button', { name: '点击启动忍者小游戏' })).toBeVisible({
+            timeout: 8_000,
+        });
+        await expect(page.locator('[data-cosmos-canvas]')).toBeVisible({ timeout: 12_000 });
+    });
+
     test('home mounts cosmos canvas when motion is allowed (AC-1)', async ({ page }) => {
         await page.emulateMedia({ reducedMotion: 'no-preference' });
         await page.goto('./');

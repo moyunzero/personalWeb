@@ -11,12 +11,12 @@ Interactive UI loaded as Astro islands. Static markup stays in `.astro` files; a
 | `HomeMotion.tsx` | GSAP scroll reveals (`client:load`) |
 | `HomeHeader.tsx` | Mobile nav, anchor scroll |
 | `ContactIsland.tsx` | Contact form interactivity (`client:visible`) |
-| `CosmicStarfieldIsland.tsx` | Home solar system WebGL (`client:visible`); module scope `import('three')`; progressive textures + async HDR via `solarSystemScene.ts`; listens for `spectacle:start` / `end` to pause explore |
+| `CosmicStarfieldIsland.tsx` | Home solar system WebGL (`client:load`); module scope `import('three')`; progressive textures + async HDR via `solarSystemScene.ts`; listens for `spectacle:start` / `end` to pause explore |
 | `cosmosHitTest.ts` / `solarSystemModel.ts` / `solarSystemScene.ts` | Explore hit test, Kepler packing, Three scene build/dispose |
 | `StatusSpectacleIsland.tsx` | Home status rift + shark portal (`client:load`); GSAP split; events `spectacle:start` / `end` |
 | `spectacleModel.ts` / `spectacleScene.ts` | Portal sampling / phase helpers; Three portal shader + Pyjama Shark glTF |
 | `MouseTrailIsland.tsx` | Mouse trail (`client:idle`) |
-| `GameIsland.tsx` | Lazy Phaser game (`client:visible`); Chat/Tooltip dynamic import on start; pointerenter/focus prefetches Phaser |
+| `GameIsland.tsx` | Lazy Phaser game (`client:load` for start button; Phaser still on click); Chat/Tooltip dynamic import on start; pointerenter/focus prefetches Phaser |
 | `BlogSearch.tsx` | Client side blog list filter |
 | `MermaidHydrator.tsx` | Mermaid diagrams in posts |
 
@@ -25,7 +25,7 @@ Interactive UI loaded as Astro islands. Static markup stays in `.astro` files; a
 - Pick hydration by cost: `client:visible` or `client:idle` for below the fold; `client:load` only when needed on first paint.
 - Heavy libs (Phaser, GSAP, Three) must stay behind dynamic `import()` inside the island.
 - Do not add new SPA routing. Islands enhance static pages only.
-- Home cosmos: Astro `data-cosmos-fallback` (HDR poster) is always first paint; `index.astro` preloads poster and prefetches HDR/sun; `CosmicStarfieldIsland` fades in after WebGL skeleton (fallback colors first, textures/HDR apply async). Background mounts via `HomeLayout` `background` slot (outside `z-10` content). Visual Kepler packing in `solarSystemModel.ts` must keep discs clear (incl. Saturn rings / highlight scale). Desktop zoom: Ctrl/Cmd + wheel only (persistent `zoomFactor`). Home hides native scrollbar (`html.home-cosmos-scroll`). Blog routes must not import cosmos modules or `threejs-assets/web/`. `ParticleIsland` is removed; do not reintroduce it.
+- Home cosmos: Astro `data-cosmos-fallback` (HDR poster) is always first paint; `index.astro` preloads poster and prefetches sun only (not the ~2MB HDR — that loads after the WebGL skeleton). `CosmicStarfieldIsland` uses `client:load` so `import('three')` is not delayed behind `client:visible` hydration; fades in after WebGL skeleton (fallback colors first, textures/HDR apply async). Background mounts via `HomeLayout` `background` slot (outside `z-10` content). Visual Kepler packing in `solarSystemModel.ts` must keep discs clear (incl. Saturn rings / highlight scale). Desktop zoom: Ctrl/Cmd + wheel only (persistent `zoomFactor`). Home hides native scrollbar (`html.home-cosmos-scroll`). Blog routes must not import cosmos modules or `threejs-assets/web/`. `ParticleIsland` is removed; do not reintroduce it.
 - Home status spectacle: only on `index.astro` (`client:load`). Status hit is a non button row (`data-status-spectacle-hit`); copy node `data-status-spectacle-copy`. Runtime glTF is `threejs-assets/web/spectacle/pyjama-shark/model.glb` only. Pair `spectacle:start` / `end` with cosmos lock; register cosmos listeners before async Three init. Blog must not import spectacle island or `web/spectacle/`.
 
 ## Agent skills
@@ -37,7 +37,7 @@ Interactive UI loaded as Astro islands. Static markup stays in `.astro` files; a
 
 ## Gotchas
 
-- Home page has several `client:load` / `client:visible` islands. Lighthouse perf gate targets ≥ 0.85 and LCP ≤ 2500ms.
+- Home page has several `client:load` islands (cosmos, spectacle, motion, game button). Lighthouse perf gate targets ≥ 0.85 and LCP ≤ 2500ms; keep poster as LCP, do not prefetch HDR on first paint.
 - `GameIsland` sprite paths must use `import.meta.env.BASE_URL`. Mark GameIsland roots with `data-no-cosmos` so cosmos explore ignores them.
 - Chat uses `VITE_CHAT_API_URL` from env; URL is visible in the bundle.
 

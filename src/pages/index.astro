@@ -18,7 +18,7 @@ const cosmosBase = `${import.meta.env.BASE_URL}threejs-assets/web/`;
 ---
 
 <link rel="preload" as="image" href={posterUrl} fetchpriority="high" />
-<link rel="prefetch" href={`${cosmosBase}hdr_blue_nebulae.hdr`} />
+{/* Prefetch sun only; HDR (~2MB) is loaded after WebGL skeleton so it does not starve three.js. */}
 <link rel="prefetch" href={`${cosmosBase}sun.jpg`} />
 
 <HomeLayout
@@ -60,7 +60,8 @@ const cosmosBase = `${import.meta.env.BASE_URL}threejs-assets/web/`;
     <HomeFooter />
     <HomeMotion client:load />
     <StatusSpectacleIsland client:load />
-    <CosmicStarfieldIsland client:visible="react" slot="background" />
+    {/* client:load so module-scope import('three') starts with other load islands, not after visible hydration. */}
+    <CosmicStarfieldIsland client:load slot="background" />
     <MouseTrailIsland client:idle="react" />
-    <GameIsland client:visible="react" />
+    <GameIsland client:load />
 </HomeLayout>
