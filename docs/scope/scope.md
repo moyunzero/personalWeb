@@ -117,6 +117,7 @@ Out of scope for the current build pass, kept so the plan stays honest.
 - Confirm `threejs-assets` source licensing and site attribution · from spec 0003 follow-up
 - Optional weak device tier for home cosmos (`deviceMemory` / `hardwareConcurrency`) · from spec 0003 follow-up
 - Cosmic background on blog shell or beyond home · deferred from feature 3 scope choice (home only)
+- Align HDR `startHdrLoad` after sun mesh hang (spec 0003 Build plan 16) · from spec 0003 follow-up
 
 ## Legend
 
