@@ -157,10 +157,11 @@ describe('Status spectacle wiring (source)', () => {
         expect(source).toMatch(/正在摸鱼中 🐟/);
     });
 
-    it('home mounts StatusSpectacleIsland with client:load (AC-1)', () => {
+    it('home mounts StatusSpectacleIsland with client:idle (cold-start bandwidth)', () => {
         const source = readFileSync(indexPath, 'utf8');
         expect(source).toMatch(/StatusSpectacleIsland/);
-        expect(source).toMatch(/StatusSpectacleIsland[\s\S]*client:load|client:load[\s\S]*StatusSpectacleIsland/);
+        expect(source).toMatch(/StatusSpectacleIsland\s+client:idle/);
+        expect(source).not.toMatch(/StatusSpectacleIsland\s+client:load/);
     });
 
     it('blog routes do not import the spectacle island (AC-6)', () => {

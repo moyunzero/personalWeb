@@ -478,23 +478,25 @@ describe('cosmos load performance wiring (AC-1, AC-7)', () => {
         expect(source).not.toMatch(/await buildSolarSystemScene/);
     });
 
-    // covers: AC-1, AC-7 — poster/sun warm the critical path; HDR waits for the WebGL skeleton
-    it('home preloads poster, prefetches sun, and defers HDR off the critical path', () => {
+    // covers: AC-1, AC-7 — poster warms LCP; sun/HDR must not starve three.js on cold GH Pages
+    it('home preloads poster and does not prefetch sun/HDR on the critical path', () => {
         const source = readFileSync(indexPath, 'utf8');
         expect(source).toMatch(/rel="preload"/);
         expect(source).toMatch(/fetchpriority="high"/);
         expect(source).toMatch(/hdr_blue_nebulae_poster\.webp/);
-        expect(source).toMatch(/rel="prefetch"[\s\S]*sun\.jpg/);
+        expect(source).not.toMatch(/rel="prefetch"[\s\S]*sun\.jpg/);
         expect(source).not.toMatch(/rel="prefetch"[^>]*hdr_blue_nebulae\.hdr/);
     });
 
-    // covers: AC-7 — client:load starts import('three') with other load islands (not after visible)
-    it('home mounts cosmos and game islands with client:load', () => {
+    // covers: AC-7 — cosmos client:load owns first-paint bandwidth; other islands idle
+    it('home mounts cosmos with client:load; defers game/motion/spectacle to idle', () => {
         const source = readFileSync(indexPath, 'utf8');
         expect(source).toMatch(/CosmicStarfieldIsland\s+client:load/);
-        expect(source).toMatch(/GameIsland\s+client:load/);
+        expect(source).toMatch(/GameIsland\s+client:idle/);
+        expect(source).toMatch(/HomeMotion\s+client:idle/);
+        expect(source).toMatch(/StatusSpectacleIsland\s+client:idle/);
         expect(source).not.toMatch(/CosmicStarfieldIsland\s+client:visible/);
-        expect(source).not.toMatch(/GameIsland\s+client:visible/);
+        expect(source).not.toMatch(/GameIsland\s+client:load/);
     });
 });
 

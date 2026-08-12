@@ -22,6 +22,15 @@ function isInView(element: HTMLElement) {
     return rect.top < window.innerHeight && rect.bottom > 0;
 }
 
+function showRevealElements() {
+    document.querySelectorAll('.reveal-up').forEach((element) => {
+        const el = element as HTMLElement;
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        el.style.willChange = 'auto';
+    });
+}
+
 export default function HomeMotion() {
     useEffect(() => {
         if (typeof window === 'undefined') return;
@@ -51,62 +60,68 @@ export default function HomeMotion() {
 
     useGSAP(() => {
         const scrollTriggers: import('gsap/ScrollTrigger').ScrollTrigger[] = [];
+        let cancelled = false;
 
         const run = async () => {
-            const { default: gsap } = await import('gsap');
-            const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-            gsap.registerPlugin(ScrollTrigger);
+            try {
+                const { default: gsap } = await import('gsap');
+                const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+                if (cancelled) return;
+                gsap.registerPlugin(ScrollTrigger);
 
-            const elements = gsap.utils.toArray<HTMLElement>('.reveal-up');
+                const elements = gsap.utils.toArray<HTMLElement>('.reveal-up');
 
-            if (prefersReducedMotion()) {
-                elements.forEach((element) => {
-                    gsap.set(element, { opacity: 1, y: 0 });
-                });
-                return;
-            }
-
-            const reveal = (element: HTMLElement) => {
-                gsap.to(element, {
-                    y: ANIMATION_CONFIG.y,
-                    opacity: ANIMATION_CONFIG.opacity,
-                    ease: ANIMATION_CONFIG.ease,
-                    duration: ANIMATION_CONFIG.duration,
-                    onComplete: () => {
-                        element.style.willChange = 'auto';
-                    },
-                });
-            };
-
-            gsap.set(elements, { opacity: 0, y: ANIMATION_CONFIG.hiddenY });
-
-            elements.forEach((element) => {
-                element.style.willChange = 'transform, opacity';
-                const st = ScrollTrigger.create({
-                    trigger: element,
-                    start: ANIMATION_CONFIG.start,
-                    end: ANIMATION_CONFIG.end,
-                    scrub: true,
-                    onEnter: () => reveal(element),
-                });
-                scrollTriggers.push(st);
-            });
-
-            ScrollTrigger.refresh();
-            elements.forEach((element) => {
-                if (isInView(element)) {
-                    reveal(element);
+                if (prefersReducedMotion()) {
+                    elements.forEach((element) => {
+                        gsap.set(element, { opacity: 1, y: 0 });
+                    });
+                    return;
                 }
-            });
+
+                const reveal = (element: HTMLElement) => {
+                    gsap.to(element, {
+                        y: ANIMATION_CONFIG.y,
+                        opacity: ANIMATION_CONFIG.opacity,
+                        ease: ANIMATION_CONFIG.ease,
+                        duration: ANIMATION_CONFIG.duration,
+                        onComplete: () => {
+                            element.style.willChange = 'auto';
+                        },
+                    });
+                };
+
+                // Keep already-visible copy on screen; only hide below-fold items.
+                // Hiding everything first stranded first paint when gsap/ScrollTrigger
+                // were still downloading on cold GH Pages.
+                elements.forEach((element) => {
+                    element.style.willChange = 'transform, opacity';
+                    if (isInView(element)) {
+                        gsap.set(element, { opacity: 1, y: 0 });
+                        return;
+                    }
+                    gsap.set(element, { opacity: 0, y: ANIMATION_CONFIG.hiddenY });
+                    const st = ScrollTrigger.create({
+                        trigger: element,
+                        start: ANIMATION_CONFIG.start,
+                        end: ANIMATION_CONFIG.end,
+                        scrub: true,
+                        onEnter: () => reveal(element),
+                    });
+                    scrollTriggers.push(st);
+                });
+
+                ScrollTrigger.refresh();
+            } catch {
+                if (!cancelled) showRevealElements();
+            }
         };
 
-        run();
+        void run();
 
         return () => {
+            cancelled = true;
             scrollTriggers.forEach((st) => st.kill());
-            document.querySelectorAll('.reveal-up').forEach((element) => {
-                (element as HTMLElement).style.willChange = 'auto';
-            });
+            showRevealElements();
         };
     });
 
