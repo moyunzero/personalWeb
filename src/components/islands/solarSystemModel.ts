@@ -464,7 +464,8 @@ export function focusPoseFor(
             targetX: 0,
             targetY: 0,
             targetZ: 0,
-            distance: outer * 2.8,
+            // Keep planets readable on GH Pages / mid-size viewports (was 2.8).
+            distance: outer * 2.15,
         };
     }
     return {

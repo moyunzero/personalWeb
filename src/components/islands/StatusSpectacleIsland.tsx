@@ -58,7 +58,9 @@ function webglAvailable(): boolean {
         const c = document.createElement('canvas');
         return Boolean(
             c.getContext('webgl', { failIfMajorPerformanceCaveat: true }) ||
-                c.getContext('experimental-webgl'),
+                c.getContext('experimental-webgl') ||
+                c.getContext('webgl') ||
+                c.getContext('webgl2'),
         );
     } catch {
         return false;

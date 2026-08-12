@@ -79,6 +79,16 @@ describe('CosmicStarfieldIsland gating (source)', () => {
         expect(source).toMatch(/import\s*\(\s*['"]three['"]\s*\)/);
     });
 
+    it('falls back to plain WebGL when caveat probe fails so planets still render', () => {
+        const source = readFileSync(islandPath, 'utf8');
+        expect(source).toMatch(/failIfMajorPerformanceCaveat:\s*true/);
+        expect(source).toMatch(
+            /getContext\('webgl'\)\s*\|\|\s*[\s\S]*?getContext\('webgl2'\)/,
+        );
+        expect(source).toMatch(/\[data-cosmos-fallback\]/);
+        expect(source).toMatch(/fallback\.style\.opacity\s*=\s*'0'/);
+    });
+
     it('home mounts cosmos island, poster fallback; ParticleIsland is gone', () => {
         const source = readFileSync(indexPath, 'utf8');
         expect(source).toMatch(/CosmicStarfieldIsland/);

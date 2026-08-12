@@ -104,6 +104,8 @@ export default function CosmicStarfieldIsland() {
             scene = null;
             camera = null;
             host.style.opacity = '0';
+            const fallback = document.querySelector<HTMLElement>('[data-cosmos-fallback]');
+            if (fallback) fallback.style.opacity = '';
         };
 
         const onContextLost = (event: Event) => {
@@ -332,9 +334,13 @@ export default function CosmicStarfieldIsland() {
             if (cancelled || !hostRef.current) return;
 
             const probe = document.createElement('canvas');
+            // Prefer non-software GL, but still start cosmos if only a caveat GPU is available
+            // (otherwise the page silently keeps the static poster with no planets).
             const gl =
                 probe.getContext('webgl', { failIfMajorPerformanceCaveat: true }) ||
-                probe.getContext('webgl2', { failIfMajorPerformanceCaveat: true });
+                probe.getContext('webgl2', { failIfMajorPerformanceCaveat: true }) ||
+                probe.getContext('webgl') ||
+                probe.getContext('webgl2');
             if (!gl) return;
 
             try {
@@ -400,6 +406,8 @@ export default function CosmicStarfieldIsland() {
             updateCamera();
             resize();
             host.style.opacity = '1';
+            const fallback = document.querySelector<HTMLElement>('[data-cosmos-fallback]');
+            if (fallback) fallback.style.opacity = '0';
             startLoop();
 
             const io = new IntersectionObserver(
