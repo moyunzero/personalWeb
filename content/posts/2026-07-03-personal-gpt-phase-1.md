@@ -14,7 +14,7 @@ tags:
   - RAG
 draft: false
 notionId: 393df5c0-26f4-80e0-be96-dbd0dc7058d2
-notionSyncedAt: 2026-07-10T13:58:22.065Z
+notionSyncedAt: 2026-08-12T05:17:23.688Z
 ---
 
 Phase 1 将 v0.1 的单页 RAG 聊天原型演进为**可管理知识库的平台**：用户可上传 PDF/MD/TXT/DOCX 文档，由 NestJS BullMQ worker 异步完成解析→切块→向量化→写入 Astra，聊天回答结束后以折叠卡片形式展示可溯源引用。工程上完成了 yarn workspaces monorepo 迁移、PostgreSQL 多租户元数据层（workspaceId Day 1 落库）、VectorStore 抽象、三层智能查询路由（意图→embedding 预检→LLM）、LangSmith 可选追踪，以及 agent-service SSE 透传骨架，为 Phase 2 LangGraph 多 Agent 奠定基础。
@@ -233,75 +233,88 @@ apps/web /api/chat
 
 
 ```mermaid
-mindmap
+flowchart LR
   root((Phase 1 企业KB))
-    Monorepo
-      yarn workspaces
-      Docker Compose
-      shared包复用
-    数据层
-      PostgreSQL多租户
-      TypeORM entities
-      workspaceId Day 1
-      VectorStore抽象
-    异步入库
-      BullMQ队列
-      4阶段pipeline
-      SSE进度推送
-      重试与死信
-    知识库UI
-      /kb路由
-      拖拽上传
-      行内编辑
-      实时进度条
-    RAG增强
-      三层智能路由
-        意图快路径
-        embedding预检
-        LLM二分类
-      双路检索
-        用户上传优先
-        seed语料高门槛
-      可选增强
-        HyDE
-        Multi-Query
-        Reranker
-    引用溯源
-      data-citations SSE
-      CitationCards折叠
-      标题+相似度+snippet
-    工程化
-      LangSmith追踪
-        fail-open动态import
-        traceIngestStep/traceRetrieveStep
-      回归测试集
-      agent-service骨架
-        WebStream→Node Readable
-        SSE pipeline pipe
-    安全
-      CORS双重防护
-        Origin硬校验
-        buildCorsHeaders空值
-      Prompt Injection
-        context_escaped转义
-        trusted=false标签
-    Next.js 16新特性
-      params异步化Promise
-      Route Handler原生formData
-    RAG高级技术
-      HyDE假设文档
-      Multi-Query变体
-      Reranker LLM重排
-        JSON order协议
-        Zod校验+fallback
-    Feature Flags设计
-      默认true用!==false
-      默认false用===true
-      readFloatEnv防NaN
-    ThinkStripFilter
-      流式状态机
-      跨chunk截断处理
-      carry缓冲区
+
+  root --> Monorepo
+  Monorepo --> yarn_workspaces[yarn workspaces]
+  Monorepo --> Docker_Compose[Docker Compose]
+  Monorepo --> shared包复用
+
+  root --> 数据层
+  数据层 --> PostgreSQL多租户
+  数据层 --> TypeORM_entities[TypeORM entities]
+  数据层 --> workspaceId_Day1[workspaceId Day1]
+  数据层 --> VectorStore抽象
+
+  root --> 异步入库
+  异步入库 --> BullMQ队列
+  异步入库 --> 四阶段pipeline[4阶段pipeline]
+  异步入库 --> SSE进度推送
+  异步入库 --> 重试与死信
+
+  root --> 知识库UI
+  知识库UI --> kb路由
+  知识库UI --> 拖拽上传
+  知识库UI --> 行内编辑
+  知识库UI --> 实时进度条
+
+  root --> RAG增强
+  RAG增强 --> 三层智能路由
+  三层智能路由 --> 意图快路径
+  三层智能路由 --> embedding预检
+  三层智能路由 --> LLM二分类
+  RAG增强 --> 双路检索
+  双路检索 --> 用户上传优先
+  双路检索 --> seed语料高门槛
+  RAG增强 --> 可选增强
+  可选增强 --> HyDE
+  可选增强 --> MultiQuery
+  可选增强 --> Reranker
+
+  root --> 引用溯源
+  引用溯源 --> data_citations_SSE[data-citations SSE]
+  引用溯源 --> CitationCards折叠
+  引用溯源 --> 标题相似度snippet
+
+  root --> 工程化
+  工程化 --> LangSmith追踪
+  LangSmith追踪 --> fail_open[fail-open动态import]
+  LangSmith追踪 --> traceIngestStep
+  LangSmith追踪 --> traceRetrieveStep
+  工程化 --> 回归测试集
+  工程化 --> agent_service[agent-service骨架]
+  agent_service --> WebStream转Readable
+  agent_service --> SSE_pipeline[SSE pipeline]
+
+  root --> 安全
+  安全 --> CORS双重防护
+  CORS双重防护 --> Origin硬校验
+  CORS双重防护 --> buildCorsHeaders空值
+  安全 --> Prompt_Injection[Prompt Injection]
+  Prompt_Injection --> context转义
+  Prompt_Injection --> trusted_false[trusted false标签]
+
+  root --> Nextjs16
+  Nextjs16 --> params异步Promise
+  Nextjs16 --> Route_Handler_formData[Route Handler formData]
+
+  root --> RAG高级技术
+  RAG高级技术 --> HyDE假设文档
+  RAG高级技术 --> MultiQuery变体
+  RAG高级技术 --> Reranker_LLM重排
+  Reranker_LLM重排 --> JSON_order协议
+  Reranker_LLM重排 --> Zod校验fallback
+
+  root --> Feature_Flags
+  Feature_Flags --> 默认true用不等false
+  Feature_Flags --> 默认false用等true
+  Feature_Flags --> readFloatEnv防NaN
+
+  root --> ThinkStripFilter
+  ThinkStripFilter --> 流式状态机
+  ThinkStripFilter --> 跨chunk截断处理
+  ThinkStripFilter --> carry缓冲区
 ```
 
 
