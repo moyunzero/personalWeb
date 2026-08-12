@@ -83,19 +83,27 @@ function startHdrLoad(
     baseUrl: string,
     textures: Texture[],
 ): void {
-    void (async () => {
-        try {
-            const { HDRLoader } = await import('three/addons/loaders/HDRLoader.js');
-            const hdr = new HDRLoader();
-            const envMap = await hdr.loadAsync(assetUrl(baseUrl, 'hdr_blue_nebulae.hdr'));
-            envMap.mapping = THREE.EquirectangularReflectionMapping;
-            scene.background = envMap;
-            scene.environment = envMap;
-            textures.push(envMap);
-        } catch {
-            /* keep color fallback */
-        }
-    })();
+    const run = () => {
+        void (async () => {
+            try {
+                const { HDRLoader } = await import('three/examples/jsm/loaders/HDRLoader.js');
+                const hdr = new HDRLoader();
+                const envMap = await hdr.loadAsync(assetUrl(baseUrl, 'hdr_blue_nebulae.hdr'));
+                envMap.mapping = THREE.EquirectangularReflectionMapping;
+                scene.background = envMap;
+                scene.environment = envMap;
+                textures.push(envMap);
+            } catch {
+                /* keep color fallback */
+            }
+        })();
+    };
+    // Defer the ~2MB HDR so Phaser / planet JPGs are not starved on slow GH Pages.
+    if (typeof requestIdleCallback === 'function') {
+        requestIdleCallback(run, { timeout: 12_000 });
+    } else {
+        setTimeout(run, 2000);
+    }
 }
 
 export function buildSolarSystemScene(

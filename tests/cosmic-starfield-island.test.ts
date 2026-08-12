@@ -415,6 +415,7 @@ describe('solarSystemScene wiring (AC-1, AC-5)', () => {
         expect(scene).toMatch(/saturn_ring\.png/);
         expect(scene).toMatch(/hdr_blue_nebulae\.hdr/);
         expect(scene).toMatch(/HDRLoader|EquirectangularReflectionMapping/);
+        expect(scene).toMatch(/three\/(?:examples\/jsm|addons)\/loaders\/HDRLoader\.js/);
     });
 
     it('uses fallbackColor when a surface map is missing (AC-5)', () => {
@@ -448,6 +449,13 @@ describe('solarSystemScene wiring (AC-1, AC-5)', () => {
         expect(hdrKick).toBeGreaterThan(sunHung);
         expect(hdrKick).toBeGreaterThan(planetsSet);
         expect(scene.indexOf('startHdrLoad(THREE, scene')).toBe(hdrKick);
+    });
+
+    it('defers the HDR network fetch to idle so GH Pages bandwidth is not starved', () => {
+        const scene = readFileSync(scenePath, 'utf8');
+        const hdrFn = scene.slice(scene.indexOf('function startHdrLoad'));
+        expect(hdrFn).toMatch(/requestIdleCallback/);
+        expect(hdrFn).toMatch(/hdr_blue_nebulae\.hdr/);
     });
 });
 
