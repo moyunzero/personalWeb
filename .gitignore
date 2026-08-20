@@ -96,3 +96,12 @@ public/images/blog/**/*uat*/
 !tests/
 !tests/**
 src/test/
+
+wechat-articles/**/*
+wechat-articles-note/**/*
+
+# WeChat draft automation (local tooling, not part of the site)
+scripts/lib/wechat-*.mjs
+scripts/lib/load-env.mjs
+scripts/wechat-draft.mjs
+tests/wechat-draft-lib.test.ts

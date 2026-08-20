@@ -17,6 +17,12 @@ export const projects = [
         projectLink: 'https://personal-emotion-gpt.vercel.app',
     },
     {
+        imgSrc: `${base}images/vitadex.png`,
+        title: 'VitaDex',
+        tags: ['Swift','SwiftUI'],
+        projectLink: 'https://apps.apple.com/us/app/vitadex/id6797374485',  
+    },
+    {
         imgSrc: `${base}images/blue-ai.png`,
         title: 'Blueprint AI',
         tags: ['AI', 'Vue3', 'Prompt'],

@@ -8,7 +8,7 @@ export const aboutItems = [
     },
     {
         label: '完成项目',
-        number: 9
+        number: 10
     },
     {
         label: '技术栈',
