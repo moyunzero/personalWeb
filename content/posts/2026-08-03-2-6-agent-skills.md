@@ -5,7 +5,7 @@ description: 配套《深入理解 AI Agent》第 2 章 · 这实验能帮你什
   解决哪一类上下文工程问题？渐进式披露三层各是什么？ 2. 正式验收入口是谁？ / 自带 为什么不算过关？ 3. 、 、 各自卡什么？ 4. 薄 与厚
   怎么读？15 道门各证明什么？ 5. Claud…
 author: 墨韵
-date: 2026-08-03
+date: 2026-07-30
 categories:
   - note
 tags:
@@ -13,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 3b9df5c0-26f4-80be-9729-f5d8a8d4d34c
-notionSyncedAt: 2026-08-11T14:24:52.507Z
+notionSyncedAt: 2026-08-21T10:16:37.774Z
 ---
 
 > 配套《深入理解 AI Agent》第 2 章 · `chapter2/agent-skills-ppt`

@@ -5,7 +5,7 @@ description: 1. Natural Language to Tool Calls
   构建智能体时最常见的模式之一是将自然语言转换为结构化的工具调用。这种强大的模式使你能够构建可以推理任务并执行任务的智能体。
   这种模式，如果单独应用，就是对类似这样的短语的简单翻译。 你能创建一个支付链接，向 Terri 支付 750 美元，作为她赞助二…
 author: 墨韵
-date: 2026-07-22
+date: 2026-07-19
 categories:
   - note
 tags:
@@ -13,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 3a5df5c0-26f4-803d-bf75-fbcfc11aaf13
-notionSyncedAt: 2026-07-22T15:41:21.317Z
+notionSyncedAt: 2026-08-21T10:23:12.981Z
 ---
 
 ### 1. Natural Language to Tool Calls
@@ -22,7 +22,7 @@ notionSyncedAt: 2026-07-22T15:41:21.317Z
 构建智能体时最常见的模式之一是将自然语言转换为结构化的工具调用。这种强大的模式使你能够构建可以推理任务并执行任务的智能体。
 
 
-![110-natural-language-tool-calls.png](images/blog/2026-07-22-12-factor-agent/img-a5ba10fcfd.png)
+![110-natural-language-tool-calls.png](images/blog/2026-07-22-12-factor-agent/img-eb468c6436.png)
 
 
 这种模式，如果单独应用，就是对类似这样的短语的简单翻译。
@@ -87,7 +87,7 @@ else:  # the model didn't call a tool we know about
 不要把你的 Prompt 工程外包给框架。
 
 
-![120-own-your-prompts.png](images/blog/2026-07-22-12-factor-agent/img-e6cd923704.png)
+![120-own-your-prompts.png](images/blog/2026-07-22-12-factor-agent/img-97e7eaf57c.png)
 
 
 某些框架提供了类似这样的“黑盒”方式：
@@ -191,7 +191,7 @@ function DetermineNextStep(thread: string) -> DoneForNow | ListGitTags | DeployB
 - 来自关联但独立的历史/对话中的任何历史消息或事件（记忆 Memory）
 - 关于应该输出何种结构化数据的指令
 
-![454623419-0f1f193f-8e94-4044-a276-576bd7764fd0.png](images/blog/2026-07-22-12-factor-agent/img-1966d25bc7.png)
+![454623419-0f1f193f-8e94-4044-a276-576bd7764fd0.png](images/blog/2026-07-22-12-factor-agent/img-cf534817af.png)
 
 
 关于上下文工程
@@ -444,7 +444,7 @@ nextStep = await determine_next_step(thread_to_prompt(thread))
 工具并不需要设计得多么复杂。其核心本质，不过是 LLM 返回的**结构化输出（Structured Output）**，用于触发后续的**确定性代码（Deterministic code）**。
 
 
-![140-tools-are-just-structured-outputs.png](images/blog/2026-07-22-12-factor-agent/img-b2aba0c180.png)
+![140-tools-are-just-structured-outputs.png](images/blog/2026-07-22-12-factor-agent/img-df7b8cf7e1.png)
 
 
 举个例子，假设你有两个工具：`CreateIssue`（创建工单）和 `SearchIssues`（搜索工单）。要让 LLM “在多个工具中选择一个使用”，本质上就是让它输出一段 JSON，我们将其解析为一个能代表这些工具的对象。
@@ -511,7 +511,7 @@ else: #... the model didn't call a tool we know about
 - **执行状态（Execution state）**：当前步骤、下一步骤、等待状态、重试次数等。
 - **业务状态（Business state）**：Agent 工作流至今为止发生的一切（例如 OpenAI 的消息列表、工具调用及其结果列表等）。
 
-![155-unify-state-animation.gif](images/blog/2026-07-22-12-factor-agent/img-34104dc24b.gif)
+![155-unify-state-animation.gif](images/blog/2026-07-22-12-factor-agent/img-ce48503770.gif)
 
 
 在实际工程落地中，你可以对应用进行精心设计，使得**所有的执行状态都能直接从上下文窗口（Context Window）中推导出来**。在大多数情况下，执行状态（如当前步骤、等待状态等）不过是对“目前已发生事项”的一种元数据描述罢了。
@@ -551,7 +551,7 @@ agent 本质上就是程序，对于如何启动、查询、恢复和停止它�
 默认情况下，LLM API 依赖于一个极高风险（HIGH-STAKES）的 Token 选择：我们究竟是要返回纯文本内容，还是返回结构化数据？
 
 
-![170-contact-humans-with-tools.png](images/blog/2026-07-22-12-factor-agent/img-a24659c50d.png)
+![170-contact-humans-with-tools.png](images/blog/2026-07-22-12-factor-agent/img-be596b9569.png)
 
 
 你在这第一个 Token 的选择上押下了很大的筹码。比如在“东京的天气”这种场景下，第一个 Token 是：
@@ -678,7 +678,7 @@ def webhook(req: Request):
 如果你完全掌控了自己的控制流，就能玩出很多花样。
 
 
-![180-control-flow.png](images/blog/2026-07-22-12-factor-agent/img-b1ca641f5b.png)
+![180-control-flow.png](images/blog/2026-07-22-12-factor-agent/img-f1302ca0bf.png)
 
 
 构建最符合你特定业务场景的控制结构。具体来说，某些类型的工具调用可能需要你跳出循环（Break out of the loop），等待人类的回复或者等待类似模型训练流水线这样的长耗时任务。你可能还希望引入以下自定义实现：
@@ -843,7 +843,7 @@ while True:
 不要去构建包揽一切的单体（Monolithic）Agent，而是应该构建专注、轻量、能把单一任务做好的 Agent。在更大的、主要由确定性代码构成的系统里，Agent 仅仅只是其中的一个基础构件（Building block）。
 
 
-![1a0-small-focused-agents.png](images/blog/2026-07-22-12-factor-agent/img-0855bb339d.png)
+![1a0-small-focused-agents.png](images/blog/2026-07-22-12-factor-agent/img-a20dd1ea19.png)
 
 
 这里的核心洞察来自于 LLM 的能力边界：任务越庞大、越复杂，执行它所需的步骤就越多，这也就意味着更长的上下文窗口。随着上下文的不断膨胀，LLM 极易迷失方向或失去焦点。因此，将 Agent 限制在特定领域内，把执行步骤控制在 3-10 步、最多不超过 20 步，才能将上下文窗口维持在可控范围内，进而保障 LLM 的高性能输出。
@@ -883,7 +883,7 @@ while True:
 如果你一直在等待 [humanlayer](https://humanlayer.dev/) 的产品推荐（Pitch），那你现在等到了。如果你已经实践了 [要素 6：通过简单 API 实现启动/暂停/恢复](https://github.com/humanlayer/12-factor-agents/blob/main/content/factor-06-launch-pause-resume.md) 和 [要素 7：通过工具调用与人类联系](https://github.com/humanlayer/12-factor-agents/blob/main/content/factor-07-contact-humans-with-tools.md)，那么你就已经准备好融入这一要素了。
 
 
-![1b0-trigger-from-anywhere.png](images/blog/2026-07-22-12-factor-agent/img-45c4b74e67.png)
+![1b0-trigger-from-anywhere.png](images/blog/2026-07-22-12-factor-agent/img-cd3c630f6a.png)
 
 
 允许用户通过 Slack、电子邮件、短信或任何他们喜欢的渠道来触发 Agent；同时，也支持 Agent 通过这些相同的渠道进行响应与回复。
@@ -898,4 +898,4 @@ while True:
 ### **12. 将你的代理设为无状态归约器**
 
 
-![1c0-stateless-reducer.png](images/blog/2026-07-22-12-factor-agent/img-e807fe1976.png)
+![1c0-stateless-reducer.png](images/blog/2026-07-22-12-factor-agent/img-031f72fd62.png)

@@ -3,7 +3,7 @@ title: workspaceId：还没登录，为什么检索必须带租户字段
 slug: 2026-08-09-workspaceid
 description: Personal GPT Phase 1
 author: 墨韵
-date: 2026-08-09
+date: 2026-08-02
 categories:
   - note
 tags:
@@ -11,7 +11,7 @@ tags:
   - Agent
 draft: false
 notionId: 3badf5c0-26f4-80a5-9ea9-f578faeb6fbd
-notionSyncedAt: 2026-08-12T05:15:58.341Z
+notionSyncedAt: 2026-08-21T10:15:32.433Z
 ---
 
 ## 1. 矛盾

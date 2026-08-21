@@ -5,7 +5,7 @@ description: 1. Uniform 变量 (Uniform Values) 在 WebGL 中， Uniform 变量�
   Values） 是着色器的一种重要输入方式，用于在图形渲染过程中提供全局配置信息。 1.1 定义与特性 配置变量属性 ：Uniform
   变量可以被看作是着色器的 配置变量 或输入参数。 全局统一性…
 author: 墨韵
-date: 2026-07-14
+date: 2026-07-13
 categories:
   - note
 tags:
@@ -13,7 +13,7 @@ tags:
   - WebGL
 draft: false
 notionId: 3a3df5c0-26f4-803d-8513-cd0483d80c08
-notionSyncedAt: 2026-07-21T07:41:46.936Z
+notionSyncedAt: 2026-08-21T10:23:23.057Z
 ---
 
 ## 1. Uniform 变量 (Uniform Values)

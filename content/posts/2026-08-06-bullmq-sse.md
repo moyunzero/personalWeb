@@ -3,7 +3,7 @@ title: 文档为何必须异步入库：BullMQ 流水线与 SSE 进度
 slug: 2026-08-06-bullmq-sse
 description: Personal GPT Phase 1
 author: 墨韵
-date: 2026-08-06
+date: 2026-08-02
 categories:
   - note
 tags:
@@ -11,7 +11,7 @@ tags:
   - Agent
 draft: false
 notionId: 3badf5c0-26f4-809e-a119-c0d2425ecf45
-notionSyncedAt: 2026-08-12T05:16:28.528Z
+notionSyncedAt: 2026-08-21T10:16:02.933Z
 ---
 
 ## 1. 矛盾

@@ -3,7 +3,7 @@ title: VectorStore 抽象、幂等 upsert 与删除顺序
 slug: 2026-08-09-vectorstore-upsert
 description: "Personal GPT Phase 1 "
 author: 墨韵
-date: 2026-08-09
+date: 2026-08-02
 categories:
   - note
 tags:
@@ -11,7 +11,7 @@ tags:
   - Agent
 draft: false
 notionId: 3badf5c0-26f4-8069-9650-eedca2e00a92
-notionSyncedAt: 2026-08-12T05:15:49.114Z
+notionSyncedAt: 2026-08-21T10:15:26.047Z
 ---
 
 ## 1. 矛盾

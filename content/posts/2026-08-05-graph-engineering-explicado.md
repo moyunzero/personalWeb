@@ -5,7 +5,7 @@ description: https://www.youtube.com/watch?v=2myd3cgqe2k 图工程 (Graph Engine
   一、 背景：层出不穷的“工程”概念 软件开发领域一直存在术语更迭极快的现象。从最初的提示工程（Prompt
   Engineering），到后来的上下文工程（Context Enginee…
 author: 墨韵
-date: 2026-08-05
+date: 2026-08-01
 categories:
   - note
 tags:
@@ -13,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 3b4df5c0-26f4-80c4-9b46-e814812a1c2f
-notionSyncedAt: 2026-08-10T05:20:26.619Z
+notionSyncedAt: 2026-08-21T10:17:37.158Z
 ---
 
 > [https://www.youtube.com/watch?v=2myd3cgqe2k](https://www.youtube.com/watch?v=2myd3cgqe2k)

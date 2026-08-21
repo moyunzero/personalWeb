@@ -13,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 3bddf5c0-26f4-80c6-a245-c3be081e9d43
-notionSyncedAt: 2026-08-15T10:08:21.609Z
+notionSyncedAt: 2026-08-21T10:14:59.913Z
 ---
 
 打开 DeepSeek Harness 的 `dump-config`，会看到一件有点反直觉的事：屏幕上不是「程序主流程」，而是一长串可增删改的插件条目。口号写得很冲——**Everything is a Plugin**——但口号救不了你。真正要弄明白的是：这些条目在运行时靠什么活着？
