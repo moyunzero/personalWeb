@@ -14,7 +14,7 @@ tags:
   - Agent
 draft: false
 notionId: 3c3df5c0-26f4-8162-9d2b-f4a521c31f0d
-notionSyncedAt: 2026-08-21T10:13:40.350Z
+notionSyncedAt: 2026-08-30T08:17:32.036Z
 ---
 
 > **Personal GPT Phase 2 · 系列第 11 篇** 
