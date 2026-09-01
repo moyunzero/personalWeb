@@ -11,7 +11,7 @@ tags:
   - RAG
 draft: false
 notionId: 3c9df5c0-26f4-80a7-8a5a-ef8690b19337
-notionSyncedAt: 2026-08-30T08:16:52.749Z
+notionSyncedAt: 2026-09-01T09:22:03.434Z
 ---
 
 Week1 的 Naive RAG 已经能跑通：**切分 → Embed → Chroma → 仅向量 Top-K → Prompt → LLM**。
@@ -20,7 +20,7 @@ Week1 的 Naive RAG 已经能跑通：**切分 → Embed → Chroma → 仅向�
 问「ERR_CHUNK_42 怎么处理？」时，仅靠语义向量，Top-1 却经常偏到「分块参数」段——代号精确匹配弱，口语同义又强，单路检索容易翻车。
 
 
-本文把同一套文档问答升级成上游 Week2 收官目标要求的形态：**Milvus 存向量 + BM25 与向量混合召回（RRF）+ CrossEncoder Rerank**，再（可选）用 Ollama 生成答案。全文自包含，从空目录可复现。
+本文把同一套文档问答升级成上游 Week2 收官目标要求的形态：**Milvus 存向量 + BM25 与向量混合召回（RRF）+ CrossEncoder Rerank**，再（可选）用 Ollama 生成答案；并提供 **FastAPI** **`POST /ask`**，对齐 Week1「可调用的 RAG 系统」形态。全文自包含，从空目录可复现。
 
 
 ## 你将会得到什么
@@ -29,7 +29,8 @@ Week1 的 Naive RAG 已经能跑通：**切分 → Embed → Chroma → 仅向�
 2. 用 Docker 起 Milvus，把 chunk（含 `text`）写入 collection
 3. 跑通 BM25 ∥ Milvus → RRF → Rerank，并对照仅向量 Top-1
 4. 明白「Milvus 不管 BM25」「RRF 用名次」「生成换的是 contexts」
-5. 避开：无 text 字段、中文 BM25 分词、把 Rerank 放在召回前；知悉 BM25 预构建、Rerank 中英文模型与 `CANDIDATE_K > FINAL_K`
+5. 用 FastAPI 暴露 `GET /health` 与 `POST /ask`（可用 `generate:false` 只测检索）
+6. 避开：无 text 字段、中文 BM25 分词、把 Rerank 放在召回前；知悉 BM25 预构建、Rerank 中英文模型与 `CANDIDATE_K > FINAL_K`
 
 ---
 
@@ -504,13 +505,46 @@ Compose 网络内应 advertise 服务名 `etcd`，否则 standalone 可能连不
 ---
 
 
-## 今日边界
+## 封成 FastAPI：对齐 Week1「系统」形态
 
 
-**做了**：Naive → Milvus + Hybrid(RRF) + CrossEncoder Rerank；固定问句对照；可选 Ollama 生成；Compose 自包含。
+CLI 能证明三件套会跑；**系统**还要能被 HTTP 调用（与 Week1 `POST /ask` 同级）。
 
 
-**没做**：再嵌 Multi-Query/HyDE；全量 RAGAs 评测；Milvus 原生 Hybrid；BM25 生产级持久化；把升级版封成 FastAPI `/ask`（可自行接到 Week1 API）。
+索引与 Compose 就绪后：
+
+
+```bash
+uv run uvicorn main_api:app --reload --port 8014
+```
+
+
+```bash
+curl -s <http://127.0.0.1:8014/health>
+# {"status":"ok","service":"day14-upgraded-rag"}
+
+curl -s -X POST <http://127.0.0.1:8014/ask> \
+  -H 'Content-Type: application/json' \
+  -d '{"question":"ERR_CHUNK_42 怎么处理？","generate":false}'
+```
+
+
+响应里的 `pipeline: milvus+bm25/rrf+rerank` 表示检索仍是三件套；`generate:false` 时 `answer` 为 `(retrieve-only)`，便于先验收 API。本机有 Ollama 时把 `generate` 设为 `true` 即可生成答案。
+
+
+核心文件：`upgraded_pipeline.py`（检索+可选生成）、`main_api.py`（路由）。
+
+
+---
+
+
+## 边界：做了什么 / 故意没做什么
+
+
+**做了**：Naive → Milvus + Hybrid(RRF) + CrossEncoder Rerank；固定问句对照；可选 Ollama 生成；Compose 自包含；**FastAPI** **`/health`** **+** **`/ask`**。
+
+
+**没做**：再嵌 Multi-Query/HyDE；全量 RAGAs 评测；Milvus 原生 Hybrid；BM25 生产级持久化。
 
 
 ---
@@ -519,9 +553,13 @@ Compose 网络内应 advertise 服务名 `etcd`，否则 standalone 可能连不
 ## 小结
 
 
-| 步骤  | 动作                                           |
-| --- | -------------------------------------------- |
-| 换库  | Chroma → Milvus（带 `text`，v2.4+）              |
-| 加召回 | BM25 ∥ 向量 → RRF（名次，k≈60）                     |
-| 加精排 | CrossEncoder Rerank（`CANDIDATE_K > FINAL_K`） |
-| 生成  | Prompt + LLM；升级 contexts                     |
+| 步骤   | 动作                                           |
+| ---- | -------------------------------------------- |
+| 换库   | Chroma → Milvus（带 `text`，v2.4+）              |
+| 加召回  | BM25 ∥ 向量 → RRF（名次，k≈60）                     |
+| 加精排  | CrossEncoder Rerank（`CANDIDATE_K > FINAL_K`） |
+| 生成   | Prompt + LLM；升级 contexts                     |
+| 系统形态 | FastAPI 暴露升级后的 `/ask`                        |
+
+
+Week2 收官不是推倒重来，而是把已学模块**串进同一条检索链**，并尽量保持与 Week1 一样可调用的服务入口。仅向量不够稳时，先让关键词路进候选，再用精排把最终 contexts 排准。
