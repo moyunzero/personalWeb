@@ -100,8 +100,12 @@ src/test/
 wechat-articles/**/*
 wechat-articles-note/**/*
 
-# WeChat draft automation (local tooling, not part of the site)
+# WeChat draft + quality gate (local tooling only — do not publish)
 scripts/lib/wechat-*.mjs
 scripts/lib/load-env.mjs
 scripts/wechat-draft.mjs
+scripts/wechat-quality.mjs
 tests/wechat-draft-lib.test.ts
+tests/wechat-quality.test.ts
+tests/fixtures/wechat-articles/
+docs/specs/0007-wechat-article-quality-gate.md
