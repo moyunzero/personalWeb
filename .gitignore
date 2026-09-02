@@ -45,8 +45,23 @@ service-account*.json
 test-results/
 playwright-report/
 
-# Brainstorm visual companion (local session mockups)
+# Local AI / agent tooling (machine-specific; not part of the public blog repo)
+.cursor/
+.cursorrules
+.agents/
+.claude/
+.kiro/
+.codegraph/
+.planning/
+.tmp/
+skills-lock.json
 .superpowers/
+
+# Local AI planning / review archives (keep on disk; do not publish)
+docs/scope/
+docs/specs/
+docs/reviews/
+docs/superpowers/
 
 # Editor / OS
 .vscode/*
@@ -59,16 +74,6 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
-
-# Local AI / agent tooling (machine-specific; not part of the open source app)
-.cursor/
-.cursorrules
-.agents/
-.claude/
-.kiro/
-.codegraph/
-.planning/
-.tmp/
 
 # Local Remotion / video experiment (large; not part of the Astro site)
 video/
@@ -97,10 +102,9 @@ public/images/blog/**/*uat*/
 !tests/**
 src/test/
 
-wechat-articles/**/*
-wechat-articles-note/**/*
-
-# WeChat draft + quality gate (local tooling only — do not publish)
+# WeChat articles + draft/quality tooling (local only — do not publish)
+wechat-articles/
+wechat-articles-note/
 scripts/lib/wechat-*.mjs
 scripts/lib/load-env.mjs
 scripts/wechat-draft.mjs
@@ -108,4 +112,3 @@ scripts/wechat-quality.mjs
 tests/wechat-draft-lib.test.ts
 tests/wechat-quality.test.ts
 tests/fixtures/wechat-articles/
-docs/specs/0007-wechat-article-quality-gate.md

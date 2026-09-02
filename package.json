@@ -25,8 +25,7 @@
     "assets:cosmos:check": "node scripts/check-cosmos-assets.mjs",
     "assets:spectacle": "node scripts/prepare-spectacle-assets.mjs",
     "test:uat:4": "vitest --run tests/related-posts.test.ts tests/top-n-score.test.ts tests/top-n-checklist.test.ts && playwright test tests/e2e/phase4-launch-uat.spec.ts",
-    "verify:prod": "node scripts/verify-production.mjs",
-    "wechat:draft": "node scripts/wechat-draft.mjs"
+    "verify:prod": "node scripts/verify-production.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.0",
