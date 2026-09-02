@@ -269,4 +269,68 @@ describe('ListeningFlashcards', () => {
         expect(screen.queryByRole('table')).toBeNull();
         expect(screen.queryByRole('link', { name: /在 YouTube 听/ })).toBeNull();
     });
+
+    it('history rail shows all cards with aria-current on focus; switch collapses reveal (D-01, D-02, LISTEN-01)', async () => {
+        const user = userEvent.setup();
+        const older = loadEntry('valid-entry.json');
+        const newer = loadEntry('entry-newer.json');
+        const playSpy = vi
+            .spyOn(HTMLMediaElement.prototype, 'play')
+            .mockResolvedValue(undefined);
+
+        render(
+            createElement(ListeningFlashcards, {
+                entries: [newer, older],
+                baseUrl: '/personalWeb/',
+            }),
+        );
+
+        expect(screen.getByText('全部记录')).toBeTruthy();
+
+        const railCards = screen.getAllByRole('button', {
+            name: /切换到台面|当前/,
+        });
+        expect(railCards).toHaveLength(2);
+        expect(railCards[0].getAttribute('aria-current')).toBe('true');
+        expect(railCards[1].getAttribute('aria-current')).toBeNull();
+        expect(screen.queryByText(newer.date)).toBeNull();
+        expect(screen.queryByText(older.date)).toBeNull();
+
+        await user.click(screen.getByRole('button', { name: '揭晓' }));
+        expect(screen.getByText(newer.sentence)).toBeTruthy();
+
+        const playCallsBefore = playSpy.mock.calls.length;
+        await user.click(railCards[1]);
+
+        expect(screen.getByRole('heading', { level: 1 }).textContent).toBe(
+            older.title,
+        );
+        expect(screen.queryByText(newer.sentence)).toBeNull();
+        expect(screen.queryByText(older.sentence)).toBeNull();
+        expect(screen.getByRole('button', { name: '揭晓' })).toBeTruthy();
+        expect(playSpy.mock.calls.length).toBe(playCallsBefore);
+
+        const after = screen.getAllByRole('button', {
+            name: /切换到台面|当前/,
+        });
+        expect(after[1].getAttribute('aria-current')).toBe('true');
+        expect(after[0].getAttribute('aria-current')).toBeNull();
+    });
+
+    it('single entry still renders one current rail card (LISTEN-01)', () => {
+        const entry = loadEntry('valid-entry.json');
+
+        render(
+            createElement(ListeningFlashcards, {
+                entries: [entry],
+                baseUrl: '/personalWeb/',
+            }),
+        );
+
+        const railCards = screen.getAllByRole('button', {
+            name: /切换到台面|当前/,
+        });
+        expect(railCards).toHaveLength(1);
+        expect(railCards[0].getAttribute('aria-current')).toBe('true');
+    });
 });
