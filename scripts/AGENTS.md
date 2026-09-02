@@ -9,6 +9,7 @@ Node ESM scripts for blog workflow, SEO quality gates, performance audit, and pr
 | File | Owns |
 |---|---|
 | `scripts/notion-sync.mjs` | Notion database → Markdown + images |
+| `scripts/listening-sync.mjs` | Notion listening DB → `content/listening/*.json` (TTS in 02-04) |
 | `scripts/seo-audit.mjs` | Build gate: frontmatter and category validation |
 | `scripts/new-post.mjs` | Scaffold a new post in `content/posts/` |
 | `scripts/prepare-threejs-assets.mjs` | Source HDR/planets → `public/threejs-assets/web/` (+ cosmos budget; leaves `web/spectacle/` alone) |
@@ -30,6 +31,9 @@ Node ESM scripts for blog workflow, SEO quality gates, performance audit, and pr
 yarn notion:sync              # incremental sync
 yarn notion:sync --all        # full resync
 yarn notion:sync --dry-run    # preview only
+yarn listening:sync           # incremental listening JSON sync (manual; not in yarn build)
+yarn listening:sync --all     # full resync + orphan JSON/mp3 cleanup (D-13)
+yarn listening:sync --dry-run # preview only
 yarn seo:audit                # run gate (also runs before build)
 yarn seo:meta-batch --dry-run # report meta gaps
 yarn seo:index-check          # crawl readiness; optional GSC with credentials
@@ -43,7 +47,10 @@ yarn verify:prod              # live site smoke
 
 ## Conventions
 
-- Notion env vars load from `.env.local` / `.env`: `NOTION_TOKEN`, `NOTION_DATABASE_ID`.
+- Notion env vars load from `.env.local` / `.env` for **Node CLIs only** (never `PUBLIC_` / `VITE_` / `import.meta.env` client prefixes):
+  - Blog: `NOTION_TOKEN`, `NOTION_DATABASE_ID` (optional `NOTION_DATA_SOURCE_ID`, `NOTION_PROP_*`).
+  - Listening (`yarn listening:sync`): `NOTION_TOKEN`, `NOTION_LISTENING_DATABASE_ID` (must differ from blog DB — SYNC-03), plus `NOTION_DATABASE_ID` for the dual-DB guard. Optional: `NOTION_LISTENING_DATA_SOURCE_ID`, `NOTION_LISTENING_PROP_*` (title/date/status/youtube), `NOTION_LISTENING_STATUS_DONE` (CSV, default `完成`).
+- `yarn listening:sync` is **manual** (local / Actions `workflow_dispatch` later). It is **not** part of `yarn build` / deploy (D-14).
 - Legacy `generate-static.mjs` was removed; do not reintroduce a SPA static generator.
 - `yarn build` = `check-cosmos-assets` then `seo:audit` then `astro build`. Use `build:astro` only to skip gates intentionally.
 - Cosmos source textures live in `assets/threejs-source/` (gitignored); only commit `public/threejs-assets/web/` derivatives.
@@ -57,7 +64,8 @@ yarn verify:prod              # live site smoke
 
 ## Gotchas
 
-- `NOTION_TOKEN` must never ship in the frontend bundle.
+- `NOTION_TOKEN` must never ship in the frontend bundle; listening secrets stay in `.env.local` / Actions secrets for the sync CLI only.
+- Never introduce Notion keys under client-exposed env prefixes (`PUBLIC_`, `VITE_`, Astro `PUBLIC_*`).
 - `VITE_CHAT_API_URL` is public in the client; no secrets there.
 - SEO audit errors block `yarn build` with exit code 1.
 
