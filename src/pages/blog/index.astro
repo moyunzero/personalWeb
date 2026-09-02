@@ -45,6 +45,12 @@ const base = import.meta.env.BASE_URL;
                     </a>
                 ))
             }
+            <a
+                href={`${base}listening/`}
+                class="rounded-full px-3 py-1 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-200"
+            >
+                打卡
+            </a>
         </nav>
     </div>
     <BlogSearch client:load totalCount={posts.length} years={years} />

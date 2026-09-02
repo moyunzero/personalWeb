@@ -1,0 +1,40 @@
+{
+  "id": "3cbdf5c0-26f4-80cf-aac8-fea7eb520e44",
+  "date": "2026-08-29",
+  "title": "Daily English Dictation 2",
+  "sentence": "Jerry, what time do you have?\nI have 5 o’clock.",
+  "vocab": [
+    {
+      "word": "What time",
+      "phonetic": "/wʌt taɪm/ → 连读成 wha-time（t 音合并，只保留第二个）",
+      "meaning": "",
+      "example": "",
+      "practice": "反复练：what time → wha-time"
+    },
+    {
+      "word": "do you have",
+      "phonetic": "/duː juː hæv/ → 快速变成 d’ya have 或 d’yer ave（H 脱落）",
+      "meaning": "",
+      "example": "",
+      "practice": "do you have → d’ya have → d’yer ave"
+    },
+    {
+      "word": "The Seven H’s 规则",
+      "phonetic": "he / her / him / his / had / has / have 这7个以 H 开头的常见词，在快速口语中 H 音经常被取消（cancellation）",
+      "meaning": "",
+      "example": "",
+      "practice": "专门练这7个词的弱读形式"
+    },
+    {
+      "word": "I have 5 o’clock",
+      "phonetic": "/aɪ hæv faɪv/ → I ave five（H 脱落）+ have five 连读成 ha-five（v 和 f 合并）",
+      "meaning": "",
+      "example": "",
+      "practice": "I have five → I ave five → I ha-five o’clock"
+    }
+  ],
+  "takeaways": "Similar sound linking（相似音连读）：相同或相近的辅音相连时，只保留一个（what time、have five）。\nH-cancellation（H 音脱落）：快速语流中，he/her/him/his/had/has/have 的 /h/ 经常消失。",
+  "youtubeUrl": "https://www.youtube.com/watch?v=achfLFf7dUo",
+  "notionSyncedAt": "2026-09-02T15:38:38.644Z",
+  "audioSrc": "audio/listening/3cbdf5c0-26f4-80cf-aac8-fea7eb520e44.mp3"
+}

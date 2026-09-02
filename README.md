@@ -14,7 +14,7 @@
 | 博客渲染 | remark/rehype、Shiki 高亮、Mermaid（文章页按需加载） |
 | 动画 / 游戏 | GSAP、Lenis、Phaser（首页懒加载） |
 | 部署 | GitHub Actions → GitHub Pages |
-| 内容同步 | Notion → `yarn notion:sync` |
+| 内容同步 | Notion 博客 `yarn notion:sync` · 听力打卡 `yarn listening:sync` |
 
 ## 项目结构
 
@@ -22,17 +22,20 @@
 personalWeb/
 ├── content/
 │   ├── categories.json      # 博客分类定义
-│   └── posts/*.md           # 文章 Markdown
+│   ├── posts/*.md           # 文章 Markdown
+│   └── listening/*.json     # 听力打卡静态数据（sync 生成）
 ├── public/
 │   ├── images/blog/         # 文章图片（按 slug 分子目录）
+│   ├── audio/listening/     # 听力 TTS mp3（sync 生成，可提交）
 │   └── …                    # 验证文件、静态资源
 ├── src/
-│   ├── pages/               # Astro 路由（首页、博客列表/详情/分类）
+│   ├── pages/               # Astro 路由（首页、博客、/listening/）
 │   ├── layouts/             # BaseLayout、BlogLayout
 │   ├── components/          # Astro 组件 + React 岛
-│   ├── lib/                 # SEO、Markdown、博客工具
+│   ├── lib/                 # SEO、Markdown、博客、listening loader
 │   └── loaders/             # Content Collections loader
-├── scripts/                 # notion-sync、seo-audit、new-post 等
+├── scripts/                 # notion-sync、listening-sync、seo-audit、new-post 等
+├── tools/piper-venv/        # 本机 Piper TTS（gitignore；勿提交）
 ├── docs/                    # 上线与站长文档
 └── dist/                    # 构建产物（勿手改）
 ```
@@ -64,10 +67,11 @@ cp .env.example .env.local
 | 变量 | 用途 |
 |------|------|
 | `VITE_CHAT_API_URL` | 首页聊天机器人 API（会打进前端 bundle） |
-| `NOTION_TOKEN` | Notion 同步 Integration Token |
-| `NOTION_DATABASE_ID` | Notion 博客数据库 ID |
+| `NOTION_TOKEN` | Notion 同步 Integration Token（博客 + 听力共用） |
+| `NOTION_DATABASE_ID` | Notion **博客**数据库 ID |
+| `NOTION_LISTENING_DATABASE_ID` | Notion **听力打卡**数据库 ID（须与博客库不同） |
 
-详见 [.env.example](./.env.example) 中的可选 `NOTION_PROP_*` 覆盖项。
+详见 [.env.example](./.env.example) 中的可选 `NOTION_PROP_*` / `NOTION_LISTENING_*` 覆盖项。
 
 ## 发布博客文章
 
@@ -122,6 +126,51 @@ git push
 或在 GitHub **Actions → Sync blog from Notion** 手动运行（需已配置 Secrets：`NOTION_TOKEN`、`NOTION_DATABASE_ID`），工作流会自动 commit 并 push。
 
 > Token 仅用于本地脚本或 CI，不会打进前端 bundle。
+
+## 同步听力打卡（`/listening/`）
+
+公开页 `/listening/` 只读仓库内静态文件：**不**在 `yarn build` 时拉 Notion。把 Notion「完成」打卡变成 JSON + 可选 mp3 后提交即可上线。
+
+### 首次配置（只需一次）
+
+1. 同一 Integration Token（`NOTION_TOKEN`）即可；在听力库页面 **··· → 连接** → 选中该 Integration  
+2. 复制听力数据库 ID（URL 里 32 位，须 **≠** `NOTION_DATABASE_ID`）  
+3. 写入 `.env.local`：
+
+```bash
+NOTION_TOKEN=…
+NOTION_DATABASE_ID=…                 # 博客库（双库校验仍需要）
+NOTION_LISTENING_DATABASE_ID=…       # 听力库
+```
+
+4. （可选，本机有声）准备 Piper：仓库已有 `tools/piper-venv/` 时，同步时把该 `bin` 放进 `PATH`（系统 `python3` 往往没有 `piper` 模块）。TTS 失败仍会写 JSON，卡片可揭晓，只是播放禁用。
+
+默认只同步「打卡状态 = 完成」的页；正文需有「内容」/「内容摘要」下的英文句；词汇表列名支持「解释」→ 卡片「释义」。
+
+### 一键日常同步（推荐）
+
+```bash
+# 全量：拉全部「完成」页 + 生成/更新 mp3（若 Piper 可用）
+PATH="$(pwd)/tools/piper-venv/bin:$PATH" yarn listening:sync --all
+
+# 提交产物（勿提交 .onnx / piper-venv / listening-tts-scratch）
+git add content/listening public/audio/listening
+git commit -m "listening: sync from Notion" && git push
+```
+
+本地预览：`yarn dev` → http://localhost:4321/personalWeb/listening/（或从博客「打卡」入口进入）。
+
+### 其他常用命令
+
+```bash
+yarn listening:sync              # 增量（Notion 有更新才写）
+yarn listening:sync --page <id>  # 单页
+yarn listening:sync --dry-run    # 预览，不写文件
+```
+
+或在 GitHub **Actions → listening-sync**（`workflow_dispatch`）手动跑：需 Secrets `NOTION_TOKEN`、`NOTION_LISTENING_DATABASE_ID`、`NOTION_DATABASE_ID`。该工作流**不**挂在 `yarn build` 上。
+
+> 与博客 sync 相同：Token 仅本机 / Actions，永不进前端。
 
 ### Frontmatter 示例
 

@@ -15,6 +15,7 @@
     "test:uat:3": "vitest --run tests/phase3-uat-cli.test.ts tests/phase3-seo-dist.test.ts && playwright test tests/e2e/phase3-seo-uat.spec.ts",
     "blog:new": "node scripts/new-post.mjs",
     "notion:sync": "node scripts/notion-sync.mjs",
+    "listening:sync": "node scripts/listening-sync.mjs",
     "seo:meta-batch": "node scripts/seo-meta-batch.mjs",
     "seo:audit": "node scripts/seo-audit.mjs",
     "seo:top-n-score": "node scripts/seo-top-n-score.mjs",

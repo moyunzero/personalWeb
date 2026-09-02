@@ -86,6 +86,14 @@ assets/threejs-source/
 # Regenerate with `yarn assets:spectacle` when sources change.
 assets/spectacle-source/
 
+# Piper TTS tooling cache (commit generated mp3 under public/audio/listening/ only — D-09)
+tools/piper-voices/
+tools/piper-venv/
+.cache/piper/
+*.onnx
+*.onnx.json
+**/listening-tts-scratch/
+
 # Notion sync / UAT scratch image dirs (empty placeholders from automation runs)
 public/images/blog/**/*uat*/
 

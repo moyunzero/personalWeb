@@ -1,0 +1,19 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import ListeningFlashcards from '../../components/islands/ListeningFlashcards.tsx';
+import { getListeningEntries } from '../../lib/listening';
+import { SITE } from '../../lib/site';
+
+const entries = await getListeningEntries();
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<BlogLayout
+    seo={{
+        title: SITE.name,
+        description: SITE.description,
+        path: '/listening/',
+    }}
+>
+    <ListeningFlashcards client:load entries={entries} baseUrl={baseUrl} />
+</BlogLayout>

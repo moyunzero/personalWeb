@@ -137,6 +137,47 @@ export function getDate(prop) {
     return prop.date?.start?.slice(0, 10) ?? null;
 }
 
+const HTTP_URL_RE = /https?:\/\/[^\s<>"']+/i;
+
+/**
+ * First http(s) URL token from a string (T-2-03: reject non-http schemes).
+ * @param {string} text
+ * @returns {string | null}
+ */
+function firstHttpUrlToken(text) {
+    const match = String(text || '').match(HTTP_URL_RE);
+    if (!match) return null;
+    return match[0].replace(/[.,;:!?]+$/, '');
+}
+
+/**
+ * Read a Notion url property, or first http(s) token / href from rich_text (D-03).
+ * Prefer `type === 'url'` when present. Empty → null (omit youtubeUrl).
+ *
+ * @param {{ type?: string, url?: string | null, rich_text?: Array<{ plain_text?: string, href?: string | null, text?: { link?: { url?: string } } }> } | null | undefined} prop
+ * @returns {string | null}
+ */
+export function getUrl(prop) {
+    if (!prop) return null;
+
+    if (prop.type === 'url') {
+        const raw = typeof prop.url === 'string' ? prop.url.trim() : '';
+        return raw || null;
+    }
+
+    if (prop.type === 'rich_text') {
+        const pieces = Array.isArray(prop.rich_text) ? prop.rich_text : [];
+        for (const t of pieces) {
+            const href = t?.href || t?.text?.link?.url;
+            if (href && /^https?:\/\//i.test(href)) return href;
+        }
+        const plain = pieces.map((t) => t.plain_text || '').join('');
+        return firstHttpUrlToken(plain);
+    }
+
+    return null;
+}
+
 export function getCoverUrl(prop) {
     if (!prop || prop.type !== 'files') return null;
     const file = prop.files[0];

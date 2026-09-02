@@ -1,0 +1,94 @@
+{
+  "withTakeaways": [
+    {
+      "object": "block",
+      "id": "block-sentence",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "plain_text": "Keep practicing every day.",
+            "href": null
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "block-takeaways-h",
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [
+          { "type": "text", "plain_text": "今日收获 & 难点", "href": null }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "block-t1",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "plain_text": "学会了 breakthrough 的用法。",
+            "href": null
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "block-t2",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "plain_text": "难点在于连读。",
+            "href": null
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "block-next-h",
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [{ "type": "text", "plain_text": "其他", "href": null }]
+      }
+    },
+    {
+      "object": "block",
+      "id": "block-after",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "plain_text": "This should not be in takeaways.",
+            "href": null
+          }
+        ]
+      }
+    }
+  ],
+  "missingTakeaways": [
+    {
+      "object": "block",
+      "id": "block-en",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "plain_text": "Sentence exists but no takeaways heading.",
+            "href": null
+          }
+        ]
+      }
+    }
+  ]
+}
