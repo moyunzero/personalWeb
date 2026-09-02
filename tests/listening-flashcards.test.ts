@@ -72,4 +72,18 @@ describe('ListeningFlashcards', () => {
         );
         expect(source).not.toMatch(/speechSynthesis|webkitSpeech|SpeechSynthesis/);
     });
+
+    it('wires BlogLayout footerCredit with Piper CC BY-SA line (D-12)', () => {
+        const layout = readFileSync(
+            path.resolve('src/layouts/BlogLayout.astro'),
+            'utf8',
+        );
+        const page = readFileSync(
+            path.resolve('src/pages/listening/index.astro'),
+            'utf8',
+        );
+        expect(layout).toMatch(/footerCredit\??:\s*string/);
+        expect(layout).toMatch(/footerCredit/);
+        expect(page).toContain('语音：Piper · en_US-amy-medium · CC BY-SA');
+    });
 });
