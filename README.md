@@ -155,8 +155,7 @@ PATH="$(pwd)/tools/piper-venv/bin:$PATH" yarn listening:sync --all
 
 # 提交产物（勿提交 .onnx / piper-venv / listening-tts-scratch）
 git add content/listening public/audio/listening
-git commit -m "listening: sync from Notion"
-git push
+git commit -m "listening: sync from Notion" && git push
 ```
 
 本地预览：`yarn dev` → http://localhost:4321/personalWeb/listening/（或从博客「打卡」入口进入）。

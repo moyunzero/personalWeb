@@ -438,6 +438,9 @@ async function main() {
             console.log(`已检查 ${donePages.length} 篇完成页，本地均已是最新，无需同步。`);
             console.log('  强制全量: yarn listening:sync --all');
             console.log('  单篇同步: yarn listening:sync --page <notion_page_id>');
+            if (!dryRun) {
+                printListeningNextSteps();
+            }
             return;
         } else {
             console.log(
@@ -488,11 +491,19 @@ async function main() {
     }
 
     if (!dryRun) {
-        console.log('\n下一步:');
-        console.log('  yarn listening:sync --dry-run   # 预览');
-        console.log('  git add content/listening public/audio/listening');
-        console.log('  # 勿提交 *.onnx / Piper cache（D-09）');
+        printListeningNextSteps();
     }
+}
+
+/**
+ * Mirror notion-sync post-run hints so operators know how to preview / commit.
+ */
+function printListeningNextSteps() {
+    console.log('\n下一步:');
+    console.log('  yarn dev          # 本地预览 /listening/');
+    console.log('  git add content/listening public/audio/listening');
+    console.log('  git commit -m "listening: sync from Notion" && git push');
+    console.log('  # 勿提交 *.onnx / Piper cache / tools/piper-venv（D-09）');
 }
 
 main().catch((err) => {
