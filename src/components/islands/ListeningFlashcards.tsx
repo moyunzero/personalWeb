@@ -8,8 +8,9 @@ export interface ListeningFlashcardsProps {
 }
 
 /**
- * Single /listening/ island: empty state + focus stage with sentence 揭晓/收起
- * and native mp3 play/pause/重播 (D-01…D-09 audio + sentence path).
+ * Single /listening/ island: empty state + focus stage with full 揭晓/收起
+ * (sentence + vocab + takeaways + conditional YouTube) and native mp3 controls.
+ * T-03-02: text nodes only; T-03-07: youtubeUrl href only when present + noopener.
  */
 export default function ListeningFlashcards({
     entries,
@@ -91,6 +92,9 @@ export default function ListeningFlashcards({
 
     // focus is non-null when entries.length > 0
     const card = focus!;
+    const hasVocab = card.vocab.length > 0;
+    const hasTakeaways = card.takeaways.trim().length > 0;
+    const youtubeUrl = card.youtubeUrl;
 
     return (
         <div className="mx-auto flex max-w-[min(52rem,100%)] flex-col gap-6">
@@ -149,10 +153,61 @@ export default function ListeningFlashcards({
                     </button>
                 </div>
                 {revealed ? (
-                    <div className="mt-6 border-t border-zinc-800 pt-6">
-                        <p className="border-l-2 border-sky-500/60 bg-sky-500/5 py-3 pl-4 font-serif text-sm italic leading-normal text-sky-100">
-                            {card.sentence}
-                        </p>
+                    <div className="mt-6 grid grid-cols-1 gap-6 border-t border-zinc-800 pt-6 min-[840px]:grid-cols-[1.2fr_0.8fr]">
+                        <div className="flex min-w-0 flex-col gap-4">
+                            <p className="border-l-2 border-sky-500/60 bg-sky-500/5 py-3 pl-4 font-serif text-sm italic leading-normal text-sky-100">
+                                {card.sentence}
+                            </p>
+                            {hasVocab ? (
+                                <table className="w-full border-collapse text-left text-sm text-zinc-300">
+                                    <thead>
+                                        <tr>
+                                            <th className="border-b border-zinc-800 py-1 pr-2 text-[11px] font-normal leading-[1.3] text-zinc-500">
+                                                词
+                                            </th>
+                                            <th className="border-b border-zinc-800 py-1 px-2 text-[11px] font-normal leading-[1.3] text-zinc-500">
+                                                音标
+                                            </th>
+                                            <th className="border-b border-zinc-800 py-1 pl-2 text-[11px] font-normal leading-[1.3] text-zinc-500">
+                                                释义
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {card.vocab.map((row) => (
+                                            <tr key={row.word}>
+                                                <td className="border-b border-zinc-800/80 py-2 pr-2 align-top text-zinc-200">
+                                                    {row.word}
+                                                </td>
+                                                <td className="border-b border-zinc-800/80 py-2 px-2 align-top font-mono text-zinc-400">
+                                                    {row.phonetic}
+                                                </td>
+                                                <td className="border-b border-zinc-800/80 py-2 pl-2 align-top text-zinc-300">
+                                                    {row.meaning}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            ) : null}
+                        </div>
+                        <div className="flex min-w-0 flex-col gap-4">
+                            {hasTakeaways ? (
+                                <p className="whitespace-pre-wrap text-sm leading-normal text-zinc-300">
+                                    {card.takeaways}
+                                </p>
+                            ) : null}
+                            {youtubeUrl ? (
+                                <a
+                                    href={youtubeUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-sm font-semibold text-sky-400 transition-colors hover:text-sky-300"
+                                >
+                                    ↗ 在 YouTube 听
+                                </a>
+                            ) : null}
+                        </div>
                     </div>
                 ) : null}
             </section>
