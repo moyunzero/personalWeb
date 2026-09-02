@@ -48,7 +48,9 @@ describe('ListeningFlashcards', () => {
             }),
         );
 
-        expect(screen.getByText('Newer listening card')).toBeTruthy();
+        expect(
+            screen.getByRole('heading', { level: 1 }).textContent,
+        ).toBe('Newer listening card');
         expect(screen.queryByText(newer.date)).toBeNull();
         expect(screen.queryByText(older.date)).toBeNull();
         expect(

@@ -8,21 +8,38 @@ export interface ListeningFlashcardsProps {
 }
 
 /**
- * Single /listening/ island: empty state + focus stage with full 揭晓/收起
- * (sentence + vocab + takeaways + conditional YouTube) and native mp3 controls.
+ * Single /listening/ island: focus stage + history rail.
+ * Reveal: sentence + vocab + takeaways + conditional YouTube (REVEAL-01/02).
+ * Rail: independent cards; click promotes focus and collapses reveal (D-01/D-02).
  * T-03-02: text nodes only; T-03-07: youtubeUrl href only when present + noopener.
  */
 export default function ListeningFlashcards({
     entries,
     baseUrl,
 }: ListeningFlashcardsProps) {
-    // Newest is first after getListeningEntries sort (D-03).
+    const [focusId, setFocusId] = useState(() =>
+        entries.length > 0 ? entries[0].id : '',
+    );
     const [revealed, setRevealed] = useState(false);
     const [playing, setPlaying] = useState(false);
     const [audioBroken, setAudioBroken] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
+    const stageRef = useRef<HTMLElement | null>(null);
 
-    const focus = entries.length > 0 ? entries[0] : null;
+    // Keep focus valid if entries prop identity changes (empty → populated).
+    useEffect(() => {
+        if (entries.length === 0) {
+            setFocusId('');
+            return;
+        }
+        if (!entries.some((e) => e.id === focusId)) {
+            setFocusId(entries[0].id);
+        }
+    }, [entries, focusId]);
+
+    const focus =
+        entries.find((e) => e.id === focusId) ??
+        (entries.length > 0 ? entries[0] : null);
     const audioSrc = focus?.audioSrc;
     const hasAudio = Boolean(audioSrc) && !audioBroken;
     const resolvedSrc =
@@ -36,7 +53,7 @@ export default function ListeningFlashcards({
             el.pause();
             el.currentTime = 0;
         }
-    }, [audioSrc]);
+    }, [audioSrc, focusId]);
 
     const onPlayPause = useCallback(async () => {
         const el = audioRef.current;
@@ -77,6 +94,32 @@ export default function ListeningFlashcards({
         setPlaying(false);
     }, []);
 
+    const selectFocus = useCallback(
+        (id: string) => {
+            if (id === focusId) return;
+            const el = audioRef.current;
+            if (el) {
+                el.pause();
+                el.currentTime = 0;
+            }
+            setPlaying(false);
+            setRevealed(false);
+            setFocusId(id);
+
+            const reduceMotion =
+                typeof window !== 'undefined' &&
+                typeof window.matchMedia === 'function' &&
+                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!reduceMotion && stageRef.current?.scrollIntoView) {
+                stageRef.current.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                });
+            }
+        },
+        [focusId],
+    );
+
     if (entries.length === 0) {
         return (
             <div className="mx-auto max-w-[min(52rem,100%)] py-12 text-center">
@@ -99,6 +142,7 @@ export default function ListeningFlashcards({
     return (
         <div className="mx-auto flex max-w-[min(52rem,100%)] flex-col gap-6">
             <section
+                ref={stageRef}
                 className="rounded-[1.35rem] border border-zinc-700 bg-gradient-to-b from-[#1c1c20] to-[#141416] p-6"
                 aria-live="polite"
             >
@@ -210,6 +254,53 @@ export default function ListeningFlashcards({
                         </div>
                     </div>
                 ) : null}
+            </section>
+
+            <section aria-label="全部记录">
+                <p className="mb-3 text-[11px] leading-[1.3] text-zinc-500">
+                    全部记录
+                </p>
+                <ul className="grid grid-cols-1 gap-2 min-[520px]:grid-cols-2 min-[840px]:grid-cols-3">
+                    {entries.map((entry) => {
+                        const isCurrent = entry.id === card.id;
+                        const hint = isCurrent ? '当前' : '切换到台面';
+                        const canPlayGlyph = Boolean(entry.audioSrc);
+                        return (
+                            <li key={entry.id}>
+                                <button
+                                    type="button"
+                                    className={`flex min-h-[5.5rem] w-full flex-col items-start gap-2 rounded-[0.95rem] border p-3 text-left transition-[border-color,background-color] duration-150 ease-out ${
+                                        isCurrent
+                                            ? 'border-sky-500/50 bg-sky-500/10'
+                                            : 'border-zinc-700 bg-[#18181b] hover:border-zinc-500'
+                                    }`}
+                                    aria-current={isCurrent ? 'true' : undefined}
+                                    aria-label={`${hint}：${entry.title}`}
+                                    onClick={() => selectFocus(entry.id)}
+                                >
+                                    <span className="text-sm leading-normal text-zinc-200">
+                                        {entry.title}
+                                    </span>
+                                    <span className="flex items-center gap-2">
+                                        <span
+                                            aria-hidden="true"
+                                            className={`flex h-8 w-8 items-center justify-center text-sm ${
+                                                canPlayGlyph
+                                                    ? 'text-sky-400'
+                                                    : 'text-zinc-600'
+                                            }`}
+                                        >
+                                            {canPlayGlyph ? '▶' : '–'}
+                                        </span>
+                                        <span className="text-[11px] leading-[1.3] text-zinc-500">
+                                            {hint}
+                                        </span>
+                                    </span>
+                                </button>
+                            </li>
+                        );
+                    })}
+                </ul>
             </section>
         </div>
     );
