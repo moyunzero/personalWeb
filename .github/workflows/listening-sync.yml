@@ -52,6 +52,7 @@ jobs:
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_LISTENING_DATABASE_ID: ${{ secrets.NOTION_LISTENING_DATABASE_ID }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
           PIPER_DATA_DIR: /home/runner/.cache/piper
           PIPER_VOICE: en_US-amy-medium
         run: yarn listening:sync --all
