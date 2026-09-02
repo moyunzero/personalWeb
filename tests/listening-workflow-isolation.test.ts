@@ -43,4 +43,38 @@ describe('listening sync build/CI isolation (D-14)', () => {
         expect(scriptsAgents).toMatch(/Phase 3/);
         expect(scriptsAgents).toMatch(/D-10|D-14/);
     });
+
+    it('requires NOTION_DATABASE_ID in Actions/local listening secrets docs (SYNC-03)', () => {
+        const scriptsAgents = readText('scripts/AGENTS.md');
+        // Must list all three required envs for both Actions and local — not TOKEN+LISTENING only
+        expect(scriptsAgents).toMatch(
+            /Listening[\s\S]*NOTION_TOKEN[\s\S]*NOTION_LISTENING_DATABASE_ID[\s\S]*NOTION_DATABASE_ID/,
+        );
+        expect(scriptsAgents).not.toMatch(
+            /Actions secrets\s*\/\s*local env are \*\*only\*\* `NOTION_TOKEN` \+ `NOTION_LISTENING_DATABASE_ID`/,
+        );
+        expect(scriptsAgents).toMatch(/NOTION_DATABASE_ID[\s\S]*(?:dual-DB|SYNC-03|inequality)/i);
+    });
+
+    it('keeps listening-sync.yml env parity with required getEnv names', () => {
+        const syncSrc = readText('scripts/listening-sync.mjs');
+        const workflow = readText('.github/workflows/listening-sync.yml');
+
+        const requiredNames = [
+            ...syncSrc.matchAll(/getEnv\(\s*['"]([A-Z0-9_]+)['"]\s*,\s*true\s*\)/g),
+        ].map((m) => m[1]);
+
+        expect(requiredNames.length).toBeGreaterThan(0);
+        expect(requiredNames).toEqual(
+            expect.arrayContaining([
+                'NOTION_TOKEN',
+                'NOTION_LISTENING_DATABASE_ID',
+                'NOTION_DATABASE_ID',
+            ]),
+        );
+
+        for (const name of new Set(requiredNames)) {
+            expect(workflow, `workflow missing required getEnv ${name}`).toContain(name);
+        }
+    });
 });
