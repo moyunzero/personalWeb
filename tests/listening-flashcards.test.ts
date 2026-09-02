@@ -76,7 +76,7 @@ describe('ListeningFlashcards', () => {
         expect(source).not.toMatch(/speechSynthesis|webkitSpeech|SpeechSynthesis/);
     });
 
-    it('wires BlogLayout footerCredit with Piper CC BY-SA line (D-12)', () => {
+    it('does not show Piper TTS footer credit on /listening/ (user override of D-12)', () => {
         const layout = readFileSync(
             path.resolve('src/layouts/BlogLayout.astro'),
             'utf8',
@@ -85,9 +85,30 @@ describe('ListeningFlashcards', () => {
             path.resolve('src/pages/listening/index.astro'),
             'utf8',
         );
-        expect(layout).toMatch(/footerCredit\??:\s*string/);
-        expect(layout).toMatch(/footerCredit/);
-        expect(page).toContain('语音：Piper · en_US-amy-medium · CC BY-SA');
+        expect(layout).not.toMatch(/footerCredit/);
+        expect(page).not.toContain('语音：Piper');
+        expect(page).not.toContain('en_US-amy-medium');
+    });
+
+    it('blog index and category nav link 打卡 to /listening/ (ENTRY-01)', () => {
+        const blogIndex = readFileSync(
+            path.resolve('src/pages/blog/index.astro'),
+            'utf8',
+        );
+        const categoryPage = readFileSync(
+            path.resolve('src/pages/blog/category/[id].astro'),
+            'utf8',
+        );
+        const categories = readFileSync(
+            path.resolve('content/categories.json'),
+            'utf8',
+        );
+        expect(blogIndex).toMatch(/href=\{`\$\{base\}listening\/`\}/);
+        expect(blogIndex).toContain('打卡');
+        expect(categoryPage).toMatch(/href=\{`\$\{base\}listening\/`\}/);
+        expect(categoryPage).toContain('打卡');
+        expect(categories).not.toMatch(/"打卡"/);
+        expect(categories).not.toMatch(/"id":\s*"listening"/);
     });
 
     it('enables play/replay with BASE_URL audio and no autoplay (D-07, D-08, LISTEN-02)', async () => {

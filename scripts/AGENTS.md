@@ -53,7 +53,7 @@ yarn verify:prod              # live site smoke
   - Blog: `NOTION_TOKEN`, `NOTION_DATABASE_ID` (optional `NOTION_DATA_SOURCE_ID`, `NOTION_PROP_*`).
   - Listening (`yarn listening:sync` / `.github/workflows/listening-sync.yml`): Actions and local both require `NOTION_TOKEN`, `NOTION_LISTENING_DATABASE_ID`, and `NOTION_DATABASE_ID` (reuse the blog DB id secret for SYNC-03 dual-DB inequality only — never query the blog DB). Optional: `NOTION_LISTENING_DATA_SOURCE_ID`, `NOTION_LISTENING_PROP_*` (title/date/status/youtube), `NOTION_LISTENING_STATUS_DONE` (CSV, default `完成`). Never expose Notion keys as `PUBLIC_*`.
 - Piper TTS is **OS/pip tooling**, not a yarn dependency (D-07). Local/CI install: `pip install 'piper-tts==1.7.0'`, `python3 -m piper.download_voices en_US-amy-medium --data-dir "${PIPER_DATA_DIR:-$HOME/.cache/piper}"`, plus system `ffmpeg`. Optional env: `PIPER_DATA_DIR`, `PIPER_VOICE` (default `en_US-amy-medium`).
-- **D-10 (Phase 3 obligation):** `/listening/` page footer must attribute Piper voice `en_US-amy-medium` (CC BY-SA). UI is not in Phase 2 — document only here until Phase 3 ships the footer.
+- **D-10 (Phase 3 note):** Piper voice `en_US-amy-medium` (CC BY-SA) is used at sync time. Public `/listening/` footer attribution was **removed by product decision (2026-09-02)** — do not re-add a TTS credit line unless product asks again.
 - `yarn listening:sync` is **manual** (local or Actions `listening-sync.yml` `workflow_dispatch`). It is **not** part of `yarn build` / `ci.yml` / `deploy.yml` (D-14).
 - Legacy `generate-static.mjs` was removed; do not reintroduce a SPA static generator.
 - `yarn build` = `check-cosmos-assets` then `seo:audit` then `astro build`. Use `build:astro` only to skip gates intentionally.
