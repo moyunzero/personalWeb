@@ -1,0 +1,40 @@
+{
+  "id": "3cddf5c0-26f4-809d-99af-e62d74694ef3",
+  "date": "2026-08-31",
+  "title": "Daily English Dictation 4",
+  "sentence": "Don’t ever let somebody tell you ，you can’t do something.",
+  "vocab": [
+    {
+      "word": "Don’t ever",
+      "phonetic": "/doʊn ˈevər/ → don-ever（N 取消 T）",
+      "meaning": "",
+      "example": "",
+      "practice": "don’t ever → don-ever"
+    },
+    {
+      "word": "can’t do",
+      "phonetic": "/kæn duː/ → can-do（N 取消 T）",
+      "meaning": "",
+      "example": "",
+      "practice": "can’t do → can-do"
+    },
+    {
+      "word": "something",
+      "phonetic": "快速时接近 /ˈsʌmpən/ 或 sump’n（嘴唇闭合像 M，但拼写是 N）",
+      "meaning": "",
+      "example": "",
+      "practice": "some → 闭唇 → n（像 sump’n）"
+    },
+    {
+      "word": "Cancellation 规则",
+      "phonetic": "强音 S / N / L 会取消旁边的弱音 D / T / TH",
+      "meaning": "",
+      "example": "",
+      "practice": "记住口诀：S-N-L 杀 D-T-TH"
+    }
+  ],
+  "takeaways": "美国英语中，当 强辅音（m、N、L） 紧挨着 弱辅音（D、T、TH） 时，弱音经常被“杀掉”（cancelled）。\n典型例子：\nyou and I → you an I（N 杀 D）\ndon’t ever → don ever（N 杀 T）\ncan’t do → can do（N 杀 T）",
+  "youtubeUrl": "https://www.youtube.com/watch?v=bXZ3TbWzgZI&t=199s",
+  "notionSyncedAt": "2026-09-02T15:38:33.593Z",
+  "audioSrc": "audio/listening/3cddf5c0-26f4-809d-99af-e62d74694ef3.mp3"
+}

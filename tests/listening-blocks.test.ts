@@ -6,6 +6,7 @@ import {
     extractSentence,
     extractTakeaways,
     extractVocab,
+    mapHeaderIndex,
 } from '../scripts/lib/listening-blocks.mjs';
 import { validateListeningData } from '../scripts/lib/listening-schema.mjs';
 
@@ -25,7 +26,8 @@ describe('listening-blocks extractSentence', () => {
         const { withSummaryHeading } = loadBlocksFixture();
         const result = extractSentence(withSummaryHeading);
         expect(result).toEqual({
-            sentence: 'The summary English sentence comes first.',
+            sentence:
+                'The summary English sentence comes first.\nAnother English paragraph later on the page.',
         });
     });
 
@@ -42,6 +44,82 @@ describe('listening-blocks extractSentence', () => {
         const { noEnglish } = loadBlocksFixture();
         const result = extractSentence(noEnglish);
         expect(result).toEqual({ skip: true });
+    });
+
+    it('accepts 「内容」heading + English bulleted_list_item (real Notion template)', () => {
+        const blocks = [
+            {
+                type: 'heading_2',
+                heading_2: {
+                    rich_text: [{ plain_text: '🎧 今日听力概览' }],
+                },
+            },
+            {
+                type: 'bulleted_list_item',
+                bulleted_list_item: {
+                    rich_text: [{ plain_text: '材料名称： Associated Press News' }],
+                },
+            },
+            {
+                type: 'heading_2',
+                heading_2: {
+                    rich_text: [{ plain_text: '📝 内容' }],
+                },
+            },
+            {
+                type: 'bulleted_list_item',
+                bulleted_list_item: {
+                    rich_text: [
+                        {
+                            plain_text:
+                                'Mother Teresa, who received a Nobel Peace Prize for her work on behalf of the poor, dies in Calcutta.',
+                        },
+                    ],
+                },
+            },
+            {
+                type: 'heading_2',
+                heading_2: {
+                    rich_text: [{ plain_text: '📚 词汇 & 短语' }],
+                },
+            },
+        ];
+        expect(extractSentence(blocks)).toEqual({
+            sentence:
+                'Mother Teresa, who received a Nobel Peace Prize for her work on behalf of the poor, dies in Calcutta.',
+        });
+    });
+
+    it('joins all English bullets under 内容摘要 (multi-line dialogue)', () => {
+        const blocks = [
+            {
+                type: 'heading_2',
+                heading_2: {
+                    rich_text: [{ plain_text: '📝 内容摘要' }],
+                },
+            },
+            {
+                type: 'bulleted_list_item',
+                bulleted_list_item: {
+                    rich_text: [{ plain_text: 'Jerry, what time do you have?' }],
+                },
+            },
+            {
+                type: 'bulleted_list_item',
+                bulleted_list_item: {
+                    rich_text: [{ plain_text: "I have 5 o'clock." }],
+                },
+            },
+            {
+                type: 'heading_2',
+                heading_2: {
+                    rich_text: [{ plain_text: '📚 词汇 & 短语' }],
+                },
+            },
+        ];
+        expect(extractSentence(blocks)).toEqual({
+            sentence: "Jerry, what time do you have?\nI have 5 o'clock.",
+        });
     });
 
     it('tracer path: extractSentence → object → validateListeningData succeeds', () => {
@@ -64,6 +142,22 @@ describe('listening-blocks extractSentence', () => {
 });
 
 describe('listening-blocks extractVocab (D-04)', () => {
+    it('maps 解释 header to meaning (real Notion template)', () => {
+        const headers = [
+            [{ plain_text: '单词/短语' }],
+            [{ plain_text: '音标/发音' }],
+            [{ plain_text: '练习' }],
+            [{ plain_text: '解释' }],
+        ];
+        expect(mapHeaderIndex(headers)).toEqual({
+            word: 0,
+            phonetic: 1,
+            meaning: 3,
+            example: -1,
+            practice: 2,
+        });
+    });
+
     it('maps Chinese headers and returns non-empty vocab from two-step fixture', () => {
         const { pageBlocks, tableRowBlocks } = loadJson('vocab-table-blocks.json');
         const vocab = extractVocab(pageBlocks, tableRowBlocks);

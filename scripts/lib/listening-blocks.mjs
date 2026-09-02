@@ -39,9 +39,38 @@ function looksEnglish(text) {
 }
 
 /**
- * Extract listening target sentence from Notion page blocks (D-16, D-06).
- * Prefer first English paragraph after a heading containing 「内容摘要」;
- * else first English paragraph on the page; else { skip: true }.
+ * Whether a heading marks the listening sentence section (D-16).
+ * Matches 「内容摘要」and template titles like 「📝 内容」.
+ * @param {string} heading
+ * @returns {boolean}
+ */
+function isSentenceSectionHeading(heading) {
+    if (!heading) return false;
+    if (heading.includes('内容摘要')) return true;
+    return heading.includes('内容');
+}
+
+/**
+ * Plain text usable as a listening sentence from paragraph or list item.
+ * @param {object} block
+ * @returns {string}
+ */
+function sentenceBlockPlain(block) {
+    const para = paragraphPlain(block);
+    if (para) return para;
+    const type = block?.type;
+    if (type === 'bulleted_list_item' || type === 'numbered_list_item') {
+        return richTextPlain(block[type]?.rich_text);
+    }
+    return '';
+}
+
+/**
+ * Extract listening target sentence(s) from Notion page blocks (D-16, D-06).
+ * Prefer all English paragraphs/list items under a 「内容摘要」/「内容」heading
+ * (joined by newline — dialogue / multi-line cards); else first English paragraph
+ * on the page; else { skip: true }.
+ * (Page-wide fallback stays paragraph-only so overview bullets are not picked.)
  *
  * @param {object[]} blocks
  * @returns {{ sentence: string } | { skip: true }}
@@ -50,19 +79,24 @@ export function extractSentence(blocks) {
     const list = Array.isArray(blocks) ? blocks : [];
 
     let afterSummary = false;
+    /** @type {string[]} */
+    const sectionLines = [];
     for (const block of list) {
         const heading = headingPlain(block);
-        if (heading.includes('内容摘要')) {
+        if (isSentenceSectionHeading(heading)) {
             afterSummary = true;
             continue;
         }
         if (!afterSummary) continue;
-        const para = paragraphPlain(block);
-        if (para && looksEnglish(para)) {
-            return { sentence: para };
-        }
         // Stop preferring summary section once another heading appears
         if (heading) break;
+        const text = sentenceBlockPlain(block);
+        if (text && looksEnglish(text)) {
+            sectionLines.push(text);
+        }
+    }
+    if (sectionLines.length > 0) {
+        return { sentence: sectionLines.join('\n') };
     }
 
     for (const block of list) {
@@ -97,7 +131,7 @@ export function mapHeaderIndex(headerCells) {
     return {
         word: find('单词', '短语', 'word'),
         phonetic: find('音标', '发音'),
-        meaning: find('中文', '意思', '释义'),
+        meaning: find('中文', '意思', '释义', '解释'),
         example: find('例句'),
         practice: find('练习'),
     };

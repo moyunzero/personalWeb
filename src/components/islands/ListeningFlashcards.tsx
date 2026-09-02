@@ -136,7 +136,15 @@ export default function ListeningFlashcards({
     // focus is non-null when entries.length > 0
     const card = focus!;
     const hasVocab = card.vocab.length > 0;
-    const hasTakeaways = card.takeaways.trim().length > 0;
+    const sentenceLines = card.sentence
+        .split(/\n/)
+        .map((line) => line.trim())
+        .filter(Boolean);
+    const takeawayLines = card.takeaways
+        .split(/\n/)
+        .map((line) => line.trim())
+        .filter(Boolean);
+    const hasTakeaways = takeawayLines.length > 0;
     const youtubeUrl = card.youtubeUrl;
 
     return (
@@ -199,9 +207,19 @@ export default function ListeningFlashcards({
                 {revealed ? (
                     <div className="mt-6 grid grid-cols-1 gap-6 border-t border-zinc-800 pt-6 min-[840px]:grid-cols-[1.2fr_0.8fr]">
                         <div className="flex min-w-0 flex-col gap-4">
-                            <p className="border-l-2 border-sky-500/60 bg-sky-500/5 py-3 pl-4 font-serif text-sm italic leading-normal text-sky-100">
-                                {card.sentence}
-                            </p>
+                            {sentenceLines.length === 1 ? (
+                                <p className="border-l-2 border-sky-500/60 bg-sky-500/5 py-3 pl-4 font-serif text-sm italic leading-normal text-sky-100">
+                                    {sentenceLines[0]}
+                                </p>
+                            ) : (
+                                <ol className="list-decimal border-l-2 border-sky-500/60 bg-sky-500/5 py-3 pl-9 font-serif text-sm italic leading-normal text-sky-100 marker:text-sky-400/80">
+                                    {sentenceLines.map((line, i) => (
+                                        <li key={`s-${i}`} className="pl-1">
+                                            {line}
+                                        </li>
+                                    ))}
+                                </ol>
+                            )}
                             {hasVocab ? (
                                 <table className="w-full border-collapse text-left text-sm text-zinc-300">
                                     <thead>
@@ -237,9 +255,13 @@ export default function ListeningFlashcards({
                         </div>
                         <div className="flex min-w-0 flex-col gap-4">
                             {hasTakeaways ? (
-                                <p className="whitespace-pre-wrap text-sm leading-normal text-zinc-300">
-                                    {card.takeaways}
-                                </p>
+                                <ol className="list-decimal space-y-2 pl-5 text-sm leading-normal text-zinc-300 marker:font-semibold marker:text-sky-400/90">
+                                    {takeawayLines.map((line, i) => (
+                                        <li key={`t-${i}`} className="pl-1">
+                                            {line}
+                                        </li>
+                                    ))}
+                                </ol>
                             ) : null}
                             {youtubeUrl ? (
                                 <a

@@ -274,6 +274,40 @@ describe('ListeningFlashcards', () => {
         ).toBe('false');
     });
 
+    it('renders multi-line sentence and takeaways as numbered lists', async () => {
+        const user = userEvent.setup();
+        const entry = {
+            ...loadEntry('entry-full-reveal.json'),
+            sentence: "Jerry, what time do you have?\nI have 5 o'clock.",
+            takeaways:
+                'Similar sound linking（相似音连读）。\nH-cancellation（H 音脱落）。',
+        };
+
+        render(
+            createElement(ListeningFlashcards, {
+                entries: [entry],
+                baseUrl: '/personalWeb/',
+            }),
+        );
+
+        await user.click(screen.getByRole('button', { name: '揭晓' }));
+
+        expect(screen.getByText('Jerry, what time do you have?')).toBeTruthy();
+        expect(screen.getByText("I have 5 o'clock.")).toBeTruthy();
+        expect(
+            screen.getByText('Similar sound linking（相似音连读）。'),
+        ).toBeTruthy();
+        expect(screen.getByText('H-cancellation（H 音脱落）。')).toBeTruthy();
+
+        const lists = screen.getAllByRole('list');
+        // stage sentence ol + takeaways ol (+ rail may not use list role for cards — ul has list)
+        expect(lists.length).toBeGreaterThanOrEqual(2);
+        const stageLists = lists.filter((el) => el.tagName === 'OL');
+        expect(stageLists).toHaveLength(2);
+        expect(stageLists[0].querySelectorAll('li')).toHaveLength(2);
+        expect(stageLists[1].querySelectorAll('li')).toHaveLength(2);
+    });
+
     it('omits empty vocab table, takeaways block, and YouTube when absent (REVEAL-01, REVEAL-02)', async () => {
         const user = userEvent.setup();
         const entry = loadEntry('valid-entry.json');
