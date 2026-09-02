@@ -4,7 +4,7 @@
 import { createElement } from 'react';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ListeningFlashcards from '../src/components/islands/ListeningFlashcards';
@@ -17,6 +17,7 @@ function loadEntry(name: string) {
 
 afterEach(() => {
     cleanup();
+    vi.restoreAllMocks();
 });
 
 describe('ListeningFlashcards', () => {
@@ -85,5 +86,52 @@ describe('ListeningFlashcards', () => {
         expect(layout).toMatch(/footerCredit\??:\s*string/);
         expect(layout).toMatch(/footerCredit/);
         expect(page).toContain('语音：Piper · en_US-amy-medium · CC BY-SA');
+    });
+
+    it('enables play/replay with BASE_URL audio and no autoplay (D-07, D-08, LISTEN-02)', async () => {
+        const user = userEvent.setup();
+        const entry = loadEntry('entry-with-audio.json');
+        const playSpy = vi
+            .spyOn(HTMLMediaElement.prototype, 'play')
+            .mockResolvedValue(undefined);
+        const pauseSpy = vi
+            .spyOn(HTMLMediaElement.prototype, 'pause')
+            .mockImplementation(() => {});
+
+        render(
+            createElement(ListeningFlashcards, {
+                entries: [entry],
+                baseUrl: '/personalWeb/',
+            }),
+        );
+
+        const audio = document.querySelector('audio');
+        expect(audio).toBeTruthy();
+        expect(audio?.getAttribute('src')).toBe(
+            `/personalWeb/${entry.audioSrc}`,
+        );
+        expect(playSpy).not.toHaveBeenCalled();
+
+        const playBtn = screen.getByRole('button', { name: '播放' });
+        expect(playBtn).not.toBeDisabled();
+        const replayBtn = screen.getByRole('button', { name: '重播' });
+        expect(replayBtn).not.toBeDisabled();
+
+        await user.click(playBtn);
+        expect(playSpy).toHaveBeenCalledTimes(1);
+        expect(screen.getByRole('button', { name: '暂停' })).toBeTruthy();
+
+        await user.click(screen.getByRole('button', { name: '暂停' }));
+        expect(pauseSpy).toHaveBeenCalled();
+        expect(screen.getByRole('button', { name: '播放' })).toBeTruthy();
+
+        Object.defineProperty(audio!, 'currentTime', {
+            configurable: true,
+            writable: true,
+            value: 12,
+        });
+        await user.click(replayBtn);
+        expect(audio!.currentTime).toBe(0);
+        expect(playSpy.mock.calls.length).toBeGreaterThanOrEqual(2);
     });
 });
