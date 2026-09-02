@@ -93,6 +93,11 @@ tools/piper-venv/
 *.onnx
 *.onnx.json
 **/listening-tts-scratch/
+# Local Piper smoke artifact (no matching content/listening JSON)
+public/audio/listening/smoke-local.mp3
+
+# GSD runtime sentinels (local only)
+.gsd/
 
 # Notion sync / UAT scratch image dirs (empty placeholders from automation runs)
 public/images/blog/**/*uat*/
