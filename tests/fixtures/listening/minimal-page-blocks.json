@@ -1,0 +1,74 @@
+{
+  "withSummaryHeading": [
+    {
+      "object": "block",
+      "id": "block-h1",
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [{ "type": "text", "plain_text": "内容摘要", "href": null }]
+      }
+    },
+    {
+      "object": "block",
+      "id": "block-p-summary",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "plain_text": "The summary English sentence comes first.",
+            "href": null
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "block-p-other",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "plain_text": "Another English paragraph later on the page.",
+            "href": null
+          }
+        ]
+      }
+    }
+  ],
+  "fallbackFirstEnglish": [
+    {
+      "object": "block",
+      "id": "block-zh",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [{ "type": "text", "plain_text": "这是中文说明，不是目标句。", "href": null }]
+      }
+    },
+    {
+      "object": "block",
+      "id": "block-en",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "plain_text": "Fallback English paragraph when summary heading is missing.",
+            "href": null
+          }
+        ]
+      }
+    }
+  ],
+  "noEnglish": [
+    {
+      "object": "block",
+      "id": "block-only-zh",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [{ "type": "text", "plain_text": "只有中文，没有英文段落。", "href": null }]
+      }
+    }
+  ]
+}
