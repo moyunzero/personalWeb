@@ -1,0 +1,69 @@
+# Sync listening cards from Notion + Piper TTS (manual only — D-11 / D-14)
+name: Sync listening from Notion
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install ffmpeg + Piper
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          python3 -m pip install --user 'piper-tts==1.7.0'
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Cache Piper voices
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/piper
+          key: piper-voices-en_US-amy-medium-v1
+
+      - name: Download voice if missing
+        run: |
+          mkdir -p "$HOME/.cache/piper"
+          if [ ! -f "$HOME/.cache/piper/en_US-amy-medium.onnx" ]; then
+            python3 -m piper.download_voices en_US-amy-medium --data-dir "$HOME/.cache/piper"
+          fi
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Sync listening
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_LISTENING_DATABASE_ID: ${{ secrets.NOTION_LISTENING_DATABASE_ID }}
+          PIPER_DATA_DIR: /home/runner/.cache/piper
+          PIPER_VOICE: en_US-amy-medium
+        run: yarn listening:sync --all
+
+      - name: Commit artifacts only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add content/listening public/audio/listening
+          if git diff --staged --quiet; then
+            echo "No listening changes"
+            exit 0
+          fi
+          git commit -m "listening: sync from Notion"
+          git push
