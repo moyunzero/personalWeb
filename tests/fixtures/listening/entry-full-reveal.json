@@ -1,0 +1,25 @@
+{
+  "id": "cccccccc-dddd-eeee-ffff-000000000001",
+  "date": "2026-09-03",
+  "title": "Full reveal listening card",
+  "sentence": "Clarity comes from deliberate listening practice.",
+  "vocab": [
+    {
+      "word": "clarity",
+      "phonetic": "/ˈklærəti/",
+      "meaning": "清晰；明晰",
+      "example": "She spoke with clarity.",
+      "practice": "Say it slowly."
+    },
+    {
+      "word": "deliberate",
+      "phonetic": "/dɪˈlɪbərət/",
+      "meaning": "刻意的；慎重的",
+      "example": "A deliberate pause.",
+      "practice": "Use it in a sentence."
+    }
+  ],
+  "takeaways": "Slow down. Notice stress patterns. Replay the hard bits.",
+  "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "notionSyncedAt": "2026-09-03T12:00:00.000Z"
+}

@@ -204,4 +204,69 @@ describe('ListeningFlashcards', () => {
         await user.click(screen.getByRole('button', { name: '揭晓' }));
         expect(screen.getByText(entry.sentence)).toBeTruthy();
     });
+
+    it('full reveal shows sentence, vocab table, takeaways, and YouTube outbound (REVEAL-01, REVEAL-02)', async () => {
+        const user = userEvent.setup();
+        const entry = loadEntry('entry-full-reveal.json');
+
+        render(
+            createElement(ListeningFlashcards, {
+                entries: [entry],
+                baseUrl: '/personalWeb/',
+            }),
+        );
+
+        const revealBtn = screen.getByRole('button', { name: '揭晓' });
+        expect(revealBtn.getAttribute('aria-expanded')).toBe('false');
+
+        await user.click(revealBtn);
+
+        expect(screen.getByText(entry.sentence)).toBeTruthy();
+        expect(screen.getByRole('columnheader', { name: '词' })).toBeTruthy();
+        expect(screen.getByRole('columnheader', { name: '音标' })).toBeTruthy();
+        expect(screen.getByRole('columnheader', { name: '释义' })).toBeTruthy();
+        expect(screen.getByText('clarity')).toBeTruthy();
+        expect(screen.getByText('/ˈklærəti/')).toBeTruthy();
+        expect(screen.getByText('清晰；明晰')).toBeTruthy();
+        expect(screen.getByText(entry.takeaways)).toBeTruthy();
+
+        const yt = screen.getByRole('link', { name: /在 YouTube 听/ });
+        expect(yt.getAttribute('href')).toBe(entry.youtubeUrl);
+        expect(yt.getAttribute('target')).toBe('_blank');
+        expect(yt.getAttribute('rel') ?? '').toContain('noopener');
+
+        expect(
+            screen.getByRole('button', { name: '收起' }).getAttribute(
+                'aria-expanded',
+            ),
+        ).toBe('true');
+
+        await user.click(screen.getByRole('button', { name: '收起' }));
+        expect(screen.queryByText(entry.sentence)).toBeNull();
+        expect(screen.queryByRole('link', { name: /在 YouTube 听/ })).toBeNull();
+        expect(
+            screen.getByRole('button', { name: '揭晓' }).getAttribute(
+                'aria-expanded',
+            ),
+        ).toBe('false');
+    });
+
+    it('omits empty vocab table, takeaways block, and YouTube when absent (REVEAL-01, REVEAL-02)', async () => {
+        const user = userEvent.setup();
+        const entry = loadEntry('valid-entry.json');
+
+        render(
+            createElement(ListeningFlashcards, {
+                entries: [entry],
+                baseUrl: '/personalWeb/',
+            }),
+        );
+
+        await user.click(screen.getByRole('button', { name: '揭晓' }));
+
+        expect(screen.getByText(entry.sentence)).toBeTruthy();
+        expect(screen.queryByRole('columnheader', { name: '词' })).toBeNull();
+        expect(screen.queryByRole('table')).toBeNull();
+        expect(screen.queryByRole('link', { name: /在 YouTube 听/ })).toBeNull();
+    });
 });
