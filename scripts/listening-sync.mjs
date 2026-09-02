@@ -16,7 +16,7 @@
  *   yarn listening:sync --page <page_id>   # 仅同步单页
  *   yarn listening:sync --dry-run          # 预览不写文件 / 不删除
  *
- * TTS / Piper 在 02-04；本脚本不生成 mp3。
+ * TTS: Piper + ffmpeg via synthesizeListeningMp3（失败仍写 JSON，无 audioSrc）。
  */
 import { access, mkdir, readFile, readdir, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -35,6 +35,7 @@ import {
     isListeningDone,
     parseListeningDoneStatuses,
 } from './lib/listening-status.mjs';
+import { synthesizeListeningMp3 } from './lib/listening-tts.mjs';
 import { getDate, getEnv, getTitle, getUrl } from './lib/notion-helpers.mjs';
 import { sleep, withRetry } from './lib/retry.mjs';
 
@@ -326,6 +327,24 @@ async function syncPage(page, ctx) {
         return { skipped: true };
     }
 
+    /** @type {Record<string, unknown>} */
+    let payload = { ...validation.data };
+
+    if (!dryRun) {
+        const tts = synthesizeListeningMp3({
+            id: pageId,
+            sentence: validation.data.sentence,
+            outDir: AUDIO_DIR,
+        });
+        if (tts.ok) {
+            payload = { ...payload, audioSrc: tts.audioSrc };
+            console.log(`  ✓ TTS ${tts.audioSrc}`);
+        } else {
+            // SYNC-02 soft-fail: publish JSON without audioSrc
+            console.warn(`  ⚠ TTS 失败，继续写 JSON（无 audioSrc）: ${tts.error}`);
+        }
+    }
+
     const outPath = path.join(JSON_DIR, `${pageId}.json`);
 
     if (dryRun) {
@@ -334,7 +353,7 @@ async function syncPage(page, ctx) {
     }
 
     await mkdir(JSON_DIR, { recursive: true });
-    await writeFile(outPath, `${JSON.stringify(validation.data, null, 2)}\n`, 'utf8');
+    await writeFile(outPath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
     console.log(`  ✓ 已写入 ${path.relative(root, outPath)}`);
     return { skipped: false };
 }
@@ -472,7 +491,7 @@ async function main() {
         console.log('\n下一步:');
         console.log('  yarn listening:sync --dry-run   # 预览');
         console.log('  git add content/listening public/audio/listening');
-        console.log('  # TTS / Piper 见 02-04');
+        console.log('  # 勿提交 *.onnx / Piper cache（D-09）');
     }
 }
 
