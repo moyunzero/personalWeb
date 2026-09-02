@@ -5,7 +5,7 @@ import { createElement } from 'react';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ListeningFlashcards from '../src/components/islands/ListeningFlashcards';
 
@@ -133,5 +133,75 @@ describe('ListeningFlashcards', () => {
         await user.click(replayBtn);
         expect(audio!.currentTime).toBe(0);
         expect(playSpy.mock.calls.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it('disables play and 重播 when audioSrc is missing; 揭晓 still works (D-08, LISTEN-02)', async () => {
+        const user = userEvent.setup();
+        const entry = loadEntry('valid-entry.json');
+        expect(entry.audioSrc).toBeUndefined();
+
+        render(
+            createElement(ListeningFlashcards, {
+                entries: [entry],
+                baseUrl: '/personalWeb/',
+            }),
+        );
+
+        expect(document.querySelector('audio')).toBeNull();
+        expect(
+            (screen.getByRole('button', { name: '播放' }) as HTMLButtonElement)
+                .disabled,
+        ).toBe(true);
+        expect(
+            (screen.getByRole('button', { name: '重播' }) as HTMLButtonElement)
+                .disabled,
+        ).toBe(true);
+        expect(
+            (screen.getByRole('button', { name: '揭晓' }) as HTMLButtonElement)
+                .disabled,
+        ).toBe(false);
+
+        await user.click(screen.getByRole('button', { name: '揭晓' }));
+        expect(screen.getByText(entry.sentence)).toBeTruthy();
+    });
+
+    it('disables play and 重播 after audio media error; 揭晓 still works (D-08, LISTEN-02)', async () => {
+        const user = userEvent.setup();
+        const entry = loadEntry('entry-with-audio.json');
+        vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue(
+            undefined,
+        );
+
+        render(
+            createElement(ListeningFlashcards, {
+                entries: [entry],
+                baseUrl: '/personalWeb/',
+            }),
+        );
+
+        const audio = document.querySelector('audio');
+        expect(audio).toBeTruthy();
+        expect(
+            (screen.getByRole('button', { name: '播放' }) as HTMLButtonElement)
+                .disabled,
+        ).toBe(false);
+
+        fireEvent.error(audio!);
+
+        expect(
+            (screen.getByRole('button', { name: '播放' }) as HTMLButtonElement)
+                .disabled,
+        ).toBe(true);
+        expect(
+            (screen.getByRole('button', { name: '重播' }) as HTMLButtonElement)
+                .disabled,
+        ).toBe(true);
+        expect(
+            (screen.getByRole('button', { name: '揭晓' }) as HTMLButtonElement)
+                .disabled,
+        ).toBe(false);
+
+        await user.click(screen.getByRole('button', { name: '揭晓' }));
+        expect(screen.getByText(entry.sentence)).toBeTruthy();
     });
 });
