@@ -41,6 +41,10 @@ yarn assets:spectacle
 yarn blog:new "标题" --categories note
 yarn notion:sync
 
+# Listening sync (manual / Actions workflow_dispatch only — not in yarn build; D-14)
+yarn listening:sync
+yarn listening:sync --all
+
 # SEO / production smoke (local; seo:index-check is not in CI)
 yarn verify:prod
 yarn seo:index-check
