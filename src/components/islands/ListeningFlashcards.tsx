@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ListeningEntry } from '../../lib/listening';
 
 export interface ListeningFlashcardsProps {
@@ -9,13 +9,72 @@ export interface ListeningFlashcardsProps {
 
 /**
  * Single /listening/ island: empty state + focus stage with sentence 揭晓/收起
- * (D-01…D-06 sentence path). Audio + rail expand in later plans.
+ * and native mp3 play/pause/重播 (D-01…D-09 audio + sentence path).
  */
 export default function ListeningFlashcards({
     entries,
+    baseUrl,
 }: ListeningFlashcardsProps) {
     // Newest is first after getListeningEntries sort (D-03).
     const [revealed, setRevealed] = useState(false);
+    const [playing, setPlaying] = useState(false);
+    const [audioBroken, setAudioBroken] = useState(false);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
+    const focus = entries.length > 0 ? entries[0] : null;
+    const audioSrc = focus?.audioSrc;
+    const hasAudio = Boolean(audioSrc) && !audioBroken;
+    const resolvedSrc =
+        audioSrc != null ? `${baseUrl}${audioSrc}` : undefined;
+
+    useEffect(() => {
+        setAudioBroken(false);
+        setPlaying(false);
+        const el = audioRef.current;
+        if (el) {
+            el.pause();
+            el.currentTime = 0;
+        }
+    }, [audioSrc]);
+
+    const onPlayPause = useCallback(async () => {
+        const el = audioRef.current;
+        if (!el || !hasAudio) return;
+        if (playing) {
+            el.pause();
+            setPlaying(false);
+            return;
+        }
+        try {
+            await el.play();
+            setPlaying(true);
+        } catch {
+            setAudioBroken(true);
+            setPlaying(false);
+        }
+    }, [hasAudio, playing]);
+
+    const onReplay = useCallback(async () => {
+        const el = audioRef.current;
+        if (!el || !hasAudio) return;
+        el.currentTime = 0;
+        try {
+            await el.play();
+            setPlaying(true);
+        } catch {
+            setAudioBroken(true);
+            setPlaying(false);
+        }
+    }, [hasAudio]);
+
+    const onAudioEnded = useCallback(() => {
+        setPlaying(false);
+    }, []);
+
+    const onAudioError = useCallback(() => {
+        setAudioBroken(true);
+        setPlaying(false);
+    }, []);
 
     if (entries.length === 0) {
         return (
@@ -30,7 +89,8 @@ export default function ListeningFlashcards({
         );
     }
 
-    const focus = entries[0];
+    // focus is non-null when entries.length > 0
+    const card = focus!;
 
     return (
         <div className="mx-auto flex max-w-[min(52rem,100%)] flex-col gap-6">
@@ -42,9 +102,43 @@ export default function ListeningFlashcards({
                     正在练习
                 </p>
                 <h1 className="mt-2 text-[clamp(1.625rem,4vw,2.0625rem)] font-semibold leading-[1.15] tracking-[-0.035em] text-zinc-50">
-                    {focus.title}
+                    {card.title}
                 </h1>
+                {resolvedSrc ? (
+                    <audio
+                        ref={audioRef}
+                        src={resolvedSrc}
+                        preload="metadata"
+                        onEnded={onAudioEnded}
+                        onError={onAudioError}
+                    />
+                ) : null}
                 <div className="mt-6 flex flex-wrap items-center gap-3">
+                    <button
+                        type="button"
+                        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-sky-600/70 bg-sky-500/15 text-sky-200 transition-colors hover:border-sky-400 hover:bg-sky-500/25 disabled:cursor-not-allowed disabled:opacity-[0.35] disabled:hover:border-sky-600/70 disabled:hover:bg-sky-500/15"
+                        aria-label={playing ? '暂停' : '播放'}
+                        disabled={!hasAudio}
+                        title={!hasAudio ? '暂无音频' : undefined}
+                        onClick={() => {
+                            void onPlayPause();
+                        }}
+                    >
+                        <span aria-hidden="true" className="text-lg font-semibold">
+                            {playing ? '❚❚' : '▶'}
+                        </span>
+                    </button>
+                    <button
+                        type="button"
+                        className="rounded-lg border border-sky-700/60 px-3 py-1.5 text-sm font-semibold text-sky-300 transition-colors hover:border-sky-500 hover:text-sky-200 disabled:cursor-not-allowed disabled:opacity-[0.35] disabled:hover:border-sky-700/60 disabled:hover:text-sky-300"
+                        disabled={!hasAudio}
+                        title={!hasAudio ? '暂无音频' : undefined}
+                        onClick={() => {
+                            void onReplay();
+                        }}
+                    >
+                        重播
+                    </button>
                     <button
                         type="button"
                         className="rounded-lg border border-sky-700/60 px-3 py-1.5 text-sm font-semibold text-sky-300 transition-colors hover:border-sky-500 hover:text-sky-200"
@@ -57,7 +151,7 @@ export default function ListeningFlashcards({
                 {revealed ? (
                     <div className="mt-6 border-t border-zinc-800 pt-6">
                         <p className="border-l-2 border-sky-500/60 bg-sky-500/5 py-3 pl-4 font-serif text-sm italic leading-normal text-sky-100">
-                            {focus.sentence}
+                            {card.sentence}
                         </p>
                     </div>
                 ) : null}

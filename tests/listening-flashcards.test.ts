@@ -113,9 +113,9 @@ describe('ListeningFlashcards', () => {
         expect(playSpy).not.toHaveBeenCalled();
 
         const playBtn = screen.getByRole('button', { name: '播放' });
-        expect(playBtn).not.toBeDisabled();
+        expect((playBtn as HTMLButtonElement).disabled).toBe(false);
         const replayBtn = screen.getByRole('button', { name: '重播' });
-        expect(replayBtn).not.toBeDisabled();
+        expect((replayBtn as HTMLButtonElement).disabled).toBe(false);
 
         await user.click(playBtn);
         expect(playSpy).toHaveBeenCalledTimes(1);
