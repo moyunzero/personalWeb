@@ -5,6 +5,7 @@
  * Env (local/CI only — never PUBLIC_*):
  *   PIPER_VOICE     — default en_US-amy-medium (D-08)
  *   PIPER_DATA_DIR  — voice cache dir (default ~/.cache/piper)
+ *   PIPER_PYTHON    — optional python that has `piper` (else prefer tools/piper-venv)
  */
 import { spawnSync } from 'node:child_process';
 import {
@@ -15,8 +16,29 @@ import {
 } from 'node:fs';
 import { homedir } from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const DEFAULT_VOICE = 'en_US-amy-medium';
+const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+
+/**
+ * Prefer repo `tools/piper-venv` so `yarn listening:sync` works without PATH hacks.
+ * @param {string} [repoRoot]
+ * @param {NodeJS.ProcessEnv} [env]
+ * @returns {string}
+ */
+export function resolvePiperPython(repoRoot = REPO_ROOT, env = process.env) {
+    const fromEnv = typeof env.PIPER_PYTHON === 'string' ? env.PIPER_PYTHON.trim() : '';
+    if (fromEnv) return fromEnv;
+
+    const venvPython = path.join(repoRoot, 'tools/piper-venv/bin/python3');
+    if (existsSync(venvPython)) return venvPython;
+
+    const venvPythonAlt = path.join(repoRoot, 'tools/piper-venv/bin/python');
+    if (existsSync(venvPythonAlt)) return venvPythonAlt;
+
+    return 'python3';
+}
 
 /**
  * @param {import('node:child_process').SpawnSyncReturns<string>} result
@@ -46,6 +68,7 @@ function spawnError(result, label) {
  *   outDir: string,
  *   voice?: string,
  *   dataDir?: string,
+ *   pythonBin?: string,
  * }} opts
  * @returns {{ ok: true, audioSrc: string } | { ok: false, error: string }}
  */
@@ -72,6 +95,9 @@ export function synthesizeListeningMp3(opts) {
         (typeof opts.dataDir === 'string' && opts.dataDir.trim()) ||
         process.env.PIPER_DATA_DIR ||
         path.join(homedir(), '.cache', 'piper');
+    const pythonBin =
+        (typeof opts.pythonBin === 'string' && opts.pythonBin.trim()) ||
+        resolvePiperPython();
 
     const audioSrc = `audio/listening/${id}.mp3`;
     const mp3Path = path.join(outDir, `${id}.mp3`);
@@ -85,7 +111,7 @@ export function synthesizeListeningMp3(opts) {
         mkdirSync(scratchDir, { recursive: true });
 
         const piper = spawnSync(
-            'python3',
+            pythonBin,
             [
                 '-m',
                 'piper',
