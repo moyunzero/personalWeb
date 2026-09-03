@@ -143,15 +143,14 @@ NOTION_DATABASE_ID=…                 # 博客库（双库校验仍需要）
 NOTION_LISTENING_DATABASE_ID=…       # 听力库
 ```
 
-4. （可选，本机有声）准备 Piper：仓库已有 `tools/piper-venv/` 时，同步时把该 `bin` 放进 `PATH`（系统 `python3` 往往没有 `piper` 模块）。TTS 失败仍会写 JSON，卡片可揭晓，只是播放禁用。
+4. （可选，本机有声）准备 Piper：在仓库创建 `tools/piper-venv` 并安装 `piper-tts`（gitignore，勿提交）。`yarn listening:sync` 会**自动**优先用该 venv 的 python；也可设 `PIPER_PYTHON`。无 Piper 时仍写 JSON，卡片可揭晓，只是播放禁用。
 
 默认只同步「打卡状态 = 完成」的页；正文需有「内容」/「内容摘要」下的英文句；词汇表列名支持「解释」→ 卡片「释义」。
 
 ### 一键日常同步（推荐）
 
 ```bash
-# 全量：拉全部「完成」页 + 生成/更新 mp3（若 Piper 可用）
-PATH="$(pwd)/tools/piper-venv/bin:$PATH" yarn listening:sync --all
+yarn listening:sync --all
 
 # 提交产物（勿提交 .onnx / piper-venv / listening-tts-scratch）
 git add content/listening public/audio/listening
