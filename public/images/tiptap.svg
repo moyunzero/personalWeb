@@ -1,0 +1,16 @@
+<svg role="img" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <title>Tiptap</title>
+  <!-- Official mark: five horizontal bars forming a circle (from tiptap.dev webclip) -->
+  <defs>
+    <clipPath id="tiptap-disk">
+      <circle cx="20" cy="20" r="16" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tiptap-disk)" fill="#FFFFFF">
+    <rect x="4" y="5.5" width="32" height="3.6" rx="1.8" />
+    <rect x="4" y="11.7" width="32" height="3.6" rx="1.8" />
+    <rect x="4" y="17.9" width="32" height="4.2" rx="2.1" />
+    <rect x="4" y="24.7" width="32" height="3.6" rx="1.8" />
+    <rect x="4" y="30.9" width="32" height="3.6" rx="1.8" />
+  </g>
+</svg>

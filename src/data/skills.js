@@ -102,6 +102,12 @@ export const skills = [
         level: 2
     },
     {
+        imgSrc: `${base}images/tiptap.svg`,
+        label: 'Tiptap',
+        desc: '无头富文本编辑器',
+        level: 1
+    },
+    {
         imgSrc: `${base}images/langchain.svg`,
         label: 'LangChain',
         desc: 'AI 应用开发',

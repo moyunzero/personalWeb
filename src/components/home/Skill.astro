@@ -1,5 +1,11 @@
 ---
 import { skills } from '../../data/skills';
+
+const rowA = skills.filter((_, i) => i % 2 === 0);
+const rowB = skills.filter((_, i) => i % 2 === 1);
+
+const levelClass = (level: number) =>
+    level === 3 ? 'pulse-level-3' : level === 2 ? 'pulse-level-2' : 'pulse-level-1';
 ---
 
 <section id="skill" class="section">
@@ -8,30 +14,161 @@ import { skills } from '../../data/skills';
         <p class="text-zinc-400 mt-3 mb-8 max-w-[50ch] reveal-up">
             从 CRUD 到 AI，持续探索中
         </p>
-        <div class="grid gap-3 grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))]">
+
+        <div class="skill-ribbons reveal-up">
+            <div class="skill-fade skill-fade-l" aria-hidden="true"></div>
+            <div class="skill-fade skill-fade-r" aria-hidden="true"></div>
+
             {
-                skills.map(({ imgSrc, label, desc, level }) => {
-                    const levelClass =
-                        level === 3 ? 'pulse-level-3' : level === 2 ? 'pulse-level-2' : 'pulse-level-1';
-                    return (
-                        <div
-                            class={`p-4 rounded-2xl bg-zinc-800 ring-1 ring-inset ring-zinc-50/5 transition-all duration-300 group hover:scale-[1.02] ${levelClass} reveal-up`}
-                        >
-                            <div class="relative z-10 flex items-center gap-4">
-                                <figure
-                                    class="img-box w-11 h-11 rounded-lg grid place-items-center bg-zinc-900/60 group-hover:scale-110 transition-transform duration-300"
+                [rowA, rowB].map((row, rowIndex) => (
+                    <div
+                        class:list={['skill-ribbon', rowIndex === 1 && 'skill-ribbon-reverse']}
+                    >
+                        <div class="skill-track">
+                            {[0, 1].map((copy) => (
+                                <div
+                                    class="skill-track-set"
+                                    aria-hidden={copy === 1 ? 'true' : undefined}
                                 >
-                                    <img src={imgSrc} alt={label} width="24" height="24" />
-                                </figure>
-                                <div>
-                                    <h3 class="title-1 mb-1">{label}</h3>
-                                    <p class="text-sm text-zinc-400">{desc}</p>
+                                    {row.map(({ imgSrc, label, desc, level }) => (
+                                        <div
+                                            class:list={[
+                                                'skill-card p-4 rounded-2xl bg-zinc-800 ring-1 ring-inset ring-zinc-50/5 transition-all duration-300 group hover:scale-[1.02]',
+                                                levelClass(level),
+                                            ]}
+                                        >
+                                            <div class="relative z-10 flex items-center gap-4">
+                                                <figure class="img-box w-11 h-11 rounded-lg grid place-items-center bg-zinc-900/60 group-hover:scale-110 transition-transform duration-300">
+                                                    <img
+                                                        src={imgSrc}
+                                                        alt={copy === 0 ? label : ''}
+                                                        width="24"
+                                                        height="24"
+                                                    />
+                                                </figure>
+                                                <div>
+                                                    <h3 class="title-1 mb-1">{label}</h3>
+                                                    <p class="text-sm text-zinc-400">{desc}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                            </div>
+                            ))}
                         </div>
-                    );
-                })
+                    </div>
+                ))
             }
         </div>
     </div>
 </section>
+
+<style>
+    .skill-ribbons {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding-block: 0.25rem;
+    }
+
+    .skill-fade {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: min(4.5rem, 12vw);
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .skill-fade-l {
+        left: 0;
+        background: linear-gradient(90deg, #05060f, transparent);
+    }
+
+    .skill-fade-r {
+        right: 0;
+        background: linear-gradient(270deg, #05060f, transparent);
+    }
+
+    .skill-ribbon {
+        overflow: hidden;
+        /* room for pulse box-shadow so overflow does not clip the glow */
+        padding-block: 0.75rem;
+    }
+
+    .skill-track {
+        display: flex;
+        width: max-content;
+        animation: skill-marquee 42s linear infinite;
+    }
+
+    .skill-ribbon-reverse .skill-track {
+        animation-duration: 48s;
+        animation-direction: reverse;
+    }
+
+    .skill-ribbon:hover .skill-track {
+        animation-play-state: paused;
+    }
+
+    .skill-track-set {
+        display: flex;
+        gap: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .skill-card {
+        flex: 0 0 auto;
+        width: 15.5rem;
+    }
+
+    .skill-card:hover {
+        position: relative;
+        z-index: 1;
+    }
+
+    @keyframes skill-marquee {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .skill-ribbons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .skill-fade {
+            display: none;
+        }
+
+        .skill-ribbon {
+            display: contents;
+            overflow: visible;
+        }
+
+        .skill-track {
+            display: contents;
+            animation: none;
+        }
+
+        .skill-track-set {
+            display: contents;
+            padding-right: 0;
+        }
+
+        .skill-track-set[aria-hidden='true'] {
+            display: none;
+        }
+
+        .skill-card {
+            width: auto;
+        }
+    }
+</style>
