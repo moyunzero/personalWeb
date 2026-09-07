@@ -12,7 +12,7 @@ tags:
   - AutoGen
 draft: false
 notionId: 3d2df5c0-26f4-8029-ba1c-d4de7fe2244d
-notionSyncedAt: 2026-09-05T09:59:18.585Z
+notionSyncedAt: 2026-09-07T12:03:27.711Z
 ---
 
 路线表里常写 `ConversableAgent`、`GroupChat`——那是 **AutoGen v0.2** 时代的名字。
