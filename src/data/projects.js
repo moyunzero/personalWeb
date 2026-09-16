@@ -41,6 +41,12 @@ export const projects = [
         projectLink: 'https://apps.apple.com/us/app/%E5%82%BB%E4%BA%86%E4%B9%88/id6770218110'
     },
     {
+        imgSrc: `${base}images/keelbook.png`,
+        title: 'KeelBook',
+        tags: ['ReactNative', 'Expo', 'TypeScript'],
+        projectLink: 'https://apps.apple.com/us/app/keelbook/id6809275407'
+    },
+    {
         imgSrc: `${base}images/salary.png`,
         title: '薪时宝',
         tags: ['微信小程序', '云开发', 'JavaScript'],
