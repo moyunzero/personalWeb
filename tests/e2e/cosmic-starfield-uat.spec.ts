@@ -6,11 +6,17 @@ function isStarfieldDownload(url: string): boolean {
     return /\/_astro\/CosmicStarfieldIsland\.|\/_astro\/three\.module\./.test(url);
 }
 
+function isHdrRequest(url: string): boolean {
+    return url.includes('hdr_blue_nebulae.hdr');
+}
+
 async function expectNarrowVisitStaysOnPoster(page: Page, width: number) {
     const hits: string[] = [];
+    const hdrHits: string[] = [];
     await page.setViewportSize({ width, height: 800 });
     page.on('request', (req) => {
         if (isStarfieldDownload(req.url())) hits.push(req.url());
+        if (isHdrRequest(req.url())) hdrHits.push(req.url());
     });
     await page.goto('./');
 
@@ -25,6 +31,7 @@ async function expectNarrowVisitStaysOnPoster(page: Page, width: number) {
 
     await page.waitForTimeout(2_000);
     expect(hits).toEqual([]);
+    expect(hdrHits).toEqual([]);
     await expect(page.locator('[data-cosmos-canvas]')).toHaveCount(0);
     await expect(page.locator('body')).toContainText('用代码创造有趣的东西');
 }
@@ -88,6 +95,7 @@ test.describe('Cosmic starfield home background (spec 0003)', () => {
     });
 
     test('reduced motion keeps poster and skips cosmos canvas (AC-5)', async ({ page }) => {
+        const hdrHits: string[] = [];
         await page.setViewportSize({ width: 1280, height: 800 });
         await page.addInitScript(() => {
             const orig = window.matchMedia.bind(window);
@@ -109,11 +117,15 @@ test.describe('Cosmic starfield home background (spec 0003)', () => {
                 return orig(query);
             }) as typeof window.matchMedia;
         });
+        page.on('request', (req) => {
+            if (isHdrRequest(req.url())) hdrHits.push(req.url());
+        });
         await page.goto('./');
         await expect(page.locator('[data-cosmos-fallback] img[src*="poster"]')).toBeAttached();
         await expect
             .poll(async () => page.locator('[data-cosmos-canvas]').count(), { timeout: 5_000 })
             .toBe(0);
+        expect(hdrHits).toEqual([]);
     });
 
     test('blog index and a post never load cosmos island or web assets (AC-6)', async ({ page }) => {
@@ -192,14 +204,26 @@ test.describe('Cosmic starfield home background (spec 0003)', () => {
 
     test('widening from 900 to 1280 hydrates the cosmos canvas (D-03)', async ({ page }) => {
         const hits: string[] = [];
+        const hdrHits: string[] = [];
+        const hdrBeforeCanvas: string[] = [];
+        const hdrChecks: Promise<void>[] = [];
         await page.emulateMedia({ reducedMotion: 'no-preference' });
         await page.setViewportSize({ width: 900, height: 800 });
         page.on('request', (req) => {
             if (isStarfieldDownload(req.url())) hits.push(req.url());
+            if (!isHdrRequest(req.url())) return;
+            hdrHits.push(req.url());
+            hdrChecks.push(
+                page.locator('[data-cosmos-canvas]').count().then((count) => {
+                    if (count === 0) hdrBeforeCanvas.push(req.url());
+                }),
+            );
         });
         await page.goto('./');
         await page.waitForTimeout(2_000);
+        await Promise.all(hdrChecks);
         expect(hits).toEqual([]);
+        expect(hdrHits).toEqual([]);
         await expect(page.locator('[data-cosmos-canvas]')).toHaveCount(0);
 
         await page.setViewportSize({ width: 1280, height: 800 });
@@ -214,6 +238,8 @@ test.describe('Cosmic starfield home background (spec 0003)', () => {
                 `canvas missing after widen; matchMedia('(min-width: 1024px)').matches=${matches}; ${err}`,
             );
         }
+        await Promise.all(hdrChecks);
+        expect(hdrBeforeCanvas).toEqual([]);
     });
 
     test('shrinking from 1280 to 800 keeps the cosmos canvas (D-04)', async ({ page }) => {
