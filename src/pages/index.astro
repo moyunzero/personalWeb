@@ -56,8 +56,8 @@ const posterUrl = `${import.meta.env.BASE_URL}threejs-assets/web/hdr_blue_nebula
         <ContactIsland client:visible />
     </main>
     <HomeFooter />
-    {/* Cosmos first among islands so import('three') wins bandwidth on cold start. */}
-    <CosmicStarfieldIsland client:load slot="background" />
+    {/* Narrow viewports do not load cosmos. At ≥1024px it still hydrates before client:idle islands. */}
+    <CosmicStarfieldIsland client:media="(min-width: 1024px)" slot="background" />
     <HomeMotion client:idle />
     <StatusSpectacleIsland client:idle />
     <MouseTrailIsland client:idle="react" />

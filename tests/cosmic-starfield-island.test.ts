@@ -488,15 +488,23 @@ describe('cosmos load performance wiring (AC-1, AC-7)', () => {
         expect(source).not.toMatch(/rel="prefetch"[^>]*hdr_blue_nebulae\.hdr/);
     });
 
-    // covers: AC-7 — cosmos client:load owns first-paint bandwidth; other islands idle
-    it('home mounts cosmos with client:load; defers game/motion/spectacle to idle', () => {
+    // covers: YIELD-01, YIELD-02, D-01 — literal media gate; other islands stay idle
+    it('home mounts cosmos with client:media; defers game/motion/spectacle to idle', () => {
         const source = readFileSync(indexPath, 'utf8');
-        expect(source).toMatch(/CosmicStarfieldIsland\s+client:load/);
+        expect(source).toMatch(/CosmicStarfieldIsland\s+client:media="\(min-width: 1024px\)"/);
+        expect(source).not.toMatch(/CosmicStarfieldIsland\s+client:load/);
+        expect(source).not.toMatch(/CosmicStarfieldIsland\s+client:visible/);
         expect(source).toMatch(/GameIsland\s+client:idle/);
         expect(source).toMatch(/HomeMotion\s+client:idle/);
         expect(source).toMatch(/StatusSpectacleIsland\s+client:idle/);
-        expect(source).not.toMatch(/CosmicStarfieldIsland\s+client:visible/);
         expect(source).not.toMatch(/GameIsland\s+client:load/);
+        expect(source).toMatch(/MouseTrailIsland\s+client:idle="react"/);
+    });
+
+    // covers: D-04 — unload gate must not live inside the island
+    it('island source has no 1024 min-width query', () => {
+        const source = readFileSync(islandPath, 'utf8');
+        expect(source).not.toMatch(/min-width[\s\S]{0,40}1024/);
     });
 });
 
