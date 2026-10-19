@@ -469,9 +469,41 @@ describe('solarSystemScene wiring (AC-1, AC-5)', () => {
 
     it('defers the HDR network fetch to idle so GH Pages bandwidth is not starved', () => {
         const scene = readFileSync(scenePath, 'utf8');
-        const hdrFn = scene.slice(scene.indexOf('function startHdrLoad'));
+        const exported = scene.indexOf('export function startHdrLoad');
+        const plain = scene.indexOf('function startHdrLoad');
+        const from = exported === -1 ? plain : exported;
+        const hdrFn = scene.slice(from);
         expect(hdrFn).toMatch(/requestIdleCallback/);
+        expect(hdrFn).toMatch(/didTimeout/);
         expect(hdrFn).toMatch(/hdr_blue_nebulae\.hdr/);
+        expect(hdrFn).toMatch(/HDRLoader/);
+        expect(hdrFn).toMatch(/three\/examples\/jsm\/loaders\/HDRLoader\.js/);
+        expect(hdrFn).not.toMatch(/requestIdleCallback\s*\([^)]*timeout/);
+        expect(hdrFn).not.toMatch(/setTimeout/);
+        const didTimeout = hdrFn.indexOf('didTimeout');
+        const loadAsync = hdrFn.indexOf('loadAsync');
+        expect(didTimeout).toBeGreaterThan(-1);
+        expect(loadAsync).toBeGreaterThan(didTimeout);
+        expect(hdrFn.slice(didTimeout, loadAsync)).toMatch(/return/);
+        expect(hdrFn).toMatch(/cancelIdleCallback/);
+        expect(hdrFn).toMatch(/dropped/);
+        expect(hdrFn).not.toMatch(/data-cosmos-fallback/);
+    });
+
+    it('fades the poster before HDR load and does not tie poster opacity to HDR', () => {
+        const source = readFileSync(islandPath, 'utf8');
+        const opacity = source.indexOf("fallback.style.opacity = '0'");
+        const hdr = source.indexOf('startHdrLoad(');
+        const loop = source.indexOf('startLoop()', opacity);
+        expect(opacity).toBeGreaterThan(-1);
+        expect(hdr).toBeGreaterThan(opacity);
+        expect(loop).toBeGreaterThan(opacity);
+
+        const scene = readFileSync(scenePath, 'utf8');
+        const hdrFn = scene.slice(scene.indexOf('function startHdrLoad'));
+        expect(hdrFn).not.toMatch(/\.then\([\s\S]*fallback\.style\.opacity/);
+        expect(hdrFn).not.toMatch(/catch[\s\S]*fallback\.style\.opacity/);
+        expect(hdrFn).not.toMatch(/data-cosmos-fallback/);
     });
 });
 
