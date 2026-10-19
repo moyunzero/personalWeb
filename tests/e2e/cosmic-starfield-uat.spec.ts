@@ -1,4 +1,33 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+
+/** Island and three chunks only. Poster assets under threejs-assets are not a starfield download. */
+function isStarfieldDownload(url: string): boolean {
+    if (url.includes('threejs-assets')) return false;
+    return /\/_astro\/CosmicStarfieldIsland\.|\/_astro\/three\.module\./.test(url);
+}
+
+async function expectNarrowVisitStaysOnPoster(page: Page, width: number) {
+    const hits: string[] = [];
+    await page.setViewportSize({ width, height: 800 });
+    page.on('request', (req) => {
+        if (isStarfieldDownload(req.url())) hits.push(req.url());
+    });
+    await page.goto('./');
+
+    const poster = page.locator('img[src*="hdr_blue_nebulae_poster"]');
+    await expect(poster).toBeVisible();
+
+    const fallback = page.locator('[data-cosmos-fallback]');
+    const inline = (await fallback.getAttribute('style')) ?? '';
+    expect(inline).not.toMatch(/opacity:\s*0/);
+    const opacity = await fallback.evaluate((el) => getComputedStyle(el).opacity);
+    expect(Number(opacity)).not.toBe(0);
+
+    await page.waitForTimeout(2_000);
+    expect(hits).toEqual([]);
+    await expect(page.locator('[data-cosmos-canvas]')).toHaveCount(0);
+    await expect(page.locator('body')).toContainText('用代码创造有趣的东西');
+}
 
 test.describe('Cosmic starfield home background (spec 0003)', () => {
     test('home SSR poster fallback is present (AC-1)', async ({ page }) => {
@@ -13,6 +42,7 @@ test.describe('Cosmic starfield home background (spec 0003)', () => {
     test('home head warms poster without early sun/HDR prefetch (AC-1, AC-7)', async ({
         page,
     }) => {
+        await page.setViewportSize({ width: 1280, height: 800 });
         await page.goto('./');
         const headLinks = await page.evaluate(() =>
             Array.from(document.head.querySelectorAll('link')).map((link) => ({
@@ -49,6 +79,7 @@ test.describe('Cosmic starfield home background (spec 0003)', () => {
     });
 
     test('home mounts cosmos canvas when motion is allowed (AC-1)', async ({ page }) => {
+        await page.setViewportSize({ width: 1280, height: 800 });
         await page.emulateMedia({ reducedMotion: 'no-preference' });
         await page.goto('./');
         const canvas = page.locator('[data-cosmos-canvas]');
@@ -57,6 +88,7 @@ test.describe('Cosmic starfield home background (spec 0003)', () => {
     });
 
     test('reduced motion keeps poster and skips cosmos canvas (AC-5)', async ({ page }) => {
+        await page.setViewportSize({ width: 1280, height: 800 });
         await page.addInitScript(() => {
             const orig = window.matchMedia.bind(window);
             window.matchMedia = ((query: string) => {
@@ -137,5 +169,24 @@ test.describe('Cosmic starfield home background (spec 0003)', () => {
         await expect
             .poll(async () => page.evaluate(() => window.scrollY), { timeout: 5_000 })
             .toBeGreaterThan(before);
+    });
+
+    test('412px visit stays on the poster without a starfield download (YIELD-01)', async ({
+        page,
+    }) => {
+        await expectNarrowVisitStaysOnPoster(page, 412);
+    });
+
+    test('900px visit stays on the poster without a starfield download (YIELD-01)', async ({
+        page,
+    }) => {
+        await expectNarrowVisitStaysOnPoster(page, 900);
+    });
+
+    test('1024px visit mounts the cosmos canvas (YIELD-02)', async ({ page }) => {
+        await page.setViewportSize({ width: 1024, height: 800 });
+        await page.emulateMedia({ reducedMotion: 'no-preference' });
+        await page.goto('./');
+        await expect(page.locator('[data-cosmos-canvas]')).toBeVisible({ timeout: 20_000 });
     });
 });
