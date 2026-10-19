@@ -189,4 +189,43 @@ test.describe('Cosmic starfield home background (spec 0003)', () => {
         await page.goto('./');
         await expect(page.locator('[data-cosmos-canvas]')).toBeVisible({ timeout: 20_000 });
     });
+
+    test('widening from 900 to 1280 hydrates the cosmos canvas (D-03)', async ({ page }) => {
+        const hits: string[] = [];
+        await page.emulateMedia({ reducedMotion: 'no-preference' });
+        await page.setViewportSize({ width: 900, height: 800 });
+        page.on('request', (req) => {
+            if (isStarfieldDownload(req.url())) hits.push(req.url());
+        });
+        await page.goto('./');
+        await page.waitForTimeout(2_000);
+        expect(hits).toEqual([]);
+        await expect(page.locator('[data-cosmos-canvas]')).toHaveCount(0);
+
+        await page.setViewportSize({ width: 1280, height: 800 });
+        const canvas = page.locator('[data-cosmos-canvas]');
+        try {
+            await expect(canvas).toBeVisible({ timeout: 20_000 });
+        } catch (err) {
+            const matches = await page.evaluate(() =>
+                window.matchMedia('(min-width: 1024px)').matches,
+            );
+            throw new Error(
+                `canvas missing after widen; matchMedia('(min-width: 1024px)').matches=${matches}; ${err}`,
+            );
+        }
+    });
+
+    test('shrinking from 1280 to 800 keeps the cosmos canvas (D-04)', async ({ page }) => {
+        await page.emulateMedia({ reducedMotion: 'no-preference' });
+        await page.setViewportSize({ width: 1280, height: 800 });
+        await page.goto('./');
+        await expect(page.locator('[data-cosmos-canvas]')).toBeVisible({ timeout: 20_000 });
+
+        await page.setViewportSize({ width: 800, height: 800 });
+        await page.waitForTimeout(1_000);
+        await expect(page.locator('[data-cosmos-canvas]')).toBeVisible();
+        const inline = await page.locator('[data-cosmos-fallback]').getAttribute('style');
+        expect(inline ?? '').not.toBe('');
+    });
 });
