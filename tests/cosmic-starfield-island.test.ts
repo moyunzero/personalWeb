@@ -447,18 +447,24 @@ describe('solarSystemScene wiring (AC-1, AC-5)', () => {
         expect(scene).toMatch(/scene\.background = new THREE\.Color/);
     });
 
-    // covers: AC-7 — HDR kickoff after sun + fallback planets are in the graph
+    // covers: D-02 — build no longer calls startHdrLoad; the island queues it after the first frame
     it('starts HDR load only after sun and planet meshes are hung (AC-7)', () => {
         const scene = readFileSync(scenePath, 'utf8');
-        const sunHung = scene.indexOf('root.add(sunPivot)');
-        const planetsSet = scene.lastIndexOf('planets.set(p.id');
-        const hdrKick = scene.indexOf('startHdrLoad(THREE, scene');
-        expect(sunHung).toBeGreaterThan(-1);
-        expect(planetsSet).toBeGreaterThan(-1);
-        expect(hdrKick).toBeGreaterThan(-1);
-        expect(hdrKick).toBeGreaterThan(sunHung);
-        expect(hdrKick).toBeGreaterThan(planetsSet);
-        expect(scene.indexOf('startHdrLoad(THREE, scene')).toBe(hdrKick);
+        const buildStart = scene.indexOf('export function buildSolarSystemScene');
+        const nextExport = scene.indexOf('export function', buildStart + 'export function'.length);
+        const buildBody = scene.slice(buildStart, nextExport);
+        expect(buildStart).toBeGreaterThan(-1);
+        expect(nextExport).toBeGreaterThan(buildStart);
+        expect(buildBody).not.toMatch(/startHdrLoad\s*\(/);
+
+        const island = readFileSync(islandPath, 'utf8');
+        const renderAt = island.indexOf('renderer.render(scene, camera)');
+        const hdrAt = island.indexOf('startHdrLoad(');
+        expect(renderAt).toBeGreaterThan(-1);
+        expect(hdrAt).toBeGreaterThan(renderAt);
+        expect(island.slice(renderAt, hdrAt)).toMatch(/requestAnimationFrame/);
+        const queued = island.slice(island.lastIndexOf('requestAnimationFrame', hdrAt), hdrAt);
+        expect(queued).toMatch(/requestAnimationFrame/);
     });
 
     it('defers the HDR network fetch to idle so GH Pages bandwidth is not starved', () => {

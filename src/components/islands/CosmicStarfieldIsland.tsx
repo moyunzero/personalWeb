@@ -29,6 +29,7 @@ import {
 import {
     applyPlanetStates,
     buildSolarSystemScene,
+    startHdrLoad,
     type SolarSystemHandles,
 } from './solarSystemScene';
 
@@ -60,6 +61,9 @@ export default function CosmicStarfieldIsland() {
         let scene: import('three').Scene | null = null;
         let camera: import('three').PerspectiveCamera | null = null;
         let handles: SolarSystemHandles | null = null;
+        let cancelHdr: (() => void) | null = null;
+        let hdrArmed = false;
+        let queueHdrAfterVisibleFrame = (): void => {};
 
         let yaw = INITIAL_CAMERA_YAW;
         let pitch = INITIAL_CAMERA_PITCH;
@@ -91,6 +95,8 @@ export default function CosmicStarfieldIsland() {
         const tearDown = () => {
             cancelAnimationFrame(rafId);
             rafId = 0;
+            cancelHdr?.();
+            cancelHdr = null;
             if (renderer) {
                 renderer.domElement.removeEventListener('webglcontextlost', onContextLost);
                 if (renderer.domElement.parentNode === host) {
@@ -170,6 +176,7 @@ export default function CosmicStarfieldIsland() {
             updateCamera();
             if (renderer && scene && camera) {
                 renderer.render(scene, camera);
+                queueHdrAfterVisibleFrame();
             }
             rafId = requestAnimationFrame(tick);
         };
@@ -408,6 +415,21 @@ export default function CosmicStarfieldIsland() {
             host.style.opacity = '1';
             const fallback = document.querySelector<HTMLElement>('[data-cosmos-fallback]');
             if (fallback) fallback.style.opacity = '0';
+            queueHdrAfterVisibleFrame = () => {
+                if (hdrArmed || cancelled || !handles || !scene) return;
+                hdrArmed = true;
+                const liveScene = scene;
+                const textures = built.textures;
+                requestAnimationFrame(() => {
+                    if (cancelled || !handles) return;
+                    cancelHdr = startHdrLoad(
+                        THREE,
+                        liveScene,
+                        import.meta.env.BASE_URL,
+                        textures,
+                    );
+                });
+            };
             startLoop();
 
             const io = new IntersectionObserver(

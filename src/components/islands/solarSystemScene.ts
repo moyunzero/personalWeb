@@ -76,34 +76,59 @@ async function loadTexture(
     }
 }
 
-/** Fire-and-forget HDR; scene keeps color fallback until the map arrives. */
-function startHdrLoad(
+/**
+ * Queue the committed HDR after the caller has shown a frame.
+ * Returns a cancel function. Missing requestIdleCallback does not start a load.
+ */
+export function startHdrLoad(
     THREE: ThreeModule,
     scene: import('three').Scene,
     baseUrl: string,
     textures: Texture[],
-): void {
-    const run = () => {
-        void (async () => {
-            try {
-                const { HDRLoader } = await import('three/examples/jsm/loaders/HDRLoader.js');
-                const hdr = new HDRLoader();
-                const envMap = await hdr.loadAsync(assetUrl(baseUrl, 'hdr_blue_nebulae.hdr'));
-                envMap.mapping = THREE.EquirectangularReflectionMapping;
-                scene.background = envMap;
-                scene.environment = envMap;
-                textures.push(envMap);
-            } catch {
-                /* keep color fallback */
+): () => void {
+    let idleId = 0;
+    let dropped = false;
+
+    const queue = () => {
+        if (dropped || typeof requestIdleCallback !== 'function') return;
+        idleId = requestIdleCallback((deadline) => {
+            if (dropped) return;
+            if (deadline.didTimeout) {
+                queue();
+                return;
             }
-        })();
+            void (async () => {
+                try {
+                    const { HDRLoader } = await import(
+                        'three/examples/jsm/loaders/HDRLoader.js'
+                    );
+                    const hdr = new HDRLoader();
+                    const envMap = await hdr.loadAsync(
+                        assetUrl(baseUrl, 'hdr_blue_nebulae.hdr'),
+                    );
+                    if (dropped) {
+                        envMap.dispose();
+                        return;
+                    }
+                    envMap.mapping = THREE.EquirectangularReflectionMapping;
+                    scene.background = envMap;
+                    scene.environment = envMap;
+                    textures.push(envMap);
+                } catch {
+                    /* keep color fallback */
+                }
+            })();
+        });
     };
-    // Defer the ~2MB HDR so Phaser / planet JPGs are not starved on slow GH Pages.
-    if (typeof requestIdleCallback === 'function') {
-        requestIdleCallback(run, { timeout: 12_000 });
-    } else {
-        setTimeout(run, 2000);
-    }
+
+    queue();
+
+    return () => {
+        dropped = true;
+        if (idleId && typeof cancelIdleCallback === 'function') {
+            cancelIdleCallback(idleId);
+        }
+    };
 }
 
 export function buildSolarSystemScene(
@@ -112,6 +137,7 @@ export function buildSolarSystemScene(
 ): {
     scene: import('three').Scene;
     handles: SolarSystemHandles;
+    textures: Texture[];
 } {
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x05060f);
@@ -365,9 +391,6 @@ export function buildSolarSystemScene(
         moonMat.needsUpdate = true;
     });
 
-    // AC-7: kick HDR only after sun + fallback-color planets are in the graph.
-    startHdrLoad(THREE, scene, opts.baseUrl, textures);
-
     const handles: SolarSystemHandles = {
         root,
         sun,
@@ -383,7 +406,7 @@ export function buildSolarSystemScene(
         },
     };
 
-    return { scene, handles };
+    return { scene, handles, textures };
 }
 
 export function applyPlanetStates(
