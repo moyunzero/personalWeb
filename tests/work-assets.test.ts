@@ -113,7 +113,7 @@ describe('prepare-work-assets.mjs encode contract (D-01, D-04)', () => {
 });
 
 describe('package.json work asset scripts (D-04, T-08-SC)', () => {
-    it('wires assets:work / assets:work:check scripts', () => {
+    it('wires assets:work / assets:work:check; build checks but does not prepare', () => {
         const pkgText = readFileSync(packagePath, 'utf8');
         const pkg = JSON.parse(pkgText) as {
             scripts: Record<string, string>;
@@ -125,15 +125,7 @@ describe('package.json work asset scripts (D-04, T-08-SC)', () => {
         expect(pkg.scripts['assets:work:check']).toBeTruthy();
         expect(pkg.scripts['assets:work']).toMatch(/prepare-work-assets\.mjs/);
         expect(pkg.scripts['assets:work:check']).toMatch(/check-work-assets\.mjs/);
-        // build gate wired in 08-01 task 3 — must never call prepare
-        expect(pkg.scripts.build).not.toMatch(/prepare-work-assets\.mjs/);
-    });
 
-    // Restored + asserted in 08-01 task 3 (build gate wiring).
-    it.skip('build runs check-work-assets after cosmos and never prepares', () => {
-        const pkg = JSON.parse(readFileSync(packagePath, 'utf8')) as {
-            scripts: Record<string, string>;
-        };
         expect(pkg.scripts.build).toMatch(/check-work-assets\.mjs/);
         expect(pkg.scripts.build).not.toMatch(/prepare-work-assets\.mjs/);
     });

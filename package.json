@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/check-cosmos-assets.mjs && yarn seo:audit && astro build",
+    "build": "node scripts/check-cosmos-assets.mjs && node scripts/check-work-assets.mjs && yarn seo:audit && astro build",
     "build:astro": "astro build",
     "lint": "eslint .",
     "preview": "astro preview",
