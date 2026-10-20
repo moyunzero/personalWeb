@@ -1,5 +1,6 @@
 import { execSync } from 'node:child_process';
-import { readFile, unlink } from 'node:fs/promises';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -11,7 +12,7 @@ function run(cmd: string) {
     return execSync(cmd, { cwd: root, encoding: 'utf8' });
 }
 
-describe('Phase 3 UAT — CLI pipeline', () => {
+describe.sequential('Phase 3 UAT — CLI pipeline', () => {
     it('meta-batch dry-run: all posts scanned, 0 description updates', () => {
         const postCount = readdirSync(path.join(root, 'content/posts')).filter((f) =>
             f.endsWith('.md'),
@@ -45,20 +46,28 @@ describe('Phase 3 UAT — CLI pipeline', () => {
 
     it('blog:new creates non-empty description stub', async () => {
         const title = `UAT自动化${Date.now()}`;
-        let slugFile = '';
+        const tmpRoot = await mkdtemp(path.join(tmpdir(), 'blog-new-'));
+        const postsDir = path.join(tmpRoot, 'posts');
+        const imagesDir = path.join(tmpRoot, 'images');
         try {
-            const out = run(`yarn blog:new "${title}"`);
+            const out = execSync(`node scripts/new-post.mjs "${title}"`, {
+                cwd: root,
+                encoding: 'utf8',
+                env: {
+                    ...process.env,
+                    BLOG_NEW_POSTS_DIR: postsDir,
+                    BLOG_NEW_IMAGES_DIR: imagesDir,
+                },
+            });
             const match = out.match(/content\/posts\/([^\s]+\.md)/);
             expect(match).toBeTruthy();
-            slugFile = match![1];
-            const raw = await readFile(path.join(root, 'content/posts', slugFile), 'utf8');
+            const slugFile = match![1];
+            const raw = await readFile(path.join(postsDir, slugFile), 'utf8');
             const { data } = parseFrontmatter(raw);
             expect(String(data.description ?? '').trim().length).toBeGreaterThan(0);
             expect(data.draft).toBe(true);
         } finally {
-            if (slugFile) {
-                await unlink(path.join(root, 'content/posts', slugFile));
-            }
+            await rm(tmpRoot, { recursive: true, force: true });
         }
     });
 });

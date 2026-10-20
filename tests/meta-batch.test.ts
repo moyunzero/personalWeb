@@ -1,4 +1,5 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { parseFrontmatter } from '../src/blog/frontmatter.js';
@@ -29,22 +30,26 @@ describe('meta-batch', () => {
     it('apply fills empty description from excerpt', async () => {
         const { runMetaBatch } = await import('../scripts/seo-meta-batch.mjs');
 
-        // runMetaBatch refuses writes outside POSTS_DIR — use real posts dir fixture
-        const fixturePath = path.join(postsDir, '_meta-batch-fixture.md');
+        const tmpPosts = await mkdtemp(path.join(tmpdir(), 'meta-batch-'));
+        const fixturePath = path.join(tmpPosts, '_meta-batch-fixture.md');
         const fixtureRaw = `---\ntitle: Fixture\ndraft: false\ndescription: ""\n---\n\n# Fixture\n\nBody for meta batch apply test.`;
         await writeFile(fixturePath, fixtureRaw, 'utf8');
 
         try {
-            const { scanPosts } = await import('../scripts/lib/scan-posts.mjs');
-            const scanned = await scanPosts();
-            const fixture = scanned.find((p) => p.file === '_meta-batch-fixture.md');
-            expect(fixture).toBeDefined();
-            await runMetaBatch([fixture], { apply: true });
+            const fixture = {
+                file: '_meta-batch-fixture.md',
+                filePath: fixturePath,
+                fileSlug: '_meta-batch-fixture',
+                data: { title: 'Fixture', draft: false, description: '' },
+                content: '# Fixture\n\nBody for meta batch apply test.',
+                raw: fixtureRaw,
+            };
+            await runMetaBatch([fixture], { apply: true, postsDir: tmpPosts });
             const after = await readFile(fixturePath, 'utf8');
             const parsed = parseFrontmatter(after);
             expect(String(parsed.data.description ?? '').trim().length).toBeGreaterThan(0);
         } finally {
-            await import('node:fs/promises').then((fs) => fs.unlink(fixturePath));
+            await rm(tmpPosts, { recursive: true, force: true });
         }
     });
 

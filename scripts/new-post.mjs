@@ -53,8 +53,14 @@ async function exists(filePath) {
 
 const { title, categories } = parseArgs(process.argv.slice(2));
 const slug = slugify(title);
-const postPath = path.join(root, 'content/posts', `${slug}.md`);
-const imageDir = path.join(root, 'public/images/blog', slug);
+const postsRoot = process.env.BLOG_NEW_POSTS_DIR
+    ? path.resolve(process.env.BLOG_NEW_POSTS_DIR)
+    : path.join(root, 'content/posts');
+const imagesRoot = process.env.BLOG_NEW_IMAGES_DIR
+    ? path.resolve(process.env.BLOG_NEW_IMAGES_DIR)
+    : path.join(root, 'public/images/blog');
+const postPath = path.join(postsRoot, `${slug}.md`);
+const imageDir = path.join(imagesRoot, slug);
 
 if (await exists(postPath)) {
     console.error(`已存在: content/posts/${slug}.md`);
@@ -84,6 +90,7 @@ ${introBody}
 ![示例图片](${sampleImage})
 `;
 
+await mkdir(postsRoot, { recursive: true });
 await mkdir(imageDir, { recursive: true });
 await writeFile(path.join(imageDir, '.gitkeep'), '');
 await writeFile(postPath, template, 'utf8');

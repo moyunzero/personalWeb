@@ -33,8 +33,8 @@ function isHashSlug(slug) {
     return false;
 }
 
-function assertPostsPath(filePath) {
-    const resolvedPosts = path.resolve(POSTS_DIR);
+function assertPostsPath(filePath, allowedRoot = POSTS_DIR) {
+    const resolvedPosts = path.resolve(allowedRoot);
     const resolvedFile = path.resolve(filePath);
     if (!resolvedFile.startsWith(resolvedPosts + path.sep)) {
         throw new Error(`Refusing to write outside posts dir: ${filePath}`);
@@ -48,7 +48,7 @@ function assertPostsPath(filePath) {
 export async function runMetaBatch(posts, options = {}) {
     const apply = Boolean(options.apply);
     const forceSlug = Boolean(options.forceSlug);
-    const resolvedPosts = path.resolve(POSTS_DIR);
+    const resolvedPosts = path.resolve(options.postsDir ?? POSTS_DIR);
 
     let wouldUpdateDescription = 0;
     let updatedDescription = 0;
@@ -87,7 +87,7 @@ export async function runMetaBatch(posts, options = {}) {
 
         if (apply && forceSlug && slug !== fileSlug) {
             const newPath = path.join(resolvedPosts, `${slug}.md`);
-            assertPostsPath(newPath);
+            assertPostsPath(newPath, resolvedPosts);
             lines.push(`  slug rename: ${fileSlug} → ${slug}`);
         }
 
@@ -97,7 +97,7 @@ export async function runMetaBatch(posts, options = {}) {
         }
 
         if (apply && String(data.description ?? '').trim() !== rawDesc) {
-            assertPostsPath(filePath);
+            assertPostsPath(filePath, resolvedPosts);
             const { content: body } = parseFrontmatter(post.raw);
             const fileContent = stringifyFrontmatter(body, data);
             await writeFile(filePath, fileContent, 'utf8');

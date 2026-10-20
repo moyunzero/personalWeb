@@ -16,7 +16,11 @@ export async function loadPostsForBuild({ includeDrafts = false } = {}) {
     const posts = [];
 
     for (const file of files) {
-        const raw = await readFile(path.join(POSTS_DIR, file), 'utf8');
+        const raw = await readFile(path.join(POSTS_DIR, file), 'utf8').catch((err) => {
+            if (err && err.code === 'ENOENT') return null;
+            throw err;
+        });
+        if (raw == null) continue;
         const { data, content } = parseFrontmatter(raw);
         const draft = Boolean(data.draft);
         if (draft && !includeDrafts) continue;
