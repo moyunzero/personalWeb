@@ -29,6 +29,19 @@ function isPresignedS3Url(url) {
     }
 }
 
+/**
+ * Drop leftover Notion S3 pre-signed links (images that failed to download,
+ * file/HTML embeds). Those URLs embed temporary ASIA* credentials that
+ * GitHub secret scanning flags.
+ */
+export function stripPresignedAwsMarkdownLinks(markdown) {
+    const cleaned = String(markdown ?? '').replace(
+        /!?\[([^\]]*)\]\((https?:\/\/[^)\s]*X-Amz-(?:Credential|Signature|Security-Token)[^)\s]*)\)/gi,
+        ''
+    );
+    return cleaned.replace(/\n{3,}/g, '\n\n');
+}
+
 async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -84,7 +97,7 @@ export async function downloadMarkdownImages(markdown, { slug, imageDir, notionT
     }
 
     if (urls.size === 0) {
-        return { markdown, downloaded: 0 };
+        return { markdown: stripPresignedAwsMarkdownLinks(markdown), downloaded: 0 };
     }
 
     await mkdir(imageDir, { recursive: true });
@@ -115,6 +128,8 @@ export async function downloadMarkdownImages(markdown, { slug, imageDir, notionT
     for (const [remote, local] of urlMap) {
         result = result.split(remote).join(local);
     }
+
+    result = stripPresignedAwsMarkdownLinks(result);
 
     return { markdown: result, downloaded: urlMap.size };
 }
