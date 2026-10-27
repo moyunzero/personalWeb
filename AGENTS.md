@@ -45,6 +45,9 @@ yarn notion:sync
 yarn listening:sync
 yarn listening:sync --all
 
+# Timeline events (Notion「大模型时间轴」→ content/timeline/events.json; not in yarn build)
+yarn timeline:sync
+
 # SEO / production smoke (local; seo:index-check is not in CI)
 yarn verify:prod
 yarn seo:index-check
