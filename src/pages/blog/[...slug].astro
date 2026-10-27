@@ -8,6 +8,8 @@ import { getRelatedForEntry } from '../../lib/related';
 import { renderMarkdown } from '../../lib/markdown';
 import { SITE } from '../../lib/site';
 import MermaidHydrator from '../../components/islands/MermaidHydrator';
+import TimelineIsland from '../../components/islands/TimelineIsland';
+import { getTimelineEvents } from '../../lib/timeline';
 
 export async function getStaticPaths() {
     const posts = await getCollection('posts', ({ data }) => !data.draft);
@@ -19,10 +21,12 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { data, body } = post;
-const html = await renderMarkdown(body);
+const html = body?.trim() ? await renderMarkdown(body) : '';
 const allPosts = await getPublishedPosts();
 const related = getRelatedForEntry(post, allPosts, 3);
 const hasMermaid = html.includes('mermaid-diagram-host');
+const isTimeline = data.slug === 'ai-timeline';
+const timelineEvents = isTimeline ? await getTimelineEvents() : [];
 ---
 
 <BlogLayout
@@ -39,19 +43,24 @@ const hasMermaid = html.includes('mermaid-diagram-host');
         keywords: data.keywords,
     }}
 >
-    <article class="mx-auto max-w-3xl">
+    <article class:list={['mx-auto', isTimeline ? 'max-w-4xl' : 'max-w-3xl']}>
         <EditorialHeader
             title={data.title}
-            description={data.description}
+            description={isTimeline ? undefined : data.description}
             publishedAt={data.publishedAt}
             categories={data.categories}
-            tags={data.tags}
-            author={data.author}
-            readTime={data.readTime}
-            coverImage={data.coverImage}
+            tags={isTimeline ? [] : data.tags}
+            author={isTimeline ? undefined : data.author}
+            readTime={isTimeline ? undefined : data.readTime}
+            coverImage={isTimeline ? undefined : data.coverImage}
         />
-        <div class="prose-blog" set:html={html} />
+        {html.trim() ? <div class="prose-blog" set:html={html} /> : null}
+        {
+            isTimeline ? (
+                <TimelineIsland client:load events={timelineEvents} />
+            ) : null
+        }
     </article>
-    <RelatedPosts heading={related.heading} posts={related.posts} />
+    {isTimeline ? null : <RelatedPosts heading={related.heading} posts={related.posts} />}
     {hasMermaid ? <MermaidHydrator client:idle /> : null}
 </BlogLayout>

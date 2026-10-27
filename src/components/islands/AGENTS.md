@@ -19,6 +19,7 @@ Interactive UI loaded as Astro islands. Static markup stays in `.astro` files; a
 | `GameIsland.tsx` | Lazy Phaser game (`client:idle` start button; Phaser still on click); Phaser-only critical path with 90s timeout + retry; Chat/Tooltip after sprite; idle / pointerenter / focus warm Phaser |
 | `BlogSearch.tsx` | Client side blog list filter |
 | `MermaidHydrator.tsx` | Mermaid diagrams in posts |
+| `TimelineIsland.tsx` | `/blog/ai-timeline/` 可筛选时间轴（读 `content/timeline/events.json`） |
 
 ## Conventions
 

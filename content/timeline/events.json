@@ -1,0 +1,2638 @@
+{
+  "generatedAt": "2026-10-27T12:39:10.364Z",
+  "events": [
+    {
+      "id": "local-001",
+      "date": "2017.06.12",
+      "year": "2017",
+      "sort": 20170612,
+      "category": "架构",
+      "title": "Transformer 论文《Attention Is All You Need》发表",
+      "summary": "自注意力取代 RNN/LSTM，成为现代大模型架构底座。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://arxiv.org/abs/1706.03762"
+    },
+    {
+      "id": "local-002",
+      "date": "2018.01.18",
+      "year": "2018",
+      "sort": 20180118,
+      "category": "术语/范式",
+      "title": "ULMFiT 论文 arXiv 首发",
+      "summary": "Howard & Ruder 提出 Universal Language Model Fine-tuning，为「预训练+微调」大众化铺路。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/1801.06146"
+    },
+    {
+      "id": "local-003",
+      "date": "2018.02.15",
+      "year": "2018",
+      "sort": 20180215,
+      "category": "国外模型",
+      "title": "ELMo 论文 arXiv 首发",
+      "summary": "深度语境化词表示（Embeddings from Language Models），预训练+微调范式的早期先声。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/1802.05365"
+    },
+    {
+      "id": "local-004",
+      "date": "2018.06.11",
+      "year": "2018",
+      "sort": 20180611,
+      "category": "国外模型",
+      "title": "OpenAI GPT-1 发布",
+      "summary": "解码器预训练+微调路线确立（《Improving Language Understanding by Generative Pre-Training》）。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://openai.com/index/language-unsupervised/"
+    },
+    {
+      "id": "local-006",
+      "date": "2018.10.11",
+      "year": "2018",
+      "sort": 20181011,
+      "category": "国外模型",
+      "title": "BERT 论文 arXiv 首发",
+      "summary": "双向编码器路线确立，「预训练+微调」成为标准范式。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://arxiv.org/abs/1810.04805"
+    },
+    {
+      "id": "local-005",
+      "date": "2018.10–11",
+      "year": "2018",
+      "sort": 20181011,
+      "category": "框架/协议",
+      "title": "Hugging Face pytorch-pretrained-bert / Transformers 库起步",
+      "summary": "GitHub 仓约 2018-10-29 创建，首个 tagged 发布 v0.1.2 于 2018-11-17；日后成为全球模型分发与加载的事实标准基建。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://github.com/huggingface/transformers/releases/tag/v0.1.2"
+    },
+    {
+      "id": "local-007",
+      "date": "2018.11.02",
+      "year": "2018",
+      "sort": 20181102,
+      "category": "国外模型",
+      "title": "Google AI 开源 BERT 博文 / 权重",
+      "summary": "产业落地加速。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://research.google/blog/open-sourcing-bert-state-of-the-art-pre-training-for-natural-language-processing/"
+    },
+    {
+      "id": "local-008",
+      "date": "2019.02.14",
+      "year": "2019",
+      "sort": 20190214,
+      "category": "国外模型",
+      "title": "OpenAI 官宣 GPT-2（1.5B）",
+      "summary": "展示大规模无监督模型的零样本多任务能力雏形；完整 1.5B 权重于 2019-11-05 分阶段开放。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://openai.com/index/better-language-models/"
+    },
+    {
+      "id": "local-009",
+      "date": "2019.04.19",
+      "year": "2019",
+      "sort": 20190419,
+      "category": "国内模型",
+      "title": "百度 ERNIE 1.0 论文 arXiv 首发",
+      "summary": "知识增强掩码策略的中文预训练模型，进入公开竞争。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://arxiv.org/abs/1904.09223"
+    },
+    {
+      "id": "local-010",
+      "date": "2019.06.19",
+      "year": "2019",
+      "sort": 20190619,
+      "category": "国外模型",
+      "title": "XLNet 论文 arXiv 首发",
+      "summary": "排列语言模型预训练，作为 BERT 之外的替代性自回归预训练路线。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://arxiv.org/abs/1906.08237"
+    },
+    {
+      "id": "local-011",
+      "date": "2019.07.26",
+      "year": "2019",
+      "sort": 20190726,
+      "category": "国外模型",
+      "title": "RoBERTa 论文 arXiv 首发",
+      "summary": "对 BERT 预训练策略的系统性优化（更大 batch、更多数据、去掉 NSP 等）。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://arxiv.org/abs/1907.11692"
+    },
+    {
+      "id": "local-012",
+      "date": "2019.09.26",
+      "year": "2019",
+      "sort": 20190926,
+      "category": "国外模型",
+      "title": "ALBERT 论文 arXiv 首发",
+      "summary": "参数共享与嵌入因式分解的轻量化 BERT 路线。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://arxiv.org/abs/1909.11942"
+    },
+    {
+      "id": "local-013",
+      "date": "2019.10.02",
+      "year": "2019",
+      "sort": 20191002,
+      "category": "国外模型",
+      "title": "DistilBERT 论文 arXiv 首发",
+      "summary": "知识蒸馏压缩 BERT，小模型/部署效率成为独立议题。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://arxiv.org/abs/1910.01108"
+    },
+    {
+      "id": "local-015",
+      "date": "2020.01.23",
+      "year": "2020",
+      "sort": 20200123,
+      "category": "术语/范式",
+      "title": "Scaling Laws for Neural Language Models（Kaplan et al.）arXiv 首发",
+      "summary": "损失随规模可预测下降，为「堆参数/堆算力」提供理论依据。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2001.08361"
+    },
+    {
+      "id": "local-017",
+      "date": "2020.03.23",
+      "year": "2020",
+      "sort": 20200323,
+      "category": "国外模型",
+      "title": "ELECTRA 论文 arXiv 首发",
+      "summary": "以替换词检测代替掩码语言模型，编码器效率优化支线。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://arxiv.org/abs/2003.10555"
+    },
+    {
+      "id": "local-018",
+      "date": "2020.05.22",
+      "year": "2020",
+      "sort": 20200522,
+      "category": "术语/范式",
+      "title": "RAG（Retrieval-Augmented Generation）论文发表（Lewis et al.）",
+      "summary": "「检索+生成」成为解决幻觉与知识时效的核心范式。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://arxiv.org/abs/2005.11401"
+    },
+    {
+      "id": "local-019",
+      "date": "2020.05.28",
+      "year": "2020",
+      "sort": 20200528,
+      "category": "国外模型",
+      "title": "GPT-3 论文发布（1750亿参数）",
+      "summary": "In-context Learning / Few-shot 正式确立。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://arxiv.org/abs/2005.14165"
+    },
+    {
+      "id": "local-020",
+      "date": "2020.06.11",
+      "year": "2020",
+      "sort": 20200611,
+      "category": "框架/协议",
+      "title": "OpenAI API（GPT-3）私有 Beta 开放",
+      "summary": "提示词实践从研究圈向开发者扩散。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://openai.com/index/openai-api/"
+    },
+    {
+      "id": "local-016",
+      "date": "2020.06.30",
+      "year": "2020",
+      "sort": 20200630,
+      "category": "架构",
+      "title": "GShard 论文 arXiv 首发",
+      "summary": "稀疏激活 MoE + 自动分片，稀疏路线在 Switch 之前的工业预演（超 600B 翻译模型）。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://arxiv.org/abs/2006.16668"
+    },
+    {
+      "id": "add-2020-001",
+      "date": "2020.10.22",
+      "year": "2020",
+      "sort": 20201022,
+      "category": "架构/多模态",
+      "title": "Vision Transformer（ViT）论文 arXiv 首发",
+      "summary": "纯 Transformer 处理图像块序列，将 Transformer 扩展到视觉，成为后续多模态底座。",
+      "tracks": [
+        "intl",
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2010.11929"
+    },
+    {
+      "id": "local-021",
+      "date": "2019.10.23",
+      "year": "2020",
+      "sort": 20201023,
+      "category": "国外模型",
+      "title": "T5 论文 arXiv 首发（Text-to-Text Transfer Transformer）",
+      "summary": "将 NLP 任务统一为「文本到文本」框架；含最大约 110 亿参数变体。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/1910.10683"
+    },
+    {
+      "id": "local-024",
+      "date": "2021.01.05",
+      "year": "2021",
+      "sort": 20210105,
+      "category": "国外模型/多模态",
+      "title": "OpenAI 同日官宣 CLIP + DALL·E",
+      "summary": "文生图与视觉-语言对齐进入主流视野（宽版多模态起点）。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://openai.com/index/clip/"
+    },
+    {
+      "id": "local-023",
+      "date": "2021.01.11",
+      "year": "2021",
+      "sort": 20210111,
+      "category": "国外模型",
+      "title": "Switch Transformer 论文 arXiv 首发",
+      "summary": "首个万亿参数级稀疏 MoE 语言模型路线，简化路由并验证稀疏激活可行性。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2101.03961"
+    },
+    {
+      "id": "local-022",
+      "date": "2021.04.20",
+      "year": "2021",
+      "sort": 20210420,
+      "category": "架构",
+      "title": "RoFormer / RoPE 论文 arXiv 首发",
+      "summary": "旋转位置编码后来成为 Llama、Qwen 等主流开源模型标配位置编码方案。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2104.09864"
+    },
+    {
+      "id": "local-025",
+      "date": "2021.04.25",
+      "year": "2021",
+      "sort": 20210425,
+      "category": "国内模型",
+      "title": "华为云盘古大模型发布",
+      "summary": "HDC.Cloud 发布盘古 NLP（千亿级中文）与 CV（约 30 亿）系列预训练模型。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.huaweicloud.com/news/2021/20210425013658.html"
+    },
+    {
+      "id": "local-027",
+      "date": "2021.06.17",
+      "year": "2021",
+      "sort": 20210617,
+      "category": "架构/术语",
+      "title": "LoRA 提出",
+      "summary": "参数高效微调（PEFT）路线确立，直接降低后续开源复现成本。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2106.09685"
+    },
+    {
+      "id": "local-026",
+      "date": "2021.06.29",
+      "year": "2021",
+      "sort": 20210629,
+      "category": "框架/协议",
+      "title": "GitHub Copilot 技术预览上线（基于 Codex）",
+      "summary": "代码助手成为最早规模化的 LLM 产品形态之一。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://github.blog/news-insights/product-news/introducing-github-copilot-ai-pair-programmer/"
+    },
+    {
+      "id": "local-028",
+      "date": "2021.08.16",
+      "year": "2021",
+      "sort": 20210816,
+      "category": "术语/范式",
+      "title": "Stanford CRFM《On the Opportunities and Risks of Foundation Models》发布",
+      "summary": "「基础模型」成为产业与政策通用称谓。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2108.07258"
+    },
+    {
+      "id": "local-030",
+      "date": "2021.10.11",
+      "year": "2021",
+      "sort": 20211011,
+      "category": "国外模型",
+      "title": "Megatron-Turing NLG 530B 发布",
+      "summary": "微软+NVIDIA 联合训练的大规模稠密语言模型，训练工程标杆。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.microsoft.com/en-us/research/blog/using-deepspeed-and-megatron-to-train-megatron-turing-nlg-530b-the-worlds-largest-and-most-powerful-generative-language-model/"
+    },
+    {
+      "id": "local-031",
+      "date": "2021.12.08",
+      "year": "2021",
+      "sort": 20211208,
+      "category": "国外模型",
+      "title": "DeepMind Gopher（280B）发布",
+      "summary": "大规模缩放实验，为后续 Chinchilla 缩放法则提供对照。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://deepmind.google/blog/language-modelling-at-scale-gopher-ethical-considerations-and-retrieval/"
+    },
+    {
+      "id": "local-032",
+      "date": "2021.12.08",
+      "year": "2021",
+      "sort": 20211208,
+      "category": "国内模型",
+      "title": "鹏城-百度·文心（ERNIE 3.0 Titan，2600亿）发布",
+      "summary": "知识增强千亿中文稠密模型节点。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://ai.baidu.com/support/news?action=detail&id=2689"
+    },
+    {
+      "id": "local-035",
+      "date": "2022.01.27",
+      "year": "2022",
+      "sort": 20220127,
+      "category": "国外模型/术语",
+      "title": "OpenAI 官博发布 InstructGPT，并对齐为 API 默认模型",
+      "summary": "RLHF 成为对话模型对齐核心路线。",
+      "tracks": [
+        "intl",
+        "term"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://openai.com/index/instruction-following/"
+    },
+    {
+      "id": "local-036",
+      "date": "2022.01.28",
+      "year": "2022",
+      "sort": 20220128,
+      "category": "术语/范式",
+      "title": "Chain-of-Thought（CoT）论文 arXiv 首发",
+      "summary": "思维链成为提示词工程和推理模型关键术语。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://arxiv.org/abs/2201.11903"
+    },
+    {
+      "id": "local-038",
+      "date": "2022.03.04",
+      "year": "2022",
+      "sort": 20220304,
+      "category": "国外模型",
+      "title": "InstructGPT 论文 arXiv 首发",
+      "summary": "《Training language models to follow instructions with human feedback》；RLHF 对齐方法的论文级锚点（博客更早于 01.27）。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2203.02155"
+    },
+    {
+      "id": "local-037",
+      "date": "2022.03.29",
+      "year": "2022",
+      "sort": 20220329,
+      "category": "术语/范式",
+      "title": "Chinchilla 缩放法则论文 arXiv 首发",
+      "summary": "强调数据量与参数量匹配，修正「只堆参数」直觉。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2203.15556"
+    },
+    {
+      "id": "local-040",
+      "date": "2022.04.04",
+      "year": "2022",
+      "sort": 20220404,
+      "category": "国外模型",
+      "title": "Google PaLM（540B）发布",
+      "summary": "Google 在 GPT-3 后、Gemini 前最重要的单一稠密模型节点。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://research.google/blog/pathways-language-model-palm-scaling-to-540-billion-parameters-for-breakthrough-performance/"
+    },
+    {
+      "id": "local-044",
+      "date": "2022.05.03 / 2022.07.12",
+      "year": "2022",
+      "sort": 20220503,
+      "category": "国外模型",
+      "title": "Meta OPT-175B 开放研究访问；BigScience BLOOM 开源",
+      "summary": "ChatGPT 前夜的大规模开源/开放权重力量：OPT（5月）与 BLOOM（7月）。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://ai.meta.com/blog/democratizing-access-to-large-scale-language-models-with-opt-175b/"
+    },
+    {
+      "id": "local-042",
+      "date": "2022.05.27",
+      "year": "2022",
+      "sort": 20220527,
+      "category": "架构",
+      "title": "FlashAttention 论文 arXiv 首发",
+      "summary": "IO-aware 精确注意力，长上下文与训练吞吐的底层推手。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2205.14135"
+    },
+    {
+      "id": "local-033",
+      "date": "2022.06.15",
+      "year": "2022",
+      "sort": 20220615,
+      "category": "术语/范式",
+      "title": "Emergent Abilities of Large Language Models 论文 arXiv 首发",
+      "summary": "「规模带来能力跃迁」被系统化论述，成为叙事关键词。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2206.07682"
+    },
+    {
+      "id": "local-045",
+      "date": "2022.08.04",
+      "year": "2022",
+      "sort": 20220804,
+      "category": "国内模型",
+      "title": "清华 KEG / 智谱 GLM-130B 开源发布",
+      "summary": "开源双语千亿稠密模型，国内开源首次对标 GPT-3 级别。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://keg.cs.tsinghua.edu.cn/glm-130b/zh/posts/glm-130b/"
+    },
+    {
+      "id": "local-046",
+      "date": "2022.08.22",
+      "year": "2022",
+      "sort": 20220822,
+      "category": "国外模型/多模态",
+      "title": "Stable Diffusion 公开发布",
+      "summary": "文生图民主化，多模态生成进入大众创作。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://stability.ai/news-updates/stable-diffusion-public-release"
+    },
+    {
+      "id": "local-047",
+      "date": "2022.09.02",
+      "year": "2022",
+      "sort": 20220902,
+      "category": "国内模型",
+      "title": "阿里通义大模型系列首次公开发布",
+      "summary": "WAIC/达摩院论坛发布通义系列并开源部分核心模型；早于 2023 年通义千问对话产品。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-048",
+      "date": "2022.09.21",
+      "year": "2022",
+      "sort": 20220921,
+      "category": "国外模型",
+      "title": "OpenAI Whisper 开源",
+      "summary": "语音识别基础模型标杆。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://openai.com/index/whisper/"
+    },
+    {
+      "id": "local-050",
+      "date": "2022.09.21",
+      "year": "2022",
+      "sort": 20220921,
+      "category": "国内模型",
+      "title": "腾讯微信 WeLM 论文 arXiv 首发",
+      "summary": "约 10B 中文预训练模型；媒体报道与 API 体验约在 10 月跟进。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://arxiv.org/abs/2209.10372"
+    },
+    {
+      "id": "local-049",
+      "date": "2022.10.06",
+      "year": "2022",
+      "sort": 20221006,
+      "category": "术语/范式",
+      "title": "ReAct 论文 arXiv 首发",
+      "summary": "「推理（Reason）+ 行动（Act）」成为 Agent 设计的论文级锚点（早于 AutoGPT 出圈）。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://arxiv.org/abs/2210.03629"
+    },
+    {
+      "id": "local-034",
+      "date": "2022.10.25",
+      "year": "2022",
+      "sort": 20221025,
+      "category": "框架/协议",
+      "title": "LangChain 首个 PyPI 版本发布",
+      "summary": "LLM 应用编排框架起步；成为 2023 年初主流 LLM 应用框架。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://pypi.org/project/langchain/0.0.1/"
+    },
+    {
+      "id": "local-052",
+      "date": "2022.11",
+      "year": "2022",
+      "sort": 20221100,
+      "category": "框架/协议",
+      "title": "GPT Index / LlamaIndex 起步",
+      "summary": "以数据连接/索引+RAG 为中心的应用框架起步（初名 GPT Index）。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://github.com/run-llama/llama_index"
+    },
+    {
+      "id": "local-051",
+      "date": "2022.11.30",
+      "year": "2022",
+      "sort": 20221130,
+      "category": "国外模型",
+      "title": "ChatGPT 上线",
+      "summary": "对话式 AI 彻底出圈，普通用户开始大规模使用大模型。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://openai.com/index/chatgpt/"
+    },
+    {
+      "id": "local-039",
+      "date": "2021.12.13",
+      "year": "2022",
+      "sort": 20221213,
+      "category": "国外模型",
+      "title": "GLaM 论文 arXiv 首发",
+      "summary": "Google 1.2T MoE 语言模型，稀疏激活继续验证效率扩展路线。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://arxiv.org/abs/2112.06905"
+    },
+    {
+      "id": "local-043",
+      "date": "2022.12.15",
+      "year": "2022",
+      "sort": 20221215,
+      "category": "国外模型/术语",
+      "title": "Anthropic Constitutional AI 发布",
+      "summary": "宪法 AI / 原则对齐与 RLAIF，成为 Claude 路线的理论根基之一。",
+      "tracks": [
+        "intl",
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback"
+    },
+    {
+      "id": "local-056",
+      "date": "2023.02.09",
+      "year": "2023",
+      "sort": 20230209,
+      "category": "国外模型/术语",
+      "title": "Toolformer 论文 arXiv 首发",
+      "summary": "Meta 等提出模型自学调用外部工具（计算器、搜索、日历等）的研究锚点。",
+      "tracks": [
+        "intl",
+        "term"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://arxiv.org/abs/2302.04761"
+    },
+    {
+      "id": "local-057",
+      "date": "2023.02.24",
+      "year": "2023",
+      "sort": 20230224,
+      "category": "国外模型",
+      "title": "LLaMA 1（Meta）官宣",
+      "summary": "开源权重竞赛真正点火点（Alpaca 等均建立在其上）。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://ai.meta.com/blog/large-language-model-llama-meta-ai/"
+    },
+    {
+      "id": "local-058",
+      "date": "2023.02.27",
+      "year": "2023",
+      "sort": 20230227,
+      "category": "国外模型",
+      "title": "LLaMA 论文 arXiv 首发",
+      "summary": "arXiv:2302.13971 v1；博客官宣为 02.24，论文记录提交日为 02.27。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2302.13971"
+    },
+    {
+      "id": "local-061",
+      "date": "2023.03–06",
+      "year": "2023",
+      "sort": 20230306,
+      "category": "框架/协议",
+      "title": "Semantic Kernel（Microsoft）",
+      "summary": "企业向 Agent/编排 SDK 早期代表。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-059",
+      "date": "2023.03.13",
+      "year": "2023",
+      "sort": 20230313,
+      "category": "国外模型",
+      "title": "斯坦福 Alpaca（7B）发布",
+      "summary": "基于 LLaMA-7B + 52K 指令数据；官方称复现成本约 <$600，引爆低成本指令微调浪潮。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://crfm.stanford.edu/2023/03/13/alpaca.html"
+    },
+    {
+      "id": "local-062",
+      "date": "2023.03.14",
+      "year": "2023",
+      "sort": 20230314,
+      "category": "国外模型",
+      "title": "GPT-4 发布",
+      "summary": "多模态（图像输入）大模型发布；同日 Anthropic 公开开放初代 Claude（此前为合作伙伴 closed alpha）。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://openai.com/index/gpt-4-research/"
+    },
+    {
+      "id": "local-054",
+      "date": "2023.03.14",
+      "year": "2023",
+      "sort": 20230314,
+      "category": "国内模型",
+      "title": "清华/智谱 ChatGLM-6B 开源；ChatGLM-130B 上线内测",
+      "summary": "THUDM/智谱同日开源 ChatGLM-6B，并上线 ChatGLM-130B 对话服务；成为早期广泛影响力的开源中文对话模型之一。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/html/2406.12793v1"
+    },
+    {
+      "id": "local-063",
+      "date": "2023.03.16",
+      "year": "2023",
+      "sort": 20230316,
+      "category": "国内模型",
+      "title": "百度文心一言正式发布",
+      "summary": "国内首个对标 ChatGPT 的对话大模型产品节点；当日开启邀请测试。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://www.apollo.auto/news/9097"
+    },
+    {
+      "id": "local-064",
+      "date": "2023.03.30",
+      "year": "2023",
+      "sort": 20230330,
+      "category": "国外模型/术语",
+      "title": "AutoGPT 公开发布",
+      "summary": "AI Agent 概念真正出圈，自主循环+工具调用成为独立工程话题。（GitHub 仓创建约 03.16，社区公认出圈日 03.30）",
+      "tracks": [
+        "intl",
+        "term"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://github.com/Significant-Gravitas/AutoGPT"
+    },
+    {
+      "id": "local-066",
+      "date": "2023.04.10",
+      "year": "2023",
+      "sort": 20230410,
+      "category": "国内模型",
+      "title": "商汤「商量 SenseChat」发布",
+      "summary": "商汤「日日新」大模型体系中的对话产品上线，属国内早期千亿级对话助手之一。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-067",
+      "date": "2023.04.11",
+      "year": "2023",
+      "sort": 20230411,
+      "category": "国内模型",
+      "title": "阿里通义千问在阿里云峰会正式发布",
+      "summary": "阿里云发布通义千问大语言模型，面向企业客户邀测并宣布将接入钉钉等产品。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://www.alibabagroup.com/en-US/document-1582482069362049024"
+    },
+    {
+      "id": "local-068",
+      "date": "2023.05",
+      "year": "2023",
+      "sort": 20230500,
+      "category": "国外模型",
+      "title": "Google PaLM 2 发布；同期 Bard 产品化推进。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-069",
+      "date": "2023.05.06",
+      "year": "2023",
+      "sort": 20230506,
+      "category": "国内模型",
+      "title": "科大讯飞星火认知大模型发布。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-060",
+      "date": "2023.05.23",
+      "year": "2023",
+      "sort": 20230523,
+      "category": "术语/范式",
+      "title": "QLoRA 论文 arXiv 首发",
+      "summary": "4-bit 量化 + LoRA，使 65B 级模型可在单卡微调，显著降低开源微调门槛。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2305.14314"
+    },
+    {
+      "id": "local-070",
+      "date": "2023.05.29",
+      "year": "2023",
+      "sort": 20230529,
+      "category": "术语/范式",
+      "title": "DPO（Direct Preference Optimization）论文 arXiv 首发",
+      "summary": "RLHF 的重要替代对齐路线，深刻影响开源训练。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2305.18290"
+    },
+    {
+      "id": "local-071",
+      "date": "2023.06",
+      "year": "2023",
+      "sort": 20230600,
+      "category": "国外模型",
+      "title": "Falcon 系列（阿联酋 TII）首次发布",
+      "summary": "非美系开源力量入场。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-073",
+      "date": "2023.06.13",
+      "year": "2023",
+      "sort": 20230613,
+      "category": "框架/协议",
+      "title": "OpenAI Function Calling 上线",
+      "summary": "Agent 从「外层自己写循环」进入模型原生工具调用时代。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://openai.com/index/function-calling-and-other-api-updates/"
+    },
+    {
+      "id": "local-072",
+      "date": "2023.06.20",
+      "year": "2023",
+      "sort": 20230620,
+      "category": "框架/协议",
+      "title": "vLLM / PagedAttention 公开发布",
+      "summary": "UC Berkeley 开源高吞吐 LLM 推理引擎；PagedAttention 管理 KV cache，成为推理基建标配方向之一。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://vllm.ai/blog/2023-06-20-vllm"
+    },
+    {
+      "id": "add-2023-002",
+      "date": "2023.07.11",
+      "year": "2023",
+      "sort": 20230711,
+      "category": "国外模型",
+      "title": "Claude 2 发布并向公众开放网页版",
+      "summary": "Anthropic 发布 Claude 2，并通过 claude.ai 向美/英用户开放公测聊天。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://www.anthropic.com/news/claude-2"
+    },
+    {
+      "id": "local-075",
+      "date": "2023.07.18",
+      "year": "2023",
+      "sort": 20230718,
+      "category": "国外模型",
+      "title": "Llama 2 发布",
+      "summary": "开源商用许可关键转折点（研究与商用免费可用权重）。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://ai.meta.com/blog/llama-2/"
+    },
+    {
+      "id": "local-074",
+      "date": "2023.08.24",
+      "year": "2023",
+      "sort": 20230824,
+      "category": "国外模型",
+      "title": "Meta Code Llama 发布",
+      "summary": "基于 Llama 2 的代码专模开源，代码大模型成为独立赛道；StarCoder 等开源代码模型并行存在。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://about.fb.com/news/2023/08/code-llama-ai-for-coding/"
+    },
+    {
+      "id": "local-076",
+      "date": "2023.08.31",
+      "year": "2023",
+      "sort": 20230831,
+      "category": "国内模型",
+      "title": "国内首批生成式大模型完成备案并向公众开放",
+      "summary": "文心一言、百川、商量、智谱清言等首批通过《生成式人工智能服务管理暂行办法》备案，百模大战从内测进入公众可用阶段。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 2,
+      "sourceUrl": "http://www.ce.cn/cysc/tech/gd2012/202308/31/t20230831_38695316.shtml"
+    },
+    {
+      "id": "local-077",
+      "date": "2023.09.25",
+      "year": "2023",
+      "sort": 20230925,
+      "category": "框架/协议",
+      "title": "AutoGen（Microsoft Research）公开发布",
+      "summary": "多 Agent 对话框架公开预览（pyautogen）；论文 arXiv 首发于 08.16，官方博客于 09.25。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://www.microsoft.com/en-us/research/blog/autogen-enabling-next-generation-large-language-model-applications/"
+    },
+    {
+      "id": "local-079",
+      "date": "2023.09.27",
+      "year": "2023",
+      "sort": 20230927,
+      "category": "国外模型",
+      "title": "Mistral 7B 发布",
+      "summary": "欧洲开源模型进入主流视野（Apache 2.0）。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://mistral.ai/news/announcing-mistral-7b/"
+    },
+    {
+      "id": "local-081",
+      "date": "2023.10",
+      "year": "2023",
+      "sort": 20231000,
+      "category": "国内模型",
+      "title": "Kimi 智能助手上线（20万字上下文）；文心大模型4.0、智谱 ChatGLM3 发布。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-082",
+      "date": "2023.10.24 / 10.30 / 10.31",
+      "year": "2023",
+      "sort": 20231024,
+      "category": "国内模型",
+      "title": "星火大模型3.0、百川 Baichuan2-192K、通义千问2.0 密集发布。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-083",
+      "date": "2023.11.06",
+      "year": "2023",
+      "sort": 20231106,
+      "category": "国外模型",
+      "title": "GPT-4 Turbo 发布（OpenAI DevDay）",
+      "summary": "128K 上下文、更低价格；与 GPTs / Assistants API 同日发布。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://openai.com/index/new-models-and-developer-products-announced-at-devday/"
+    },
+    {
+      "id": "local-080",
+      "date": "2023.11.06",
+      "year": "2023",
+      "sort": 20231106,
+      "category": "框架/协议/术语",
+      "title": "GPTs / Assistants API（OpenAI DevDay）",
+      "summary": "自定义 Agent/工具包产品化；Assistants API 与 GPT-4 Turbo 等同日发布。",
+      "tracks": [
+        "fw",
+        "term"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://openai.com/index/new-models-and-developer-products-announced-at-devday/"
+    },
+    {
+      "id": "local-087",
+      "date": "2023.11.14",
+      "year": "2023",
+      "sort": 20231114,
+      "category": "框架/协议",
+      "title": "CrewAI v0.1.0 首个公开版本发布",
+      "summary": "role-based 多 Agent 框架首次 GitHub/PyPI 发布。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://github.com/crewAIInc/crewAI/releases/tag/v0.1.0"
+    },
+    {
+      "id": "local-084",
+      "date": "2023.11.29",
+      "year": "2023",
+      "sort": 20231129,
+      "category": "国内模型",
+      "title": "DeepSeek LLM 7B/67B 开源",
+      "summary": "继 DeepSeek-Coder 后发布通用大模型并开源；国内代码/通用模型开始具备全球竞争力。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://github.com/deepseek-ai/DeepSeek-LLM"
+    },
+    {
+      "id": "local-085",
+      "date": "2023.12.01",
+      "year": "2023",
+      "sort": 20231201,
+      "category": "架构",
+      "title": "Mamba 状态空间模型论文 arXiv 首发",
+      "summary": "非 Transformer 序列架构进入严肃讨论（为后来 Jamba 等铺路）。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://arxiv.org/abs/2312.00752"
+    },
+    {
+      "id": "local-086",
+      "date": "2023.12.06",
+      "year": "2023",
+      "sort": 20231206,
+      "category": "国外模型",
+      "title": "Gemini 1.0（Ultra/Pro/Nano）发布",
+      "summary": "Google 多模态战略正式起点；Pro 当日进入 Bard，Ultra 稍后。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://blog.google/innovation-and-ai/technology/ai/google-gemini-ai/"
+    },
+    {
+      "id": "add-2023-003",
+      "date": "2023.12.11",
+      "year": "2023",
+      "sort": 20231211,
+      "category": "国外模型",
+      "title": "Mixtral 8x7B 开源",
+      "summary": "Mistral 开源稀疏 MoE 权重模型，性价比与开源许可成为标杆之一。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://mistral.ai/news/mixtral-of-experts/"
+    },
+    {
+      "id": "local-093",
+      "date": "2024.01.17",
+      "year": "2024",
+      "sort": 20240117,
+      "category": "框架/协议",
+      "title": "LangGraph 发布",
+      "summary": "有向图+状态机架构成为企业级 Agent 编排代表（随 LangChain 0.1 引入，1 月博客详述）。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://www.langchain.com/blog/langgraph"
+    },
+    {
+      "id": "local-090",
+      "date": "2024.02.13",
+      "year": "2024",
+      "sort": 20240213,
+      "category": "术语/范式",
+      "title": "Microsoft Research 介绍 GraphRAG 方法",
+      "summary": "图谱增强检索进入公众视野。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.microsoft.com/en-us/research/blog/graphrag-unlocking-llm-discovery-on-narrative-private-data/"
+    },
+    {
+      "id": "local-089",
+      "date": "2024.02.15",
+      "year": "2024",
+      "sort": 20240215,
+      "category": "国外模型",
+      "title": "Gemini 1.5 发布",
+      "summary": "长上下文成为独立竞争维度（后续扩展至百万 token 级）；同月 Gemma 初代开源。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://blog.google/innovation-and-ai/products/google-gemini-next-generation-model-february-2024/"
+    },
+    {
+      "id": "local-091",
+      "date": "2024.02.15",
+      "year": "2024",
+      "sort": 20240215,
+      "category": "国外模型/多模态",
+      "title": "Sora 发布（研究预览）",
+      "summary": "视频生成成为独立竞争维度；当时仅红队与部分创作者可接触，未向公众开放。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://openai.com/index/video-generation-models-as-world-simulators/"
+    },
+    {
+      "id": "local-092",
+      "date": "2024.03.04",
+      "year": "2024",
+      "sort": 20240304,
+      "category": "国外模型",
+      "title": "Claude 3 系列发布",
+      "summary": "Anthropic 发布 Haiku / Sonnet / Opus；同月另有 Cohere Command R、AI21 Jamba 等，宜拆分为独立条目。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://www.anthropic.com/news/claude-3-family"
+    },
+    {
+      "id": "add-2024-004",
+      "date": "2024.04.18",
+      "year": "2024",
+      "sort": 20240418,
+      "category": "国外模型",
+      "title": "Meta Llama 3（8B/70B）开源",
+      "summary": "新一代公开权重基座模型发布，显著提升开源生态上限。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://ai.meta.com/blog/meta-llama-3/"
+    },
+    {
+      "id": "local-094",
+      "date": "2024.04.23",
+      "year": "2024",
+      "sort": 20240423,
+      "category": "国外模型",
+      "title": "Phi-3（Microsoft）发布",
+      "summary": "小语言模型（SLM）路线代表作；Llama 3（8B/70B）已于 04.18 开源，不宜混写为本条。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://azure.microsoft.com/en-us/blog/introducing-phi-3-redefining-whats-possible-with-slms/"
+    },
+    {
+      "id": "local-095",
+      "date": "2024.05.06",
+      "year": "2024",
+      "sort": 20240506,
+      "category": "国内模型",
+      "title": "DeepSeek-V2 发布",
+      "summary": "MoE 性价比路线跑通，并触发国内 API 价格战。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://github.com/deepseek-ai/DeepSeek-V2"
+    },
+    {
+      "id": "local-096",
+      "date": "2024.05.13",
+      "year": "2024",
+      "sort": 20240513,
+      "category": "国外模型",
+      "title": "GPT-4o 发布",
+      "summary": "真正实时多模态成为标配。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://openai.com/index/hello-gpt-4o/"
+    },
+    {
+      "id": "local-097",
+      "date": "2024.06.20",
+      "year": "2024",
+      "sort": 20240620,
+      "category": "国外模型",
+      "title": "Claude 3.5 Sonnet 首发",
+      "summary": "Anthropic 发布 Claude 3.5 Sonnet；Gemma 2 等为同月其他厂商事件，宜拆分。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://www.anthropic.com/news/claude-3-5-sonnet"
+    },
+    {
+      "id": "local-100",
+      "date": "2024.07.02",
+      "year": "2024",
+      "sort": 20240702,
+      "category": "框架/范式",
+      "title": "GraphRAG 开源上 GitHub",
+      "summary": "RAG 从「片段检索」升级到「图谱/全局摘要检索」。",
+      "tracks": [
+        "fw",
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://www.microsoft.com/en-us/research/blog/graphrag-new-tool-for-complex-data-discovery-now-on-github/"
+    },
+    {
+      "id": "local-099",
+      "date": "2024.07.23",
+      "year": "2024",
+      "sort": 20240723,
+      "category": "国外模型",
+      "title": "Llama 3.1 405B 发布",
+      "summary": "当时最大公开权重模型之一，128K 上下文。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://ai.meta.com/blog/meta-llama-3-1/"
+    },
+    {
+      "id": "local-101",
+      "date": "2024.08",
+      "year": "2024",
+      "sort": 20240800,
+      "category": "国外模型",
+      "title": "Grok-2 进入 API 竞争；Command R/R+ 08-2024 更新。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-102",
+      "date": "2024.09",
+      "year": "2024",
+      "sort": 20240900,
+      "category": "国外/国内模型",
+      "title": "Llama 3.2 / 3.2-Vision 开源；Qwen2.5 全系列开源。",
+      "summary": "",
+      "tracks": [
+        "intl",
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-103",
+      "date": "2024.09.05",
+      "year": "2024",
+      "sort": 20240905,
+      "category": "国内模型",
+      "title": "DeepSeek-V2.5 发布",
+      "summary": "V2 到 V3 之间的中间节点。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-104",
+      "date": "2024.09–10",
+      "year": "2024",
+      "sort": 20240910,
+      "category": "术语/范式",
+      "title": "Contextual Retrieval（Anthropic 等）",
+      "summary": "RAG 检索前处理/上下文化成为工程最佳实践话题。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-105",
+      "date": "2024.09.12",
+      "year": "2024",
+      "sort": 20240912,
+      "category": "国外模型/术语",
+      "title": "o1-preview + o1-mini 发布",
+      "summary": "Reasoning Model 范式正式开启；Test-time compute（推理时计算）成为配套术语。",
+      "tracks": [
+        "intl",
+        "term"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://openai.com/index/introducing-openai-o1-preview/"
+    },
+    {
+      "id": "local-098",
+      "date": "2024.10.11",
+      "year": "2024",
+      "sort": 20241011,
+      "category": "框架/协议",
+      "title": "OpenAI Swarm 实验性多 Agent 编排开源",
+      "summary": "教育性/实验性多 Agent 编排示例库（routines & handoffs）；后被 Agents SDK 取代。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://github.com/openai/swarm"
+    },
+    {
+      "id": "local-106",
+      "date": "2024.10.22",
+      "year": "2024",
+      "sort": 20241022,
+      "category": "国外模型/框架",
+      "title": "升级版 Claude 3.5 Sonnet + Computer Use 公测",
+      "summary": "Agent 从调用 API 扩展到操控图形界面；Claude 3.5 Haiku 宣布稍后上线。",
+      "tracks": [
+        "intl",
+        "fw"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://www.anthropic.com/news/3-5-models-and-computer-use"
+    },
+    {
+      "id": "local-107",
+      "date": "2024.11.25",
+      "year": "2024",
+      "sort": 20241125,
+      "category": "框架/协议",
+      "title": "MCP（Model Context Protocol）由 Anthropic 开源",
+      "summary": "工具与上下文标准化协议出现，Agent 外设开始「USB-C 化」。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://www.anthropic.com/news/model-context-protocol"
+    },
+    {
+      "id": "local-108",
+      "date": "2024.12",
+      "year": "2024",
+      "sort": 20241200,
+      "category": "国外模型",
+      "title": "Amazon Nova 系列在 re:Invent 发布；Llama 3.3 70B 效率路线；Phi-4（14B）SLM 代表作；Gemini 2.0 发布。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-109",
+      "date": "2024.12.05",
+      "year": "2024",
+      "sort": 20241205,
+      "category": "国外模型",
+      "title": "o1 正式版发布",
+      "summary": "o1 退出 preview，进入 ChatGPT；同日推出 ChatGPT Pro / o1 pro mode。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://openai.com/index/introducing-chatgpt-pro/"
+    },
+    {
+      "id": "local-110",
+      "date": "2024.12.19",
+      "year": "2024",
+      "sort": 20241219,
+      "category": "术语/范式",
+      "title": "Anthropic《Building Effective Agents》发布",
+      "summary": "区分 Workflow vs Agent，主张简单可组合模式；为 2025 Agent 工程化定调。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://www.anthropic.com/engineering/building-effective-agents"
+    },
+    {
+      "id": "local-111",
+      "date": "2024.12.26",
+      "year": "2024",
+      "sort": 20241226,
+      "category": "国内模型",
+      "title": "DeepSeek-V3 发布",
+      "summary": "开源模型性能逼近闭源前沿，训练成本震惊行业。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://www.deepseek.com/en/news/deepseek-v3/"
+    },
+    {
+      "id": "local-115",
+      "date": "2025.01.15",
+      "year": "2025",
+      "sort": 20250115,
+      "category": "国内模型",
+      "title": "讯飞星火 X1（推理模型）与 MiniMax-01 系列（支持4M上下文）发布，早于 DeepSeek-R1。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-116",
+      "date": "2025.01.20",
+      "year": "2025",
+      "sort": 20250120,
+      "category": "国内模型",
+      "title": "DeepSeek-R1 + Kimi k1.5 同日发布",
+      "summary": "开源推理模型首次真正对标 o1，全球震动；GRPO 等强化学习训练叙事进入大众视野。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 3
+    },
+    {
+      "id": "local-114",
+      "date": "2025.01.31",
+      "year": "2025",
+      "sort": 20250131,
+      "category": "国外模型",
+      "title": "OpenAI o3-mini 发布",
+      "summary": "性价比推理小模型上线 ChatGPT 与 API，支持低/中/高 reasoning effort。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://openai.com/index/openai-o3-mini/"
+    },
+    {
+      "id": "local-117",
+      "date": "2025.02",
+      "year": "2025",
+      "sort": 20250200,
+      "category": "国外模型",
+      "title": "Grok 3 发布；Claude 3.7 Sonnet 被称为首款混合推理模型，可调控「思考预算」；GPT-4.5 研究预览版；【国内模型】QwQ-Max-Preview 发布。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-119",
+      "date": "2025.03",
+      "year": "2025",
+      "sort": 20250300,
+      "category": "框架/协议",
+      "title": "OpenAI Agents SDK 发布",
+      "summary": "Agent 开发从框架层进入官方 SDK 层（承接 Swarm 实验）。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-118",
+      "date": "2025.03",
+      "year": "2025",
+      "sort": 20250300,
+      "category": "国内模型",
+      "title": "文心4.5 + X1、腾讯混元 T1 发布；【国外模型】Gemini 2.5 发布，Deep Think 推理模式上线。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-120",
+      "date": "2025.04",
+      "year": "2025",
+      "sort": 20250400,
+      "category": "国外模型",
+      "title": "Llama 4 Scout/Maverick 发布（MoE+原生多模态）；GPT-4.1 发布；【国内模型】Qwen3 系列全面开源。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-121",
+      "date": "2025.04.09",
+      "year": "2025",
+      "sort": 20250409,
+      "category": "框架/协议",
+      "title": "Google A2A（Agent2Agent）协议发布",
+      "summary": "Google 发布跨 Agent 通信开放协议 A2A，明确互补 MCP；2025-06-23 捐赠规范/SDK 给 Linux Foundation。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/"
+    },
+    {
+      "id": "local-122",
+      "date": "2025.05",
+      "year": "2025",
+      "sort": 20250500,
+      "category": "国内模型",
+      "title": "DeepSeek-R1-0528 更新，编程与推理逼近 o3-high；华为盘古 Ultra MoE（7180亿）发布；【国外模型】Claude 4 家族（Opus 4 / Sonnet 4）发布。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-123",
+      "date": "2025.06",
+      "year": "2025",
+      "sort": 20250600,
+      "category": "国内模型",
+      "title": "豆包1.6 发布；MiniMax M1 开源",
+      "summary": "在上下文长度和工具使用上领跑开源权重模型。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-124",
+      "date": "2025.06.19",
+      "year": "2025",
+      "sort": 20250619,
+      "category": "术语/范式",
+      "title": "「上下文工程（Context Engineering）」术语走红起点：Tobi Lütke 发帖",
+      "summary": "Shopify CEO 主张用 context engineering 替代 prompt engineering。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://x.com/tobi/status/1935533422589399127"
+    },
+    {
+      "id": "local-125",
+      "date": "2025.06.25",
+      "year": "2025",
+      "sort": 20250625,
+      "category": "术语/范式",
+      "title": "Karpathy 附议并给出工程定义：Context Engineering",
+      "summary": "将上下文窗口系统化装填（指令/示例/RAG/工具/状态/压缩）称为工业级 LLM 应用核心技能。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://x.com/karpathy/status/1937902205765607626"
+    },
+    {
+      "id": "local-126",
+      "date": "2025.07",
+      "year": "2025",
+      "sort": 20250700,
+      "category": "国内模型",
+      "title": "Kimi K2 开源（万亿 MoE，代码/Agentic），登顶全球开源榜；智谱 GLM-4.5 / 4.5-Air 发布。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-127",
+      "date": "2025.07.25",
+      "year": "2025",
+      "sort": 20250725,
+      "category": "国内模型",
+      "title": "阶跃星辰 Step-3 开源多模态推理模型。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-128",
+      "date": "2025.08.07",
+      "year": "2025",
+      "sort": 20250807,
+      "category": "国外模型",
+      "title": "OpenAI 发布 GPT-5",
+      "summary": "统一系统（快速模型 + Thinking + 路由）上线 ChatGPT；API 提供 gpt-5 / mini / nano。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://openai.com/index/introducing-gpt-5/"
+    },
+    {
+      "id": "local-129",
+      "date": "2025.10.14 / 10.15",
+      "year": "2025",
+      "sort": 20251014,
+      "category": "国外/国内模型",
+      "title": "Claude Sonnet 4.5、Claude Haiku 4.5；DeepSeek V3.2 Exp、GLM-4.6 密集发布。",
+      "summary": "",
+      "tracks": [
+        "intl",
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-130",
+      "date": "2025.10.16",
+      "year": "2025",
+      "sort": 20251016,
+      "category": "框架/协议/术语",
+      "title": "Anthropic Agent Skills 上线（Claude.ai / Claude Code / API / Agent SDK）",
+      "summary": "将领域流程、工具偏好、脚本与资源封装为可复用 Skill；与 MCP 互补（MCP=连什么，Skills=怎么做）。",
+      "tracks": [
+        "fw",
+        "term"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills"
+    },
+    {
+      "id": "local-131",
+      "date": "2025.11",
+      "year": "2025",
+      "sort": 20251100,
+      "category": "国外/国内模型",
+      "title": "Kimi K2 Thinking（11.12）、Gemini 3 Pro Preview / GPT-5.1（11.18）、Claude Opus 4.5（11.24）发布。",
+      "summary": "",
+      "tracks": [
+        "intl",
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-136",
+      "date": "2025.12.01",
+      "year": "2025",
+      "sort": 20251201,
+      "category": "国内模型",
+      "title": "DeepSeek-V3.2 正式上线（API deepseek-chat/reasoner 升级）",
+      "summary": "DeepSeek 透明度中心与 API changelog 记为 2025-12-01。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://api-docs.deepseek.com/updates/"
+    },
+    {
+      "id": "local-132",
+      "date": "2025.12.02",
+      "year": "2025",
+      "sort": 20251202,
+      "category": "国外模型",
+      "title": "Mistral Large 3 发布。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-133",
+      "date": "2025.12.11",
+      "year": "2025",
+      "sort": 20251211,
+      "category": "国外模型",
+      "title": "GPT-5.2 发布。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-134",
+      "date": "2025.12.18",
+      "year": "2025",
+      "sort": 20251218,
+      "category": "框架/协议",
+      "title": "Agent Skills 发布为开放标准（agentskills.io / `SKILL.md`）",
+      "summary": "Skills 跨平台可移植；组织级管理与合作伙伴目录同步推进。",
+      "tracks": [
+        "fw"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://agentskills.io/specification"
+    },
+    {
+      "id": "local-135",
+      "date": "2026.01.05",
+      "year": "2026",
+      "sort": 20260105,
+      "category": "国外模型",
+      "title": "NVIDIA 发布 Cosmos 开放世界基础模型与 Clara 医疗 AI 模型",
+      "summary": "CES：Cosmos Reason 2 / Transfer 2.5 / Predict 2.5 等物理 AI 开放模型，以及 Clara 生物医药模型套件。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://blogs.nvidia.com/blog/open-models-data-tools-accelerate-ai/"
+    },
+    {
+      "id": "local-137",
+      "date": "2026.01.16",
+      "year": "2026",
+      "sort": 20260116,
+      "category": "国内模型",
+      "title": "美团 LongCat 团队发布并开源 LongCat-Flash-Thinking-2601，首创「重思考模式」。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-139",
+      "date": "2026.01.26",
+      "year": "2026",
+      "sort": 20260126,
+      "category": "国内模型",
+      "title": "阿里发布千问旗舰推理模型 Qwen3-Max-Thinking，总参数量超万亿（1T）。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-140",
+      "date": "2026.01.27",
+      "year": "2026",
+      "sort": 20260127,
+      "category": "国内模型",
+      "title": "Kimi K2.5 发布并开源（1T MoE，32B激活，支持 Agent Swarm 协调最多100个子Agent）。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-141",
+      "date": "2026.02",
+      "year": "2026",
+      "sort": 20260200,
+      "category": "国外/国内模型",
+      "title": "Gemini 3.1 Pro Preview、字节 Seed2.0 Pro、百度 Ernie 5.0 同月出现。",
+      "summary": "",
+      "tracks": [
+        "intl",
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-138",
+      "date": "2026.02.05",
+      "year": "2026",
+      "sort": 20260205,
+      "category": "国外模型",
+      "title": "Claude Opus 4.6 与 GPT-5.3-Codex 同日发布",
+      "summary": "Anthropic 升级旗舰 Opus；OpenAI 发布最强 agentic coding 模型 GPT-5.3-Codex。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://openai.com/index/introducing-gpt-5-3-codex/"
+    },
+    {
+      "id": "local-143",
+      "date": "2026.02.05",
+      "year": "2026",
+      "sort": 20260205,
+      "category": "术语/范式",
+      "title": "Mitchell Hashimoto《My AI Adoption Journey》提出「harness engineering」说法",
+      "summary": "在 Ghostty/agent 工作流中命名：把代理反复犯错变成可工程化的 harness（AGENTS.md + 校验工具）。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://mitchellh.com/writing/my-ai-adoption-journey"
+    },
+    {
+      "id": "local-144",
+      "date": "2026.02.10",
+      "year": "2026",
+      "sort": 20260210,
+      "category": "国内模型",
+      "title": "阿里发布图像生成及编辑模型 Qwen-Image-2.0，支持 1K token 超长文字输入。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-145",
+      "date": "2026.02.11",
+      "year": "2026",
+      "sort": 20260211,
+      "category": "术语/范式",
+      "title": "OpenAI 工程师 Ryan Lopopolo 发表《Harness engineering》",
+      "summary": "官方博客叙述用 Codex 零手写代码交付内部产品；将 harness engineering 推到工程社区中心。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://openai.com/index/harness-engineering/"
+    },
+    {
+      "id": "add-2026-005",
+      "date": "2026.02.11",
+      "year": "2026",
+      "sort": 20260211,
+      "category": "国内模型",
+      "title": "智谱 GLM-5 发布并开源",
+      "summary": "744B/40B active MoE，定位 Agentic Engineering；MIT 权重。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://z.ai/blog/glm-5"
+    },
+    {
+      "id": "local-146",
+      "date": "2026.02.12",
+      "year": "2026",
+      "sort": 20260212,
+      "category": "国内模型",
+      "title": "字节发布视频生成模型 Seedance 2.0；MiniMax M2.5 上线，定位「原生 Agent 生产级模型」，次日全球开源。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-147",
+      "date": "2026.02.14",
+      "year": "2026",
+      "sort": 20260214,
+      "category": "国内模型",
+      "title": "字节发布豆包大模型 2.0（Doubao-Seed-2.0），对标 Gemini 3 与 GPT 5.2。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-148",
+      "date": "2026.02.20",
+      "year": "2026",
+      "sort": 20260220,
+      "category": "国外模型",
+      "title": "Anthropic 发布 Claude Code Security（研究预览）",
+      "summary": "面向 Enterprise/Team 的代码库漏洞扫描与补丁建议能力，强调人工审批。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.anthropic.com/news/claude-code-security"
+    },
+    {
+      "id": "local-149",
+      "date": "2026.03.05",
+      "year": "2026",
+      "sort": 20260305,
+      "category": "国外模型",
+      "title": "OpenAI 发布 GPT-5.4（ChatGPT Thinking / API / Codex）",
+      "summary": "面向专业工作的主线推理模型，并发布 GPT-5.4 Pro。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://openai.com/index/introducing-gpt-5-4/"
+    },
+    {
+      "id": "local-150",
+      "date": "2026.03.17",
+      "year": "2026",
+      "sort": 20260317,
+      "category": "国外模型",
+      "title": "OpenAI 发布 GPT-5.4 mini 与 GPT-5.4 nano。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-151",
+      "date": "2026.03.18",
+      "year": "2026",
+      "sort": 20260318,
+      "category": "国内模型",
+      "title": "MiniMax M2.7 发布",
+      "summary": "第一个「模型深度参与迭代自己」的模型，可自行构建复杂 Agent Harness。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.minimax.io/news/minimax-m27-en"
+    },
+    {
+      "id": "local-152",
+      "date": "2026.03.19",
+      "year": "2026",
+      "sort": 20260319,
+      "category": "国内模型",
+      "title": "小米一次性发布三款自研大模型：MiMo-V2-Pro、MiMo-V2-Omni、MiMo-V2-TTS。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-153",
+      "date": "2026.03.24",
+      "year": "2026",
+      "sort": 20260324,
+      "category": "国外模型",
+      "title": "韩国 Upstage 发布 Solar Pro 3（1020亿参数）。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-154",
+      "date": "2026.04.02",
+      "year": "2026",
+      "sort": 20260402,
+      "category": "国外模型",
+      "title": "Google 发布 Gemma 4（Apache 2.0 许可）。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/"
+    },
+    {
+      "id": "local-155",
+      "date": "2026.04.03",
+      "year": "2026",
+      "sort": 20260403,
+      "category": "国内模型",
+      "title": "通义千问 Qwen3.6-Plus 正式发布。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-156",
+      "date": "2026.04.16",
+      "year": "2026",
+      "sort": 20260416,
+      "category": "国外模型",
+      "title": "Claude Opus 4.7 发布。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.anthropic.com/claude/opus"
+    },
+    {
+      "id": "local-157",
+      "date": "2026.04.20",
+      "year": "2026",
+      "sort": 20260420,
+      "category": "国内模型",
+      "title": "Kimi K2.6 发布。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.kimi.com/en/help/agent/agent-overview"
+    },
+    {
+      "id": "local-158",
+      "date": "2026.04.23",
+      "year": "2026",
+      "sort": 20260423,
+      "category": "国外模型",
+      "title": "OpenAI 发布 GPT-5.5",
+      "summary": "ChatGPT/Codex 上线；API（含 Pro）于 04-24 开放。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://openai.com/index/introducing-gpt-5-5/"
+    },
+    {
+      "id": "local-159",
+      "date": "2026.04.24",
+      "year": "2026",
+      "sort": 20260424,
+      "category": "国内模型",
+      "title": "DeepSeek-V4-Pro 与 V4-Flash 预览版上线并开源（1M 上下文）",
+      "summary": "V4-Pro 1.6T/49B active；V4-Flash 284B/13B active；API 与权重同日可用。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.deepseek.com/en/news/v4-preview/"
+    },
+    {
+      "id": "local-161",
+      "date": "2026.05.05",
+      "year": "2026",
+      "sort": 20260505,
+      "category": "国外模型",
+      "title": "GPT-5.5 Instant 成为 ChatGPT 默认模型",
+      "summary": "取代 GPT-5.3 Instant；API 以 chat-latest 提供。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://openai.com/index/gpt-5-5-instant/"
+    },
+    {
+      "id": "local-163",
+      "date": "2026.05.19",
+      "year": "2026",
+      "sort": 20260519,
+      "category": "国外模型",
+      "title": "Google I/O：发布 Gemini 3.5 Flash",
+      "summary": "3.5 系列首发 Flash；官方称在多项 agent/coding 基准上超过 Gemini 3.1 Pro。3.5 Pro 当时仍未 GA。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-5/"
+    },
+    {
+      "id": "add-2026-006",
+      "date": "2026.05.28",
+      "year": "2026",
+      "sort": 20260528,
+      "category": "国外模型",
+      "title": "Anthropic 发布 Claude Opus 4.8",
+      "summary": "Opus 线升级；强化长程 coding/agent。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.anthropic.com/claude/opus"
+    },
+    {
+      "id": "local-165",
+      "date": "2026.05.28",
+      "year": "2026",
+      "sort": 20260528,
+      "category": "国外模型",
+      "title": "Claude Opus 4.8 发布（1M上下文）。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.anthropic.com/claude/opus"
+    },
+    {
+      "id": "add-2026-007",
+      "date": "2026.06.01",
+      "year": "2026",
+      "sort": 20260601,
+      "category": "国内模型",
+      "title": "MiniMax M3 正式发布",
+      "summary": "开源权重；1M 上下文；原生多模态。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.minimax.io/blog/minimax-m3"
+    },
+    {
+      "id": "local-166",
+      "date": "2026.06.09",
+      "year": "2026",
+      "sort": 20260609,
+      "category": "国外/国内模型",
+      "title": "Anthropic 发布 Claude Fable 5 / Mythos 5",
+      "summary": "Fable 5 为面向大众的 Mythos-class；Mythos 5 同底座但放宽部分双用途护栏。曾短暂下线并于 07-01 恢复。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.anthropic.com/news/claude-fable-5-mythos-5"
+    },
+    {
+      "id": "local-167",
+      "date": "2026.06.23",
+      "year": "2026",
+      "sort": 20260623,
+      "category": "国内模型",
+      "title": "字节火山引擎正式发布豆包大模型 2.1 系列。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-168",
+      "date": "2026.06.26",
+      "year": "2026",
+      "sort": 20260626,
+      "category": "国外模型",
+      "title": "OpenAI 开启 GPT-5.6 系列有限预览（Sol / Terra / Luna）",
+      "summary": "旗舰 Sol + 均衡 Terra + 高效 Luna 进入受信伙伴预览；全面可用在 07-09。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://openai.com/index/previewing-gpt-5-6-sol/"
+    },
+    {
+      "id": "local-169",
+      "date": "2026.06.30",
+      "year": "2026",
+      "sort": 20260630,
+      "category": "国外模型",
+      "title": "Claude Sonnet 5 发布，强化高推理能力。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.anthropic.com/news/claude-sonnet-5"
+    },
+    {
+      "id": "local-170",
+      "date": "2026.07.09",
+      "year": "2026",
+      "sort": 20260709,
+      "category": "国外模型",
+      "title": "OpenAI GPT-5.6 系列全面可用（Sol / Terra / Luna）",
+      "summary": "继 06-26 预览后正式 GA；Sol 为旗舰。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://openai.com/index/gpt-5-6/"
+    },
+    {
+      "id": "local-171",
+      "date": "2026.07.16",
+      "year": "2026",
+      "sort": 20260716,
+      "category": "国内模型",
+      "title": "Kimi K3 发布，发布即冲进全球榜单前三。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.kimi.com/en/help/agent/agent-overview"
+    },
+    {
+      "id": "local-173",
+      "date": "2026.07.21",
+      "year": "2026",
+      "sort": 20260721,
+      "category": "国外模型",
+      "title": "Google 发布 Gemini 3.6 Flash。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://blog.google/intl/ja-jp/company-news/technology/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/"
+    },
+    {
+      "id": "add-2026-008",
+      "date": "2026.07.22",
+      "year": "2026",
+      "sort": 20260722,
+      "category": "国外模型",
+      "title": "xAI 发布 Grok 4.5",
+      "summary": "面向 coding/agent/知识工作的新旗舰。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://x.ai/news"
+    },
+    {
+      "id": "local-174",
+      "date": "2026.07.24",
+      "year": "2026",
+      "sort": 20260724,
+      "category": "国外模型",
+      "title": "Claude Opus 5 发布，强化代码与长周期专业任务。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.anthropic.com/news/claude-opus-5"
+    },
+    {
+      "id": "add-2026-009",
+      "date": "2026.07.31",
+      "year": "2026",
+      "sort": 20260731,
+      "category": "国内模型",
+      "title": "DeepSeek-V4-Flash 正式版 API 公测升级",
+      "summary": "重后训练强化 agent；原生 Responses API / Codex 适配。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://api-docs.deepseek.com/updates/"
+    },
+    {
+      "id": "local-176",
+      "date": "2026.08.06",
+      "year": "2026",
+      "sort": 20260806,
+      "category": "国外模型",
+      "title": "OpenAI 更新 ChatGPT 中的 GPT-5.6 Sol，并向免费用户扩展 Luna",
+      "summary": "Plus/Pro 获得调教后的 Sol 与 reasoning slider；Free/Go 默认改 Luna。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://openai.com/index/improving-gpt-5-6-sol-in-chatgpt/"
+    },
+    {
+      "id": "local-177",
+      "date": "2026.08.10",
+      "year": "2026",
+      "sort": 20260810,
+      "category": "国外模型",
+      "title": "OpenAI 发布 GPT-5.6-Cyber，专注网络安全能力。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows/"
+    },
+    {
+      "id": "local-178",
+      "date": "2026.08.12",
+      "year": "2026",
+      "sort": 20260812,
+      "category": "国外模型",
+      "title": "xAI 发布 Grok 4.6，支持 500K 上下文。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://x.ai/news/grok-4-6"
+    },
+    {
+      "id": "local-179",
+      "date": "2026.08.13",
+      "year": "2026",
+      "sort": 20260813,
+      "category": "框架/协议/术语",
+      "title": "DeepSeek Harness（dsh）开源（开发者预览）",
+      "summary": "MIT；Everything is a Plugin / Cordis；npx @deepseek-ai/dsh web。同日 Gemini 3.7 Flash 见 additions。",
+      "tracks": [
+        "fw",
+        "term"
+      ],
+      "tier": 3,
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/"
+    },
+    {
+      "id": "add-2026-011",
+      "date": "2026.08.13",
+      "year": "2026",
+      "sort": 20260813,
+      "category": "国内模型",
+      "title": "DeepSeek-V4-Pro GA（APP/Web/API）",
+      "summary": "与 DeepSeek Harness 同日推进；增强 agent。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://api-docs.deepseek.com/updates/"
+    },
+    {
+      "id": "add-2026-010",
+      "date": "2026.08.13",
+      "year": "2026",
+      "sort": 20260813,
+      "category": "国外模型",
+      "title": "Google 发布 Gemini 3.7 Flash",
+      "summary": "Flash 系 coding/agent 工作马；introductory pricing 至 2026-12-31。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash/"
+    },
+    {
+      "id": "local-175",
+      "date": "2026.08.21",
+      "year": "2026",
+      "sort": 20260821,
+      "category": "国内模型",
+      "title": "DeepSeek Flash 线密集迭代：Vision-Exp → V4.1-Flash → V4.1-Flash-1017",
+      "summary": "08-21 实验多模态 V4-Flash-Vision-Exp；09-10 V4.1-Flash（deepseek-flash）；10-17 V4.1-Flash-1017。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.deepseek.com/en/news/deepseek-v4-1-flash/"
+    },
+    {
+      "id": "local-180",
+      "date": "2026.08.27",
+      "year": "2026",
+      "sort": 20260827,
+      "category": "国内模型",
+      "title": "GLM-5.3-Flash 开源",
+      "summary": "GLM-5 系列首个原生多模态模型。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-181",
+      "date": "2026.09.01",
+      "year": "2026",
+      "sort": 20260901,
+      "category": "国外模型",
+      "title": "Anthropic 发布 Claude Fable 5.1 与 Mythos 5.1。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.anthropic.com/claude-fable-and-mythos-5-1"
+    },
+    {
+      "id": "local-182",
+      "date": "2026.09.02",
+      "year": "2026",
+      "sort": 20260902,
+      "category": "国外模型",
+      "title": "Google 发布 Gemini 3.8 Flash（及 Gemini 3.8 Flash Cyber），主攻长周期软件工程与自主 Agent。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-183",
+      "date": "2026.09.03",
+      "year": "2026",
+      "sort": 20260903,
+      "category": "国外模型",
+      "title": "OpenAI 发布 GPT-6 Astra",
+      "summary": "官方定位最智能且对齐的一代；在 computer use、浏览、软件工程、网络安全、科学等维度宣称 SOTA；先向有限组织再扩量。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://openai.com/index/gpt-6-astra/"
+    },
+    {
+      "id": "add-2026-012",
+      "date": "2026.09.10",
+      "year": "2026",
+      "sort": 20260910,
+      "category": "国内模型",
+      "title": "DeepSeek-V4.1-Flash 发布（deepseek-flash）",
+      "summary": "新架构家族小模型；原生视觉。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.deepseek.com/en/news/deepseek-v4-1-flash/"
+    },
+    {
+      "id": "local-184",
+      "date": "2026.09.15",
+      "year": "2026",
+      "sort": 20260915,
+      "category": "术语/范式",
+      "title": "Jev（TypeSafe AI）发布",
+      "summary": "「System One Model」概念提出：专门做快速结构化决策（不生成文本），用于验证/门控/判断，常置于 Harness 体系中作为关键组件。",
+      "tracks": [
+        "term"
+      ],
+      "tier": 2,
+      "sourceUrl": "https://typesafe.ai/blog/introducing-system-one-models-and-jev"
+    },
+    {
+      "id": "local-185",
+      "date": "2026.09.21",
+      "year": "2026",
+      "sort": 20260921,
+      "category": "国外模型",
+      "title": "xAI 发布 Grok 4.7 API。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://x.ai/news/grok-4-7"
+    },
+    {
+      "id": "add-2026-013",
+      "date": "2026.09.22",
+      "year": "2026",
+      "sort": 20260922,
+      "category": "国外模型",
+      "title": "Anthropic 发布 Claude Opus 5.5",
+      "summary": "官方称多数工作接近 Fable 5.1 且成本低于 Opus 5。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.anthropic.com/claude/opus"
+    },
+    {
+      "id": "local-186",
+      "date": "2026.09.22",
+      "year": "2026",
+      "sort": 20260922,
+      "category": "国外模型",
+      "title": "OpenAI 发布 GPT-6 Sol 与 Luna API；Anthropic 发布 Claude Opus 5.5，登顶基准测试。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://openai.com/index/gpt-6-astra/"
+    },
+    {
+      "id": "local-187",
+      "date": "2026.09.28",
+      "year": "2026",
+      "sort": 20260928,
+      "category": "国外模型",
+      "title": "Anthropic 发布 Claude Sonnet 5.5。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0
+    },
+    {
+      "id": "local-188",
+      "date": "2026.09.30",
+      "year": "2026",
+      "sort": 20260930,
+      "category": "国外模型",
+      "title": "Google 宣布 Gemini 4 Argon（先向 Fairwind 受信防御者开放）",
+      "summary": "Gemini 4 旗舰；分阶段扩量，面向软件工程、企业知识工作与网络防御。",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/"
+    },
+    {
+      "id": "local-190",
+      "date": "2026.10.13",
+      "year": "2026",
+      "sort": 20261013,
+      "category": "国外模型",
+      "title": "Google Gemini 4 Argon 正式向全球开发者、企业与消费者开放，促销价输入 $2/百万 token、输出 $10/百万 token（持续至11月30日）。",
+      "summary": "",
+      "tracks": [
+        "intl"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/"
+    },
+    {
+      "id": "local-191",
+      "date": "2026.10.17",
+      "year": "2026",
+      "sort": 20261017,
+      "category": "国内模型",
+      "title": "DeepSeek V4.1-Flash-1017 上线，为58天内第三款 Flash 模型。",
+      "summary": "",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://api-docs.deepseek.com/news/news261017/"
+    },
+    {
+      "id": "add-2026-014",
+      "date": "2026.10.19",
+      "year": "2026",
+      "sort": 20261019,
+      "category": "国内模型",
+      "title": "MiniMax M3.1 Flash 发布",
+      "summary": "高效开源权重多模态 coding 模型。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://platform.minimax.io/docs/release-notes/models"
+    },
+    {
+      "id": "local-189",
+      "date": "2026.10.23",
+      "year": "2026",
+      "sort": 20261023,
+      "category": "国内模型",
+      "title": "月之暗面发布 Kimi K3.1 Pro（3T 级，1M 上下文）",
+      "summary": "K3 后训练升级；API kimi-k3.1-pro；权重计划随后开源。",
+      "tracks": [
+        "cn"
+      ],
+      "tier": 0,
+      "sourceUrl": "https://www.kimi.ai/blog/kimi-k3-1-pro"
+    }
+  ]
+}

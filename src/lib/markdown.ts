@@ -8,14 +8,14 @@ import type { Root } from 'hast';
 import { rehypeMermaidMark } from './rehype-mermaid';
 
 export function normalizeMarkdownAssets(markdown: string): string {
-    return markdown.replace(
+    return String(markdown ?? '').replace(
         /\]\((?!https?:\/\/|\/)(images\/)/g,
         '](/personalWeb/$1'
     );
 }
 
 export async function renderMarkdown(source: string): Promise<string> {
-    const normalized = normalizeMarkdownAssets(source);
+    const normalized = normalizeMarkdownAssets(source ?? '');
     const processor = unified()
         .use(remarkParse)
         .use(remarkGfm)

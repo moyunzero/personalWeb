@@ -14,7 +14,7 @@
 | 博客渲染 | remark/rehype、Shiki 高亮、Mermaid（文章页按需加载） |
 | 动画 / 游戏 | GSAP、Lenis、Phaser（首页懒加载） |
 | 部署 | GitHub Actions → GitHub Pages |
-| 内容同步 | Notion 博客 `yarn notion:sync` · 听力打卡 `yarn listening:sync` |
+| 内容同步 | Notion 博客 `yarn notion:sync` · 听力打卡 `yarn listening:sync` · 时间轴 `yarn timeline:sync` |
 
 ## 项目结构
 
@@ -126,6 +126,25 @@ git push
 或在 GitHub **Actions → Sync blog from Notion** 手动运行（需已配置 Secrets：`NOTION_TOKEN`、`NOTION_DATABASE_ID`），工作流会自动 commit 并 push。
 
 > Token 仅用于本地脚本或 CI，不会打进前端 bundle。
+
+## 同步 AI 编年（`/blog/ai-timeline/`）
+
+技术记录里的「AI 编年」是可筛选交互时间轴。数据在 Notion **大模型时间轴** 库（一行一条）。公开页只读仓库里的 `content/timeline/events.json`：**不**在 `yarn build` 时拉 Notion。
+
+```bash
+# .env.local 已有 NOTION_TIMELINE_DATABASE_ID（须 ≠ 博客库、听力库）
+# 首次：打开 Notion「大模型时间轴」库 → ··· → 连接 → 选中博客用的 Integration
+
+yarn timeline:sync           # 拉取 Published 行 → content/timeline/events.json
+yarn timeline:sync --dry-run
+
+git add content/timeline
+git commit -m "timeline: sync from Notion" && git push
+```
+
+日常：在 Notion 加/改一行（可选填 **官方链接**），状态选 **Published**，跑上面的同步并提交。本地预览：`/blog/ai-timeline/`（技术记录导航里的「AI 编年」）。
+
+> 真实性约定：官方链接只填可核验来源（官博 / arXiv / 官方 GitHub 等）；没有就不填。`yarn timeline:sync` 只同步 Published 行。
 
 ## 同步听力打卡（`/listening/`）
 

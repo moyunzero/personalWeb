@@ -11,6 +11,7 @@ Authoritative blog source: Markdown posts, category taxonomy, and SEO queue data
 | `content/posts/*.md` | Article bodies and frontmatter |
 | `content/categories.json` | Category `id` / `label` / `order` |
 | `content/top-n-queue.json` | Top N SEO optimization queue |
+| `content/timeline/events.json` | 大模型时间轴数据（`yarn timeline:sync` 写入；slug `ai-timeline` 页读取） |
 
 ## Conventions
 
