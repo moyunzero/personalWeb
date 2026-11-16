@@ -291,6 +291,11 @@ async function syncPage(page, ctx) {
     const mdString = n2m.toMarkdownString(mdBlocks);
     let body = (mdString.parent || '').trim();
 
+    if (!body) {
+        console.warn('  ⚠ 正文为空，跳过');
+        return { skipped: true };
+    }
+
     if (!dryRun) {
         await removeStalePostFile(existing, slug, root);
 
@@ -311,11 +316,6 @@ async function syncPage(page, ctx) {
                 imageDir,
                 notionToken,
             });
-        }
-
-        if (!body.trim()) {
-            console.warn(`  ⚠ 正文为空，跳过`);
-            return;
         }
 
         if (!meta.description.trim()) {
