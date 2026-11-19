@@ -1,6 +1,7 @@
 ---
 title: Full Stack App Build | Travel Log w/ Nuxt, Vue, Better Auth, Drizzle,
   Tailwind, DaisyUI, MapLibre
+seoTitle: "用 Nuxt 与 MapLibre 做旅行日志全栈应用"
 slug: 2026-04-04-full-stack-app-build-travel-log-w-nuxt-v
 description: "1. 核心框架与基础架构 Nuxt.js (Nuxt 3): 采用混合渲染模式（SSR 初始加载 + CSR
   客户端导航），利用其基于文件的路由系统、布局系统 ( ) 和自动导入功能。 Vue.js 3: 使用组合式 API ( )、 、 、 、 等核心钩子。

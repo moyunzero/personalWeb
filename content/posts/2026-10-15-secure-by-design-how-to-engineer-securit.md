@@ -1,6 +1,7 @@
 ---
 title: "Secure by Design: How to Engineer Security into Architecture Before
   Writing Any Code"
+seoTitle: "安全左移：写代码前先做威胁建模"
 slug: 2026-10-15-secure-by-design-how-to-engineer-securit
 description: 在大多数工程团队中，有一场对话往往发生得太晚。设想一下：一个功能已部署到生产环境。之后才进行安全审查，或者渗透测试发现了问题，甚至更糟——一封事件报告邮件躺在你的收件箱里。漏洞是真实存在的，修复成本高昂。在讨论的某个环节，有人会说“我们需要给这个加上安全防护”。问题恰恰出在这句话上：
   安全性不是往软件上“添加”的东西，…

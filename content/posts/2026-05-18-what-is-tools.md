@@ -1,5 +1,6 @@
 ---
 title: what is tools?
+seoTitle: "AI 智能体的工具：函数调用原理与 MCP 统一接口"
 slug: 2026-05-18-what-is-tools
 description: AI 智能体的关键能力在于执行 行动 。这通过 工具 的使用实现。
   通过为智能体配备合适的工具——并清晰描述这些工具的工作原理——可显著提升 AI 的能力边界。 AI 工具的定义 工具是赋予 LLM 的函数 ，该函数应实现

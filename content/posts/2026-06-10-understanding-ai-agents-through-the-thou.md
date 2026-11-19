@@ -1,5 +1,6 @@
 ---
 title: Understanding AI Agents through the Thought-Action-Observation Cycle
+seoTitle: "AI 智能体：思考-行动-观察循环如何运转"
 slug: 2026-06-10-understanding-ai-agents-through-the-thou
 description: AI Agent 的完整工作流程 —— 一个被称为 Thought Action Observation（思考 行动 观察）
   的循环机制。这也是大多数 Agent 框架（如 ReAct）的核心基础。 Agent 的三大核心组件 Agent 的工作是一个 持续循环 ：

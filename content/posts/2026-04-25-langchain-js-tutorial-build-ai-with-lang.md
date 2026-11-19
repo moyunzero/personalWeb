@@ -1,6 +1,7 @@
 ---
 title: "LangChain JS Tutorial: Build AI With LangChain In JavaScript – Full
   Crash Course "
+seoTitle: "LangChain JS 实战：搭一个 YouTube 推荐智能体"
 slug: 2026-04-25-langchain-js-tutorial-build-ai-with-lang
 description: Introduction（引言） 问题痛点 ：YouTube
   上学习资源海量，但手动搜索效率低、推荐不精准（尤其是特定学习目标，如“React Hooks 入门”）。 解决方案 ：用 LangChain JS 构建一个

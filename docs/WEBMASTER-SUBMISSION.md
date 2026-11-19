@@ -9,6 +9,7 @@
 | robots.txt | https://moyunzero.github.io/personalWeb/robots.txt |
 | Google 验证文件 | https://moyunzero.github.io/personalWeb/googleef60eaecd43955c6.html |
 | Bing 验证文件 | https://moyunzero.github.io/personalWeb/BingSiteAuth.xml |
+| IndexNow 密钥 | https://moyunzero.github.io/personalWeb/38b28dfd0832d1c55cec024f8ea1739e.txt |
 | 百度验证 | HTML 标签（首页 meta）或 `public/baidu_verify_*.html`（见下方） |
 
 验证文件位于仓库 `public/`，构建后随 `dist/` 一并部署。
@@ -31,6 +32,92 @@
 4. **先部署**，打开 Bing 验证 URL 应返回 XML（含 `4A7B2111...`）
 5. 在 Bing 控制台点击 **验证**
 6. **Sitemaps** → 提交：`https://moyunzero.github.io/personalWeb/sitemap-index.xml`
+
+## 必应「Top Recommendations」逐条处理
+
+Bing Webmaster Tools 的建议分两类：**技术项**（IndexNow、标题/描述长度）可以用代码修，**站外项**（高质量入站链接）只能靠内容与传播解决。当前处理方式如下。
+
+| 必应建议 | 处理 | 归属 |
+|---|---|---|
+| Set up IndexNow | 部署后自动提交全部 sitemap URL | `.github/workflows/deploy.yml` + `scripts/seo-indexnow-submit.mjs` |
+| Page titles too short | 站点页重写标题；标题过短的文章补 `seoTitle`；构建门禁卡 < 15 字符 | 页面模板 + frontmatter + `scripts/lib/meta-rules.mjs` |
+| Meta descriptions too short | 站点页重写描述；占位/过短描述由正文摘要兜底；门禁提示 < 100 字符 | `src/blog/seo-text.js` + frontmatter |
+| Not enough inbound links | **代码无法修复**，见下文「入站链接」 | 站外运营 |
+
+### IndexNow
+
+密钥文件 `public/38b28dfd0832d1c55cec024f8ea1739e.txt`（文件名与内容一致）。本站是 GitHub Pages **项目站点**，控制不到 `moyunzero.github.io` 根目录，因此提交请求里带 `keyLocation`：
+
+```json
+{
+  "host": "moyunzero.github.io",
+  "key": "38b28dfd0832d1c55cec024f8ea1739e",
+  "keyLocation": "https://moyunzero.github.io/personalWeb/38b28dfd0832d1c55cec024f8ea1739e.txt",
+  "urlList": ["https://moyunzero.github.io/personalWeb/blog/..."]
+}
+```
+
+- 部署流程：`deploy.yml` 在 Pages 部署成功后运行脚本，一次性提交 `dist/sitemap*.xml` 里的全部 URL（≤10,000 条/请求）。
+- 脚本先 GET 密钥文件确认可访问再提交，避免整批被拒；CDN 未同步时只告警（`continue-on-error`）。
+- 手动：`yarn seo:indexnow`、`yarn seo:indexnow --dry-run`、`yarn seo:indexnow --limit 20`、`yarn seo:indexnow --strict`。
+- 换 key：把 `public/<key>.txt` 换掉即可（脚本按「文件名 === 内容」自动发现），再在 Bing 后台重新验证。
+
+提交成功后可在 Bing Webmaster → **IndexNow** 看到 URL 提交记录；Bing 一般数小时到数天内处理。
+
+### 标题与描述长度标准
+
+| 项 | 目标 | 说明 |
+|---|---|---|
+| `<title>` | 20–65 字符（含 ` · 墨韵`） | Bing 阈值是 15，这里留 5 字符余量；超过 65 会被截断 |
+| `description` | 100–200 字符 | 中文 100 字约等于英文 200 字符的展示量，再长会被截断 |
+
+当前实测（`yarn build` 后 326 个可索引页面）：
+
+| 指标 | 修复前 | 修复后 |
+|---|---|---|
+| 标题 < 15 字符 | 59 个页面 | 0 |
+| 标题 > 65 字符 | 16 个页面 | 0 |
+| 描述 < 100 字符 | 112 个页面 | 0 |
+| 重复标题 | 1 组 | 0 |
+
+标题区间 20–65 字符，描述区间 100–180 字符，由 `tests/seo-meta-length.test.ts` 在 CI 里对 `dist/` 逐个页面回归。
+
+实现只有一处：`src/blog/seo-text.js`。页面渲染与 `yarn seo:audit` 共用同一套 `effectiveTitle` / `effectiveDescription`，避免「门禁过了、线上还是短标题」。
+
+- 文章标题过短/过长：在 frontmatter 加 `seoTitle`（只改 `<title>`，不动 H1 与页面展示标题）。
+- 描述不适合当摘要：加 `seoDescription`。
+- 描述为空或写成 Notion 项目代号（`workBuddy-3`、`AgentGuide-12`）：构建期自动用正文首段摘要兜底；`yarn notion:sync` 会保留 `seoTitle` / `seoDescription`，不会被下次同步清掉。
+- 站点级页面：首页、`/blog/`、`/listening/` 的文案写在各自 `src/pages/**`；分类页写在 `content/categories.json` 的 `seoTitle` / `description`。
+
+### 入站链接（无法用代码修复）
+
+「没有来自高质量域名的入站链接」是站外信号，改模板、加 IndexNow 都不会改善。现实做法（按性价比排序）：
+
+1. 把真正有复用价值的文章同步到 掘金 / 知乎 / dev.to / Medium，并在文首注明原文链接（**不要**只放链接的镜像，会被判重复）。
+2. GitHub Profile README、同主题开源仓库的文档里链回具体文章（不是首页）。
+3. 参与社区问答时引用自己写过的深度文章，而不是每帖都甩链接。
+4. 在 Bing Webmaster 的 **Backlinks** 里看现有外链，确认质量。
+
+不建议买链接、批量互链或做链接农场——这是 Bing 明确会打击的行为，短期可能有效，长期会拖累整站。
+
+### 复查
+
+本地构建后可直接量测产物（改文案或加文章后跑一遍）：
+
+```bash
+yarn build
+yarn seo:audit      # 0 error 才算过：标题 < 15 会 fail
+yarn test           # 含 dist 级标题/描述长度回归
+```
+
+线上复查：
+
+```bash
+yarn verify:prod    # 含 IndexNow 密钥文件可达性
+yarn seo:index-check
+```
+
+---
 
 ## 部署顺序（验证前必做）
 

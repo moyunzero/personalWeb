@@ -31,6 +31,7 @@ yarn verify:prod --skip-network   # 仅检查 dist 产物
 ```bash
 yarn verify:prod
 yarn seo:index-check          # 可收录门禁；配置 GOOGLE_APPLICATION_CREDENTIALS 后可查 GSC 真收录
+yarn seo:indexnow             # 手动补提交 IndexNow（deploy.yml 已自动跑一次）
 ```
 
 应覆盖：首页、`google`/`bing` 验证文件、sitemap、博客列表文章链接、样本文章页。  
@@ -81,6 +82,8 @@ Sitemap 提交地址：
 - [x] `yarn perf:audit` 通过
 - [x] `yarn verify:prod` 0 error
 - [x] Google / Bing sitemap 已提交
+- [x] IndexNow 已接入（部署后自动提交，密钥文件 `public/<key>.txt`）
+- [x] 标题 15–65 / 描述 100–200 字符（`yarn test` 含 dist 级回归）
 - [ ] Rich Results Test（见 WEBMASTER-SUBMISSION 样本 URL）
 - [x] 生产博客列表与文章可访问
 

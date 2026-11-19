@@ -1,6 +1,7 @@
 ---
 title: "Mastering the Mysteries of JavaScript Syntax: Discover the Secrets
   Behind These Symbols "
+seoTitle: "JavaScript 赋值运算符：?=、??= 与 ~~ 位运算"
 slug: 2025-02-02-mastering-the-mysteries-of-javascript-sy
 description: 1. ?=（安全赋值运算符） 安全赋值运算符 仅在变量为空或未定义时才赋值。 为什么使用它？
   此操作符避免了不必要的覆盖已持有有效值的变量。 使用 ?= 在您想要安全地分配默认值而不覆盖现有值时。 2. ??=空值赋值运算符（Nullish

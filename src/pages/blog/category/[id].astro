@@ -11,11 +11,11 @@ export async function getStaticPaths() {
     const categories = getCategories();
     const posts = await getPublishedPosts();
 
-    return categories.map(({ id, label }) => ({
-        params: { id },
+    return categories.map((category) => ({
+        params: { id: category.id },
         props: {
-            category: { id, label },
-            posts: posts.filter((p) => p.data.categories?.includes(id)),
+            category,
+            posts: posts.filter((p) => p.data.categories?.includes(category.id)),
         },
     }));
 }
@@ -26,12 +26,19 @@ const yearGroups = groupPostsByYear(posts);
 const years = yearGroups.map((g) => g.year).filter((y) => y > 0);
 const latestYear = years[0];
 const useYearFilter = years.length > 1;
+
+// 分类页标题带主题词（Bing 判「标题过短」），描述在 categories.json 里维护后补上篇数。
+const pageTitle = `${category.seoTitle ?? category.label} · ${SITE.name}`;
+const pageDescription = category.description
+    ? `${category.description} 目前收录 ${posts.length} 篇。`
+    : `${category.label}分类下的文章与笔记，目前收录 ${posts.length} 篇 — ${SITE.name}`;
 ---
 
 <BlogLayout
+    brand={category.label}
     seo={{
-        title: `${category.label} · 博客 · ${SITE.name}`,
-        description: `${category.label}分类下的技术文章与笔记 — ${SITE.name}`,
+        title: pageTitle,
+        description: pageDescription,
         path: `/blog/category/${category.id}/`,
     }}
 >

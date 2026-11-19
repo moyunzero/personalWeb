@@ -1,5 +1,6 @@
 ---
 title: JavaScript
+seoTitle: "JavaScript 完整学习笔记：从语言基础到 DOM、异步与模块"
 slug: 2023-04-02-javascript
 description: 一、什么是JavaScript 1.1 JavaScript 完整的JavaScript实现包含以下： 核心（ ECMAScript
   ） 文档对象模型（ DOM ） 浏览器对象模型（ BOM ） 1.1.1 ECMAScript 即ECMA

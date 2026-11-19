@@ -7,7 +7,11 @@ export const postDataSchema = z
     .object({
         slug: z.string().min(1),
         title: z.string().min(1),
+        /** 仅用于 <title> 的改写标题，不影响页面展示标题（Bing 判定标题过短时补写）。 */
+        seoTitle: z.string().optional(),
         description: z.string(),
+        /** 仅用于 <meta name="description"> 的改写描述。 */
+        seoDescription: z.string().optional(),
         publishedAt: z.string().min(1),
         updatedAt: z.string().optional(),
         categories: z.array(z.string()).default([]),

@@ -28,6 +28,15 @@ GitHub Actions（[`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml
 yarn verify:prod
 ```
 
+### IndexNow（部署后自动提交）
+
+`deploy.yml` 在 Pages 部署完成后会执行 `node scripts/seo-indexnow-submit.mjs`，把 `dist/sitemap*.xml` 里的 URL 提交给 IndexNow（Bing / Yandex / Naver 共用接口），让新文章不必等自然抓取。
+
+- 密钥文件：`public/38b28dfd0832d1c55cec024f8ea1739e.txt`（文件名与内容一致）。
+- 项目站点控制不到 `moyunzero.github.io` 根目录，所以请求带 `keyLocation=https://moyunzero.github.io/personalWeb/<key>.txt`。
+- 该步骤 `continue-on-error: true`：Pages CDN 还没同步密钥文件时只告警，不会让发布失败。
+- 手动补提交：`yarn seo:indexnow`；只预览请求体：`yarn seo:indexnow --dry-run`；换 key 时替换 `public/` 下的 `.txt` 即可（脚本按「文件名 === 内容」自动发现）。
+
 ---
 
 ## 本地构建与预览

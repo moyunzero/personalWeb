@@ -14,6 +14,8 @@ Node ESM scripts for blog workflow, SEO quality gates, performance audit, and pr
 | `scripts/lib/listening-tts.mjs` | Soft-fail Piper + ffmpeg mp3 synthesis |
 | `.github/workflows/listening-sync.yml` | Manual `workflow_dispatch` sync (Node 22, Python 3.12, ffmpeg, `piper-tts==1.7.0`) |
 | `scripts/seo-audit.mjs` | Build gate: frontmatter and category validation |
+| `scripts/seo-indexnow-submit.mjs` | Post-deploy IndexNow 提交（Bing/Yandex），部署工作流自动执行 |
+| `scripts/lib/indexnow.mjs` | IndexNow 纯函数：URL 收集、payload、密钥文件发现（单测覆盖） |
 | `scripts/new-post.mjs` | Scaffold a new post in `content/posts/` |
 | `scripts/prepare-threejs-assets.mjs` | Source HDR/planets → `public/threejs-assets/web/` (+ cosmos budget; leaves `web/spectacle/` alone) |
 | `scripts/prepare-spectacle-assets.mjs` | Shark source → `public/threejs-assets/web/spectacle/pyjama-shark/` (≤2.5 MB) |
@@ -42,6 +44,7 @@ yarn timeline:sync --dry-run  # preview only
 yarn seo:audit                # run gate (also runs before build)
 yarn seo:meta-batch --dry-run # report meta gaps
 yarn seo:index-check          # crawl readiness; optional GSC with credentials
+yarn seo:indexnow             # submit dist sitemap URLs to IndexNow (--dry-run / --limit N)
 yarn lint                      # ESLint (src/, tests/, root configs)
 yarn assets:cosmos            # regenerate web/ cosmos textures from assets/threejs-source/
 yarn assets:cosmos:check      # verify committed web/ files (also first step of yarn build)
@@ -65,6 +68,8 @@ yarn verify:prod              # live site smoke
 - Cosmos source textures live in `assets/threejs-source/` (gitignored); only commit `public/threejs-assets/web/` derivatives.
 - Spectacle shark source lives in `assets/spectacle-source/` (gitignored); only commit `public/threejs-assets/web/spectacle/` derivatives (≤2.5 MB hard cap).
 - `yarn seo:index-check` is local only (not CI). Optional env: `GOOGLE_APPLICATION_CREDENTIALS`, `GSC_SITE_URL`, `PRODUCTION_URL`. Flags: `--sample N`, `--strict` (unindexed or GSC errors fail). Never commit service account JSON.
+- IndexNow：密钥文件是 `public/<key>.txt`（文件名 === 内容，8–128 位字母数字）。GitHub Pages 项目站点控制不到 `moyunzero.github.io` 根目录，所以请求里必须带 `keyLocation=https://moyunzero.github.io/personalWeb/<key>.txt`；`.github/workflows/deploy.yml` 在部署后自动跑 `seo-indexnow-submit.mjs`（`continue-on-error`，CDN 未同步只告警）。手动重跑：`yarn seo:indexnow`；只想看请求体：`yarn seo:indexnow --dry-run`。换 key 时替换 `public/` 下的 `.txt` 即可，脚本自动发现。
+- SEO 长度门禁唯一实现是 `src/blog/seo-text.js`（`effectiveTitle` / `effectiveDescription` / `withSiteName` / `titleIssue` / `descriptionIssue`）。`meta-rules.mjs` 必须复用，不要另写阈值；标题按实际渲染值（含 ` · 墨韵`）计长。
 
 ## Agent skills
 

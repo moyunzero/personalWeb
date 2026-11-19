@@ -1,5 +1,6 @@
 ---
 title: Axios vs Fetch
+seoTitle: "Axios 与 Fetch 对比：自动 JSON、拦截器与错误处理"
 slug: 2024-10-17-axios-vs-fetch
 description: Axios 内置功能：Axios 具有许多内置功能，例如自动 JSON 转换、请求和响应拦截器以及请求取消。
   浏览器兼容性：它支持旧版浏览器，包括 Internet Explorer。 错误处理：Axios 自动拒绝 HTTP 错误状态（如 404 或

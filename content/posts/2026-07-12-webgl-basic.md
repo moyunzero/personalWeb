@@ -1,5 +1,6 @@
 ---
 title: WebGL Basic
+seoTitle: "WebGL 入门：着色器、缓冲区与 GLSL 渲染管线"
 slug: 2026-07-12-webgl-basic
 description: 一、 WebGL 简介与背景 1. WebGL 的定义与核心价值 WebGL (Web Graphics Library) 是一种用于
   Web 的 实时图形 API ，它允许在浏览器中直接驱动 2D 和 3D 图形渲染。 直接访问 GPU： 它最强大的特性是提供了对 GPU（图形处理器）

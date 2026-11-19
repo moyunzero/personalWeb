@@ -1,5 +1,6 @@
 ---
 title: TypeScript
+seoTitle: "TypeScript 类型系统：从基础类型到泛型与装饰器"
 slug: 2023-04-20-typescript
 description: 一、TypeScript 语言简介 1.1 概述 TypeScript（简称 TS）是微软公司开发的一种基于 JavaScript
   （简称 JS）语言的编程语言。 TypeScript 可以看成是 JavaScript 的超集（superset），即它继承了后者的全部语法，所有

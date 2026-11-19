@@ -55,11 +55,21 @@ export function parsePost(filePath, raw) {
     const featured = Boolean(data.featured);
     const body = content.trim();
     const description = String(data.description || '').trim();
+    const seoTitle = String(data.seoTitle || '').trim();
+    const seoDescription = String(data.seoDescription || '').trim();
 
     return {
         id: slug,
         title: data.title || slug,
+        seoTitle: seoTitle || undefined,
         description,
+        seoDescription: seoDescription || undefined,
+        canonical: data.canonical ? String(data.canonical).trim() : undefined,
+        keywords: Array.isArray(data.keywords)
+            ? data.keywords.map((keyword) => String(keyword).trim()).filter(Boolean)
+            : undefined,
+        ogImage: data.ogImage ? String(data.ogImage).trim() : undefined,
+        noindex: data.noindex === undefined ? undefined : Boolean(data.noindex),
         author: data.author || '墨韵',
         publishDate,
         updateDate: data.updateDate,

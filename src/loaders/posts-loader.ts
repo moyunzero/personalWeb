@@ -26,7 +26,13 @@ export function postsLoader(): Loader {
                     data: {
                         slug: parsed.id,
                         title: parsed.title,
+                        seoTitle: parsed.seoTitle,
                         description: rawDesc,
+                        seoDescription: parsed.seoDescription,
+                        canonical: parsed.canonical,
+                        keywords: parsed.keywords,
+                        ogImage: parsed.ogImage,
+                        noindex: parsed.noindex,
                         publishedAt: parsed.publishDate,
                         updatedAt: parsed.updateDate
                             ? String(parsed.updateDate)

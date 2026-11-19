@@ -11,6 +11,7 @@ Shared post parsing utilities used by the Content Collection loader, CLI scripts
 | `src/blog/frontmatter.js` | YAML frontmatter parse (no Node Buffer) |
 | `src/blog/parsePost.js` | Single file → structured post object |
 | `src/blog/excerpt.js` | Excerpt helpers |
+| `src/blog/seo-text.js` | SEO 标题/描述有效值规则（渲染与 `seo:audit` 共用，阈值只在改这里） |
 | `src/blog/getCategories.js` | Category helpers |
 | `src/blog/getRelatedPosts.js` | Related post selection |
 | `src/blog/utils.js` | Shared blog helpers |

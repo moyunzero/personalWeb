@@ -1,5 +1,6 @@
 ---
 title: Jev – Prefill-Only Inference & Decision Models from Scratch
+seoTitle: "Jev：从零实现纯 prefill 推理与决策模型"
 slug: 2026-11-03-jev-prefill-only-inference-decision-mode
 description: 代码仓库：https://github.com/vivekkalyanarangan30/how jev works 概述
   不是教你“调用 API”，而是 从第一性原理 教你如何亲手构建一个 Prefill Only 决策模型 。 传统 LLM 的问题： Decode

@@ -1,6 +1,7 @@
 ---
 title: Understanding Retrieval-Augmented Generation (RAG) and Vector Databases
   for Not-Quite Dummies
+seoTitle: "RAG 与向量数据库：检索增强生成入门"
 slug: 2026-04-03-understanding-retrieval-augmented-genera
 description: 基于检索增强的生成技术（RAG）以及向量数据库，是所有现代自然语言处理系统中的重要组成部分。简而言之，RAG
   技术是在自然语言处理系统中添加自定义内容，从而使得用户提示所生成的回复更加详细。这些自定义内容存储在一个特殊的数据库中，这种数据库被称为向量数据库。

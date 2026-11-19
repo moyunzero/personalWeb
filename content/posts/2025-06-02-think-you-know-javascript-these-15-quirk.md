@@ -1,5 +1,6 @@
 ---
 title: Think You Know JavaScript? These 15 Quirks Will Change Your Mind!  (1)
+seoTitle: "15 个 JavaScript 怪癖：隐式转换、NaN 与浮点"
 slug: 2025-06-02-think-you-know-javascript-these-15-quirk
 description: 1. but Not 您可能期望 等于 ，但这里有个问题： 是正确的，但 是错误的。 这是因为 JavaScript 的相等运算符（
   ）触发了类型强制转换。当你将一个字符串与一个数字进行比较时，JS 会首先尝试将字符串转换为数字。由于 实际上没有数值，它变成了 。但是 变成了数字

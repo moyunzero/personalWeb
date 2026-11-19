@@ -1,5 +1,6 @@
 ---
 title: "Learn how to THINK in code – The Hard & Conceptual Parts of JavaScrip "
+seoTitle: "用代码思考：JavaScript 的作用域、闭包与异步"
 slug: 2026-05-15-learn-how-to-think-in-code-the-hard-conc
 description: "Think in JavaScript: The Hard & Conceptual Parts 课程核心理念 ：学习
   JavaScript 不应停留在背诵语法，而应深入理解 引擎与运行时机制（engine and runtime mechanics） 。

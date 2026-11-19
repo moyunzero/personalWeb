@@ -229,6 +229,7 @@ draft: false
 | `yarn seo:audit` | 构建前元数据校验（已接入 `yarn build`） |
 | `yarn seo:meta-batch --dry-run` | 全库元数据缺口报告 |
 | `yarn seo:meta-batch --apply` | 批量补全 description 等 |
+| `yarn seo:indexnow` | 部署后向 IndexNow（Bing/Yandex）提交 sitemap URL（CI 自动执行） |
 | `yarn seo:top-n-score` | Top N 文章评分队列 |
 | `yarn seo:top-n-checklist` | Top N 深度优化 checklist |
 | `yarn perf:audit` | Lighthouse 性能门禁（需 preview 或脚本自启） |

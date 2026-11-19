@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SITE } from './lib/site-config.mjs';
 import { withRetry } from './lib/retry.mjs';
+import { findKeyFile } from './lib/indexnow.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distDir = path.join(root, 'dist');
@@ -78,6 +79,18 @@ async function findBaiduVerifyPath() {
     return entries.find((f) => f.startsWith('baidu_verify_') && f.endsWith('.html'));
 }
 
+/** IndexNow 密钥文件：public/<key>.txt，文件名与内容一致。 */
+async function findIndexNowKeyFile() {
+    const publicDir = path.join(root, 'public');
+    const entries = (await readdir(publicDir)).filter((f) => f.toLowerCase().endsWith('.txt'));
+    /** @type {Array<{ name: string, content: string }>} */
+    const files = [];
+    for (const name of entries) {
+        files.push({ name, content: await readFile(path.join(publicDir, name), 'utf8') });
+    }
+    return findKeyFile(files);
+}
+
 async function checkOffline(check) {
     const rel = check.url.replace(baseUrl, '').replace(/^\//, '');
     let target;
@@ -122,6 +135,19 @@ async function main() {
                 if (!body.includes('baidu_verify') && !body.trim()) {
                     return 'empty baidu verify file';
                 }
+                return null;
+            },
+        });
+    }
+
+    const indexnow = await findIndexNowKeyFile();
+    if (indexnow) {
+        CHECKS.push({
+            id: 'indexnow-key',
+            url: `${baseUrl}/${indexnow.fileName}`,
+            validate: (body, status) => {
+                if (status !== 200) return `status ${status}`;
+                if (body.trim() !== indexnow.key) return 'IndexNow key file content differs';
                 return null;
             },
         });

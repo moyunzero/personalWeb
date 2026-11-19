@@ -1,5 +1,6 @@
 ---
 title: Personal GPT  Phase 1 开发笔记
+seoTitle: "Personal GPT Phase 1：RAG 检索增强聊天原型"
 slug: 2026-05-10-personal-gpt-phase-1
 description: Personal GPT Phase 1 的核心是 RAG（检索增强生成）
   ：先把你写的个人介绍、项目说明等资料「编目进图书馆」，用户提问时先按语义找最相关的段落，再交给大模型组织成自然语言回答——而不是让模型凭空编造。技术栈是

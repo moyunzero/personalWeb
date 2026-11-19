@@ -10,6 +10,11 @@ import { SITE } from '../../lib/site';
 import MermaidHydrator from '../../components/islands/MermaidHydrator';
 import TimelineIsland from '../../components/islands/TimelineIsland';
 import { getTimelineEvents } from '../../lib/timeline';
+import {
+    effectiveDescription,
+    effectiveTitle,
+    withSiteName,
+} from '../../blog/seo-text.js';
 
 export async function getStaticPaths() {
     const posts = await getCollection('posts', ({ data }) => !data.draft);
@@ -27,12 +32,24 @@ const related = getRelatedForEntry(post, allPosts, 3);
 const hasMermaid = html.includes('mermaid-diagram-host');
 const isTimeline = data.slug === 'ai-timeline';
 const timelineEvents = isTimeline ? await getTimelineEvents() : [];
+
+// 标题过短（Bing <15 字符）与 Notion 占位描述（workBuddy-3 之类）在此统一修正：
+// seoTitle / seoDescription 优先，其次才回落 frontmatter 与正文摘要。
+const pageTitle = withSiteName(
+    effectiveTitle({ title: data.title, seoTitle: data.seoTitle }),
+    SITE.name
+);
+const pageDescription = effectiveDescription({
+    description: data.seoDescription ?? data.description,
+    body,
+});
 ---
 
 <BlogLayout
+    brand={data.title}
     seo={{
-        title: `${data.title} · ${SITE.name}`,
-        description: data.description,
+        title: pageTitle,
+        description: pageDescription,
         path: `/blog/${data.slug}/`,
         canonical: data.canonical,
         ogImage: data.ogImage ?? data.coverImage,
@@ -46,7 +63,7 @@ const timelineEvents = isTimeline ? await getTimelineEvents() : [];
     <article class:list={['mx-auto', isTimeline ? 'max-w-4xl' : 'max-w-3xl']}>
         <EditorialHeader
             title={data.title}
-            description={isTimeline ? undefined : data.description}
+            description={isTimeline ? undefined : pageDescription}
             publishedAt={data.publishedAt}
             categories={data.categories}
             tags={isTimeline ? [] : data.tags}

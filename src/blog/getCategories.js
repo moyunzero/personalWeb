@@ -1,7 +1,7 @@
 import categoriesData from '../../content/categories.json';
 
 /**
- * @typedef {{ id: string, label: string, order: number }} BlogCategory
+ * @typedef {{ id: string, label: string, order: number, seoTitle?: string, description?: string }} BlogCategory
  */
 
 /** @type {BlogCategory[]} */

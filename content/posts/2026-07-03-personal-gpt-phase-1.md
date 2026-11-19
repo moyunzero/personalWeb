@@ -1,5 +1,6 @@
 ---
 title: Personal GPT  Phase 1 开发笔记
+seoTitle: "Personal GPT Phase 1：可管理知识库的 RAG 平台"
 slug: 2026-07-03-personal-gpt-phase-1
 description: Phase 1 将 v0.1 的单页 RAG 聊天原型演进为 可管理知识库的平台 ：用户可上传 PDF/MD/TXT/DOCX
   文档，由 NestJS BullMQ worker 异步完成解析→切块→向量化→写入 Astra，聊天回答结束后以折叠卡片形式展示可溯源引用。工程上完成了

@@ -1,5 +1,6 @@
 ---
 title: "HTML5 Canvas "
+seoTitle: "HTML5 Canvas 绘图：渲染上下文、路径 API 与动画循环"
 slug: 2026-05-24-html5-canvas
 description: 1. 渲染上下文 (Rendering Context) Canvas 元素本身只是一个 画布容器
   （位图表面），所有绘图操作都必须通过 JavaScript 获取其 渲染上下文 对象来完成。 获取方式 ： 上下文类型 ：

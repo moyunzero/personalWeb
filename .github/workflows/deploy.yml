@@ -50,3 +50,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      # 部署完成后主动通知 Bing / Yandex 等（IndexNow）；Pages CDN 可能滞后，失败只告警不阻塞发布
+      - name: Submit IndexNow
+        continue-on-error: true
+        run: node scripts/seo-indexnow-submit.mjs

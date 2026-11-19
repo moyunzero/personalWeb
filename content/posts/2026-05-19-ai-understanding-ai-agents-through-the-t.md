@@ -1,6 +1,7 @@
 ---
 title: 通过思考-行动-观察循环理解 AI 智能体 (Understanding AI Agents through the
   Thought-Action-Observation Cycle)
+seoTitle: "理解 AI 智能体：思考、行动与观察循环"
 slug: 2026-05-19-ai-understanding-ai-agents-through-the-t
 description: 核心组件 (Core Components) 智能体在一个持续的循环中工作： 思考 (Thought) → 行动 (Act) 和观察
   (Observe) 。 让我们一起分解这些行动： 1. 思考 (Thought) ：智能体的大语言模型 (LLM) 部分决定下一步应该是什么。 2. 行动

@@ -1,5 +1,6 @@
 ---
 title: "CSS Tricks: Top 10 Mind-Blowing Front-End Hacks That will Blow Your Mind! "
+seoTitle: "CSS 技巧：CSS 变量、clip-path 与滚动吸附"
 slug: 2025-01-12-css-tricks-top-10-mind-blowing-front-end
 description: 1. CSS Variables Magic 使用 –custom properties 定义可重用值，然后在您的 CSS
   中使用它们！ 2. 隐藏悬停效果 不在 CSS 中添加悬停效果？试试使用 和子选择器进行隐蔽的悬停交互！ 你明白了吗？我们是如何不使用 CSS

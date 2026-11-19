@@ -1,5 +1,6 @@
 ---
 title: "Streaming Responses in AI: How AI Outputs Are Generated in Real-Time"
+seoTitle: "流式响应：AI 输出如何逐 token 生成"
 slug: 2025-03-10-streaming-responses-in-ai-how-ai-outputs
 description: 在与现代人工智能或大型语言模型（LLM）互动时，你可能注意到回复几乎是瞬间出现的，就像 AI 在实时说话一样在屏幕上“打字”。
 author: 墨韵

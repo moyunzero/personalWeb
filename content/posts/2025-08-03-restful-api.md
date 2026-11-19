@@ -1,5 +1,6 @@
 ---
 title: RESTful API
+seoTitle: "RESTful API 入门：REST 原则、请求组成与身份验证"
 slug: 2025-08-03-restful-api
 description: RESTful API 是两个计算机系统用于通过互联网安全地交换信息的接口。
 author: 墨韵

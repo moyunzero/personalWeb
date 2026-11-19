@@ -1,6 +1,7 @@
 ---
 title: "Claude Code 从 0 到 1 全攻略：MCP / SubAgent / Agent Skill / Hook / 图片 / 上下文处理
   / 后台任务 "
+seoTitle: "Claude Code 全攻略：MCP、SubAgent、Skill 与 Hook"
 slug: 2026-05-27-claude-code-0-1-mcp-subagent-age
 description: Claude Code：Anthropic 推出的代理式编码工具（Agentic Coding
   Tool），可在本地代码仓库中读取文件、编辑代码、执行终端命令、集成外部工具。

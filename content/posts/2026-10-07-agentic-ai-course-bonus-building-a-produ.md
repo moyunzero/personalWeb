@@ -1,5 +1,6 @@
 ---
 title: Agentic AI Course - Bonus, Building a Production-Ready Agent in Python
+seoTitle: "用 Python 构建生产级 AI 智能体"
 slug: 2026-10-07-agentic-ai-course-bonus-building-a-produ
 description: Agentic AI Course-13
 author: 墨韵

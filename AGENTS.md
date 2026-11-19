@@ -51,6 +51,10 @@ yarn timeline:sync
 # SEO / production smoke (local; seo:index-check is not in CI)
 yarn verify:prod
 yarn seo:index-check
+
+# IndexNow（部署工作流已自动执行；本地可手动补提交/预览）
+yarn seo:indexnow
+yarn seo:indexnow --dry-run
 ```
 
 ## Rules
@@ -64,6 +68,8 @@ yarn seo:index-check
 - New interactivity goes in `src/components/islands/*.tsx` with an explicit `client:*` directive.
 - Blog source of truth: `content/posts/*.md`. Published posts need valid frontmatter or `yarn build` fails.
 - Category IDs in posts must match `content/categories.json`.
+- SEO 标题/描述长度对齐 Bing 判定：渲染后的 `<title>`（含 ` · 墨韵`）取 20–65 字符（Bing 阈值 15，留 5 字符余量），`<meta name="description">` 取 100–200 字符。规则唯一实现是 `src/blog/seo-text.js`，页面渲染与 `yarn seo:audit` 必须共用，不要各写一套阈值。
+- 标题过短或过长用 frontmatter `seoTitle` 修正（只改 `<title>`，不动 H1/展示标题）；描述过短或不适合当摘要时用 `seoDescription`。描述缺失/占位（Notion 的 `workBuddy-3` 之类）由构建期正文摘要兜底，`yarn notion:sync` 不会覆盖这两个字段。
 - No path alias (`@/`). Use relative imports.
 - ESLint (`yarn lint`) covers `src/**` and `tests/**` for `.js`, `.jsx`, `.ts`, `.tsx`, and `.astro`, plus root config files; uses `typescript-eslint` recommended (non type aware) and `eslint-plugin-astro`. `scripts/**` is Vitest scanned only, not ESLint linted.
 - Shared site config: `scripts/lib/site-config.mjs` (`SITE.origin`, `SITE.basePath`, `SITE.url`).

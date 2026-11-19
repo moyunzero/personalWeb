@@ -19,6 +19,7 @@ import { Client } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md';
 import { stringifyFrontmatter, parseFrontmatter } from '../src/blog/frontmatter.js';
 import { extractExcerpt } from '../src/blog/excerpt.js';
+import { isPlaceholderDescription } from '../src/blog/seo-text.js';
 import { validatePostData } from './lib/post-schema.mjs';
 import {
     buildPostSlug,
@@ -242,6 +243,33 @@ async function removeStalePostFile(existing, newSlug, rootDir) {
     }
 }
 
+/**
+ * 同步只接管 Notion 拥有的字段；人工补写的 SEO 覆盖项不能在下次同步时被清掉。
+ * @param {string} postPath
+ * @returns {Promise<Record<string, unknown>>}
+ */
+async function readSeoOverrides(postPath) {
+    try {
+        const raw = await readFile(postPath, 'utf8');
+        const { data } = parseFrontmatter(raw);
+        /** @type {Record<string, unknown>} */
+        const preserved = {};
+        for (const key of [
+            'seoTitle',
+            'seoDescription',
+            'keywords',
+            'canonical',
+            'ogImage',
+            'noindex',
+        ]) {
+            if (data[key] !== undefined && data[key] !== '') preserved[key] = data[key];
+        }
+        return preserved;
+    } catch {
+        return {};
+    }
+}
+
 async function syncPage(page, ctx) {
     const {
         notion,
@@ -318,9 +346,14 @@ async function syncPage(page, ctx) {
             });
         }
 
-        if (!meta.description.trim()) {
-            meta.description = extractExcerpt(body, 160);
+        // Notion 的 Description 属性常被写成项目代号占位（workBuddy-3、AgentGuide-12），
+        // 这种值进不了搜索结果，直接用正文摘要替换。
+        if (!meta.description.trim() || isPlaceholderDescription(meta.description)) {
+            const excerpt = extractExcerpt(body, 160);
+            if (excerpt) meta.description = excerpt;
         }
+
+        const seoOverrides = await readSeoOverrides(postPath);
 
         const frontmatter = {
             title: meta.title,
@@ -332,6 +365,7 @@ async function syncPage(page, ctx) {
             tags: meta.tags,
             ...(coverPath ? { cover: coverPath } : {}),
             draft: false,
+            ...seoOverrides,
             notionId: meta.notionId,
             notionSyncedAt: new Date().toISOString(),
         };
