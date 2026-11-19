@@ -1,9 +1,11 @@
 ---
 title: Electron Shell：一个进程不够，要三个
 slug: 2026-11-12-electron-shell
-description: workBuddy-5
+description: 一个进程不够，要三个 — Main / Renderer / Preload，IPC 桥接。 Harness 层 ：进程架构 —
+  桌面应用的基础骨架。 s01–s04 的 agent 可以挤在单个 Python 进程里（CLI 够用）。桌面 AI 助手不行：UI
+  要流畅、网页不能直接摸磁盘、关窗不能连坐杀死 agent…
 author: 墨韵
-date: 2026-11-12
+date: 2026-11-06
 categories:
   - note
 tags:
@@ -11,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 416df5c0-26f4-80d7-a1ed-c681b0567b41
-notionSyncedAt: 2026-11-16T08:22:04.816Z
+notionSyncedAt: 2026-11-19T13:35:17.065Z
 ---
 
 > _一个进程不够，要三个_ — Main / Renderer / Preload，IPC 桥接。
@@ -107,7 +109,7 @@ s01–s04 的 agent 可以挤在单个 Python 进程里（CLI 够用）。桌面
 
 ## 架构图
 
-![electron-arch.svg](images/blog/2026-11-12-electron-shell/img-0df4dbd598.svg)
+![electron-arch.svg](images/blog/2026-11-12-electron-shell/img-b8802ee9a3.svg)
 
 ```mermaid
 flowchart LR
@@ -121,7 +123,7 @@ flowchart LR
 
 更完整的桌面拓扑（Main → Sidecar / CLI / MCP / 审计）：
 
-![process-architecture.svg](images/blog/2026-11-12-electron-shell/img-8a137dfa3c.svg)
+![process-architecture.svg](images/blog/2026-11-12-electron-shell/img-3d627c07f2.svg)
 
 ```plain text
 ┌──────────────────────────────────────────────────┐

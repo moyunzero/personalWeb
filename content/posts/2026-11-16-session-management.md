@@ -1,9 +1,11 @@
 ---
 title: Session Management：逻辑会话可恢复，运行时必须重建
 slug: 2026-11-16-session-management
-description: workBuddy-7
+description: 标识一段可继续的工作历史；进程、线程、端口和 provider client 只是这一时刻的运行时资源。 Harness 层
+  ：会话生命周期、运行时隔离与恢复边界。 s06 解决了「谁来托管 Agent」（Sidecar）。本章继续向下拆： Sidecar 如何管理多个独立工作会话
+  。 核心不是「进程表里有一行」，而是…
 author: 墨韵
-date: 2026-11-16
+date: 2026-11-10
 categories:
   - note
 tags:
@@ -11,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 41adf5c0-26f4-802b-a32b-ef32e4f1c036
-notionSyncedAt: 2026-11-16T08:21:29.695Z
+notionSyncedAt: 2026-11-19T13:34:52.311Z
 ---
 
 > `session_id` 标识一段可继续的工作历史；进程、线程、端口和 provider client 只是这一时刻的运行时资源。
@@ -101,7 +103,7 @@ SessionRecord（档案）          SessionProcess（第 N 代车）
 
 ## 架构图
 
-![session-lifecycle.svg](images/blog/2026-11-16-session-management/img-860aa025b9.svg)
+![session-lifecycle.svg](images/blog/2026-11-16-session-management/img-cdfca2c30f.svg)
 
 ```mermaid
 flowchart LR

@@ -1,9 +1,11 @@
 ---
 title: Sidecar Server：主进程不跑 agent，Sidecar 来跑
 slug: 2026-11-14-sidecar-server-agent-sidecar
-description: workBuddy-6
+description: 主进程不跑 agent, Sidecar 来跑 — JSON RPC over Unix Socket，有界 RingBuffer。
+  Harness 层 ：进程架构 — agent 的宿主进程。 s05 解决了 UI 不卡（三层楼）。还没回答： agent 跑在哪？ 若塞进
+  Main：崩窗、抢资源、难热更新。WorkB…
 author: 墨韵
-date: 2026-11-14
+date: 2026-11-09
 categories:
   - note
 tags:
@@ -11,7 +13,7 @@ tags:
   - Agent
 draft: false
 notionId: 418df5c0-26f4-807c-aa28-f4fb0f209304
-notionSyncedAt: 2026-11-16T08:21:51.891Z
+notionSyncedAt: 2026-11-19T13:35:05.497Z
 ---
 
 > _主进程不跑 agent, Sidecar 来跑_ — JSON-RPC over Unix Socket，有界 RingBuffer。
@@ -105,7 +107,7 @@ s05 解决了 UI 不卡（三层楼）。还没回答：**agent 跑在哪？**
 
 ## 架构图
 
-![sidecar-arch.svg](images/blog/2026-11-14-sidecar-server-agent-sidecar/img-6dcd0bc567.svg)
+![sidecar-arch.svg](images/blog/2026-11-14-sidecar-server-agent-sidecar/img-6d2136184c.svg)
 
 ```mermaid
 flowchart LR
